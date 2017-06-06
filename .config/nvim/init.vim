@@ -19,7 +19,7 @@ set softtabstop=4                   " Use 4 wide softtabs.
 set tabstop=4                       " Have vim display tabs as 4 spaces.
 set shiftwidth=4                    " Set the shift width to reflect tabspace.
 " Filetype specific preferences.
-autocmd Filetype html,htmldjango setlocal ts=2 sts=2 sw=2
+autocmd Filetype css,html,htmldjango setlocal ts=2 sts=2 sw=2
 
 
 " BASIC MAPPINGS AND COMMANDS:
@@ -42,7 +42,7 @@ command! EditConfig e ~/.config/nvim/init.vim
 " Shortcut for opening file browser.
 nnoremap <leader>e :e.<CR>
 " Clearing highlighting (after search).
-map <esc> :noh<CR>
+map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Shortcut for find command. (Using Denite plugin for now.)
 "noremap <leader>f :find
 
@@ -118,6 +118,8 @@ let g:airline_powerline_fonts = 1
 let g:NERDTreeIgnore=['.*__pycache__.*','.*\.pyc','.*\.egg-info.*']
 let g:pymode_python='python3'
 let g:pymode_breakpoint_bind = '<leader>B'  " Remap conflicting default mapping.
+let g:pymode_rope = 0                       " Turn off pymode_rope.
+let g:pymode_lint_options_pep8 = {'max_line_length': 120}   " Stop yelling at me pymode!
 
 
 " DENITE CUSTOMIZATION:
