@@ -9,6 +9,8 @@ set list                            " Show the whitespace characters.
 set undofile                        " Save undo history between sessions.
 set mouse=a                         " Enable the use of the mouse.
 colorscheme onedark                 " Set the default colorscheme.
+" Customize what is saved with :mksession.
+set sessionoptions=curdir,winpos,resize,help,blank,winsize,folds,tabpages
 
 
 " INDENTATION:
@@ -39,6 +41,8 @@ nnoremap <C-w>- <C-w>10-
 nnoremap <C-w>+ <C-w>10+
 " Command for quick editing of config file.
 command! EditConfig e ~/.config/nvim/init.vim
+" Command for quick editing of notes
+command! Notes e ~/Documents/notes
 " Shortcut for opening file browser.
 nnoremap <leader>e :e.<CR>
 " Clearing highlighting (after search).
@@ -119,7 +123,9 @@ let g:NERDTreeIgnore=['.*__pycache__.*','.*\.pyc','.*\.egg-info.*']
 let g:pymode_python='python3'
 let g:pymode_breakpoint_bind = '<leader>B'  " Remap conflicting default mapping.
 let g:pymode_rope = 0                       " Turn off pymode_rope.
-let g:pymode_lint_options_pep8 = {'max_line_length': 120}   " Stop yelling at me pymode!
+let g:pymode_lint_options_pep8 = {'max_line_length': 110}   " Stop yelling at me pymode!
+autocmd Filetype python nnoremap [[ zk
+autocmd Filetype python nnoremap ]] zj
 
 
 " DENITE CUSTOMIZATION:
