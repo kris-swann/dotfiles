@@ -6,6 +6,11 @@ source $ZSH/oh-my-zsh.sh
 
 
 # PERSONAL CONFIG:
+# Set editor for ranger
+export EDITOR=nvim
+
+export PATH=$PATH:/usr/local/lib/python3.5/dist-packages/
+
 # Easy backups of home folder (make sure Drive is mounted first).
 export BACKUP_LOC="/media/kris/TOSHIBA EXT"
 alias backup_home='rsync -aP --delete /home/kris "$BACKUP_LOC"'
@@ -18,7 +23,7 @@ alias syncflashdrive='rsync -aP --delete /home/kris/Documents/UMN/Year2/Sem2 "$B
 alias python=python3
 alias pip=pip3
 
-sitePath='/home/kris/Documents/Code/Django/personalSite'
+sitePath='/home/kris/Projects/personalSite'
 alias runwebsite='source $sitePath/virtualenv/bin/activate && python $sitePath/manage.py runserver && deactivate'
 
 alias rdeps="apt rdepends --installed"
