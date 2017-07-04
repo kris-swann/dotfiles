@@ -1,148 +1,404 @@
+################################################################################################
+### NOTES
+################################################################################################
 
-# Using windows key as $mod
+# For window information, use xwininfo
+
+# For keyboard bindings, use 'xmodmap -pke' or 'xev'
+
+################################################################################################
+### BASIC FUNCTIONALITY
+################################################################################################
+
+# Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
-
-# Font for window titles. Also used by the bar unless a different font
-# is used in the bar {} block below.
-#font pango:monospace 8
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 9
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-# start a terminal
-bindsym $mod+Return exec xterm
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (program launcher)
-bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace
+bindsym $mod+Shift+r restart
+
+################################################################################################
+### PROGRAM KEYBINDINGS
+################################################################################################
+
+# start program launcher
+bindsym $mod+d exec --no-startup-id dmenu_recency
+
+# launch categorized menu
+bindsym $mod+z exec --no-startup-id morc_menu
+
+# start a terminal
+bindsym $mod+Return exec terminal
+
+# Start Applications
+bindsym $mod+Ctrl+b exec terminal -g 100x40 -e 'bmenu'
+#bindsym $mod+F3 exec pcmanfm
+#bindsym $mod+Shift+F3 exec gksu pcmanfm
+bindsym $mod+F5 exec terminal -e 'mocp'
+bindsym $mod+t exec --no-startup-id pkill compton
+bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym Print exec --no-startup-id i3-scrot
+bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
+bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
+#bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
+bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+#bindsym $mod+Ctrl+m exec terminal -g 100x40 -e 'alsamixer'
+bindsym $mod+Ctrl+m exec terminal -g 100x40 -e 'pulsemixer'
+
+################################################################################################
+### SYSTEM KEYBINDINGS
+################################################################################################
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Set shut down, restart and locking features
+bindsym $mod+Shift+Ctrl+x mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Lock screen
+bindsym $mod+Shift+x exec --no-startup-id blurlock
+
+# Screen brightness controls
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+#bindsym $mod+F3 exec xbacklight -set 100
+#bindsym $mod+F2 exec xbacklight -set 0
+
+# Pulse Audio controls
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+################################################################################################
+### AUTO-STARTUP
+################################################################################################
+
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+#exec --no-startup-id manjaro-hello
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+# exec --no-startup-id blueman
+# exec_always --no-startup-id sbxkb
+exec --no-startup-id start_conky_maia
+# exec --no-startup-id start_conky_green
+exec --no-startup-id xautolock -time 10 -locker blurlock
+exec_always --no-startup-id fix_xcursor
+#exec --no-startup-id volumeicon
+exec --no-startup-id pulseaudio
+exec --no-startup-id pa-applet
+#bindsym $mod+Ctrl+m exec pavucontrol
+
+################################################################################################
+### MOVEMENT & LAYOUT
+################################################################################################
+
+# focus_follows_mouse no
+
+# set default desktop layout (default is tiling)
+# workspace_layout tabbed <stacking|tabbed>
+
+popup_during_fullscreen leave_fullscreen
 
 # change focus
-bindsym $mod+h              focus left
-bindsym $mod+j              focus down
-bindsym $mod+k              focus up
-bindsym $mod+l              focus right
-bindsym $mod+Left           focus left
-bindsym $mod+Down           focus down
-bindsym $mod+Up             focus up
-bindsym $mod+Right          focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h        move left
-bindsym $mod+Shift+j        move down
-bindsym $mod+Shift+k        move up
-bindsym $mod+Shift+l        move right
-bindsym $mod+Shift+Left     move left
-bindsym $mod+Shift+Down     move down
-bindsym $mod+Shift+Up       move up
-bindsym $mod+Shift+Right    move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
-# enter fullscreen mode for the focused container
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#navigate workspaces next / previous
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+
+# workspace back and forth (with/without active container)
+#workspace_auto_back_and_forth yes
+#bindsym $mod+b workspace back_and_forth
+#bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+
+# split orientation
+bindsym $mod+b split h;exec notify-send 'tile horizontally'
+bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+q split toggle
+
+# toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-# split in horizontal orientation
-bindsym $mod+b split h
-# split in vertical orientation
-bindsym $mod+v split v
+
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
+# Use Mouse+$mod to drag and resize floating windows
+floating_modifier $mod
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
+# toggle sticky
+bindsym $mod+Shift+s sticky toggle
+
 # focus the parent container
 bindsym $mod+a focus parent
-# focus the child container
-#bindsym $mod+d focus child
 
-# switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+# Resize selected window (you can also use the mouse)
+# Note: i3 can't tell the difference between plus and equal
+# so we have to use the shift key to simulate this.
+bindsym $mod+Shift+minus resize shrink height 5 px or 5 ppt
+bindsym $mod+Shift+equal resize grow   height 5 px or 5 ppt
+bindsym $mod+minus       resize shrink width  5 px or 5 ppt
+bindsym $mod+equal       resize grow   width  5 px or 5 ppt
 
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+################################################################################################
+### WORKSPACES
+################################################################################################
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-# Lock screen
-bindsym $mod+shift+x exec i3lock
+# Workspace names
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
-    # Shrink and grow windows.
-    bindsym h       resize shrink width  10 px or 10 ppt
-    bindsym j       resize grow   height 10 px or 10 ppt
-    bindsym k       resize shrink height 10 px or 10 ppt
-    bindsym l       resize grow   width  10 px or 10 ppt
-    bindsym Left    resize shrink width  10 px or 10 ppt
-    bindsym Down    resize grow   height 10 px or 10 ppt
-    bindsym Up      resize shrink height 10 px or 10 ppt
-    bindsym Right   resize grow   width  10 px or 10 ppt
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
 
+# Move to workspace with focused container
+bindsym $mod+Ctrl+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Ctrl+0 move container to workspace $ws10; workspace $ws10
+
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+grave move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+grave scratchpad show
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+# Open applications on specific workspaces
+# assign [class="Thunderbird"] $ws1
+# assign [class="Pale moon"] $ws2
+# assign [class="Pcmanfm"] $ws3
+# assign [class="Skype"] $ws5
+
+# Open specific applications in floating mode
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [title="pulsemixer"] floating enable border pixel 1
+for_window [title="bmenu"] floating enable border pixel 1
+for_window [class="Calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-gtk-greeter-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [title="About Pale Moon"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Thus"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Xfburn"] floating enable
+
+################################################################################################
+### GAPS
+################################################################################################
+
+# Inital gaps
+gaps inner 15
+gaps outer 5
+
+# Only use gaps if multiple containers
+smart_gaps on
+
+# In gaps mode, by default actions only effect the current workspace,
+# by pressing Shift, actions will take place on all workspaces.
+set $mode_gaps Gaps: +|-|0    Shift (global), Ctrl (outer)
+bindsym $mod+g mode "$mode_gaps"
+mode "$mode_gaps" {
+    # Inner gaps
+    bindsym plus  gaps inner current plus 5
+    bindsym minus gaps inner current minus 5
+    bindsym 0     gaps inner current set 0
+
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     gaps inner all set 0
+
+    # Outer gaps
+    bindsym Ctrl+plus  gaps outer current plus 5
+    bindsym Ctrl+minus gaps outer current minus 5
+    bindsym Ctrl+0     gaps outer current set 0
+
+    bindsym Ctrl+Shift+plus  gaps outer all plus 5
+    bindsym Ctrl+Shift+minus gaps outer all minus 5
+    bindsym Ctrl+Shift+0     gaps outer all set 0
+
+    # Exit
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+################################################################################################
+### BORDERS
+################################################################################################
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+# Configure border style <normal|1pixel|pixel xx|none|pixel>
+new_window pixel 2
+new_float normal
+
+# Only draw borders if mutiple containers (on|no_gaps)
+smart_borders on
+
+# Hide borders
+hide_edge_borders none
+
+# change borders
+bindsym $mod+u border none
+bindsym $mod+y border pixel 1
+bindsym $mod+n border normal
+
+################################################################################################
+### THEME
+################################################################################################
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font xft:Noto Sans 10
+
+# Theme colors
+# class                 border  backgr. text    indic.  child_border
+client.focused          #808280 #808280 #80FFF9 #FDF6E3
+client.focused_inactive #434745 #434745 #16A085 #454948
+client.unfocused        #434745 #434745 #16A085 #454948
+client.urgent           #CB4B16 #FDF6E3 #16A085 #268BD2
+client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
+
+client.background       #2B2C2B
+
+################################################################################################
+### BAR
+################################################################################################
+
+# hide/unhide i3status bar
+bindsym $mod+m bar mode toggle
+
+# Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
     status_command i3status
-    tray_output primary
+    position bottom
+
+## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+#	tray_output primary
+#	tray_output eDP1
+
+    bindsym button4 nop
+    bindsym button5 nop
+    font xft:Noto Sans 10.5
+    strip_workspace_numbers yes
+
+    colors {
+#       background $transparent
+        background #2B2C2B
+        statusline #F9FAF9
+        separator  #454947
+
+#                          border  backgr. text
+        focused_workspace  #F9FAF9 #16A085 #2B2C2B
+        active_workspace   #595B5B #353836 #FDF6E3
+        inactive_workspace #595B5B #353836 #EEE8D5
+        urgent_workspace   #16A085 #FDF6E3 #E5201D
+    }
 }
 
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
-bindsym $mod+F3 exec xbacklight -set 100
-bindsym $mod+F2 exec xbacklight -set 0
-
-# Background
-exec_always feh --bg-fill ~/Pictures/Backgrounds/ChameleonCat.jpg
+################################################################################################
