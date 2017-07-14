@@ -124,7 +124,7 @@ if dein#load_state('~/.config/nvim/dein')
   call dein#add('tpope/vim-fugitive')
   call dein#add('tpope/vim-surround')
   call dein#add('sheerun/vim-polyglot')
-  call dein#add('Valloric/MatchTagAlways')
+  "call dein#add('Valloric/MatchTagAlways')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('vim-airline/vim-airline')
   call dein#add('scrooloose/nerdtree.git')
@@ -135,6 +135,7 @@ if dein#load_state('~/.config/nvim/dein')
   call dein#add('Shougo/denite.nvim')
   call dein#add('python-mode/python-mode')
   call dein#add('majutsushi/tagbar')
+  call dein#add('luochen1990/rainbow')
 
   call dein#end()
   call dein#save_state()
@@ -157,6 +158,32 @@ let g:pymode_rope = 0                       " Turn off pymode_rope.
 let g:pymode_lint_options_pep8 = {'max_line_length': 110}   " Stop yelling at me pymode!
 autocmd Filetype python nnoremap [[ zk
 autocmd Filetype python nnoremap ]] zj
+
+
+" RAINBOW PARENTHESES BEAUTIFULNESS:
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\   'ctermfgs': ['darkblue', 'darkgreen', 'darkyellow', '133'],
+\   'operators': '_,_',
+\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\   'separately': {
+\       '*': {},
+\       'tex': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\       },
+\       'lisp': {
+\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\       },
+\       'vim': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\       },
+\       'css': 0,
+\      'html': {
+\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\		},
+\   }
+\}
 
 
 " DENITE CUSTOMIZATION:
