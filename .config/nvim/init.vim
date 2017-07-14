@@ -26,6 +26,9 @@ autocmd Filetype css,html,htmldjango setlocal ts=2 sts=2 sw=2
 
 " BASIC MAPPINGS AND COMMANDS:
 let mapleader=","
+" Use tabs to go through tabs.
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
 " Same movement in wrappend lines.
 noremap j gj
 noremap k gk
@@ -40,20 +43,37 @@ nnoremap <C-w>. <C-w>10<
 nnoremap <C-w>- <C-w>10-
 nnoremap <C-w>+ <C-w>10+
 " Command for quick editing of config file.
-command! EditConfig e ~/.config/nvim/init.vim
+command! EditConfig :e ~/.config/nvim/init.vim
 " Command for quick editing of notes
-command! Notes e ~/Documents/notes
+command! Notes :e ~/Documents/notes
 " Shortcut for opening file browser.
 nnoremap <leader>e :e.<CR>
 " Clearing highlighting (after search).
 map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Shortcut for find command. (Using Denite plugin for now.)
 "noremap <leader>f :find
+" When file is python, enable use of isort to auto sort imports.
+command! Isort :!isort %
+
+
+" TRAILING WHITESPACE:
+function! StripTrailingWhitespaces()
+    " Save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business.
+    %s/\s\+$//e
+    " Restore previous search history, and cursor position.
+    let @/=_s
+    call cursor(l, c)
+endfunction
+command! StripTrailingWhitespaces :call StripTrailingWhitespaces()
 
 
 " TAGS:
 " Command for gathering tags.
-command! Tags ! ctags -R .
+command! MakeTags :Dispatch ctags -R .
 
 
 " FOLDS:
@@ -97,6 +117,10 @@ if dein#load_state('~/.config/nvim/dein')
 
   call dein#add('~/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
 
+  call dein#add('junegunn/goyo.vim')
+  call dein#add('myusuf3/numbers.vim')
+  call dein#add('godlygeek/tabular')
+  call dein#add('tpope/vim-dispatch')
   call dein#add('tpope/vim-fugitive')
   call dein#add('tpope/vim-surround')
   call dein#add('sheerun/vim-polyglot')
@@ -105,9 +129,12 @@ if dein#load_state('~/.config/nvim/dein')
   call dein#add('vim-airline/vim-airline')
   call dein#add('scrooloose/nerdtree.git')
   call dein#add('Shougo/deoplete.nvim')
-  call dein#add('Shougo/denite.nvim')
+  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
   call dein#add('zchee/deoplete-jedi')
+  call dein#add('Shougo/denite.nvim')
   call dein#add('python-mode/python-mode')
+  call dein#add('majutsushi/tagbar')
 
   call dein#end()
   call dein#save_state()
@@ -116,6 +143,10 @@ endif
 
 " BASIC PLUGIN CUSTOMIZATION:
 let g:deoplete#enable_at_startup=1
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
 let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 let g:airline_powerline_fonts = 1
