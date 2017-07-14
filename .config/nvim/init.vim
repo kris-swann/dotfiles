@@ -117,25 +117,25 @@ if dein#load_state('~/.config/nvim/dein')
 
   call dein#add('~/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
 
-  call dein#add('junegunn/goyo.vim')
-  call dein#add('myusuf3/numbers.vim')
-  call dein#add('godlygeek/tabular')
   call dein#add('tpope/vim-dispatch')
   call dein#add('tpope/vim-fugitive')
   call dein#add('tpope/vim-surround')
+  call dein#add('godlygeek/tabular')
   call dein#add('sheerun/vim-polyglot')
-  "call dein#add('Valloric/MatchTagAlways')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('scrooloose/nerdtree.git')
   call dein#add('Shougo/deoplete.nvim')
+  call dein#add('zchee/deoplete-jedi')
   call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
   call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-  call dein#add('zchee/deoplete-jedi')
-  call dein#add('Shougo/denite.nvim')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('myusuf3/numbers.vim')
+  call dein#add('scrooloose/nerdtree.git')
   call dein#add('python-mode/python-mode')
   call dein#add('majutsushi/tagbar')
-  call dein#add('luochen1990/rainbow')
+  call dein#add('junegunn/goyo.vim')
+  "call dein#add('Shougo/denite.nvim')
+  "call dein#add('luochen1990/rainbow')
+  "call dein#add('Valloric/MatchTagAlways')
 
   call dein#end()
   call dein#save_state()
@@ -158,49 +158,50 @@ let g:pymode_rope = 0                       " Turn off pymode_rope.
 let g:pymode_lint_options_pep8 = {'max_line_length': 110}   " Stop yelling at me pymode!
 autocmd Filetype python nnoremap [[ zk
 autocmd Filetype python nnoremap ]] zj
+map <leader>f :Files<CR>
 
 
-" RAINBOW PARENTHESES BEAUTIFULNESS:
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-\   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\   'ctermfgs': ['darkblue', 'darkgreen', 'darkyellow', '133'],
-\   'operators': '_,_',
-\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-\   'separately': {
-\       '*': {},
-\       'tex': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-\       },
-\       'lisp': {
-\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-\       },
-\       'vim': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-\       },
-\       'css': 0,
-\      'html': {
-\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-\		},
-\   }
-\}
+" " RAINBOW PARENTHESES BEAUTIFULNESS:
+" let g:rainbow_active = 1
+" let g:rainbow_conf = {
+" \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+" \   'ctermfgs': ['darkblue', 'darkgreen', 'darkyellow', '133'],
+" \   'operators': '_,_',
+" \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+" \   'separately': {
+" \       '*': {},
+" \       'tex': {
+" \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+" \       },
+" \       'lisp': {
+" \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+" \       },
+" \       'vim': {
+" \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+" \       },
+" \       'css': 0,
+" \      'html': {
+" \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+" \		},
+" \   }
+" \}
 
 
-" DENITE CUSTOMIZATION:
-" Denite mappings and commands.
-nnoremap <leader>b :Denite buffer -mode=normal<CR>
-command! LS Denite buffer -mode=normal
-nnoremap <leader>f :Denite file_rec<CR>
-call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
-" Make file_rec (<leader>f) ignore certain files and paths.
-call denite#custom#source('file_rec', 'matchers', ['matcher_fuzzy', 'matcher_ignore_globs'])
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-    \ [ '.*', 'env/', '*.pyc', '*__pycache__*', '*.egg-info/'])
-" onedark.vim override: Make highlighting look nice in denite.
-if (has("autocmd") && !has("gui"))
-  let s:yellow = { "gui": "#E5C07B", "cterm": "180", "cterm16": "3" }
-  let s:comment_grey = { "gui": "#5C6370", "cterm": "59", "cterm16": "15" }
-  autocmd ColorScheme * call onedark#set_highlight("deniteMatchedChar",
-    \ { "fg": s:yellow, "bg": s:comment_grey })
-end
+" " DENITE CUSTOMIZATION:
+" " Denite mappings and commands.
+" nnoremap <leader>b :Denite buffer -mode=normal<CR>
+" command! LS Denite buffer -mode=normal
+" nnoremap <leader>f :Denite file_rec<CR>
+" call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
+" call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
+" " Make file_rec (<leader>f) ignore certain files and paths.
+" call denite#custom#source('file_rec', 'matchers', ['matcher_fuzzy', 'matcher_ignore_globs'])
+" call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+"     \ [ '.*', 'env/', '*.pyc', '*__pycache__*', '*.egg-info/'])
+" " onedark.vim override: Make highlighting look nice in denite.
+" if (has("autocmd") && !has("gui"))
+"   let s:yellow = { "gui": "#E5C07B", "cterm": "180", "cterm16": "3" }
+"   let s:comment_grey = { "gui": "#5C6370", "cterm": "59", "cterm16": "15" }
+"   autocmd ColorScheme * call onedark#set_highlight("deniteMatchedChar",
+"     \ { "fg": s:yellow, "bg": s:comment_grey })
+" end
