@@ -133,7 +133,6 @@ if dein#load_state('~/.config/nvim/dein')
     call dein#add('python-mode/python-mode')
     call dein#add('majutsushi/tagbar')
     call dein#add('junegunn/goyo.vim')
-    "call dein#add('Shougo/denite.nvim')
     "call dein#add('luochen1990/rainbow')
     "call dein#add('Valloric/MatchTagAlways')
 
@@ -185,23 +184,3 @@ map <leader>f :Files<CR>
 " \		},
 " \   }
 " \}
-
-
-" " DENITE CUSTOMIZATION:
-" " Denite mappings and commands.
-" nnoremap <leader>b :Denite buffer -mode=normal<CR>
-" command! LS Denite buffer -mode=normal
-" nnoremap <leader>f :Denite file_rec<CR>
-" call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
-" call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
-" " Make file_rec (<leader>f) ignore certain files and paths.
-" call denite#custom#source('file_rec', 'matchers', ['matcher_fuzzy', 'matcher_ignore_globs'])
-" call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-"     \ [ '.*', 'env/', '*.pyc', '*__pycache__*', '*.egg-info/'])
-" " onedark.vim override: Make highlighting look nice in denite.
-" if (has("autocmd") && !has("gui"))
-"   let s:yellow = { "gui": "#E5C07B", "cterm": "180", "cterm16": "3" }
-"   let s:comment_grey = { "gui": "#5C6370", "cterm": "59", "cterm16": "15" }
-"   autocmd ColorScheme * call onedark#set_highlight("deniteMatchedChar",
-"     \ { "fg": s:yellow, "bg": s:comment_grey })
-" end
