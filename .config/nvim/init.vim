@@ -11,6 +11,7 @@ set mouse=a                         " Enable the use of the mouse.
 colorscheme onedark                 " Set the default colorscheme.
 " Customize what is saved with :mksession.
 set sessionoptions=curdir,winpos,resize,help,blank,winsize,folds,tabpages
+set completeopt-=preview            " No preview windows!
 
 
 " INDENTATION:
@@ -52,8 +53,8 @@ nnoremap <leader>e :e.<CR>
 map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Shortcut for find command. (Using Denite plugin for now.)
 "noremap <leader>f :find
-" When file is python, enable use of isort to auto sort imports.
-command! Isort :!isort %
+" For use in python files, use isort to auto sort imports.
+"autocmd FileType python command <buffer> Isort :!isort %
 
 
 " TRAILING WHITESPACE:
@@ -73,7 +74,7 @@ command! StripTrailingWhitespaces :call StripTrailingWhitespaces()
 
 " TAGS:
 " Command for gathering tags.
-command! MakeTags :Dispatch ctags -R .
+command! MakeTags :Dispatch! ctags -R .
 
 
 " FOLDS:
@@ -94,9 +95,7 @@ endfunction
 set foldlevel=99                    " Set folds to be open on start.
 set foldcolumn=1                    " Show folds in the column.
 
-autocmd Filetype vim setlocal foldlevel=0
-autocmd Filetype vim setlocal foldmethod=expr
-autocmd Filetype vim setlocal foldexpr=VimFolds()
+autocmd Filetype vim setlocal foldlevel=0 foldmethod=expr foldexpr=VimFolds()
 
 
 " BUILT IN AUTOCOMPLETION STUFF:
@@ -117,22 +116,30 @@ if dein#load_state('~/.config/nvim/dein')
 
     call dein#add('~/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
 
-    call dein#add('tpope/vim-dispatch')
-    call dein#add('tpope/vim-fugitive')
+    call dein#add('tpope/vim-commentary')
+    call dein#add('tpope/vim-unimpaired')
     call dein#add('tpope/vim-surround')
-    call dein#add('godlygeek/tabular')
+    call dein#add('tpope/vim-dispatch')
+    call dein#add('tpop/vim-repeat')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('michaeljsmith/vim-indent-object')
     call dein#add('sheerun/vim-polyglot')
-    call dein#add('Shougo/deoplete.nvim')
-    call dein#add('zchee/deoplete-jedi')
+    call dein#add('haya14busa/incsearch.vim')
+    call dein#add('myusuf3/numbers.vim')
+    call dein#add('godlygeek/tabular')
+    call dein#add('easymotion/vim-easymotion')
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('zchee/deoplete-jedi')
+    call dein#add('w0rp/ale')
     call dein#add('airblade/vim-gitgutter')
     call dein#add('vim-airline/vim-airline')
-    call dein#add('myusuf3/numbers.vim')
-    call dein#add('scrooloose/nerdtree.git')
-    call dein#add('python-mode/python-mode')
     call dein#add('majutsushi/tagbar')
     call dein#add('junegunn/goyo.vim')
+    call dein#add('scrooloose/nerdtree.git')
+    call dein#add('python-mode/python-mode')
+    call dein#add('davidhalter/jedi-vim')
     "call dein#add('luochen1990/rainbow')
     "call dein#add('Valloric/MatchTagAlways')
 
@@ -142,22 +149,76 @@ endif
 
 
 " BASIC PLUGIN CUSTOMIZATION:
+cabbrev Gpush Git push
 let g:deoplete#enable_at_startup=1
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
+map <leader>f :Files<CR>
 let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 let g:airline_powerline_fonts = 1
 let g:NERDTreeIgnore=['.*__pycache__.*','.*\.pyc','.*\.egg-info.*']
+
+" Get nicer messages from ALE
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" Python linting options
+let g:ale_python_pylint_options = '--rcfile toolchain/.pylintrc'
+let g:ale_python_flake8_options = '--config=toolchain/.flake8'
+
+" Improved incsearch
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+" Don't use jedi-vim's completions, only using it for the static analysis
+let g:jedi#completions_enabled = 0
+" Only using pymode for folding and motions (Have to disable everything
+" manually since pymode assumes it's oh-so-fantastic).
+let g:pymode = 1
+let g:pymode_options_max_line_length = 0
+let g:pymode_options_colorcolumn = 0
 let g:pymode_python='python3'
-let g:pymode_breakpoint_bind = '<leader>B'  " Remap conflicting default mapping.
-let g:pymode_rope = 0                       " Turn off pymode_rope.
-let g:pymode_lint_options_pep8 = {'max_line_length': 110}   " Stop yelling at me pymode!
-autocmd Filetype python nnoremap [[ zk
-autocmd Filetype python nnoremap ]] zj
-map <leader>f :Files<CR>
+let g:pymode_indent = 0
+let g:pymode_folding = 1
+let g:pymode_motion = 0
+let g:pymode_doc = 0
+let g:pymode_virtualenv = 0
+let g:pymode_run = 0
+let g:pymode_breakpoint = 0
+let g:pymode_lint = 0
+let g:pymode_rope = 0
+let g:pymode_syntax = 0
+" Pymode custom motions, since cutomability is apparently the anti-christ
+autocmd FileType python nnoremap <buffer> ]]  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
+autocmd FileType python nnoremap <buffer> [[  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
+autocmd FileType python nnoremap <buffer> ]c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', '')<CR>
+autocmd FileType python nnoremap <buffer> [c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', 'b')<CR>
+autocmd FileType python nnoremap <buffer> ]m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', '')<CR>
+autocmd FileType python nnoremap <buffer> [m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', 'b')<CR>
+autocmd FileType python onoremap <buffer> ]]  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
+autocmd FileType python onoremap <buffer> [[  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
+autocmd FileType python onoremap <buffer> ]c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', '')<CR>
+autocmd FileType python onoremap <buffer> [c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', 'b')<CR>
+autocmd FileType python onoremap <buffer> ]m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', '')<CR>
+autocmd FileType python onoremap <buffer> [m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', 'b')<CR>
+autocmd FileType python vnoremap <buffer> ]]  :call pymode#motion#vmove('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
+autocmd FileType python vnoremap <buffer> [[  :call pymode#motion#vmove('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
+autocmd FileType python vnoremap <buffer> ]m  :call pymode#motion#vmove('^<Bslash>s*def<Bslash>s', '')<CR>
+autocmd FileType python vnoremap <buffer> [m  :call pymode#motion#vmove('^<Bslash>s*def<Bslash>s', 'b')<CR>
+autocmd FileType python onoremap <buffer> c   :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
+autocmd FileType python onoremap <buffer> ac  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
+autocmd FileType python onoremap <buffer> ic  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 1)<CR>
+autocmd FileType python vnoremap <buffer> ac  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
+autocmd FileType python vnoremap <buffer> ic  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 1)<CR>
+autocmd FileType python onoremap <buffer> m   :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
+autocmd FileType python onoremap <buffer> am  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
+autocmd FileType python onoremap <buffer> im  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 1)<CR>
+autocmd FileType python vnoremap <buffer> am  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
+autocmd FileType python vnoremap <buffer> im  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 1)<CR>
 
 
 " " RAINBOW PARENTHESES BEAUTIFULNESS:
