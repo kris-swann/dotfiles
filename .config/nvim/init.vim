@@ -110,42 +110,36 @@ set wildignore+=*__pycache__*,*.pyc,*env/*,*.egg-info*
 
 
 " PLUGIN DECLARATIONS:
-set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
-if dein#load_state('~/.config/nvim/dein')
-    call dein#begin('~/.config/nvim/dein')
+call plug#begin('~/.local/share/nvim/plugged')
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-dispatch'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-fugitive'
+    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'haya14busa/incsearch.vim'
+    Plug 'myusuf3/numbers.vim'
+    Plug 'godlygeek/tabular'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'junegunn/fzf', { 'build': './install --all' }
+    Plug 'junegunn/fzf.vim'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'zchee/deoplete-jedi'
+    Plug 'w0rp/ale'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'vim-airline/vim-airline'
+    Plug 'majutsushi/tagbar'
+    Plug 'junegunn/goyo.vim'
+    Plug 'scrooloose/nerdtree'
+    Plug 'python-mode/python-mode', { 'for': 'python' }
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    "Plug 'luochen1990/rainbow'
+    "Plug 'Valloric/MatchTagAlways'
 
-    call dein#add('~/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
-
-    call dein#add('tpope/vim-commentary')
-    call dein#add('tpope/vim-unimpaired')
-    call dein#add('tpope/vim-surround')
-    call dein#add('tpope/vim-dispatch')
-    call dein#add('tpope/vim-repeat')
-    call dein#add('tpope/vim-fugitive')
-    call dein#add('michaeljsmith/vim-indent-object')
-    call dein#add('sheerun/vim-polyglot')
-    call dein#add('haya14busa/incsearch.vim')
-    call dein#add('myusuf3/numbers.vim')
-    call dein#add('godlygeek/tabular')
-    call dein#add('easymotion/vim-easymotion')
-    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-    call dein#add('Shougo/deoplete.nvim')
-    call dein#add('zchee/deoplete-jedi')
-    call dein#add('w0rp/ale')
-    call dein#add('airblade/vim-gitgutter')
-    call dein#add('vim-airline/vim-airline')
-    call dein#add('majutsushi/tagbar')
-    call dein#add('junegunn/goyo.vim')
-    call dein#add('scrooloose/nerdtree.git')
-    call dein#add('python-mode/python-mode')
-    call dein#add('davidhalter/jedi-vim')
-    "call dein#add('luochen1990/rainbow')
-    "call dein#add('Valloric/MatchTagAlways')
-
-    call dein#end()
-    call dein#save_state()
-endif
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+call plug#end()
 
 
 " BASIC PLUGIN CUSTOMIZATION:
