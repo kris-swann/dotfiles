@@ -103,15 +103,16 @@ exec --no-startup-id clipit
 exec --no-startup-id udiskie --tray
 # exec --no-startup-id blueman
 # exec_always --no-startup-id sbxkb
-exec --no-startup-id start_conky_maia
+# exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
+exec --no-startup-id conky -c ~/.config/conky/conky_shortcuts.conf
+exec --no-startup-id conky -c ~/.config/conky/conky_status.conf
 exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id fix_xcursor
 #exec --no-startup-id volumeicon
 exec --no-startup-id pulseaudio
 exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
-exec --no-startup-id xset b off
 
 ################################################################################################
 ### MOVEMENT & LAYOUT
@@ -262,6 +263,7 @@ for_window [urgent=latest] focus
 # assign [class="Skype"] $ws5
 
 # Open specific applications in floating mode
+for_window [title="Spotify"] floating enable, resize set 1100 px 800 px
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [title="pulsemixer"] floating enable border pixel 1
 for_window [title="bmenu"] floating enable border pixel 1
