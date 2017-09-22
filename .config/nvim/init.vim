@@ -135,14 +135,16 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'scrooloose/nerdtree'
     Plug 'python-mode/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    Plug 'iamcco/mathjax-support-for-mkdp'
+    Plug 'iamcco/markdown-preview.vim'
     "Plug 'luochen1990/rainbow'
     "Plug 'Valloric/MatchTagAlways'
-
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
 
 
 " BASIC PLUGIN CUSTOMIZATION:
+let g:mkdp_path_to_chrome = "firefox"
 cabbrev Gpush Git push
 let g:deoplete#enable_at_startup=1
 let g:fzf_action = {

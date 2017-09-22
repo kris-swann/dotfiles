@@ -77,6 +77,17 @@ alias e="$EDITOR"
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
+alias gh="cd ~"
+alias gm="cd /run/media/kris"
+alias gc=" cd ~/.config"
+alias gcr="cd ~/.config/ranger"
+alias gci="cd ~/.config/i3"
+alias gcn="cd ~/.config/nvim"
+alias gcd="cd ~/.config/dotfiles"
+alias gd="cd ~/Documents"
+alias gp="cd ~/Projects"
+alias gs="cd ~/Documents/UMN/Year3/Sem1"
+
 #####################################################################
 ### FUNCTIONS
 #####################################################################
