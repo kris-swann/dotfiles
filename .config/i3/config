@@ -363,7 +363,7 @@ font xft:Noto Sans 10
 
 # Theme colors
 # class                 border  backgr. text    indic.  child_border
-client.focused          #808280 #808280 #80FFF9 #FDF6E3
+client.focused          #808280 #16a086 #80FFF9 #FDF6E3
 client.focused_inactive #434745 #434745 #16A085 #454948
 client.unfocused        #434745 #434745 #16A085 #454948
 client.urgent           #CB4B16 #FDF6E3 #16A085 #268BD2
