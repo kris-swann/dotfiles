@@ -77,6 +77,8 @@ alias e="$EDITOR"
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
+alias booksearch="calibredb list -f title -s "
+
 alias gh="cd ~"
 alias gm="cd /run/media/kris"
 alias gc=" cd ~/.config"
@@ -91,6 +93,13 @@ alias gs="cd ~/Documents/UMN/Year3/Sem1"
 #####################################################################
 ### FUNCTIONS
 #####################################################################
+
+# Open the given calibre listing with zathura
+bookopen() {
+    db_entry=$(calibredb list -w 10000 -f formats -s id:$1 | tail -n1)
+    file_listing=$(echo $db_entry | grep -oE '\[(.*)\]' | tr -d "[]")
+    zathura $file_listing
+}
 
 # Recursively reset the permissions to the usual -rw-r--r-- for
 # files and drwx-r-xr-x for directories.
