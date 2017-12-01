@@ -27,7 +27,7 @@ autocmd Filetype css,html,htmldjango setlocal ts=2 sts=2 sw=2
 autocmd Filetype cpp setlocal ts=2 sts=2 sw=2
 
 
-" BASIC MAPPINGS AND COMMANDS:
+" BASIC MAPPINGS:
 let mapleader=","
 " Use tabs to go through tabs.
 nnoremap <Tab> gt
@@ -40,25 +40,19 @@ nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 nnoremap <M-j> 5j
 nnoremap <M-k> 5k
-" Exit out of terminal when navigating
-tnoremap <C-\> <C-\><C-n>
-" Quick adjustment of window sizes.
-nnoremap <C-w>, <C-w>10>
-nnoremap <C-w>. <C-w>10<
-nnoremap <C-w>- <C-w>10-
-nnoremap <C-w>+ <C-w>10+
+" Clearing highlighting (after search).
+map <esc> :noh<bar>lclose<bar>pclose<CR>
+" Easy exit out of terminal
+tnoremap <esc> <C-\><C-n>
+
+
+" BASIC COMMANDS:
 " Command for quick editing of config file.
 command! EditConfig :e ~/.config/nvim/init.vim
 " Command for quick editing of notes
 command! Notes :e ~/Documents/notes
-" Shortcut for opening file browser.
-nnoremap <leader>e :e.<CR>
-" Clearing highlighting (after search).
-map <esc> :noh<bar>lclose<bar>pclose<CR>
-" Shortcut for find command. (Using Denite plugin for now.)
-"noremap <leader>f :find
-" For use in python files, use isort to auto sort imports.
-"autocmd FileType python command <buffer> Isort :!isort %
+" Command for gathering tags.
+command! MakeTags :Dispatch! ctags -R .
 
 
 " TRAILING WHITESPACE:
@@ -74,11 +68,6 @@ function! StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 command! StripTrailingWhitespaces :call StripTrailingWhitespaces()
-
-
-" TAGS:
-" Command for gathering tags.
-command! MakeTags :Dispatch! ctags -R .
 
 
 " FOLDS:
@@ -136,8 +125,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'majutsushi/tagbar'
     Plug 'junegunn/goyo.vim'
-    Plug 'francoiscabrol/ranger.vim'
-    Plug 'rbgrouleff/bclose.vim'  " Dependecy for ranger.vim
+    Plug 'rbgrouleff/bclose.vim'
+    Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
     Plug 'python-mode/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     Plug 'iamcco/mathjax-support-for-mkdp'
