@@ -53,21 +53,8 @@ command! EditConfig :e ~/.config/nvim/init.vim
 command! Notes :e ~/Documents/notes
 " Command for gathering tags.
 command! MakeTags :Dispatch! ctags -R .
-
-
-" TRAILING WHITESPACE:
-function! StripTrailingWhitespaces()
-    " Save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business.
-    %s/\s\+$//e
-    " Restore previous search history, and cursor position.
-    let @/=_s
-    call cursor(l, c)
-endfunction
-command! StripTrailingWhitespaces :call StripTrailingWhitespaces()
+" Easily remove trailing whitespace with regex
+command! StripTrailingWhitespace :%s/\s\+$//e
 
 
 " FOLDS:
