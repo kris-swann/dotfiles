@@ -23,6 +23,8 @@ set tabstop=4                       " Have vim display tabs as 4 spaces.
 set shiftwidth=4                    " Set the shift width to reflect tabspace.
 " Filetype specific preferences.
 autocmd Filetype css,html,htmldjango setlocal ts=2 sts=2 sw=2
+" Temp for school work
+autocmd Filetype cpp setlocal ts=2 sts=2 sw=2
 
 
 " BASIC MAPPINGS AND COMMANDS:
@@ -38,6 +40,8 @@ nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 nnoremap <M-j> 5j
 nnoremap <M-k> 5k
+" Exit out of terminal when navigating
+tnoremap <C-\> <C-\><C-n>
 " Quick adjustment of window sizes.
 nnoremap <C-w>, <C-w>10>
 nnoremap <C-w>. <C-w>10<
@@ -132,7 +136,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'majutsushi/tagbar'
     Plug 'junegunn/goyo.vim'
-    Plug 'scrooloose/nerdtree'
+    Plug 'francoiscabrol/ranger.vim'
+    Plug 'rbgrouleff/bclose.vim'  " Dependecy for ranger.vim
     Plug 'python-mode/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     Plug 'iamcco/mathjax-support-for-mkdp'
@@ -155,7 +160,9 @@ map <leader>f :Files<CR>
 let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 let g:airline_powerline_fonts = 1
-let g:NERDTreeIgnore=['.*__pycache__.*','.*\.pyc','.*\.egg-info.*']
+let g:ranger_replace_netrw = 1
+let g:ranger_map_keys = 0
+nnoremap <leader>e :Ranger<CR>
 
 " Get nicer messages from ALE
 let g:ale_echo_msg_error_str = 'E'
