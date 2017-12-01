@@ -23,7 +23,6 @@ set tabstop=4                       " Have vim display tabs as 4 spaces.
 set shiftwidth=4                    " Set the shift width to reflect tabspace.
 " Filetype specific preferences.
 autocmd Filetype css,html,htmldjango setlocal ts=2 sts=2 sw=2
-" Temp for school work
 autocmd Filetype cpp setlocal ts=2 sts=2 sw=2
 
 
