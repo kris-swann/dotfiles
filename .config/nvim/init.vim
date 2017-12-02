@@ -40,6 +40,13 @@ nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 nnoremap <M-j> 5j
 nnoremap <M-k> 5k
+" Easy copy-pasting to and from system clipboard
+vnoremap <leader>y "+y
+vnoremap <leader>d "+d
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>P "+P
 " Clearing highlighting (after search).
 map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Easy exit out of terminal
