@@ -22,8 +22,6 @@ set expandtab                       " Use softtabs.
 set softtabstop=4                   " Use 4 wide softtabs.
 set tabstop=4                       " Have vim display tabs as 4 spaces.
 set shiftwidth=4                    " Set the shift width to reflect tabspace.
-" Filetype specific preferences.
-"autocmd Filetype css,html,htmldjango setlocal ts=2 sts=2 sw=2
 
 
 " BASIC MAPPINGS:
@@ -177,33 +175,6 @@ let g:pymode_breakpoint = 0
 let g:pymode_lint = 0
 let g:pymode_rope = 0
 let g:pymode_syntax = 0
-" Pymode custom motions, since cutomability is apparently the anti-christ
-autocmd FileType python nnoremap <buffer> ]]  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
-autocmd FileType python nnoremap <buffer> [[  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
-autocmd FileType python nnoremap <buffer> ]c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', '')<CR>
-autocmd FileType python nnoremap <buffer> [c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', 'b')<CR>
-autocmd FileType python nnoremap <buffer> ]m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', '')<CR>
-autocmd FileType python nnoremap <buffer> [m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', 'b')<CR>
-autocmd FileType python onoremap <buffer> ]]  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
-autocmd FileType python onoremap <buffer> [[  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
-autocmd FileType python onoremap <buffer> ]c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', '')<CR>
-autocmd FileType python onoremap <buffer> [c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', 'b')<CR>
-autocmd FileType python onoremap <buffer> ]m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', '')<CR>
-autocmd FileType python onoremap <buffer> [m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', 'b')<CR>
-autocmd FileType python vnoremap <buffer> ]]  :call pymode#motion#vmove('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
-autocmd FileType python vnoremap <buffer> [[  :call pymode#motion#vmove('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
-autocmd FileType python vnoremap <buffer> ]m  :call pymode#motion#vmove('^<Bslash>s*def<Bslash>s', '')<CR>
-autocmd FileType python vnoremap <buffer> [m  :call pymode#motion#vmove('^<Bslash>s*def<Bslash>s', 'b')<CR>
-autocmd FileType python onoremap <buffer> c   :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
-autocmd FileType python onoremap <buffer> ac  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
-autocmd FileType python onoremap <buffer> ic  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 1)<CR>
-autocmd FileType python vnoremap <buffer> ac  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
-autocmd FileType python vnoremap <buffer> ic  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 1)<CR>
-autocmd FileType python onoremap <buffer> m   :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
-autocmd FileType python onoremap <buffer> am  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
-autocmd FileType python onoremap <buffer> im  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 1)<CR>
-autocmd FileType python vnoremap <buffer> am  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
-autocmd FileType python vnoremap <buffer> im  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 1)<CR>
 
 
 " " RAINBOW PARENTHESES BEAUTIFULNESS:

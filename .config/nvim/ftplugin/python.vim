@@ -1,0 +1,27 @@
+" Pymode custom motions, since cutomability is apparently the anti-christ
+autocmd FileType python nnoremap <buffer> ]]  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
+autocmd FileType python nnoremap <buffer> [[  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
+autocmd FileType python nnoremap <buffer> ]c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', '')<CR>
+autocmd FileType python nnoremap <buffer> [c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', 'b')<CR>
+autocmd FileType python nnoremap <buffer> ]m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', '')<CR>
+autocmd FileType python nnoremap <buffer> [m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', 'b')<CR>
+autocmd FileType python onoremap <buffer> ]]  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
+autocmd FileType python onoremap <buffer> [[  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
+autocmd FileType python onoremap <buffer> ]c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', '')<CR>
+autocmd FileType python onoremap <buffer> [c  :<C-U>call pymode#motion#move('<Bslash>v^(class<bar>def)<Bslash>s', 'b')<CR>
+autocmd FileType python onoremap <buffer> ]m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', '')<CR>
+autocmd FileType python onoremap <buffer> [m  :<C-U>call pymode#motion#move('^<Bslash>s*def<Bslash>s', 'b')<CR>
+autocmd FileType python vnoremap <buffer> ]]  :call pymode#motion#vmove('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', '')<CR>
+autocmd FileType python vnoremap <buffer> [[  :call pymode#motion#vmove('<Bslash>v^(class<bar><Bslash>s*def)<Bslash>s', 'b')<CR>
+autocmd FileType python vnoremap <buffer> ]m  :call pymode#motion#vmove('^<Bslash>s*def<Bslash>s', '')<CR>
+autocmd FileType python vnoremap <buffer> [m  :call pymode#motion#vmove('^<Bslash>s*def<Bslash>s', 'b')<CR>
+autocmd FileType python onoremap <buffer> c   :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
+autocmd FileType python onoremap <buffer> ac  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
+autocmd FileType python onoremap <buffer> ic  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 1)<CR>
+autocmd FileType python vnoremap <buffer> ac  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 0)<CR>
+autocmd FileType python vnoremap <buffer> ic  :<C-U>call pymode#motion#select('^<Bslash>s*class<Bslash>s', 1)<CR>
+autocmd FileType python onoremap <buffer> m   :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
+autocmd FileType python onoremap <buffer> am  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
+autocmd FileType python onoremap <buffer> im  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 1)<CR>
+autocmd FileType python vnoremap <buffer> am  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 0)<CR>
+autocmd FileType python vnoremap <buffer> im  :<C-U>call pymode#motion#select('^<Bslash>s*def<Bslash>s', 1)<CR>
