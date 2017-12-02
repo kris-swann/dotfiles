@@ -8,6 +8,7 @@ set listchars=tab:▸\ ,eol:¬,trail:⋅ " Set the whitespace characters.
 set list                            " Show the whitespace characters.
 set undofile                        " Save undo history between sessions.
 set mouse=a                         " Enable the use of the mouse.
+set smartcase                       " Search case insensitive unless capital used.
 colorscheme onedark                 " Set the default colorscheme.
 " Customize what is saved with :mksession.
 set sessionoptions=curdir,winpos,resize,help,blank,winsize,folds,tabpages
