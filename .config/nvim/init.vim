@@ -1,38 +1,38 @@
 " SET BASIC VIM OPTIONS:
-set number                          " Make line numbers visible.
-set relativenumber                  " Use relative line numbers.
-set cursorline                      " Highlight the current line.
-set hidden                          " Allow non-active buffers to be unsaved.
-set updatetime=100                  " Make update faster.
-set listchars=tab:▸\ ,eol:¬,trail:⋅ " Set the whitespace characters.
-set list                            " Show the whitespace characters.
-set undofile                        " Save undo history between sessions.
-set mouse=a                         " Enable the use of the mouse.
-set smartcase                       " Search case insensitive unless capital used.
-colorscheme onedark                 " Set the default colorscheme.
-" Customize what is saved with :mksession.
+set number                          " Make line numbers visible
+set relativenumber                  " Use relative line numbers
+set cursorline                      " Highlight the current line
+set hidden                          " Allow non-active buffers to be unsaved
+set updatetime=100                  " Make update faster
+set listchars=tab:▸\ ,eol:¬,trail:⋅ " Set the whitespace characters
+set list                            " Show the whitespace characters
+set undofile                        " Save undo history between sessions
+set mouse=a                         " Enable the use of the mouse
+set smartcase                       " Search case insensitive unless capital used
+colorscheme onedark                 " Set the default colorscheme
+" Customize what is saved with :mksession
 set sessionoptions=curdir,winpos,resize,help,blank,winsize,folds,tabpages
 set completeopt-=preview            " No preview windows!
 
 
 " INDENTATION:
-filetype plugin indent on           " Turn on detection, plugin and indent.
-set expandtab                       " Use softtabs.
-" Default indentation preferences.
-set softtabstop=4                   " Use 4 wide softtabs.
-set tabstop=4                       " Have vim display tabs as 4 spaces.
-set shiftwidth=4                    " Set the shift width to reflect tabspace.
+filetype plugin indent on           " Turn on detection, plugin and indent
+set expandtab                       " Use softtabs
+" Default indentation preferences
+set softtabstop=4                   " Use 4 wide softtabs
+set tabstop=4                       " Have vim display tabs as 4 spaces
+set shiftwidth=4                    " Set the shift width to reflect tabspace
 
 
 " BASIC MAPPINGS:
 let mapleader=","
-" Use tabs to go through tabs.
+" Use tabs to go through tabs
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
-" Same movement in wrappend lines.
+" Same movement in wrappend lines
 noremap j gj
 noremap k gk
-" Scroll the viewport 5 times faster.
+" Scroll the viewport 5 times faster
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 nnoremap <M-j> 5j
@@ -44,37 +44,37 @@ nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>P "+P
-" Clearing highlighting (after search).
+" Clearing highlighting (after search)
 map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Easy exit out of terminal
 tnoremap <esc> <C-\><C-n>
 
 
 " BASIC COMMANDS:
-" Command for quick editing of config file.
+" Command for quick editing of config file
 command! EditConfig :e ~/.config/nvim/init.vim
 " Command for quick editing of notes
 command! Notes :e ~/Documents/notes
-" Command for gathering tags.
+" Command for gathering tags
 command! MakeTags :Dispatch! ctags -R .
 " Easily remove trailing whitespace with regex
 command! StripTrailingWhitespace :%s/\s\+$//e
 
 
 " FOLDS:
-set foldlevel=99        " Set folds to be open on start.
-set foldcolumn=1        " Show folds in the column.
-set foldminlines=4      " Downt allow annoying tiny folds.
+set foldlevel=99        " Set folds to be open on start
+set foldcolumn=1        " Show folds in the column
+set foldminlines=4      " Downt allow annoying tiny folds
 
 
 " BUILT IN AUTOCOMPLETION STUFF:
 set omnifunc=syntaxcomplete#Complete
 set path+=**                        " Recursively search subdirs for files,
                                     " allows for tab-completion for file
-                                    " related tasks. Use * to make it fuzzy.
+                                    " related tasks. Use * to make it fuzzy
 set wildmode=longest:full,full      " Wildmenu autocompletes longest common substring
-                                    " and then cycles through options.
-" Directories to ignore in wildmenu.
+                                    " and then cycles through options
+" Directories to ignore in wildmenu
 set wildignore+=*__pycache__*,*.pyc,*env/*,*.egg-info*
 
 
@@ -145,7 +145,7 @@ map g/ <Plug>(incsearch-stay)
 " Don't use jedi-vim's completions, only using it for the static analysis
 let g:jedi#completions_enabled = 0
 " Only using pymode for folding and motions (Have to disable everything
-" manually since pymode assumes it's oh-so-fantastic).
+" manually since pymode assumes it's oh-so-fantastic)
 let g:pymode = 1
 let g:pymode_options_max_line_length = 0
 let g:pymode_options_colorcolumn = 0
