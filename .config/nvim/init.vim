@@ -8,7 +8,7 @@ set listchars=tab:▸\ ,eol:¬,trail:⋅ " Set the whitespace characters
 set list                            " Show the whitespace characters
 set undofile                        " Save undo history between sessions
 set mouse=a                         " Enable the use of the mouse
-set smartcase                       " Search case insensitive unless capital used
+set ignorecase smartcase            " Search case insensitive unless capital used
 colorscheme onedark                 " Set the default colorscheme
 " Customize what is saved with :mksession
 set sessionoptions=curdir,winpos,resize,help,blank,winsize,folds,tabpages
@@ -105,8 +105,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
     Plug 'python-mode/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    Plug 'iamcco/mathjax-support-for-mkdp'
     Plug 'iamcco/markdown-preview.vim'
+    Plug 'iamcco/mathjax-support-for-mkdp'
+    Plug 'vim-pandoc/vim-pandoc-syntax'
+    Plug 'vim-pandoc/vim-pandoc'
     "Plug 'luochen1990/rainbow'
     "Plug 'Valloric/MatchTagAlways'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -136,6 +138,9 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " Python linting options
 let g:ale_python_pylint_options = '--rcfile toolchain/.pylintrc'
 let g:ale_python_flake8_options = '--config=toolchain/.flake8'
+" Cpp linting options
+let g:ale_cpp_clangtidy_options = '-Wall -std=c++11 -x c++'
+let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
 
 " Improved incsearch
 map /  <Plug>(incsearch-forward)
