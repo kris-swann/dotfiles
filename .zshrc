@@ -141,3 +141,10 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#####################################################################
+### ADDITIONL PATHS
+#####################################################################
+
+# User specific global install path for npm
+export PATH=~/.npm-global/bin:$PATH
