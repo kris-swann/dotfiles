@@ -88,7 +88,7 @@ alias gcn="cd ~/.config/nvim"
 alias gcd="cd ~/.config/dotfiles"
 alias gd="cd ~/Documents"
 alias gp="cd ~/Projects"
-alias gs="cd ~/Documents/UMN/Year3/Sem1"
+alias gs="cd ~/Documents/UMN/Year3/Sem2"
 
 #####################################################################
 ### FUNCTIONS
