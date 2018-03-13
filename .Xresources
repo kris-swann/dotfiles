@@ -6,6 +6,7 @@
 ! Leave them as they are if a file ~/.extend.Xresources is being used on your system.
 ! config can be added there or also here below.
 ! For comments use "!"
+! Reload this file with "xrdb ~/.Xresources"
 
 Xft.dpi: 96
 Xft.antialias: true
@@ -15,9 +16,9 @@ Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
-XTerm*background: #2b2b2b
-XTerm*foreground: #e7e7e7
-XTerm*pointerColor: #16A085
+!XTerm*background: #2b2b2b
+!XTerm*foreground: #e7e7e7
+!XTerm*pointerColor: #16A085
 XTerm*faceName: Hack
 XTerm*faceSize: 11
 
@@ -27,5 +28,7 @@ XTerm*VT100*translations: #override \n\
     Ctrl Shift <Key>P:  insert-selection(CLIPBOARD) \n\
     Ctrl Shift <Key>Y:        select-end(CLIPBOARD)
 
-URxvt.font: xft:Hack:style=Regular:size=10
-URxvt.letterSpace: -2
+! URxvt settings
+! For all options run "uxrvt --help"
+URxvt.font:             xft:Hack:style=Regular:size=11
+URxvt.letterSpace:      -2
