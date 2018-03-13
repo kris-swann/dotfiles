@@ -132,6 +132,8 @@ let g:ranger_replace_netrw = 1
 let g:ranger_map_keys = 0
 nnoremap <leader>e :Ranger<CR>
 
+let g:pandoc#syntax#conceal#blacklist = ['image', 'atx']
+
 " Get nicer messages from ALE
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
