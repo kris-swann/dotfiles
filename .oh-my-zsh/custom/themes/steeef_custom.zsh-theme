@@ -99,4 +99,4 @@ LEADING_CHAR=$'\ue0b0'  # Right arrow
 
 PROMPT=$'
 %{$purple%}%n${PR_RST} at %{$orange%}%m${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
-%(?.%{$reset_color%}.%{$hotpink%})$LEADING_CHAR '
+%(?.%{$reset_color%}.%{$hotpink%})$LEADING_CHAR${PR_RST} '
