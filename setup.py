@@ -7,6 +7,7 @@ from typing import List
 
 ignore_patterns: List[str] = [
     'README.md',
+    'setup.py',
 ]
 
 # The directory that the script being run is in
