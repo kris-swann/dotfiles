@@ -14,3 +14,7 @@ so that you can easily ssh to computers on a local network (make sure
 
 For easy two way syncing of folders between computers, I highly recommend
 unison. E.g. `unison ~/Documents ssh://kris@commputername.local/Documents`
+
+There are some profiles setup for my specific use case, they can be run as
+just `unison sync_bigben` or `unison sync_boat` depending on which computer
+you are on.
