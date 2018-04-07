@@ -1,0 +1,9 @@
+# Roots of the synchronization
+root = /home/kris
+root = ssh://kris@bigben.local/
+
+# Paths to synchronize 
+path = Archive
+path = Documents
+path = Downloads
+path = Pictures
