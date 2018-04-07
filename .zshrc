@@ -147,4 +147,5 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 #####################################################################
 
 # User specific global install path for npm
+# To set prefix: npm config set prefix '~/.npm-global'
 export PATH=~/.npm-global/bin:$PATH
