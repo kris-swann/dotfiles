@@ -126,21 +126,40 @@ push_sync() {
 #####################################################################
 
 # Enable use of virtualenvwrapper commands
-source /usr/bin/virtualenvwrapper.sh
+[ -f /usr/bin/virtualenvwrapper.sh ] && source /usr/bin/virtualenvwrapper.sh
 
 # Fzf magic
-source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 
 # Autojumping
-source /etc/profile.d/autojump.zsh
+if [[ -f /etc/profile.d/autojump.zsh ]]; then
+    # Manjaro location
+    source /etc/profile.d/autojump.zsh
+else
+    # OSX Location
+    source /usr/local/etc/profile.d/autojump.sh
+fi
 
 # Enable fish-like autosuggestions
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ -f  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    # Manjaro location
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+    # OSX Location
+    source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 # Enable fish-like syntax highlighting, must go at bottom of .zshrc
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    # Manjaro location
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+    # OSX location
+    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 #####################################################################
 ### ADDITIONL PATHS
@@ -149,3 +168,13 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # User specific global install path for npm
 # To set prefix: npm config set prefix '~/.npm-global'
 export PATH=~/.npm-global/bin:$PATH
+
+# If using pyenv, add to path and set up so can use it
+if [[ -d ~/.pyenv ]]; then
+    export PYENV_ROOT=~/.pyenv
+    export PATH=$PYENV_ROOT/bin:$PATH
+
+    # Load pyenv automatically by appending
+    # the following to ~/.zshrc:
+    eval "$(pyenv init -)"
+fi
