@@ -160,6 +160,9 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Any local-specific settings should go in ~/.local_profile
+[ -f ~/.local_profile ] && source ~/.local_profile
+
 
 #####################################################################
 ### ADDITIONL PATHS
