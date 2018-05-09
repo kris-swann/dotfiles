@@ -62,8 +62,11 @@ zstyle ':vcs_info:*:prompt:*' nvcsformats   ""
 
 
 function steeef_preexec {
-    case "$(history $HISTCMD)" in
+    case "$2" in
         *git*)
+            PR_GIT_UPDATE=1
+            ;;
+        *hub*)
             PR_GIT_UPDATE=1
             ;;
         *svn*)
@@ -90,7 +93,7 @@ function steeef_precmd {
         zstyle ':vcs_info:*:prompt:*' formats "${FMT_BRANCH} "
 
         vcs_info 'prompt'
-        PR_GIT_UPDATE=1
+        PR_GIT_UPDATE=
     fi
 }
 add-zsh-hook precmd steeef_precmd
