@@ -49,6 +49,8 @@ vnoremap <leader>P "+P
 map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Easy exit out of terminal
 tnoremap <esc> <C-\><C-n>
+" Recalculate syntax highlighting
+noremap <leader>s <Esc>:syntax sync fromstart<CR>
 
 
 " BASIC COMMANDS:
