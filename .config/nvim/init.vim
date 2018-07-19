@@ -139,3 +139,7 @@ let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+
+" Vue options
+let g:vue_disable_pre_processors=1  " Speed up vim-vue syntax highlighting
+" github.com/posva/vim-vue#vim-slows-down-when-using-this-plugin-how-can-i-fix-that
