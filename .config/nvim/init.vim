@@ -140,6 +140,3 @@ let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-
-" Don't use jedi-vim's completions, only using it for the static analysis
-let g:jedi#completions_enabled = 0
