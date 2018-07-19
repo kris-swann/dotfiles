@@ -108,8 +108,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
     Plug 'python-mode/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    Plug 'iamcco/markdown-preview.vim'
-    Plug 'iamcco/mathjax-support-for-mkdp'
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'vim-pandoc/vim-pandoc'
     "Plug 'Valloric/MatchTagAlways'
