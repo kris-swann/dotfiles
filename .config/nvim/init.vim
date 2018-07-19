@@ -125,7 +125,8 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
-map <leader>f :Files<CR>
+map <leader>af :Files<CR>
+map <leader>f :GitFiles<CR>
 let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 let g:airline_powerline_fonts = 1
