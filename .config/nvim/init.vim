@@ -98,7 +98,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/fzf', { 'build': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'Shougo/deoplete.nvim'
-    Plug 'zchee/deoplete-jedi'
     Plug 'w0rp/ale'
     Plug 'airblade/vim-gitgutter'
     Plug 'vim-airline/vim-airline'
