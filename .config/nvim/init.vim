@@ -106,8 +106,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/goyo.vim'
     Plug 'rbgrouleff/bclose.vim'
     Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
-    Plug 'python-mode/python-mode', { 'for': 'python' }
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     "Plug 'Valloric/MatchTagAlways'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
@@ -150,19 +148,3 @@ map g/ <Plug>(incsearch-stay)
 
 " Don't use jedi-vim's completions, only using it for the static analysis
 let g:jedi#completions_enabled = 0
-" Only using pymode for folding and motions (Have to disable everything
-" manually since pymode assumes it's oh-so-fantastic)
-let g:pymode = 1
-let g:pymode_options_max_line_length = 0
-let g:pymode_options_colorcolumn = 0
-let g:pymode_python='python3'
-let g:pymode_indent = 0
-let g:pymode_folding = 1
-let g:pymode_motion = 0
-let g:pymode_doc = 0
-let g:pymode_virtualenv = 0
-let g:pymode_run = 0
-let g:pymode_breakpoint = 0
-let g:pymode_lint = 0
-let g:pymode_rope = 0
-let g:pymode_syntax = 0
