@@ -102,8 +102,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'w0rp/ale'
     Plug 'airblade/vim-gitgutter'
     Plug 'vim-airline/vim-airline'
-    Plug 'majutsushi/tagbar'
-    Plug 'junegunn/goyo.vim'
     Plug 'rbgrouleff/bclose.vim'
     Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
     "Plug 'Valloric/MatchTagAlways'
