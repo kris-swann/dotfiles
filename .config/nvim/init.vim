@@ -95,7 +95,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'myusuf3/numbers.vim'
     Plug 'godlygeek/tabular'
     Plug 'easymotion/vim-easymotion'
-    Plug 'junegunn/fzf', { 'build': './install --all' }
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'Shougo/deoplete.nvim'
     Plug 'w0rp/ale'
@@ -104,7 +104,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rbgrouleff/bclose.vim'
     Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
     "Plug 'Valloric/MatchTagAlways'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
 
 
