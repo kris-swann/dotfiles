@@ -95,3 +95,5 @@ alias mauto="sudo apt-mark auto"
 
 
 alias nmrestart="sudo service network-manager restart"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
