@@ -83,27 +83,27 @@ set wildignore+=*__pycache__*,*.pyc,*env/*,*.egg-info*
 
 " PLUGIN DECLARATIONS:
 call plug#begin('~/.local/share/nvim/plugged')
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-unimpaired'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-dispatch'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-fugitive'
-    Plug 'michaeljsmith/vim-indent-object'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'haya14busa/incsearch.vim'
-    Plug 'myusuf3/numbers.vim'
-    Plug 'godlygeek/tabular'
-    Plug 'easymotion/vim-easymotion'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'w0rp/ale'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'vim-airline/vim-airline'
-    Plug 'rbgrouleff/bclose.vim'
-    Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
-    "Plug 'Valloric/MatchTagAlways'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-fugitive'
+  Plug 'michaeljsmith/vim-indent-object'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'haya14busa/incsearch.vim'
+  Plug 'myusuf3/numbers.vim'
+  Plug 'godlygeek/tabular'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'w0rp/ale'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'vim-airline/vim-airline'
+  Plug 'rbgrouleff/bclose.vim'
+  Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
+  "Plug 'Valloric/MatchTagAlways'
 call plug#end()
 
 
