@@ -27,9 +27,6 @@ set shiftwidth=4                    " Set the shift width to reflect tabspace
 
 " BASIC MAPPINGS:
 let mapleader=","
-" Use tabs to go through tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
 " Same movement in wrappend lines
 noremap j gj
 noremap k gk
