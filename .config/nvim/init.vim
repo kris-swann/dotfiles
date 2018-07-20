@@ -25,6 +25,21 @@ set tabstop=4                       " Have vim display tabs as 4 spaces
 set shiftwidth=4                    " Set the shift width to reflect tabspace
 
 
+" BASIC HELPER FUNCTIONS:
+function! Preserve(command)
+  " Execute a command without altering any state
+  " Preparation save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+
 " BASIC MAPPINGS:
 let mapleader=","
 " Same movement in wrappend lines
@@ -58,7 +73,7 @@ command! Notes :e ~/Documents/notes
 " Command for gathering tags
 command! MakeTags :Dispatch! ctags -R .
 " Easily remove trailing whitespace with regex
-command! StripTrailingWhitespace :%s/\s\+$//e
+command! StripTrailingWhitespace :call Preserve("%s/\\s\\+$//e")
 
 
 " FOLDS:
