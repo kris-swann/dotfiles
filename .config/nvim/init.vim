@@ -100,12 +100,12 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'rbgrouleff/bclose.vim'
   Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
+  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
   "Plug 'Valloric/MatchTagAlways'
 call plug#end()
 
 
 " BASIC PLUGIN CUSTOMIZATION:
-let g:mkdp_path_to_chrome = "firefox"
 cabbrev Gpush Git push
 let g:deoplete#enable_at_startup=1
 let g:fzf_action = {
