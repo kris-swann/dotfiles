@@ -20,9 +20,9 @@ set completeopt-=preview            " No preview windows!
 filetype plugin indent on           " Turn on detection, plugin and indent
 set expandtab                       " Use softtabs
 " Default indentation preferences
-set softtabstop=4                   " Use 4 wide softtabs
-set tabstop=4                       " Have vim display tabs as 4 spaces
-set shiftwidth=4                    " Set the shift width to reflect tabspace
+set softtabstop=2
+set tabstop=2
+set shiftwidth=2
 
 
 " BASIC HELPER FUNCTIONS:
