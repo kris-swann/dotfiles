@@ -10,3 +10,5 @@
     st = status
     b = branch
     hist = log --oneline --graph
+[pager]
+	stash = false
