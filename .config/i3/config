@@ -37,8 +37,6 @@ bindsym $mod+Return exec terminal
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -g 100x40 -e 'bmenu'
-#bindsym $mod+F3 exec pcmanfm
-#bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
