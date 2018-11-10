@@ -32,3 +32,4 @@ XTerm*VT100*translations: #override \n\
 ! For all options run "uxrvt --help"
 URxvt.font:             xft:Hack:style=Regular:size=11
 URxvt.letterSpace:      -2
+URxvt.perl-ext-common: tabbed
