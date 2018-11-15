@@ -10,5 +10,6 @@
     st = status
     b = !git --no-pager branch
     hist = log --oneline --graph
+    bclean = "!f() { git branch | grep -v master | xargs git branch -d; }; f"
 [pager]
 	stash = false
