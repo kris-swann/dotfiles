@@ -117,6 +117,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'rbgrouleff/bclose.vim'
   Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  Plug 'ambv/black'
   "Plug 'Valloric/MatchTagAlways'
 call plug#end()
 
