@@ -131,6 +131,7 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 map <leader>af :Files<CR>
 map <leader>f :GitFiles<CR>
+map <leader>g :Rg<CR>
 let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 let g:airline_powerline_fonts = 1
