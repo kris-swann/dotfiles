@@ -48,6 +48,7 @@ bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 #bindsym $mod+Ctrl+m exec terminal -g 100x40 -e 'alsamixer'
 bindsym $mod+Ctrl+m exec terminal -g 100x40 -e 'pulsemixer'
+bindsym $mod+c exec --no-startup-id python ~/scripts/autoclicker.py
 
 ##############################################################################
 ### SYSTEM KEYBINDINGS
