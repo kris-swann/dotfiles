@@ -16,4 +16,4 @@ def on_press(key):
 with keyboard.Listener(on_press=on_press):
     while not quit:
         mouse.click(Button.left)
-        time.sleep(0.001)  # in seconds
+        time.sleep(0.02)  # in seconds
