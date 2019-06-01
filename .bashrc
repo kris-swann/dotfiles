@@ -1,11 +1,5 @@
-#
-# ~/.bashrc
-#
-
-
-
+# Early exit if not interactive shell
 [[ $- != *i* ]] && return
-
 
 
 colors() {
@@ -36,17 +30,7 @@ colors() {
 }
 
 
-
 export TERM=xterm-256color      # Ensure 256 color support.
-
-
-
-[[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
-
-
-
-#[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
-
 
 
 # enable bash completion in interactive shells
@@ -59,41 +43,13 @@ if ! shopt -oq posix; then
 fi
 
 
-
-# Add MKL to LD_LIBRARY_PATH.
-# source /opt/intel/parallel_studio_xe_2017.0.035/bin/psxevars.sh intel64
-# source /home/kris/intel/mkl/bin/mklvars.sh intel64
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64/
-
-
-
-# Add MARS OpenCV3 to LD_LIBRARY_PATH.
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/kris/MARS/MarsFramework/MARSFramework/3rd-party/opencv-cv/linux/lib/
-
-
-
-# Easy backups of home folder (make sure Drive is mounted first).
-export BACKUP_LOC="/media/kris/TOSHIBA EXT"
-alias backup_home='rsync -aP --delete /home/kris "$BACKUP_LOC"'
-# For syncing flask drive.
-export BACKUP_FLASH_DRVE="/media/kris/USB DISK"
-alias syncflashdrive='rsync -aP --delete /home/kris/Documents/UMN/Year2/Sem2 "$BACKUP_FLASH_DRVE"'
-
-
-
 # Make python and pip refer to version3.
 alias python=python3
 alias pip=pip3
 
 
-sitePath='/home/kris/Documents/Code/Django/personalSite'
-alias runwebsite='source $sitePath/virtualenv/bin/activate && python $sitePath/manage.py runserver && deactivate'
-
-
-alias rdeps="apt rdepends --installed"
-alias mauto="sudo apt-mark auto"
-
-
 alias nmrestart="sudo service network-manager restart"
 
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc

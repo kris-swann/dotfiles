@@ -117,6 +117,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'rbgrouleff/bclose.vim'
   Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  Plug 'ambv/black'
   "Plug 'Valloric/MatchTagAlways'
 call plug#end()
 
@@ -130,6 +131,7 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 map <leader>af :Files<CR>
 map <leader>f :GitFiles<CR>
+map <leader>g :Rg<CR>
 let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 let g:airline_powerline_fonts = 1
