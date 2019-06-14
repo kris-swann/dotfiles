@@ -151,6 +151,9 @@ let g:ale_python_flake8_options = '--config=toolchain/.flake8'
 " Cpp linting options
 let g:ale_cpp_clangtidy_options = '-Wall -std=c++11 -x c++'
 let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
+let g:ale_linters = {
+    \ 'python': ['pyflakes', 'pylint', 'pylama'],
+    \ }
 
 " Improved incsearch
 map /  <Plug>(incsearch-forward)
