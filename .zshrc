@@ -173,6 +173,9 @@ fi
 # To set prefix: npm config set prefix '~/.npm-global'
 export PATH=~/.npm-global/bin:$PATH
 
+# Add user pip installed packages (insalled via `pip install <package> --user`)
+export PATH=~/.local/bin:$PATH
+
 # If using pyenv, add to path and set up so can use it
 if [[ -d ~/.pyenv ]]; then
     export PYENV_ROOT=~/.pyenv
