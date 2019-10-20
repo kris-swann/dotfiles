@@ -100,7 +100,7 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec --no-startup-id udiskie --tray
-exec --no-startup-id blueman-manager
+exec --no-startup-id blueman-applet
 exec --no-startup-id conky -c ~/.config/conky/conky_shortcuts.conf
 exec --no-startup-id conky -c ~/.config/conky/conky_status.conf
 exec --no-startup-id xautolock -time 10 -locker ~/Scripts/customlock.sh
