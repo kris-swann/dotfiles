@@ -267,7 +267,7 @@ for_window [urgent=latest] focus
 # assign [class="Skype"] $ws5
 
 # Open specific applications in floating mode
-for_window [title="Spotify"] floating enable, resize set 1100 px 800 px
+# for_window [title="Spotify"] floating enable, resize set 1100 px 800 px
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [title="pulsemixer"] floating enable border pixel 1
 for_window [title="bmenu"] floating enable border pixel 1
