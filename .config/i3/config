@@ -79,7 +79,6 @@ bindsym $mod+Shift+x exec --no-startup-id blurlock
 
 # Screen layout
 bindsym $mod+Ctrl+l exec ~/Scripts/layout_dmenu.sh
-bindsym $mod+Ctrl+l+a exec arandr
 
 # Screen brightness controls
 #bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
