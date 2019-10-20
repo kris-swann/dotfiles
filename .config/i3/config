@@ -3,7 +3,6 @@
 ##############################################################################
 
 # For window information, use xwininfo
-
 # For keyboard bindings, use 'xmodmap -pke' or 'xev'
 
 ##############################################################################
@@ -13,26 +12,26 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
-# kill focused window
+# Kill focused window
 bindsym $mod+Shift+q kill
 
-# reload the configuration file
+# Reload the configuration file
 bindsym $mod+Shift+c reload
 
-# restart i3 inplace
+# Restart i3 inplace
 bindsym $mod+Shift+r restart
 
 ##############################################################################
 ### PROGRAM KEYBINDINGS
 ##############################################################################
 
-# start program launcher
+# Start dmenu program launcher
 bindsym $mod+d exec --no-startup-id dmenu_recency
 
-# launch categorized menu
+# Launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
 
-# start a terminal
+# Start a terminal
 bindsym $mod+Return exec terminal
 
 # Start Applications
@@ -44,9 +43,7 @@ bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart du
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-#bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
-#bindsym $mod+Ctrl+m exec terminal -g 100x40 -e 'alsamixer'
 bindsym $mod+Ctrl+m exec terminal -g 100x40 -e 'pulsemixer'
 bindsym $mod+c exec --no-startup-id python ~/Scripts/autoclicker.py
 
@@ -54,7 +51,7 @@ bindsym $mod+c exec --no-startup-id python ~/Scripts/autoclicker.py
 ### SYSTEM KEYBINDINGS
 ##############################################################################
 
-# exit i3 (logs you out of your X session)
+# Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
@@ -103,18 +100,14 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec --no-startup-id udiskie --tray
-# exec --no-startup-id blueman
-# exec_always --no-startup-id sbxkb
-# exec --no-startup-id start_conky_maia
-# exec --no-startup-id start_conky_green
+exec --no-startup-id blueman-manager
 exec --no-startup-id conky -c ~/.config/conky/conky_shortcuts.conf
 exec --no-startup-id conky -c ~/.config/conky/conky_status.conf
 exec --no-startup-id xautolock -time 10 -locker ~/.config/i3/customlock.sh
 exec_always --no-startup-id fix_xcursor
-#exec --no-startup-id volumeicon
+exec --no-startup-id volumeicon
 exec --no-startup-id pulseaudio --kill && pulseaudio -D
 exec --no-startup-id pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
 exec --no-startup-id xset b off
 
 ##############################################################################
@@ -123,8 +116,13 @@ exec --no-startup-id xset b off
 
 # focus_follows_mouse no
 
-# set default desktop layout (default is tiling)
-# workspace_layout tabbed <stacking|tabbed>
+# set default desktop layout (options: tiling, stacking, tabbed)
+workspace_layout tiling
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 popup_during_fullscreen leave_fullscreen
 
@@ -169,14 +167,6 @@ bindsym $mod+q split toggle
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-# Use Mouse+$mod to drag and resize floating windows
-floating_modifier $mod
-
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
@@ -189,9 +179,10 @@ bindsym $mod+Shift+s sticky toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+# Use Mouse+$mod to drag and resize floating windows
+floating_modifier $mod
+
 # Resize selected window (you can also use the mouse)
-# Note: i3 can't tell the difference between plus and equal
-# so we have to use the shift key to simulate this.
 bindsym $mod+Shift+minus resize shrink height 5 px or 5 ppt
 bindsym $mod+Shift+equal resize grow   height 5 px or 5 ppt
 bindsym $mod+minus       resize shrink width  5 px or 5 ppt
@@ -266,7 +257,6 @@ for_window [urgent=latest] focus
 # assign [class="Skype"] $ws5
 
 # Open specific applications in floating mode
-# for_window [title="Spotify"] floating enable, resize set 1100 px 800 px
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [title="pulsemixer"] floating enable border pixel 1
 for_window [title="bmenu"] floating enable border pixel 1
@@ -308,8 +298,7 @@ gaps outer 5
 # Only use gaps if multiple containers
 smart_gaps on
 
-# In gaps mode, by default actions only effect the current workspace,
-# by pressing Shift, actions will take place on all workspaces.
+# Gaps mode
 set $mode_gaps Gaps: +|-|0    Shift (global), Ctrl (outer)
 bindsym $mod+g mode "$mode_gaps"
 mode "$mode_gaps" {
@@ -350,11 +339,6 @@ smart_borders on
 # Hide borders
 hide_edge_borders none
 
-# change borders
-# bindsym $mod+u border none
-# bindsym $mod+y border pixel 1
-# bindsym $mod+n border normal
-
 ##############################################################################
 ### THEME
 ##############################################################################
@@ -377,17 +361,14 @@ client.background       #2B2C2B
 ### BAR
 ##############################################################################
 
-# hide/unhide i3status bar
-# bindsym $mod+m bar mode toggle
-
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
     status_command i3status
     position bottom
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
+# tray_output primary
+# tray_output eDP1
 
     bindsym button4 nop
     bindsym button5 nop
