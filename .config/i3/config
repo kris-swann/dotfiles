@@ -116,8 +116,8 @@ exec --no-startup-id xset b off
 
 # focus_follows_mouse no
 
-# set default desktop layout (options: tiling, stacking, tabbed)
-workspace_layout tiling
+# set default desktop layout
+workspace_layout default
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
