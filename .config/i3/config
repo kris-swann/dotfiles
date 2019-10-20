@@ -342,7 +342,7 @@ mode "$mode_gaps" {
 ##############################################################################
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-new_window pixel 2
+new_window pixel 1
 new_float normal
 
 # Only draw borders if mutiple containers (on|no_gaps)
@@ -352,9 +352,9 @@ smart_borders on
 hide_edge_borders none
 
 # change borders
-bindsym $mod+u border none
-bindsym $mod+y border pixel 1
-bindsym $mod+n border normal
+# bindsym $mod+u border none
+# bindsym $mod+y border pixel 1
+# bindsym $mod+n border normal
 
 ##############################################################################
 ### THEME
@@ -379,7 +379,7 @@ client.background       #2B2C2B
 ##############################################################################
 
 # hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+# bindsym $mod+m bar mode toggle
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
