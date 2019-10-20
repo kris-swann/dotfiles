@@ -103,7 +103,7 @@ exec --no-startup-id udiskie --tray
 exec --no-startup-id blueman-manager
 exec --no-startup-id conky -c ~/.config/conky/conky_shortcuts.conf
 exec --no-startup-id conky -c ~/.config/conky/conky_status.conf
-exec --no-startup-id xautolock -time 10 -locker ~/.config/i3/customlock.sh
+exec --no-startup-id xautolock -time 10 -locker ~/Scripts/customlock.sh
 exec_always --no-startup-id fix_xcursor
 exec --no-startup-id volumeicon
 exec --no-startup-id pulseaudio --kill && pulseaudio -D
