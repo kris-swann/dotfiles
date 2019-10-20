@@ -8,7 +8,6 @@ set updatetime=100                  " Make update faster
 set listchars=tab:▸\ ,eol:¬,trail:⋅ " Set the whitespace characters
 set list                            " Show the whitespace characters
 set undofile                        " Save undo history between sessions
-set mouse=a                         " Enable the use of the mouse
 set ignorecase smartcase            " Search case insensitive unless capital used
 colorscheme onedark                 " Set the default colorscheme
 " Customize what is saved with :mksession
