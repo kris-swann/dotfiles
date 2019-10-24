@@ -1,8 +1,8 @@
-super + return
-  $TERMINAL
+super + t
+  $TERMINAL -e htop
 
 super + d
   dmenu_recency
 
-super + z
-  morc_menu
+super + m
+  echo "morc_menu" | dmenu
