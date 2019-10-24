@@ -1,2 +1,3 @@
-[[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile
+# Runs on graphical login
 sxhkd &
+[[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile
