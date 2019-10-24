@@ -73,6 +73,8 @@ command! Notes :e ~/Documents/notes
 command! MakeTags :Dispatch! ctags -R .
 " Easily remove trailing whitespace with regex
 command! StripTrailingWhitespace :call Preserve("%s/\\s\\+$//e")
+" Easily beautify js files
+command! JSBeautify :!js-beautify % -r
 
 
 " FOLDS:
