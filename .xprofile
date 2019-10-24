@@ -1,0 +1,2 @@
+[[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile
+sxhkd &
