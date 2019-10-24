@@ -1,2 +1,8 @@
+super + return
+  $TERMINAL
+
 super + d
-  dmenu_run
+  dmenu_recency
+
+super + z
+  morc_menu
