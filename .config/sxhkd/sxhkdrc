@@ -1,5 +1,5 @@
-super + t
-  $TERMINAL -e htop
+super + Return
+  $TERMINAL
 
 super + d
   dmenu_recency
