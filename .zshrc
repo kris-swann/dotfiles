@@ -170,6 +170,9 @@ fi
 ### ADDITIONL PATHS
 #####################################################################
 
+# Add scripts to path
+export PATH=~/Scripts:$PATH
+
 # User specific global install path for npm
 # To set prefix: npm config set prefix '~/.npm-global'
 export PATH=~/.npm-global/bin:$PATH
