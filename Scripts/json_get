@@ -87,14 +87,15 @@ def traverse_json(json_dict: Dict, json_path: List[str]):
     return cur_obj
 
 args = sys.argv[1:]
-stdin_string = ""
-for line in sys.stdin:
-    stdin_string += line
 
 help_menu_requested = len(args) == 0 or "-h" in args or "--help" in args
 if help_menu_requested:
     print(help_menu)
     sys.exit(0)
+
+stdin_string = ""
+for line in sys.stdin:
+    stdin_string += line
 
 
 try:
