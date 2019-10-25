@@ -7,7 +7,7 @@ from typing import List, Dict
 
 help_menu = inspect.cleandoc(
     """
-    extract_json.py <json> <path> [--require-simple] [-v|--verbose]
+    extract_json <json> <path> [--require-simple] [-v|--verbose]
 
     Inspired by lodash.get
 
