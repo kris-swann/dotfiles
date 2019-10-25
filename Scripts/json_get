@@ -3,15 +3,14 @@ import inspect
 import json
 import re
 import sys
-from typing import List, Dict
+from typing import Dict, List
 
 help_menu = inspect.cleandoc(
     """
-    json_get <json> <path> [--require-simple] [-v|--verbose]
+    json_get <path> [--require-simple] [-v|--verbose]
 
-    Inspired by lodash.get
-
-    <json> is a json object (as a string)
+    Reads <json> (a json object as a string) from stdin.  (Reminder Ctrl+D to
+    send EOF signal to most terminals).
 
     <path> is a deep-path string ('a.1.b.2'). For each '.' delimted
     value, if the current nested element is an object, will get the value
@@ -26,26 +25,47 @@ help_menu = inspect.cleandoc(
     points to a complex object, will exit with code 2.
 
     [-v|--verbose] Print error messages.
+
+    Examples:
+    $ echo '{"foo": [{"bar": 11}, {"bar": 22}], "bin": 33}' | json_get 'foo.0.bar'
+    >> 11
+    $ echo '{"foo": [{"bar": 11}, {"bar": 22}], "bin": 33}' | json_get 'foo.1.bar'
+    >> 22
+    $ echo '{"foo": [{"bar": 11}, {"bar": 22}], "bin": 33}' | json_get 'bin'
+    >> 33
+    $ echo '{"foo": [{"bar": 11}, {"bar": 22}], "bin": 33}' | json_get 'foo'
+    >> [{'bar': 11}, {'bar': 22}]
+    $ echo '{"foo": [{"bar": 11}, {"bar": 22}], "bin": 33}' | json_get 'foo' --require-simple
+    ERR>>
+    $ echo $? # Exit code of previously run comand
+    >> 2
+    $ echo '{"foo": [{"bar": 11}, {"bar": 22}], "bin": 33}' | json_get 'foo.dne'
+    ERR>>
+    $ echo $?
+    >> 1
+
+    Inspired by lodash.get
     """
 )
-
 
 def parse_path(path_str: str) -> List[str]:
     """Use negative look behind assertion regex for magix spliting while respecing escaped '.'s"""
     return re.split(r"(?<!\\)\.", path_str)
 
-
-def parse_args(args: List[str]) -> (Dict, List[str], bool, bool):
-    if len(args) < 2:
-        raise ValueError("Bad number of arguments")
-    require_simple = "--require-simple" in args[2:]
-    verbose = "-v" in args[2:] or "--verbose" in args[2:]
+def parse_json(json_str: str):
     try:
-        json_dict = json.loads(args[0])
+        json_dict = json.loads(json_str)
     except:
         raise ValueError("Invalid json for first object")
-    json_path = parse_path(args[1])
-    return json_dict, json_path, require_simple, verbose
+    return json_dict
+
+def parse_args(args: List[str]) -> (List[str], bool, bool):
+    if len(args) < 1:
+        raise ValueError("Bad number of arguments")
+    require_simple = "--require-simple" in args[1:]
+    verbose = "-v" in args[1:] or "--verbose" in args[1:]
+    json_path = parse_path(args[0])
+    return json_path, require_simple, verbose
 
 def traverse_json(json_dict: Dict, json_path: List[str]):
     cur_obj = json_dict
@@ -66,16 +86,20 @@ def traverse_json(json_dict: Dict, json_path: List[str]):
                 raise ValueError("List too small to look up given index")
     return cur_obj
 
-
 args = sys.argv[1:]
+stdin_string = ""
+for line in sys.stdin:
+    stdin_string += line
 
-help_menu_requested = len(args) == 1 and ("-h" in args or "--help" in args)
-if help_menu_requested or len(args) == 0:
+help_menu_requested = len(args) == 0 or "-h" in args or "--help" in args
+if help_menu_requested:
     print(help_menu)
     sys.exit(0)
 
+
 try:
-    json_dict, json_path, require_simple, verbose = parse_args(args)
+    json_dict = parse_json(stdin_string)
+    json_path, require_simple, verbose = parse_args(args)
 except ValueError as err:
     print(err)
     sys.exit(-1)
