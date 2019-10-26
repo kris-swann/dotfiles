@@ -5,10 +5,10 @@ super + d
   dmenu_recency
 
 super + a
-  $TERMINAL -e 'pulsemixer'
+  $TERMINAL -g 100x40 -e 'pulsemixer'
 
 super + c
   ~/Scripts/autoclicker
 
-super + m
+super + u
   ~/Scripts/dmenu_utils_selector

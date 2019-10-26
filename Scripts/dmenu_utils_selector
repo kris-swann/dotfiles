@@ -1,12 +1,22 @@
 #!/bin/sh
 keys=(
 "bmenu
-morc_menu"
+morc_menu
+pulsemixer
+alsamixer
+screenshot full screen
+screenshot active window
+screenshot selection"
 )
 
 values=(
 "$TERMINAL -e bmenu
-morc_menu"
+morc_menu
+$TERMINAL -g 100x40 -e pulsemixer
+$TERMINAL -g 100x40 -e alsamixer
+i3-scrot -d
+i3-scrot -w
+i3-scrot -s"
 )
 
 result=$(echo "$keys" | dmenu -l 5 -i -p "Layout Profile")
