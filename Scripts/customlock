@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 IMAGE=/tmp/i3lock.png
 
