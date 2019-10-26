@@ -1,0 +1,19 @@
+#!/bin/sh
+keys=(
+"bmenu
+morc_menu"
+)
+
+values=(
+"$TERMINAL -e bmenu
+morc_menu"
+)
+
+result=$(echo "$keys" | dmenu -l 5 -i -p "Layout Profile")
+if [[ "$result" ]]; then
+  matching_line_number=$(echo "$keys" | sed -n "/$result/ =")
+  exec $(echo "$values" | sed -n "$matching_line_number p")
+fi
+if [[ "$result" ]]; then
+  (exec "$result")
+fi
