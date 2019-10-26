@@ -7,7 +7,7 @@ super + d
 super + a
   $TERMINAL -g 100x40 -e 'pulsemixer'
 
-super + control + u
+super + u
   ~/Scripts/dmenu_utils_selector
 
 super + control + x
