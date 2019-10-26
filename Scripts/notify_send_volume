@@ -1,0 +1,2 @@
+#!/bin/sh
+if [[ $(pamixer --get-mute) == "true" ]]; then notify-send "Volume: muted ($(pamixer --get-volume)%)"; else notify-send "Volume: $(pamixer --get-volume)%"; fi
