@@ -1,3 +1,4 @@
+#!/bin/sh
 keys=$(ls -1 ~/.screenlayout | sed -e 's/.sh//g' -e 's/_/ /g' -e '$ a Manual (arandr)')
 values=$(ls -1 ~/.screenlayout | sed -e 's/^/~\/\.screenlayout\//' -e '$ a arandr')
 
