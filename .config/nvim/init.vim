@@ -165,3 +165,9 @@ map g/ <Plug>(incsearch-stay)
 " Vue options
 let g:vue_disable_pre_processors=1  " Speed up vim-vue syntax highlighting
 " github.com/posva/vim-vue#vim-slows-down-when-using-this-plugin-how-can-i-fix-that
+
+
+
+" FILE SPECIFIC OPERATIONS
+" Update binds when sxhkdrc is updated.
+autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
