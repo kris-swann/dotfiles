@@ -6,7 +6,12 @@ pulsemixer
 alsamixer
 screenshot full screen
 screenshot active window
-screenshot selection"
+screenshot selection
+start compton
+kill compton
+kill unresponsive window (xkill)
+autocliker
+select layout"
 )
 
 values=(
@@ -16,7 +21,12 @@ $TERMINAL -g 100x40 -e pulsemixer
 $TERMINAL -g 100x40 -e alsamixer
 i3-scrot -d
 i3-scrot -w
-i3-scrot -s"
+i3-scrot -s
+compton -b
+pkill compton
+xkill
+~/Scripts/autoclicker
+~/Scripts/dmenu_layout"
 )
 
 result=$(echo "$keys" | dmenu -l 5 -i -p "Layout Profile")
