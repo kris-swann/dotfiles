@@ -1,3 +1,3 @@
 # Runs on graphical login
-sxhkd &
+sxhkd -r /home/kris/.local/sxhkd_log &
 [[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile
