@@ -4,5 +4,11 @@ super + Return
 super + d
   dmenu_recency
 
+super + a
+  $TERMINAL -e 'pulsemixer'
+
+super + c
+  ~/Scripts/autoclicker
+
 super + m
-  echo "morc_menu" | dmenu
+  ~/Scripts/dmenu_utils_selector
