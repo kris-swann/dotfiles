@@ -13,3 +13,11 @@ super + u
 super + control + x
   ~/Scripts/customlock
 
+XF86AudioRaiseVolume
+  pamixer --allow-boost -i 5 && ~/Scripts/notify_send_volume
+
+XF86AudioLowerVolume
+  pamixer --allow-boost -d 5 && ~/Scripts/notify_send_volume
+
+XF86AudioMute
+  pamixer -t && ~/Scripts/notify_send_volume
