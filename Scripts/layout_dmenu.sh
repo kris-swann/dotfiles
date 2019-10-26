@@ -1,9 +1,8 @@
-options=$(ls -1 ~/.screenlayout | sed -e 's/.sh//g' -e 's/_/ /g' -e '$ a Manual (arandr)')
-result=$(echo "$options" | dmenu -i -p "Layout Profile")
+keys=$(ls -1 ~/.screenlayout | sed -e 's/.sh//g' -e 's/_/ /g' -e '$ a Manual (arandr)')
+values=$(ls -1 ~/.screenlayout | sed -e 's/^/~\/\.screenlayout\//' -e '$ a arandr')
 
-if [ "$result" == 'Manual (arandr)' ]; then
-  arandr
-elif [[ "$result" ]]; then
-  layout_file_path=$(echo "$result" | sed -e 's/ /_/g' -e 's/$/.sh/' -e 's/^/~\/.screenlayout\//')
-  (exec "$layout_file_path")
+result=$(echo "$keys" | dmenu -i -p "Layout Profile")
+if [[ "$result" ]]; then
+  matching_line_number=$(echo "$keys" | sed -n "/$result/ =")
+  exec $(echo "$values" | sed -n "$matching_line_number p")
 fi
