@@ -52,10 +52,9 @@ for group in groups:
     )
 
 layouts = [
-    layout.Max(),
     layout.MonadTall(),
+    layout.Max(),
     layout.Floating(),
-    layout.Bsp()
 ]
 
 widget_defaults = dict(font="sans", fontsize=12, padding=3)
@@ -71,6 +70,7 @@ screens = [
                 widget.TextBox("default config", name="default"),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                widget.Battery(charge_char="↑", discharge_char="↓"),
             ],
             24,
         )
