@@ -7,6 +7,7 @@ from libqtile.config import Click, Drag, Group, Key, Screen
 mod = "mod4"
 
 keys = [
+    # MonadTall key bindings
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
     Key([mod], "j", lazy.layout.down()),
@@ -17,9 +18,8 @@ keys = [
     Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
     Key([mod], "i", lazy.layout.grow()),
     Key([mod], "m", lazy.layout.shrink()),
-    Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "o", lazy.layout.maximize()),
-    Key([mod, "shift"], "space", lazy.layout.flip()),
+    Key([mod], "n", lazy.layout.normalize()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
@@ -52,7 +52,7 @@ for group in groups:
     )
 
 layouts = [
-    layout.MonadTall(),
+    layout.MonadTall(ratio=0.6),
     layout.Max(),
     layout.Floating(),
 ]
