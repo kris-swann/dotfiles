@@ -20,6 +20,7 @@ keys = [
     Key([mod], "m", lazy.layout.shrink()),
     Key([mod], "o", lazy.layout.maximize()),
     Key([mod], "n", lazy.layout.normalize()),
+    Key([mod], "equal", lazy.layout.normalize()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
@@ -65,12 +66,18 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.GroupBox(),
-                widget.Prompt(),
                 widget.WindowName(),
-                widget.TextBox("default config", name="default"),
+                widget.CurrentLayout(),
+                widget.CurrentLayoutIcon(),
+                widget.Backlight(),
+                widget.BatteryIcon(),
+                widget.Battery(charge_char="↑", discharge_char="↓"),
+                widget.Pacman(),
+                widget.Volume(),
+                widget.Wlan(),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.Battery(charge_char="↑", discharge_char="↓"),
+                widget.YahooWeather(),
             ],
             24,
         )
@@ -118,12 +125,4 @@ floating_layout = layout.Floating(
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "LG3D"  # Setting this makes java apps happier (see docs)
