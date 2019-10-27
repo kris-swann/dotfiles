@@ -1,6 +1,8 @@
 #!/bin/sh
 if [ "$(pamixer --get-mute)" == "true" ]; then
   msg="🔇 ($(pamixer --get-volume)%)"
+elif [ "$(pamixer --get-volume)" -eq 0 ]; then
+  msg="🔇 $(pamixer --get-volume)%"
 elif [ "$(pamixer --get-volume)" -lt 20 ]; then
   msg="🔈 $(pamixer --get-volume)%"
 elif [ "$(pamixer --get-volume)" -lt 70 ]; then
