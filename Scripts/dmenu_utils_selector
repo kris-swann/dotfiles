@@ -1,33 +1,20 @@
 #!/bin/sh
-keys=(
-"bmenu
-morc_menu
-pulsemixer
-alsamixer
-screenshot full screen
-screenshot active window
-screenshot selection
-start compton
-kill compton
-kill unresponsive window (xkill)
-autocliker
-select layout"
+mapping=(
+"bmenu                           ===> $TERMINAL -e bmenu
+morc_menu                        ===> morc_menu
+pulsemixer                       ===> $TERMINAL -g 100x40 -e pulsemixer
+alsamixer                        ===> $TERMINAL -g 100x40 -e alsamixer
+screenshot full screen           ===> i3-scrot -d
+screenshot active window         ===> i3-scrot -w
+screenshot selection             ===> i3-scrot -s
+start compton                    ===> compton -b
+kill compton                     ===> pkill compton
+kill unresponsive window (xkill) ===> xkill
+autocliker                       ===> ~/Scripts/autoclicker
+select layout                    ===> ~/Scripts/dmenu_layout"
 )
-
-values=(
-"$TERMINAL -e bmenu
-morc_menu
-$TERMINAL -g 100x40 -e pulsemixer
-$TERMINAL -g 100x40 -e alsamixer
-i3-scrot -d
-i3-scrot -w
-i3-scrot -s
-compton -b
-pkill compton
-xkill
-~/Scripts/autoclicker
-~/Scripts/dmenu_layout"
-)
+keys="$(echo "$mapping" | sed -e 's/===>.*$//g')"
+values="$(echo "$mapping" | sed -e 's/^.*===>//g')"
 
 result=$(echo "$keys" | dmenu -l 5 -i -p "Layout Profile")
 if [[ "$result" ]]; then
