@@ -107,8 +107,12 @@ floating_layout = layout.Floating(
         {"wmclass": "notification"},
         {"wmclass": "splash"},
         {"wmclass": "toolbar"},
-        {"wname": "pinentry"},  # GPG key password entry
-        {"wmclass": "ssh-askpass"},  # ssh-askpass
+        {"wmclass": "ssh-askpass"},
+        {"wname": "pinentry"},
+        {"wname": "floatme"},
+        {"wname": "pulsemixer (floatme)"},
+        {"wname": "alsamixer (floatme)"},
+        {"wname": "bmenu (floatme)"},
     ]
 )
 auto_fullscreen = True

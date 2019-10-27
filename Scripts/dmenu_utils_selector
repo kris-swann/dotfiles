@@ -1,9 +1,9 @@
 #!/bin/sh
-mapping=(
-"bmenu                           ===> $TERMINAL -e bmenu
+mapping=$(cat <<EOF
+bmenu                            ===> $TERMINAL -g 100x40 -title "bmenu (floatme)" -e bmenu
 morc_menu                        ===> morc_menu
-pulsemixer                       ===> $TERMINAL -g 100x40 -e pulsemixer
-alsamixer                        ===> $TERMINAL -g 100x40 -e alsamixer
+pulsemixer                       ===> $TERMINAL -g 100x40 -title "pulsemixer (floatme)" -e pulsemixer
+alsamixer                        ===> $TERMINAL -g 100x40 -title "alsamixer (floatme)" -e alsamixer
 screenshot full screen           ===> i3-scrot -d
 screenshot active window         ===> i3-scrot -w
 screenshot selection             ===> i3-scrot -s
@@ -11,16 +11,14 @@ start compton                    ===> compton -b
 kill compton                     ===> pkill compton
 kill unresponsive window (xkill) ===> xkill
 autocliker                       ===> ~/Scripts/autoclicker
-select layout                    ===> ~/Scripts/dmenu_layout"
+select layout                    ===> ~/Scripts/dmenu_layout
+EOF
 )
-keys="$(echo "$mapping" | sed -e 's/===>.*$//g')"
-values="$(echo "$mapping" | sed -e 's/^.*===>//g')"
+keys="$(echo "$mapping" | sed -e 's/===>.*$//g' -e 's/[ \t]*$//g')"
+values="$(echo "$mapping" | sed -e 's/^.*===>//g' -e 's/^[ \t]*//g')"
 
 result=$(echo "$keys" | dmenu -l 5 -i -p "Layout Profile")
 if [[ "$result" ]]; then
   matching_line_number=$(echo "$keys" | sed -n "/$result/ =")
-  exec $(echo "$values" | sed -n "$matching_line_number p")
-fi
-if [[ "$result" ]]; then
-  (exec "$result")
+  eval "$(echo "$values" | sed -n "$matching_line_number p")"
 fi

@@ -5,7 +5,7 @@ super + d
   dmenu_recency
 
 super + a
-  $TERMINAL -g 100x40 -e 'pulsemixer'
+  $TERMINAL -g 100x40 -title 'pulsemixer (floatme)' -e 'pulsemixer'
 
 super + u
   ~/Scripts/dmenu_utils_selector
