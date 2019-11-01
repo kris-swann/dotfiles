@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$(xbacklight -get)" -lt 50 ]; then
+  msg="🔆 ($(xbacklight -get)%)"
+else
+  msg="🔅 ($(xbacklight -get)%)"
+fi
+DBUS_SESSION_BUSS_ADDRESS="unix:path=/run/usr/1000/bus"; notify-send "$msg" -h string:x-canonical-private-synchronous:custom_brighness_notification
