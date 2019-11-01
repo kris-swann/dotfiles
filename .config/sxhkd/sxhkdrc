@@ -19,5 +19,17 @@ XF86AudioRaiseVolume
 XF86AudioLowerVolume
   pamixer --allow-boost -d 5 && ~/Scripts/notify_send_volume
 
+XF86MonBrightnessUp
+  xbacklight -inc 10 && ~/Scripts/notify_send_brighness
+
+XF86MonBrightnessDown
+  xbacklight -dec 10 && ~/Scripts/notify_send_brighness
+
+control + XF86MonBrightnessUp
+  xbacklight -inc 1 && ~/Scripts/notify_send_brighness
+
+control + XF86MonBrightnessDown
+  xbacklight -dec 1 && ~/Scripts/notify_send_brighness
+
 XF86AudioMute
   pamixer -t && ~/Scripts/notify_send_volume
