@@ -10,6 +10,9 @@ super + a
 super + u
   ~/Scripts/dmenu_utils_selector
 
+super + control + l
+  ~/Scripts/dmenu_layout
+
 super + control + x
   ~/Scripts/customlock
 
