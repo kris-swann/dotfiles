@@ -69,7 +69,6 @@ screens = [
                 widget.WindowName(),
                 widget.CurrentLayout(),
                 widget.CurrentLayoutIcon(),
-                widget.Backlight(),
                 widget.BatteryIcon(),
                 widget.Battery(charge_char="↑", discharge_char="↓"),
                 widget.Pacman(),
