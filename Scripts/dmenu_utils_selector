@@ -12,6 +12,7 @@ kill compton                     ===> pkill compton
 kill unresponsive window (xkill) ===> xkill
 autocliker                       ===> ~/Scripts/autoclicker
 select layout                    ===> ~/Scripts/dmenu_layout
+restart dunst                    ===> killall dunst; notify-send "Dunst Restarted"
 EOF
 )
 keys="$(echo "$mapping" | sed -e 's/===>.*$//g' -e 's/[ \t]*$//g')"
