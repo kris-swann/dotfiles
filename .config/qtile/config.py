@@ -73,9 +73,10 @@ screens = [
                 widget.CurrentLayout(),
                 widget.CurrentLayoutIcon(),
                 widget.Battery(
-                    full_char="=",
-                    charge_char="↑",
-                    discharge_char="↓",
+                    full_char="🔌",
+                    charge_char="🔌",
+                    discharge_char="🔋",
+                    show_short_text=False,
                     # Currently hour is broken, ideally this would be what i'd use.
                     # Until that's fixed, i'll just use percentage.
                     # format="{char} {percent:2.0%} ({hour:d}:{min:02d})"
