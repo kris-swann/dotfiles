@@ -32,6 +32,9 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
+    Key([mod, "control"], "f", lazy.window.toggle_floating()),
+    Key([mod, "shift"], "f", lazy.window.bring_to_front()),
+
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "w", lazy.window.kill()),
