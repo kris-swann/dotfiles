@@ -69,8 +69,15 @@ screens = [
                 widget.WindowName(),
                 widget.CurrentLayout(),
                 widget.CurrentLayoutIcon(),
-                widget.BatteryIcon(),
-                widget.Battery(charge_char="↑", discharge_char="↓"),
+                widget.Battery(
+                    full_char="=",
+                    charge_char="↑",
+                    discharge_char="↓",
+                    # Currently hour is broken, ideally this would be what i'd use.
+                    # Until that's fixed, i'll just use percentage.
+                    # format="{char} {percent:2.0%} ({hour:d}:{min:02d})"
+                    format="{char} {percent:2.0%}"
+                ),
                 widget.Pacman(),
                 widget.Volume(),
                 widget.Wlan(),
