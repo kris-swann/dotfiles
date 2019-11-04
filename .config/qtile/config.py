@@ -70,8 +70,8 @@ screens = [
             [
                 widget.GroupBox(),
                 widget.WindowName(),
-                widget.CurrentLayout(),
                 widget.CurrentLayoutIcon(),
+                widget.CurrentLayout(),
                 widget.Battery(
                     full_char="🔌",
                     charge_char="🔌",
