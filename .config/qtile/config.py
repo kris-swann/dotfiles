@@ -85,7 +85,7 @@ screens = [
                 widget.Pacman(),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.YahooWeather(),
+                # TODO add weather
             ],
             24,
         )
