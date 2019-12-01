@@ -1,3 +1,5 @@
 # Runs on graphical login
 sxhkd -r /home/kris/.local/sxhkd_log &
+udiskie -t &
+nm-applet &
 [[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile

@@ -83,8 +83,6 @@ screens = [
                     format="{char} {percent:2.0%}"
                 ),
                 widget.Pacman(),
-                widget.Volume(),
-                widget.Wlan(),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 widget.YahooWeather(),
