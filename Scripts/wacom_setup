@@ -1,0 +1,6 @@
+#!/bin/sh
+id=$(xsetwacom --list devices | grep -i pad | sed -r 's/.*id: (\w+).*/\1/')
+xsetwacom set $id Button 1 "key +ctrl f1 -ctrl"
+xsetwacom set $id Button 2 "key +ctrl f2 -ctrl"
+xsetwacom set $id Button 3 "key +ctrl f3 -ctrl"
+xsetwacom set $id Button 8 "key +ctrl f4 -ctrl"
