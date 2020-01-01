@@ -1,6 +1,7 @@
 #!/bin/sh
-id=$(xsetwacom --list devices | grep -i pad | sed -r 's/.*id: (\w+).*/\1/')
-xsetwacom set $id Button 1 "key +ctrl f1 -ctrl"
-xsetwacom set $id Button 2 "key +ctrl f2 -ctrl"
-xsetwacom set $id Button 3 "key +ctrl f3 -ctrl"
-xsetwacom set $id Button 8 "key +ctrl f4 -ctrl"
+xsetwacom set "Wacom Intuos S Pad pad" Button 1 "key +alt f1 -alt"
+xsetwacom set "Wacom Intuos S Pad pad" Button 2 "key +alt f2 -alt"
+xsetwacom set "Wacom Intuos S Pad pad" Button 3 "key +alt f3 -alt"
+xsetwacom set "Wacom Intuos S Pad pad" Button 8 "key +alt f4 -alt"
+
+xsetwacom set "Wacom Intuos S Pen stylus" Button 2 "key +alt f5 -alt"
