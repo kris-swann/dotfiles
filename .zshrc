@@ -86,6 +86,7 @@ alias e="$EDITOR"
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
+alias wine32="WINEPREFIX=$HOME/.wine32/ WINEARCH=win32 wine"
 alias booksearch="calibredb list -f title -s "
 
 alias gh="cd ~"
