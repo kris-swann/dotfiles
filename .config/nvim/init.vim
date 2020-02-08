@@ -75,6 +75,8 @@ command! MakeTags :Dispatch! ctags -R .
 command! StripTrailingWhitespace :call Preserve("%s/\\s\\+$//e")
 " Easily beautify js files
 command! JSBeautify :!js-beautify % -r
+" Format shell scripts
+command! Shfmt :!shfmt -i 2 -w -s %
 
 
 " FOLDS:
