@@ -1,0 +1,57 @@
+#!/bin/bash
+# shellcheck disable=SC2001
+print_help() {
+  echo "Usage: jqm [arg[:]=value ...] <configfile> [override-json [-r]]"
+  echo "Utility function to make json from a template file with variables and overrides"
+  echo "For string values use =, for numbers and json use :="
+  echo "To recursively join the override-json, use the -r flag"
+}
+
+check_if_help_requested() {
+  if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "help" ]; then
+    print_help && exit 0
+  fi
+}
+check_if_help_requested "$@"
+
+jq_arg_options=()
+while [ $# -gt 0 ]; do
+  if [[ $1 =~ .*:=.* ]]; then
+    arg="$(echo "$1" | sed 's/:=.*//')"
+    val="$(echo "$1" | sed 's/.*:=//')"
+    jq_arg_options+=("--argjson" "$arg" "$val")
+    shift 1
+  elif [[ $1 =~ .*=.* ]]; then
+    arg="$(echo "$1" | sed 's/=.*//')"
+    val="$(echo "$1" | sed 's/.*=//')"
+    jq_arg_options+=("--arg" "$arg" "$val")
+    shift 1
+  else
+    break
+  fi
+done
+
+
+validate_remaining_args() {
+  if [ $# -eq 0 ] || [ $# -gt 3 ] || [ ! -f "$1" ]; then
+    print_help && exit 1
+  fi
+  if [ $# -eq 3 ] && [ "$3" != "-r" ]; then
+    print_help && exit 1
+  fi
+}
+validate_remaining_args "$@"
+file="$1"
+override_json="${2:-"{}"}"
+join_flag="$3"
+
+
+echo "${jq_arg_options[@]}"
+populated_json="$(jq -n "${jq_arg_options[@]}" "$(cat "$file")")"
+
+if [ "$join_flag" = "-r" ]; then
+  echo "$populated_json $override_json" | jq -s ".[0] * .[1]"
+else
+  echo "$populated_json $override_json" | jq -s ".[0] + .[1]"
+fi
+
