@@ -33,21 +33,24 @@ done
 
 
 validate_remaining_args() {
-  if [ $# -eq 0 ] || [ $# -gt 3 ] || [ ! -f "$1" ]; then
+  if [ $# -lt 1 ] || [ $# -gt 3 ]; then
+    print_help && exit 1
+  fi
+  if [ ! -f "$1" ]; then
+    echo "File not found $1"
     print_help && exit 1
   fi
   if [ $# -eq 3 ] && [ "$3" != "-r" ]; then
+    # Validate 3rd arg is "-r" if it was given
     print_help && exit 1
   fi
 }
 validate_remaining_args "$@"
 file="$1"
-override_json="${2:-"{}"}"
+override_json="$2"
 join_flag="$3"
 
-
-echo "${jq_arg_options[@]}"
-populated_json="$(jq -n "${jq_arg_options[@]}" "$(cat "$file")")"
+populated_json="$(jq -n "${jq_arg_options[@]}" "$(cat "$file")")" || exit 1
 
 if [ "$join_flag" = "-r" ]; then
   echo "$populated_json $override_json" | jq -s ".[0] * .[1]"
