@@ -320,7 +320,7 @@ client.background       #2B2C2B
 
 # Status bar
 bar {
-    status_command python ~/.config/dotfiles/.config/i3/status_bar.py
+    status_command python ~/Projects/dotfiles/.config/i3/status_bar.py
     position bottom
     workspace_buttons yes
     tray_output primary
