@@ -59,22 +59,22 @@ def bool_user_prompt(prompt: str) -> bool:
 
 def process_file(source_path: str, install_path: str, backup_path: str) -> None:
     """Prompt user as to how to process file if not linked."""
-    if os.path.isfile(install_path):
-        if os.path.islink(install_path):
-            if os.readlink(install_path) == source_path:
-                print(f'OK:  {install_path}')
-            else:
-                print(f'ERR: {install_path} -> {os.readlink(install_path)} [Symlink points to different file]')
-                if bool_user_prompt(f'Change symlink to point to {source_path}'):
-                    os.remove(install_path)
-                    os.symlink(source_path, install_path)
+    if os.path.isfile(install_path) and not os.path.islink(install_path):
+        print(f'ERR: {install_path} [Regular file]')
+        if bool_user_prompt(f'Backup file and create symlink to {source_path}'):
+            os.makedirs(os.path.dirname(backup_path), exist_ok=True)
+            os.rename(install_path, backup_path)
+            print(f'file backed up to {backup_path}')
+            os.symlink(source_path, install_path)
+    elif os.path.islink(install_path):
+        if os.readlink(install_path) == source_path:
+            print(f'OK:  {install_path}')
         else:
-            print(f'ERR: {install_path} [Regular file]')
-            if bool_user_prompt(f'Backup file and create symlink to {source_path}'):
-                os.makedirs(os.path.dirname(backup_path), exist_ok=True)
-                os.rename(install_path, backup_path)
-                print(f'file backed up to {backup_path}')
+            print(f'ERR: {install_path} -> {os.readlink(install_path)} [Symlink points to different file]')
+            if bool_user_prompt(f'Change symlink to point to {source_path}'):
+                os.remove(install_path)
                 os.symlink(source_path, install_path)
+
     else:
         print(f'ERR: {install_path} [Does not exist]')
         if bool_user_prompt(f'Create new symlink to {source_path}'):
