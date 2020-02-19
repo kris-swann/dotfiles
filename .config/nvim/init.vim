@@ -68,7 +68,7 @@ noremap <leader>s <Esc>:syntax sync fromstart<CR>
 " Command for quick editing of config file
 command! EditConfig :e ~/.config/nvim/init.vim
 " Command for quick editing of notes
-command! Notes :e ~/Documents/notes
+command! Notes :e ~/Documents/Notes/index.md
 " Command for gathering tags
 command! MakeTags :Dispatch! ctags -R .
 " Easily remove trailing whitespace with regex
