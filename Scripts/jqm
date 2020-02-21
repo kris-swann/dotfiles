@@ -2,9 +2,10 @@
 # shellcheck disable=SC2001
 print_help() {
   echo "Usage: jqm [arg[:]=value ...] <configfile> [override-json [-r]]"
-  echo "Utility function to make json from a template file with variables and overrides"
+  echo "Utility function to make json from a template file with comments, variables, and overrides"
   echo "For string values use =, for numbers and json use :="
   echo "To recursively join the override-json, use the -r flag"
+  echo "Comment with //"
 }
 
 check_if_help_requested() {
@@ -50,7 +51,7 @@ file="$1"
 override_json="$2"
 join_flag="$3"
 
-populated_json="$(jq -n "${jq_arg_options[@]}" "$(cat "$file")")" || exit 1
+populated_json="$(jq -n "${jq_arg_options[@]}" "$(sed 's/\/\/.*//' < "$file")")" || exit 1
 
 if [ "$join_flag" = "-r" ]; then
   echo "$populated_json $override_json" | jq -s ".[0] * .[1]"
