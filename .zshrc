@@ -123,6 +123,30 @@ rnorm_permissions() {
 }
 
 #####################################################################
+### ADDITIONAL PATHS
+#####################################################################
+
+# Add scripts to path
+export PATH=~/Scripts:$PATH
+
+# User specific global install path for npm
+# To set prefix: npm config set prefix '~/.npm-global'
+export PATH=~/.npm-global/bin:$PATH
+
+# Add user pip installed packages (insalled via `pip install <package> --user`)
+export PATH=~/.local/bin:$PATH
+
+# If using pyenv, add to path and set up so can use it
+if [[ -d ~/.pyenv ]]; then
+    export PYENV_ROOT=~/.pyenv
+    export PATH=$PYENV_ROOT/bin:$PATH
+
+    # Load pyenv automatically by appending
+    # the following to ~/.zshrc:
+    eval "$(pyenv init -)"
+fi
+
+#####################################################################
 ### ADDITIONAL SOURCES
 #####################################################################
 
@@ -164,28 +188,3 @@ fi
 # Any local-specific settings should go in ~/.extend.zshrc or ~/.local_profile
 [ -f ~/.extend.zshrc ] && source ~/.extend.zshrc
 [ -f ~/.local_profile ] && source ~/.local_profile
-
-
-#####################################################################
-### ADDITIONL PATHS
-#####################################################################
-
-# Add scripts to path
-export PATH=~/Scripts:$PATH
-
-# User specific global install path for npm
-# To set prefix: npm config set prefix '~/.npm-global'
-export PATH=~/.npm-global/bin:$PATH
-
-# Add user pip installed packages (insalled via `pip install <package> --user`)
-export PATH=~/.local/bin:$PATH
-
-# If using pyenv, add to path and set up so can use it
-if [[ -d ~/.pyenv ]]; then
-    export PYENV_ROOT=~/.pyenv
-    export PATH=$PYENV_ROOT/bin:$PATH
-
-    # Load pyenv automatically by appending
-    # the following to ~/.zshrc:
-    eval "$(pyenv init -)"
-fi
