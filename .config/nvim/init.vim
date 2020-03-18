@@ -77,6 +77,8 @@ command! StripTrailingWhitespace :call Preserve("%s/\\s\\+$//e")
 command! JSBeautify :!js-beautify % -r
 " Format shell scripts
 command! Shfmt :!shfmt -i 2 -w -s %
+" Order python imports with isort
+command! Isort :!isort %
 
 
 " FOLDS:

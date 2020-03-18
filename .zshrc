@@ -49,6 +49,7 @@ source $ZSH/oh-my-zsh.sh
 #####################################################################
 
 export EDITOR=nvim
+export LESS="-XFRS"
 
 #####################################################################
 ### VI MODE
@@ -140,9 +141,6 @@ export PATH=~/.local/bin:$PATH
 if [[ -d ~/.pyenv ]]; then
     export PYENV_ROOT=~/.pyenv
     export PATH=$PYENV_ROOT/bin:$PATH
-
-    # Load pyenv automatically by appending
-    # the following to ~/.zshrc:
     eval "$(pyenv init -)"
 fi
 
