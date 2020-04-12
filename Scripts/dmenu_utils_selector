@@ -4,6 +4,8 @@ bmenu                            ===> $TERMINAL -g 100x40 -title "bmenu (floatme
 morc_menu                        ===> morc_menu
 pulsemixer                       ===> $TERMINAL -g 100x40 -title "pulsemixer (floatme)" -e pulsemixer
 alsamixer                        ===> $TERMINAL -g 100x40 -title "alsamixer (floatme)" -e alsamixer
+start input playback             ===> pacmd load-module module-loopback
+stop input playback              ===> pacmd unload-module module-loopback
 screenshot full screen           ===> i3-scrot -d
 screenshot active window         ===> i3-scrot -w
 screenshot selection             ===> i3-scrot -s
@@ -19,8 +21,12 @@ EOF
 keys="$(echo "$mapping" | sed -e 's/===>.*$//g' -e 's/[ \t]*$//g')"
 values="$(echo "$mapping" | sed -e 's/^.*===>//g' -e 's/^[ \t]*//g')"
 
-result=$(echo "$keys" | dmenu -l 5 -i -p "Layout Profile")
-if [[ "$result" ]]; then
+result=$(echo "$keys" | dmenu -l 5 -i -p "Run util")
+if [ "$result" ]; then
   matching_line_number=$(echo "$keys" | sed -n "/$result/ =")
+  if [ "$(echo "$matching_line_number" | wc -l)" != 1 ]; then
+    echo "More than one match found"
+    exit 1
+  fi
   eval "$(echo "$values" | sed -n "$matching_line_number p")"
 fi
