@@ -88,12 +88,14 @@ XTerm*VT100*translations: #override \n\
 ! For all options run "uxrvt --help"
 URxvt.font: xft:Hack:style=Regular:size=11:antialias=true
 URxvt.letterSpace: -2
-URxvt.perl-ext-common: default,tabbed,clipboard
+URxvt.perl-ext-common: default,tabbed,clipboard,matcher,resize-font
 URxvt.depth: 32
 URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: false
 URxvt*cursorBlink: true
 URxvt*saveLines: 5000
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
 
 ! Sane copy-paste (MUST have perl-ext-common: default)
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
