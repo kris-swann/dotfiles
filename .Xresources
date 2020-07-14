@@ -5,7 +5,7 @@
 ! Leave them as they are if a file ~/.extend.Xresources is being used on your system.
 ! config can be added there or also here below.
 ! For comments use "!"
-! Reload this file with "xrdb ~/.Xresources"
+! Reload this file with "xrdb -load ~/.Xresources"
 
 ! Onedark colors
 #define base00 #282c34
@@ -88,7 +88,7 @@ XTerm*VT100*translations: #override \n\
 ! For all options run "uxrvt --help"
 URxvt.font: xft:Hack:style=Regular:size=11:antialias=true
 URxvt.letterSpace: -2
-URxvt.perl-ext-common: default,tabbed,clipboard,matcher,resize-font
+URxvt.perl-ext-common: default,clipboard,matcher,resize-font
 URxvt.depth: 32
 URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: false
