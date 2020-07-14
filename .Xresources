@@ -1,7 +1,6 @@
 #if __has_include(".extend.Xresources")
 #include ".extend.Xresources"
 #endif
-
 ! ^ The above lines are no comments!
 ! Leave them as they are if a file ~/.extend.Xresources is being used on your system.
 ! config can be added there or also here below.
@@ -27,8 +26,6 @@
 #define base0F #be5046
 
 #define background_opacity 80
-
-
 !#ifdef background_opacity
 !*background:                      [background_opacity]base00
 !#else
@@ -78,13 +75,9 @@ Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
-!XTerm*background: #2b2b2b
-!XTerm*foreground: #e7e7e7
-!XTerm*pointerColor: #16A085
+XTerm.termName: xterm-256color
 XTerm*faceName: Hack
 XTerm*faceSize: 11
-XTerm.background: base00
-XTerm*reverseVideo: on
 XTerm*borderLess: true
 
 ! For sane copy pasting via clipboard
@@ -98,12 +91,9 @@ URxvt.font: xft:Hack:style=Regular:size=11
 URxvt.letterSpace: -2
 URxvt.perl-ext-common: tabbed
 URxvt.depth: 32
-URxvt.background: [80]#000000
 URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: false
 URxvt*cursorBlink: true
-URxvt*background: black
-URxvt*foreground: grey
 URxvt*saveLines: 5000
 
 ! Disable annoying yellow box when ctrl-shift-ing
