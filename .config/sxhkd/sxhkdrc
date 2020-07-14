@@ -1,4 +1,7 @@
 super + Return
+  ~/Scripts/open_cwd_terminal
+
+super + shift + Return
   $TERMINAL
 
 super + d
