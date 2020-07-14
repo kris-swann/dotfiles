@@ -76,8 +76,7 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
 XTerm.termName: xterm-256color
-XTerm*faceName: Hack
-XTerm*faceSize: 11
+XTerm*faceName: xft:Hack:style=Regular:size=11:antialias=true
 XTerm*borderLess: true
 
 ! For sane copy pasting via clipboard
