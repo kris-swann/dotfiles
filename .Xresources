@@ -33,3 +33,6 @@ XTerm*VT100*translations: #override \n\
 URxvt.font:             xft:Hack:style=Regular:size=11
 URxvt.letterSpace:      -2
 URxvt.perl-ext-common: tabbed
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
