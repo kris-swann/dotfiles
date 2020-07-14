@@ -22,18 +22,10 @@ keys = [
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "equal", lazy.layout.normalize()),
 
-    # Switch window focus to other pane(s) of stack
-    Key([mod], "space", lazy.layout.next()),
-    # Swap panes of split stack
-    Key([mod, "shift"], "space", lazy.layout.rotate()),
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-
-    Key([mod, "control"], "f", lazy.window.toggle_floating()),
+    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
     Key([mod, "shift"], "f", lazy.window.bring_to_front()),
+
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
@@ -82,7 +74,6 @@ screens = [
                     # format="{char} {percent:2.0%} ({hour:d}:{min:02d})"
                     format="{char} {percent:2.0%}"
                 ),
-                widget.Pacman(),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 # TODO add weather
