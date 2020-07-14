@@ -2,4 +2,5 @@
 sxhkd -r /home/kris/.local/sxhkd_log &
 udiskie -t &
 nm-applet &
+picom &
 [[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile
