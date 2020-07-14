@@ -44,6 +44,16 @@ plugins=(git vi-mode urltools)
 
 source $ZSH/oh-my-zsh.sh
 
+# Keep track of cwds
+update_cwd_data() {
+  mkdir -p /tmp/cwd_data
+  pid=$(xdotool getwindowfocus getwindowpid)
+  touch "/tmp/cwd_data/$pid"
+  echo "$(pwd)" > "/tmp/cwd_data/$pid"
+}
+precmd_functions=(update_cwd_data)
+
+
 #####################################################################
 ### VARIABLES
 #####################################################################

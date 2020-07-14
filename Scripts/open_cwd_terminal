@@ -1,12 +1,7 @@
 #!/bin/bash
-ID=$(xdpyinfo | grep focus | cut -f4 -d " ")
-PID=$(($(xprop -id "$ID" | grep -m 1 PID | cut -d " " -f 3) + 2))
-if [ -e "/proc/$PID/cwd" ]; then
-  if [ "$TERMINAL" == "urxvt" ]; then
-    urxvt -cd "$(readlink /proc/$PID/cwd)" &
-  else
-    $TERMINAL
-  fi
+pid=$(xdotool getwindowfocus getwindowpid)
+if [ -e "/tmp/cwd_data/$pid" ]; then
+  urxvt -cd "$(cat "/tmp/cwd_data/$pid")"
 else
-    $TERMINAL
+  $TERMINAL
 fi
