@@ -1,55 +1,57 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="steeef_custom"
 
 # Autocompletion
 autoload -Uz compinit
 compinit
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# List of plugins (space delimited) Plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(git vi-mode urltools)
 
 source $ZSH/oh-my-zsh.sh
 
+#####################################################################
+### FUNCTIONS
+#####################################################################
+
+# Open the given calibre listing with zathura
+bookopen() {
+    db_entry=$(calibredb list -w 10000 -f formats -s id:$1 | tail -n1)
+    file_listing=$(echo $db_entry | grep -oE '\[(.*)\]' | tr -d "[]")
+    zathura $file_listing
+}
+
+# Recursively reset the permissions to the usual -rw-r--r-- for
+# files and drwx-r-xr-x for directories.
+# Parameters:
+#   $1 -> The relative directory to modify permissions under
+rnorm_permissions() {
+    # Convert all permissions to rwxr-xr-x
+    chmod 755 -R $1
+
+    # Remove x permissions from files
+    chmod -x $1/**/*(.)
+}
+
+# Check if a command exists or not
+exists () {
+  command -v "$1" &> /dev/null
+}
+
 # Keep track of cwds
 update_cwd_data() {
-  mkdir -p /tmp/cwd_data
-  pid=$(xdotool getwindowfocus getwindowpid)
-  touch "/tmp/cwd_data/$pid"
-  echo "$(pwd)" > "/tmp/cwd_data/$pid"
+  if exists xdotool; then
+    mkdir -p /tmp/cwd_data
+    pid=$(xdotool getwindowfocus getwindowpid)
+    touch "/tmp/cwd_data/$pid"
+    echo "$(pwd)" > "/tmp/cwd_data/$pid"
+  fi
 }
 precmd_functions=(update_cwd_data)
 
@@ -109,29 +111,6 @@ alias gcn="cd ~/.config/nvim"
 alias gd="cd ~/Documents"
 alias gp="cd ~/Projects"
 alias gs="cd ~/Documents/UMN/Year3/Sem2"
-
-#####################################################################
-### FUNCTIONS
-#####################################################################
-
-# Open the given calibre listing with zathura
-bookopen() {
-    db_entry=$(calibredb list -w 10000 -f formats -s id:$1 | tail -n1)
-    file_listing=$(echo $db_entry | grep -oE '\[(.*)\]' | tr -d "[]")
-    zathura $file_listing
-}
-
-# Recursively reset the permissions to the usual -rw-r--r-- for
-# files and drwx-r-xr-x for directories.
-# Parameters:
-#   $1 -> The relative directory to modify permissions under
-rnorm_permissions() {
-    # Convert all permissions to rwxr-xr-x
-    chmod 755 -R $1
-
-    # Remove x permissions from files
-    chmod -x $1/**/*(.)
-}
 
 #####################################################################
 ### ADDITIONAL PATHS
