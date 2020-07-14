@@ -9,8 +9,8 @@ stop input playback              ===> pacmd unload-module module-loopback
 screenshot full screen           ===> i3-scrot -d
 screenshot active window         ===> i3-scrot -w
 screenshot selection             ===> i3-scrot -s
-start compton                    ===> compton -b
-kill compton                     ===> pkill compton
+start picom                    ===> picom -b
+kill picom                     ===> pkill picom
 kill unresponsive window (xkill) ===> xkill
 autocliker                       ===> ~/Scripts/autoclicker
 select layout                    ===> ~/Scripts/dmenu_layout
