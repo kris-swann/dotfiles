@@ -87,7 +87,7 @@ XTerm*VT100*translations: #override \n\
     Ctrl Shift <Key>C:        select-end(CLIPBOARD)
 
 ! For all options run "uxrvt --help"
-URxvt.font: xft:Hack:style=Regular:size=11
+URxvt.font: xft:Hack:style=Regular:size=11:antialias=true
 URxvt.letterSpace: -2
 URxvt.perl-ext-common: tabbed
 URxvt.depth: 32
