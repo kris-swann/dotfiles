@@ -3,4 +3,5 @@ sxhkd -r /home/kris/.local/sxhkd_log &
 udiskie -t &
 nm-applet &
 picom &
+xset b off # turn off the damn bell!
 [[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile
