@@ -53,7 +53,7 @@ update_cwd_data() {
     echo "$(pwd)" > "/tmp/cwd_data/$pid"
   fi
 }
-precmd_functions=(update_cwd_data)
+precmd_functions+=(update_cwd_data)
 
 
 #####################################################################
