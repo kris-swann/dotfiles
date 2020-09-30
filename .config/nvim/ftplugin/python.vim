@@ -1,6 +1,3 @@
-" Ex: Run Black before writing the current buffer
-" autocmd BufWritePre <buffer> :Black
-
 function! GetPythonModulePath(stringScope)
   " Call external script passing along current file and line number
   return system("python_module_path " . expand('%') . ' ' . line('.') . ' ' . a:stringScope)
@@ -10,3 +7,15 @@ endfunction
 nnoremap <buffer> ymf :let @+=GetPythonModulePath("file")<CR>
 nnoremap <buffer> ymc :let @+=GetPythonModulePath("class")<CR>
 nnoremap <buffer> ymm :let @+=GetPythonModulePath("method")<CR>
+
+" Easy toggle for Black-ing files
+function! ConditionalBlack()
+  " enabled if variable is unset or set to anything other than off
+  let enabled = !exists("b:autoblack") || b:autoblack != "off"
+  if (exists(":Black") && enabled)
+    execute "Black"
+  endif
+endfunction
+command! Blackon :let b:autoblack="on"
+command! Blackoff :let b:autoblack="off"
+autocmd BufWritePost <buffer> :call ConditionalBlack()
