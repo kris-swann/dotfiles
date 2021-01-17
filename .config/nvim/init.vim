@@ -1,7 +1,7 @@
 " SET BASIC VIM OPTIONS:
 set number                          " Make line numbers visible
 set relativenumber                  " Use relative line numbers
-set colorcolumn=79                  " Show column at column 79
+set colorcolumn=110                 " Show column at column 79
 set cursorline                      " Highlight the current line
 set hidden                          " Allow non-active buffers to be unsaved
 set updatetime=100                  " Make update faster
