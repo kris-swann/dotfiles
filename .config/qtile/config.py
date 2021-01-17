@@ -25,8 +25,6 @@ keys = [
     Key([mod, "shift"], "space", lazy.window.toggle_floating()),
     Key([mod, "shift"], "f", lazy.window.bring_to_front()),
 
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "w", lazy.window.kill()),
@@ -42,7 +40,7 @@ for group in groups:
     group_key = group.name[0]
     keys.extend(
         [
-            Key([mod], group_key, lazy.group[group.name].toscreen()),  # Switch to group
+            Key([mod], group_key, lazy.group[group.name].toscreen(toggle=False)),  # Switch to group
             Key([mod, "shift"], group_key, lazy.window.togroup(group.name)),  # Move to group
         ]
     )
@@ -57,6 +55,30 @@ widget_defaults = dict(font="sans", fontsize=12, padding=3)
 extension_defaults = widget_defaults.copy()
 
 screens = [
+    Screen(
+        bottom=bar.Bar(
+            [
+                widget.GroupBox(),
+                widget.WindowName(),
+                widget.CurrentLayoutIcon(),
+                widget.CurrentLayout(),
+                widget.Battery(
+                    full_char="🔌",
+                    charge_char="🔌",
+                    discharge_char="🔋",
+                    show_short_text=False,
+                    # Currently hour is broken, ideally this would be what i'd use.
+                    # Until that's fixed, i'll just use percentage.
+                    # format="{char} {percent:2.0%} ({hour:d}:{min:02d})"
+                    format="{char} {percent:2.0%}"
+                ),
+                widget.Systray(),
+                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                # TODO add weather
+            ],
+            24,
+        )
+    ),
     Screen(
         bottom=bar.Bar(
             [
