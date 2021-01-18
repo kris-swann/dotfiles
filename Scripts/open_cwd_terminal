@@ -1,10 +1,11 @@
 #!/bin/bash
 pid=$(xdotool getwindowfocus getwindowpid)
 if [ -e "/tmp/cwd_data/$pid" ]; then
+  cwd="$(cat "/tmp/cwd_data/$pid")"
   if [ "$TERMINAL" == "urxvt" ]; then
-    urxvt -cd "$(cat "/tmp/cwd_data/$pid")"
+    urxvt -cd "$cwd"
   elif [ "$TERMINAL" == "kitty" ]; then
-    kitty -d "$(cat "/tmp/cwd_data/$pid")"
+    kitty -d "$cwd"
   fi
 else
   $TERMINAL
