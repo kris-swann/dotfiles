@@ -151,16 +151,20 @@ let g:gitgutter_max_signs = 2000
 " Get nicer messages from ALE
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 " Python linting options
 let g:ale_python_pylint_options = '--rcfile toolchain/.pylintrc'
 let g:ale_python_flake8_options = '--config=toolchain/.flake8'
+let g:ale_python_pylama_options = '--options ~/toolchain/pylama.ini'
 " Cpp linting options
 let g:ale_cpp_clangtidy_options = '-Wall -std=c++11 -x c++'
 let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
 let g:ale_linters = {
     \ 'python': ['pyflakes', 'pylint', 'pylama'],
     \ }
+" Navigate between errors
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Improved incsearch
 map /  <Plug>(incsearch-forward)

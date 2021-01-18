@@ -19,3 +19,6 @@ endfunction
 command! Blackon :let b:autoblack="on"
 command! Blackoff :let b:autoblack="off"
 autocmd BufWritePost <buffer> :call ConditionalBlack()
+
+nnoremap <leader>bb O__import__("ipdb").set_trace()<Esc>
+nnoremap <leader>bp O__import__("pdb").set_trace()<Esc>
