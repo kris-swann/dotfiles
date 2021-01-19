@@ -8,12 +8,17 @@ super + d
   dmenu_recency
 
 super + a
-  $TERMINAL -g 100x40 -title 'pulsemixer (floatme)' -e 'pulsemixer'
+  kitty \
+    -o remember_window_size=no \
+    -o initial_window_width=750 \
+    -o initial_window_height=500 \
+    --title 'pulsemixer (floatme)' \
+    pulsemixer
+
+super + t
+  ~/Scripts/dmenu_tools_selector
 
 super + u
-  ~/Scripts/dmenu_utils_selector
-
-super + shift + u
   rofimoji --insert-with-clipboard
 
 super + control + l
@@ -39,6 +44,12 @@ control + XF86MonBrightnessUp
 
 control + XF86MonBrightnessDown
   xbacklight -dec 1 && ~/Scripts/notify_send_brighness
+
+control + shift +  XF86MonBrightnessUp
+  xbacklight -inc 0.1 && ~/Scripts/notify_send_brighness
+
+control + shift + XF86MonBrightnessDown
+  xbacklight -dec 0.1 && ~/Scripts/notify_send_brighness
 
 XF86AudioMute
   pamixer -t && ~/Scripts/notify_send_volume

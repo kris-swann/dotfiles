@@ -4,9 +4,9 @@ sized_term() {
   height=$2
   title=$3
   cmd=$4
-  if [ "$TERM" = "kitty" ]; then
-    echo "kitty -o remember_window_size -o initial_window_width $width -o initial_window_height $height --title '$title' '$cmd'"
-  elif [ "$TERM" = "urxvt" ]; then
+  if [ "$TERMINAL" = "kitty" ]; then
+    echo "kitty -o remember_window_size=no -o initial_window_width=$width -o initial_window_height=$height --title '$title' '$cmd'"
+  elif [ "$TERMINAL" = "urxvt" ]; then
     echo "urxvt -g ${width}x${height} -title '$title' -e '$cmd'"
   fi
 }
@@ -40,5 +40,6 @@ if [ "$result" ]; then
     echo "More than one match found"
     exit 1
   fi
-  eval "$(echo "$values" | sed -n "$matching_line_number p")"
+  cmd=$(echo "$values" | sed -n "$matching_line_number p")
+  eval "$cmd"
 fi
