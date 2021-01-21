@@ -22,7 +22,7 @@ keys = [
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "equal", lazy.layout.normalize()),
 
-    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
+    Key([mod], "f", lazy.window.toggle_floating()),
     Key([mod, "shift"], "f", lazy.window.bring_to_front()),
 
     # Toggle between different layouts as defined below
