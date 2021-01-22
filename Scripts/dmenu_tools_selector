@@ -1,16 +1,28 @@
 #!/bin/sh
+sized_term() {
+  width=$1
+  height=$2
+  title=$3
+  cmd=$4
+  if [ "$TERMINAL" = "kitty" ]; then
+    echo "kitty -o remember_window_size=no -o initial_window_width=$width -o initial_window_height=$height --title '$title' '$cmd'"
+  elif [ "$TERMINAL" = "urxvt" ]; then
+    echo "urxvt -g ${width}x${height} -title '$title' -e '$cmd'"
+  fi
+}
+
 mapping=$(cat <<EOF
-bmenu                            ===> $TERMINAL -g 100x40 -title "bmenu (floatme)" -e bmenu
+bmenu                            ===> $(sized_term 750 500 "bmenu (floatme)" "bmenu")
 morc_menu                        ===> morc_menu
-pulsemixer                       ===> $TERMINAL -g 100x40 -title "pulsemixer (floatme)" -e pulsemixer
-alsamixer                        ===> $TERMINAL -g 100x40 -title "alsamixer (floatme)" -e alsamixer
+pulsemixer                       ===> $(sized_term 750 500 "pulsemixer (floatme)" "pulsemixer")
+alsamixer                        ===> $(sized_term 750 500 "alsamixer (floatme)" "alsamixer")
 start input playback             ===> pacmd load-module module-loopback
 stop input playback              ===> pacmd unload-module module-loopback
 screenshot full screen           ===> i3-scrot -d
 screenshot active window         ===> i3-scrot -w
 screenshot selection             ===> i3-scrot -s
-start picom                    ===> picom -b
-kill picom                     ===> pkill picom
+start picom                      ===> picom -b
+kill picom                       ===> pkill picom
 kill unresponsive window (xkill) ===> xkill
 autocliker                       ===> ~/Scripts/autoclicker
 select layout                    ===> ~/Scripts/dmenu_layout
@@ -28,5 +40,6 @@ if [ "$result" ]; then
     echo "More than one match found"
     exit 1
   fi
-  eval "$(echo "$values" | sed -n "$matching_line_number p")"
+  cmd=$(echo "$values" | sed -n "$matching_line_number p")
+  eval "$cmd"
 fi
