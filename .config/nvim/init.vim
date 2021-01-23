@@ -56,6 +56,8 @@ nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>P "+P
+" Easy exit out of terminal
+tnoremap <esc> <C-\><C-n>
 " Esc clears highlighting (after search)
 map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Recalculate syntax highlighting
@@ -102,8 +104,11 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
   Plug 'ambv/black'
   Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
+  Plug 'chrisbra/Colorizer'
 call plug#end()
 
+" PLUGIN VIM-FUGITIVE CONFIG
+cabbrev Gpush Git push
 
 " PLUGIN DEOPLETE CONFIG
 let g:deoplete#enable_at_startup=1
