@@ -1,6 +1,7 @@
 " BASIC CONFIG
 colorscheme onedark
 filetype plugin indent on           " Turn on detection, plugin and indent
+set termguicolors                   " Nice colors in temrinal
 set number                          " Visible line numbers
 set relativenumber
 set colorcolumn=110
@@ -102,7 +103,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'ambv/black'
   Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
   Plug 'psliwka/vim-smoothie'
-  Plug 'chrisbra/Colorizer'
+  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 call plug#end()
 
 " PLUGIN VIM-FUGITIVE CONFIG
