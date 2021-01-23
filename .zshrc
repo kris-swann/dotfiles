@@ -20,25 +20,6 @@ source $ZSH/oh-my-zsh.sh
 ### FUNCTIONS
 #####################################################################
 
-# Open the given calibre listing with zathura
-bookopen() {
-    db_entry=$(calibredb list -w 10000 -f formats -s id:$1 | tail -n1)
-    file_listing=$(echo $db_entry | grep -oE '\[(.*)\]' | tr -d "[]")
-    zathura $file_listing
-}
-
-# Recursively reset the permissions to the usual -rw-r--r-- for
-# files and drwx-r-xr-x for directories.
-# Parameters:
-#   $1 -> The relative directory to modify permissions under
-rnorm_permissions() {
-    # Convert all permissions to rwxr-xr-x
-    chmod 755 -R $1
-
-    # Remove x permissions from files
-    chmod -x $1/**/*(.)
-}
-
 # Check if a command exists or not
 exists () {
   command -v "$1" &> /dev/null
@@ -102,15 +83,9 @@ alias news="curl nycurl.sytes.net -silent | less"
 alias wine32="WINEPREFIX=$HOME/.wine32/ WINEARCH=win32 wine"
 alias booksearch="calibredb list -f title -s "
 
-alias gh="cd ~"
 alias gm="cd /run/media/kris"
-alias gc=" cd ~/.config"
-alias gcr="cd ~/.config/ranger"
-alias gci="cd ~/.config/i3"
-alias gcn="cd ~/.config/nvim"
-alias gd="cd ~/Documents"
 alias gp="cd ~/Projects"
-alias gs="cd ~/Documents/UMN/Year3/Sem2"
+alias gd="cd ~/Projects/dotfiles"
 
 #####################################################################
 ### ADDITIONAL PATHS
@@ -136,9 +111,6 @@ fi
 #####################################################################
 ### ADDITIONAL SOURCES
 #####################################################################
-
-# Enable use of virtualenvwrapper commands
-[ -f /usr/bin/virtualenvwrapper.sh ] && source /usr/bin/virtualenvwrapper.sh
 
 # Fzf magic
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
@@ -172,10 +144,10 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Any local-specific settings should go in ~/.zshrc.extend or ~/.local_profile
-[ -f ~/.zshrc.extend ] && source ~/.zshrc.extend
-[ -f ~/.local_profile ] && source ~/.local_profile
-
 # tabtab source for packages
 # uninstall by removing these lines
 [ -f ~/.config/tabtab/__tabtab.zsh ] && . ~/.config/tabtab/__tabtab.zsh || true
+
+[ -f ~/.profile ] && source ~/.profile
+[ -f ~/.profile_local ] && source ~/.profile_local
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
