@@ -106,7 +106,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 call plug#end()
 
-" PLUGIN VIM-FUGITIVE CONFIG
+" PLUGIN FUGITIVE CONFIG
 cabbrev Gpush Git push
 
 " PLUGIN HEXOKINASE CONFIG
