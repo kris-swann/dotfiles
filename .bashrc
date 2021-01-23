@@ -52,4 +52,4 @@ alias nmrestart="sudo service network-manager restart"
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[[ -f ~/.extend.bashrc ]] && . ~/.extend.bashrc
+[ -f ~/.bashrc.extend ] && . ~/.bashrc.extend
