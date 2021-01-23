@@ -127,7 +127,7 @@ export PATH=~/.npm-global/bin:$PATH
 export PATH=~/.local/bin:$PATH
 
 # If using pyenv, add to path and set up so can use it
-if [[ -d ~/.pyenv ]]; then
+if [ -d ~/.pyenv ]; then
     export PYENV_ROOT=~/.pyenv
     export PATH=$PYENV_ROOT/bin:$PATH
     eval "$(pyenv init -)"
@@ -144,38 +144,38 @@ fi
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 
 # Autojumping
-if [[ -f /etc/profile.d/autojump.zsh ]]; then
+if [ -f /etc/profile.d/autojump.zsh ]; then
     # Manjaro location
     source /etc/profile.d/autojump.zsh
-else
+elif [ -f /usr/local/etc/profile.d/autojump.sh ]; then
     # OSX Location
     source /usr/local/etc/profile.d/autojump.sh
 fi
 
 # Enable fish-like autosuggestions
-if [[ -f  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+if [ -f  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     # Manjaro location
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-else
+elif [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     # OSX Location
     source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # Enable fish-like syntax highlighting, must go at bottom of .zshrc
-if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     # Manjaro location
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-else
+elif [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     # OSX location
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Any local-specific settings should go in ~/.extend.zshrc or ~/.local_profile
-[ -f ~/.extend.zshrc ] && source ~/.extend.zshrc
+# Any local-specific settings should go in ~/.zshrc.extend or ~/.local_profile
+[ -f ~/.zshrc.extend ] && source ~/.zshrc.extend
 [ -f ~/.local_profile ] && source ~/.local_profile
 
 # tabtab source for packages
 # uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+[ -f ~/.config/tabtab/__tabtab.zsh ] && . ~/.config/tabtab/__tabtab.zsh || true
