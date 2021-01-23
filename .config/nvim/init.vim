@@ -43,12 +43,9 @@ let mapleader=","
 " Same movement in wrappend lines
 noremap j gj
 noremap k gk
-" Ergonomic scrolling
-" TODO
+" Scrolling
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
-nnoremap <M-j> 5j
-nnoremap <M-k> 5k
 " Easy copy-pasting to and from system clipboard
 vnoremap <leader>y "+y
 vnoremap <leader>d "+d
