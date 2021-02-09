@@ -75,6 +75,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 ### ALIASES
 #####################################################################
 
+alias nn="~/.local/nvim-nightly/bin/nvim"
 alias e="$EDITOR"
 
 alias weather="curl wttr.in"
