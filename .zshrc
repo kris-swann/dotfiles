@@ -1,7 +1,7 @@
+eval "$(starship init zsh)"
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-
-ZSH_THEME="steeef_custom"
 
 # Autocompletion
 autoload -Uz compinit
