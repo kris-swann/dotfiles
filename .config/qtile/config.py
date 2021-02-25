@@ -24,6 +24,7 @@ keys = [
 
     Key([mod], "f", lazy.window.toggle_floating()),
     Key([mod, "shift"], "f", lazy.window.bring_to_front()),
+    Key([mod], "grave", lazy.window.toggle_fullscreen()),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
