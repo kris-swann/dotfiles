@@ -2,6 +2,6 @@
 # ~/.bash_profile
 #
 
-[[ -f ~/.extend.bash_profile ]] && . ~/.extend.bash_profile
-[[ -f ~/.bashrc ]] && . ~/.bashrc
-
+[ -f ~/.profile ] && . ~/.profile
+[ -f ~/.bash_profile_local ] && . ~/.bash_profile_local
+[ -f ~/.bashrc ] && . ~/.bashrc
