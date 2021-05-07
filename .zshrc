@@ -1,5 +1,3 @@
-eval "$(starship init zsh)"
-
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -152,3 +150,5 @@ fi
 [ -f ~/.profile ] && source ~/.profile
 [ -f ~/.profile_local ] && source ~/.profile_local
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
+
+eval "$(starship init zsh)"
