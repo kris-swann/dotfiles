@@ -1,13 +1,16 @@
+super + x
+  ~/Scripts/customlock
+
 super + Return
   ~/Scripts/open_cwd_terminal
 
 super + shift + Return
   $TERMINAL
 
-super + d
+super + space ; {_, super} + space
   dmenu_recency
 
-super + a
+super + space ; {_, super} + a
   kitty \
     -o remember_window_size=no \
     -o initial_window_width=750 \
@@ -15,17 +18,14 @@ super + a
     --title 'pulsemixer (floatme)' \
     pulsemixer
 
-super + t
-  ~/Scripts/dmenu_tools_selector
-
-super + u
-  rofimoji --insert-with-clipboard
-
-super + control + l
+super + space ; {_, super} + l
   ~/Scripts/dmenu_layout
 
-super + control + x
-  ~/Scripts/customlock
+super + space ; {_, super} + t
+  ~/Scripts/dmenu_tools_selector
+
+super + space ; {_, super} + u
+  rofimoji --insert-with-clipboard
 
 XF86AudioRaiseVolume
   pamixer --allow-boost -i 5 && ~/Scripts/notify_send_volume
