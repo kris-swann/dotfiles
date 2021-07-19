@@ -1,12 +1,8 @@
-" TODO
-function! GetPythonModulePath(stringScope)
-  " Call external script passing along current file and line number
-  return system("python_module_path " . expand('%') . ' ' . line('.') . ' ' . a:stringScope)
-endfunction
-" Copy results to clipboard (the '+' register)
-nnoremap ymf :let @+=GetPythonModulePath("file")<CR>
-nnoremap ymc :let @+=GetPythonModulePath("class")<CR>
-nnoremap ymm :let @+=GetPythonModulePath("method")<CR>
+" Insert debugger breakpoints
+nnoremap <leader>bb O__import__("ipdb").set_trace()<Esc>
+nnoremap <leader>bp O__import__("pdb").set_trace()<Esc>
+
+" TODO use seperate venv for isort and black, remove dependence on black plugin?
 
 " Order imports with isort
 command! Isort :!isort %
@@ -21,8 +17,7 @@ function! ConditionalBlack()
 endfunction
 command! Blackon :let b:autoblack="on"
 command! Blackoff :let b:autoblack="off"
-autocmd BufWritePost <buffer> :call ConditionalBlack()
-
-" Insert debugger breakpoints
-nnoremap <leader>bb O__import__("ipdb").set_trace()<Esc>
-nnoremap <leader>bp O__import__("pdb").set_trace()<Esc>
+augroup blackfile
+  autocmd!
+  autocmd BufWritePost <buffer> :call ConditionalBlack()
+augroup END

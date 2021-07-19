@@ -1,11 +1,44 @@
+" PLUGINS
+call plug#begin('~/.local/share/nvim/plugged')
+  Plug 'shaunsingh/nord.nvim'
+  Plug 'navarasu/onedark.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-fugitive'
+  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+  Plug 'airblade/vim-gitgutter'
+  Plug 'junegunn/goyo.vim'
+  Plug 'psliwka/vim-smoothie'
+  Plug 'godlygeek/tabular'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'ambv/black'
+  Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
+  Plug 'kevinhwang91/rnvimr'  " Ranger
+  Plug 'hoob3rt/lualine.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'  " Opt dep of lualine
+
+  " TODO eval telescope as replacement
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+
+  " TODO evaluate replacement
+  Plug 'Shougo/context_filetype.vim'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+
+  " TODO evaluate replacements
+  Plug 'w0rp/ale'
+call plug#end()
+
+
 " BASIC CONFIG
-colorscheme onedark
 filetype plugin indent on           " Turn on detection, plugin and indent
-set termguicolors                   " Nice colors in temrinal
-set number                          " Visible line numbers
-set relativenumber
-set colorcolumn=110
 set cursorline                      " Highlight current line
+set colorcolumn=110
 set hidden                          " Allow non-active buffers to be unsaved
 set updatetime=100                  " Write swap file to disk after 100ms of no typing
 set listchars=tab:▸\ ,eol:¬,trail:⋅ " Whitespace chars
@@ -17,6 +50,37 @@ set completeopt-=preview            " No preview windows for insert mode complet
 set sessionoptions=curdir,winpos,resize,help,blank,winsize,folds,tabpages
 
 
+" BUILT IN AUTOCOMPLETION STUFF
+set omnifunc=syntaxcomplete#Complete
+set path+=**  " Recursively search subdirs, allows tab-completion, and * for fuzzy search
+set wildmode=longest:full,full  " Wildmenu autocompletes longest common substring then cycles through options
+" Dirs to ignore in wildmenu
+set wildignore+=*__pycache__*,*.pyc,*env/*,*.egg-info*
+
+
+" COLORS
+set termguicolors " Use gui instead of cterm colors in terminal
+let g:onedark_style = 'warm'
+colorscheme onedark
+lua << EOF
+  local c = require('onedark.colors')
+  vim.cmd("highlight Folded gui=NONE guifg=" .. c.fg .. " guibg=" .. c.dark_cyan)
+EOF
+
+
+" LINE NUMBERS
+" Autotoggle between relative and absolute numbers (from jeffkreeftmeijer/vim-numbertoggle)
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter,TermOpen,TermClose *
+  \ if &buftype == "terminal" | set nonu | set nornu |
+  \ elseif mode() != "i" | set nu | set rnu |
+  \ else | set nu | set nornu |
+  \ endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave * set nornu
+augroup END
+
+
 " INDENTATION
 set expandtab  " Use softtabs
 " Default indentation preferences
@@ -26,17 +90,31 @@ set shiftwidth=2
 
 
 " FOLDS
-set foldlevel=99        " Set folds to be open on start
-set foldcolumn=1        " Show folds in the column
-set foldminlines=4      " Downt allow annoying tiny folds
-
-
-" BUILT IN AUTOCOMPLETION STUFF
-set omnifunc=syntaxcomplete#Complete
-set path+=**  " Recursively search subdirs, allows tab-completion, and * for fuzzy search
-set wildmode=longest:full,full  " Wildmenu autocompletes longest common substring then cycles through options
-" Dirs to ignore in wildmenu
-set wildignore+=*__pycache__*,*.pyc,*env/*,*.egg-info*
+set foldmethod=manual
+set foldcolumn=0
+" Togle manual fold creation and deletion
+nnoremap \ zD
+vnoremap \ zf
+function! CustomFoldText()
+  let ismodified = exists('g:loaded_gitgutter') && gitgutter#fold#is_changed()
+  let modifiedchar = ismodified ? ' ⊡' : '  '
+  let numlines = v:foldend - v:foldstart + 1
+  let righttext = modifiedchar . ' 祉' . numlines . ' lines'
+  " Special chars screw up len(righttext), have to manually define
+  let righttextlen = len(numlines . ' lines') + 6
+  let line = getline(v:foldstart)
+  let approxleftcols = 7
+  let maxlen = min([winwidth(0) - approxleftcols, &colorcolumn])
+  let maxfoldstrlen = maxlen - righttextlen
+  if len(line) > maxfoldstrlen
+    let line = line[0:(maxfoldstrlen - 4)] . '...'
+  endif
+  let fillcharcount = maxlen - len(line) - righttextlen
+  return line . repeat(' ', fillcharcount) . righttext
+endfunction
+set foldtext=CustomFoldText()
+" Use spaces instead of dots for remaining chars (Trailing space intentional)
+set fillchars=fold:\ 
 
 
 " BASIC MAPPINGS
@@ -64,7 +142,7 @@ noremap <leader>s <Esc>:syntax sync fromstart<CR>
 
 " BASIC COMMANDS
 " Shortcut to neovim config file
-command! EditConfig :e ~/.config/nvim/init.vim
+command! Config :e ~/.config/nvim/init.vim
 " Shortcut to notes
 command! Notes :e ~/Documents/Notes/index.md
 " Remove trailing whitespace
@@ -75,52 +153,28 @@ command! JSBeautify :!js-beautify % -r
 command! Shfmt :!shfmt -i 2 -w -s %
 
 
-" PLUGINS
-call plug#begin('~/.local/share/nvim/plugged')
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-unimpaired'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-fugitive'
-  Plug 'michaeljsmith/vim-indent-object'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'haya14busa/incsearch.vim'
-  Plug 'myusuf3/numbers.vim'
-  Plug 'godlygeek/tabular'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'junegunn/goyo.vim'
-  Plug 'Shougo/context_filetype.vim'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'w0rp/ale'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'vim-airline/vim-airline'
-  Plug 'rbgrouleff/bclose.vim'
-  Plug 'francoiscabrol/ranger.vim'  " Depends on bclose.vim
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  Plug 'ambv/black'
-  Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
-  Plug 'psliwka/vim-smoothie'
-  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-call plug#end()
+" PLUGIN TREESITTER
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
 
 
-" PLUGIN FUGITIVE CONFIG
-cabbrev Gpush Git push
+" PLUGIN HEXOKINASE
+let g:Hexokinase_highlighters = ['virtual']
+let g:Hexokinase_optInPatterns = ['full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names']
 
 
-" PLUGIN HEXOKINASE CONFIG
-let g:Hexokinase_highlighters = [ 'virtual' ]
-let g:Hexokinase_optInPatterns = [ 'full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names' ]
-
-
-" PLUGIN DEOPLETE CONFIG
+" PLUGIN DEOPLETE
 let g:deoplete#enable_at_startup=1
 
 
-" PLUGIN FZF CONFIG
+" PLUGIN FZF
 let g:fzf_action = {
 \ 'ctrl-t': 'tab split',
 \ 'ctrl-s': 'split',
@@ -130,28 +184,71 @@ map <leader>f :GitFiles<CR>
 map <leader>g :Rg<CR>
 
 
-" PLUGIN GIT GUTTER CONFIG
+" PLUGIN GITGUTTER
 let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 
 
-" PLUGIN AIRLINE CONFIG
-let g:airline_powerline_fonts = 1
+" PLUGIN LUALINE
+lua << EOF
+require'lualine'.setup {
+  options = {
+    icons_enabled = true,
+    theme = 'seoul256',
+     section_separators = {'', ''},
+    component_separators = {'', ''},
+    disabled_filetypes = {},
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch'},
+    -- TODO change bg of filename component if unsaved edits
+    lualine_c = {'filename'},
+    lualine_x = {
+      -- TODO whitespace warnings
+      {
+        'diagnostics',
+        sources = {'ale', 'nvim_lsp'},
+        sections = {'error', 'warn', 'info', 'hint'},
+      },
+      'encoding',
+      'filetype',
+    },
+    -- TODO number of words
+    -- TODO total num lines
+    lualine_y = {'progress'},
+    lualine_z = {'location'},
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {},
+  },
+  tabline = {},
+  extensions = {'fugitive'}
+}
+EOF
 
 
-" PLUGIN RANGER CONFIG
-let g:ranger_replace_netrw = 1
-let g:ranger_map_keys = 0
-nnoremap <leader>e :Ranger<CR>
+"PLUGIN RNVIMR
+nnoremap <leader>e :RnvimrToggle<CR>
+let g:rnvimr_enable_ex = 1      " Replace netrw
+let g:rnvimr_enable_picker = 1  " Hide after picking file
+let g:rnvimr_shadow_winblend = 70
+let g:rnvimr_layout = {
+  \ 'relative': 'editor',
+  \ 'width': float2nr(round(0.9 * &columns)),
+  \ 'height': float2nr(round(0.9 * &lines)),
+  \ 'col': float2nr(round(0.05 * &columns)),
+  \ 'row': float2nr(round(0.05 * &lines)),
+  \ 'style': 'minimal'
+  \ }
 
 
-" PLUGIN INCSEARCH CONFIG
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-
-" PLUGIN ALE CONFIG
+" PLUGIN ALE
 let g:ale_linters = {
 \ 'python': ['pyflakes', 'pylint', 'pylama'],
 \ }
@@ -186,6 +283,6 @@ function! Preserve(command)
 endfunction
 
 
-" FILE SPECIFIC OPERATIONS
+" FILE SPECIFIC CONFIG
 " Update bindings when sxhkdrc is updated.
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
