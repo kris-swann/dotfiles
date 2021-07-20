@@ -2,7 +2,7 @@
 
 Config files I can't live without
 
-**Setup**
+## Setup
 
 Inspired by: https://www.anand-iyer.com/blog/2018/a-simpler-way-to-manage-your-dotfiles.html
 
@@ -12,6 +12,7 @@ rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
 rm -r $HOME/tmpdotfiles
 ```
 
+## Other
 
 **TODO:** Evaluate if these are still up to date
 
