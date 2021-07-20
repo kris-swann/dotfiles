@@ -1,9 +1,6 @@
-#if __has_include(".extend.Xresources")
-#include ".extend.Xresources"
+#if __has_include(".Xresources.extend")
+#include ".Xresources.extend"
 #endif
-! ^ The above lines are no comments!
-! Leave them as they are if a file ~/.extend.Xresources is being used on your system.
-! config can be added there or also here below.
 ! For comments use "!"
 ! Reload this file with "xrdb -load ~/.Xresources"
 
@@ -26,11 +23,6 @@
 #define base0F #be5046
 
 #define background_opacity 80
-!#ifdef background_opacity
-!*background:                      [background_opacity]base00
-!#else
-!*background:                      base00
-!#endif
 *background: base00
 *foreground: base05
 *fading: 15
@@ -74,33 +66,3 @@ Xft.rgba: rgb
 Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
-
-XTerm.termName: xterm-256color
-XTerm*faceName: xft:Hack:style=Regular:size=11:antialias=true
-XTerm*borderLess: true
-
-! For sane copy pasting via clipboard
-XTerm*selectToClipboard: true
-XTerm*VT100*translations: #override \n\
-    Ctrl Shift <Key>V:  insert-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>C:        select-end(CLIPBOARD)
-
-! For all options run "uxrvt --help"
-URxvt.font: xft:Hack:style=Regular:size=11:antialias=true
-URxvt.letterSpace: -2
-URxvt.perl-ext-common: default,clipboard,matcher,resize-font
-URxvt.depth: 32
-URxvt*scrollBar: false
-URxvt*mouseWheelScrollPage: false
-URxvt*cursorBlink: true
-URxvt*saveLines: 5000
-URxvt.url-launcher: /usr/bin/xdg-open
-URxvt.matcher.button: 1
-
-! Sane copy-paste (MUST have perl-ext-common: default)
-URxvt.keysym.Shift-Control-V: eval:paste_clipboard
-URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
-
-! Disable annoying yellow box when ctrl-shift-ing
-URxvt.iso14755: false
-URxvt.iso14755_52: false
