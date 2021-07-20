@@ -154,6 +154,7 @@ command! Shfmt :!shfmt -i 2 -w -s %
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
+  ignore_install = {"haskell"}, -- causes issues on osx
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
