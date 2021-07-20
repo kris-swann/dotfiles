@@ -1,12 +1,19 @@
 # Dotfiles
 
-This repo contains the my configuration files for different linux/unix utilities.
+Config files I can't live without
 
-To easily keep files synced use symlinks!
+**Setup**
 
-If you want to easily set up symlinks, there is an interactive python script
-to help with that (`./setup.py` or `python setup.py`), files should be backed up automatically
-as you run the script.
+Inspired by: https://www.anand-iyer.com/blog/2018/a-simpler-way-to-manage-your-dotfiles.html
+
+```
+git clone --separate-git-dir=$HOME/Projects/dotfiles git@github.com:kris-swann/dotfiles.git $HOME/tmpdotfiles
+rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
+rm -r $HOME/tmpdotfiles
+```
+
+
+**TODO:** Evaluate if these are still up to date
 
 When setting up a new computer, be sure to make sure you set up avahi properly
 so that you can easily ssh to computers on a local network (make sure
