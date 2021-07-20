@@ -10,11 +10,12 @@ Inspired by:
 
 ```
 git clone --separate-git-dir=$HOME/Projects/dotfiles git@github.com:kris-swann/dotfiles.git $HOME/tmpdotfiles
-rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
+rsync --recursive --verbose --exclude '.git' $HOME/tmpdotfiles/ $HOME/
 rm -r $HOME/tmpdotfiles
+dotfiles config --local status.showUntrackedFiles no
 ```
 
-Setup github user `~/.github.user` should look like this
+Setup github user `~/.gitconfig.user` should look like this
 
 ```
 [user]
