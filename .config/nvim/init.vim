@@ -258,8 +258,12 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %[code]% %s'
 " Gutter icons
-let g:ale_sign_error = '✘✘'
-let g:ale_sign_warning = '!!'
+let g:ale_sign_error = ' '
+let g:ale_sign_warning = ' '
+let g:ale_sign_info = ' '
+highlight link ALEErrorSign lualine_x_diagnostics_error_normal
+highlight link ALEWarningSign lualine_x_diagnostics_warn_normal
+highlight link ALEInfoSign lualine_x_diagnostics_info_normal
 " Python linting options
 let g:ale_python_flake8_change_directory = 'off'
 " Cpp linting options
