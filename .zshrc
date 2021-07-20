@@ -85,7 +85,6 @@ alias booksearch="calibredb list -f title -s "
 
 alias gm="cd /run/media/kris"
 alias gp="cd ~/Projects"
-alias gd="cd ~/Projects/dotfiles"
 
 #####################################################################
 ### ADDITIONAL PATHS
