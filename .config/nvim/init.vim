@@ -139,7 +139,7 @@ noremap <leader>s <Esc>:syntax sync fromstart<CR>
 
 " BASIC COMMANDS
 " Shortcut to neovim config file
-command! Config :e ~/.config/nvim/init.vim
+command! Config :e ~/.config/nvim/init.vim   
 " Shortcut to notes
 command! Notes :e ~/Documents/Notes/index.md
 " Remove trailing whitespace
@@ -188,22 +188,30 @@ let g:gitgutter_realtime=1
 
 
 " PLUGIN LUALINE
+" search for trailing whitespace: [ \t]\+$
+" search for mixed indent
 lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
     theme = 'seoul256',
-     section_separators = {'', ''},
+    section_separators = {'', ''},
     component_separators = {'', ''},
     disabled_filetypes = {},
   },
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
-    -- TODO change bg of filename component if unsaved edits
-    lualine_c = {'filename'},
+    lualine_c = {
+      -- TODO change bg of filename component if unsaved edits (or maybe not?)
+      {
+        'filename',
+        -- color={fg="#ffffff", bg="#800080"},
+      },
+    },
     lualine_x = {
       -- TODO whitespace warnings
+      -- TODO git merge conflict warnings
       {
         'diagnostics',
         sources = {'ale', 'nvim_lsp'},
@@ -211,8 +219,6 @@ require'lualine'.setup {
       },
       'filetype',
     },
-    -- TODO number of words
-    -- TODO total num lines
     lualine_y = {'progress'},
     lualine_z = {'location'},
   },
