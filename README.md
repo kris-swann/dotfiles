@@ -12,6 +12,14 @@ rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
 rm -r $HOME/tmpdotfiles
 ```
 
+Setup github user `~/.github.user` should look like this
+
+```
+[user]
+    name = kris-swann
+    email = kris-swann@domain.com
+```
+
 ## Other
 
 **TODO:** Evaluate if these are still up to date
