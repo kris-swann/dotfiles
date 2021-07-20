@@ -209,7 +209,6 @@ require'lualine'.setup {
         sources = {'ale', 'nvim_lsp'},
         sections = {'error', 'warn', 'info', 'hint'},
       },
-      'encoding',
       'filetype',
     },
     -- TODO number of words
