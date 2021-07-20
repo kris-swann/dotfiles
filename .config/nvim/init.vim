@@ -20,16 +20,13 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'kevinhwang91/rnvimr'  " Ranger
   Plug 'hoob3rt/lualine.nvim'
   Plug 'kyazdani42/nvim-web-devicons'  " Opt dep of lualine
-
   " TODO eval telescope as replacement
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-
   " TODO evaluate replacement
   Plug 'Shougo/context_filetype.vim'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-
   " TODO evaluate replacements
   Plug 'w0rp/ale'
 call plug#end()
@@ -38,7 +35,7 @@ call plug#end()
 " BASIC CONFIG
 filetype plugin indent on           " Turn on detection, plugin and indent
 set cursorline                      " Highlight current line
-set colorcolumn=110
+set colorcolumn=100
 set hidden                          " Allow non-active buffers to be unsaved
 set updatetime=100                  " Write swap file to disk after 100ms of no typing
 set listchars=tab:▸\ ,eol:¬,trail:⋅ " Whitespace chars
@@ -250,7 +247,8 @@ let g:rnvimr_layout = {
 
 " PLUGIN ALE
 let g:ale_linters = {
-\ 'python': ['pyflakes', 'pylint', 'pylama'],
+\ 'python': ['flake8', 'pylint'],
+\ 'typescript': ['eslint', 'prettier', 'standard', 'tslint', 'typecheck'],
 \ }
 " Navigate between errors
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -258,11 +256,12 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " Get nicer messages from ALE
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
+let g:ale_echo_msg_format = '[%severity%] [%linter%] %[code]% %s'
+" Gutter icons
+let g:ale_sign_error = '✘✘'
+let g:ale_sign_warning = '!!'
 " Python linting options
-let g:ale_python_pylint_options = '--rcfile toolchain/.pylintrc'
-let g:ale_python_flake8_options = '--config=toolchain/.flake8'
-let g:ale_python_pylama_options = '--options ~/toolchain/pylama.ini'
+let g:ale_python_flake8_change_directory = 'off'
 " Cpp linting options
 let g:ale_cpp_clangtidy_options = '-Wall -std=c++11 -x c++'
 let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
