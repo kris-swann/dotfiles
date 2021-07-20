@@ -4,7 +4,9 @@ Config files I can't live without
 
 ## Setup
 
-Inspired by: https://www.anand-iyer.com/blog/2018/a-simpler-way-to-manage-your-dotfiles.html
+Inspired by:
+* https://www.anand-iyer.com/blog/2018/a-simpler-way-to-manage-your-dotfiles.html
+* https://news.ycombinator.com/item?id=11070797
 
 ```
 git clone --separate-git-dir=$HOME/Projects/dotfiles git@github.com:kris-swann/dotfiles.git $HOME/tmpdotfiles
