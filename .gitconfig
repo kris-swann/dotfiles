@@ -1,8 +1,5 @@
 [core]
     editor = nvim
-[user]
-    email = kristopherswann@gmail.com
-    name = kriswithank
 [credential]
     helper = cache --timeout=3600
 [alias]
@@ -13,3 +10,5 @@
     bclean = "!f() { git branch | grep -v master | xargs git branch -d; }; f"
 [pager]
     stash = false
+[include]
+    path = ~/.gitconfig.user
