@@ -43,6 +43,7 @@ set listchars=tab:▸\ ,eol:¬,trail:⋅ " Whitespace chars
 set list                            " Show the whitespace characters
 set undofile                        " Save undo history between sessions
 set ignorecase smartcase            " Search case insensitive unless capital used
+set shortmess=filnxtToOf
 set completeopt-=preview            " No preview windows for insert mode completion
 " What is saved with :mksession
 set sessionoptions=curdir,winpos,resize,help,blank,winsize,folds,tabpages
@@ -202,10 +203,13 @@ let g:gitgutter_realtime=1
 " search for trailing whitespace: [ \t]\+$
 " search for mixed indent
 lua << EOF
+function wordcount() return vim.fn.wordcount().words .. ' words' end
+function statusline_progress() return '%P' end
+function statusline_loc() return '%3l:%-2c %L' end
 require'lualine'.setup {
   options = {
-    icons_enabled = true,
     theme = 'seoul256',
+    icons_enabled = true,
     section_separators = {'', ''},
     component_separators = {'', ''},
     disabled_filetypes = {},
@@ -223,15 +227,17 @@ require'lualine'.setup {
         sections = {'error', 'warn', 'info', 'hint'},
       },
       'filetype',
+      -- TODO Show word and line count of selction only when in visual modes (w/ clipboard or selction icon?)
+      wordcount,
     },
-    lualine_y = {'progress'},
-    lualine_z = {'location'},
+    lualine_y = {statusline_progress},
+    lualine_z = {statusline_loc},
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
     lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_x = {statusline_loc},
     lualine_y = {},
     lualine_z = {},
   },
