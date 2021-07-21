@@ -35,6 +35,7 @@ call plug#end()
 " BASIC CONFIG
 filetype plugin indent on           " Turn on detection, plugin and indent
 set cursorline                      " Highlight current line
+set signcolumn=yes                  " Always show signcolumn
 set colorcolumn=100
 set hidden                          " Allow non-active buffers to be unsaved
 set updatetime=100                  " Write swap file to disk after 100ms of no typing
@@ -62,7 +63,17 @@ colorscheme onedark
 lua << EOF
   local c = require('onedark.colors')
   vim.cmd("highlight Folded gui=NONE guifg=" .. c.fg .. " guibg=" .. c.dark_cyan)
+  vim.cmd("highlight RegLineNr guifg=" .. c.grey)
+  vim.cmd("highlight ModifiedLineNr guifg=" .. c.grey .. " guibg=#3c3047")
 EOF
+" Change color of line number col when file is modified
+augroup cursorlinecolor
+  autocmd!
+  autocmd BufModifiedSet * 
+  \ if &modified | set winhighlight=LineNr:ModifiedLineNr, |
+  \ else | set winhighlight=LineNr:RegLineNr, |
+  \ endif
+augroup END
 
 
 " LINE NUMBERS
@@ -202,13 +213,7 @@ require'lualine'.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
-    lualine_c = {
-      -- TODO change bg of filename component if unsaved edits (or maybe not?)
-      {
-        'filename',
-        -- color={fg="#ffffff", bg="#800080"},
-      },
-    },
+    lualine_c = {'filename'},
     lualine_x = {
       -- TODO whitespace warnings
       -- TODO git merge conflict warnings
