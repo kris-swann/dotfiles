@@ -142,14 +142,15 @@ augroup highlight_modified_buffers
 augroup END
 
 
-" BASIC MAPPINGS
-" let mapleader=","
+" BASIC MAPPINGS, COMMANDS, ABBREVS
 " Same movement in wrappend lines
 noremap j gj
 noremap k gk
 " Scrolling
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
+nnoremap zl zL
+nnoremap zh zH
 " Easy copy-pasting to and from system clipboard
 vnoremap <leader>y "+y
 vnoremap <leader>d "+d
@@ -163,9 +164,6 @@ tnoremap <esc> <C-\><C-n>
 map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Recalculate syntax highlighting
 noremap <leader>s <Esc>:syntax sync fromstart<CR>
-
-
-" BASIC COMMANDS
 " Shortcut to neovim config file
 command! Config :e ~/.config/nvim/init.vim   
 " Shortcut to notes
@@ -215,12 +213,6 @@ map <leader>g :Rg<CR>
 " PLUGIN GITGUTTER
 let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
-
-
-" PLUGIN AIRLINE CONFIG
-" let g:airline_powerline_fonts = 1
-" let g:airline_left_sep = ''
-" let g:airline_right_sep = ''
 
 
 " STATUSLINE
