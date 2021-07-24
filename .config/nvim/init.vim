@@ -2,6 +2,7 @@
 filetype plugin indent on           " Turn on detection, plugin and indent
 lua << EOF
 vim.g.mapleader = ','      -- set leader as early as possible
+vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.colorcolumn = '100'
 vim.o.cursorline = true
