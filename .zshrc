@@ -86,6 +86,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 #####################################################################
 
 alias dotfiles='git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME'
+alias .f='dotfiles'
 
 alias e="$EDITOR"
 
