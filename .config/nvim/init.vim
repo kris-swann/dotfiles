@@ -17,7 +17,8 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'easymotion/vim-easymotion'
   Plug 'ambv/black'
   Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
-  Plug 'kevinhwang91/rnvimr'  " Ranger
+  Plug 'francoiscabrol/ranger.vim'
+  Plug 'rbgrouleff/bclose.vim' "Dep of ranger
   Plug 'hoob3rt/lualine.nvim'
   Plug 'kyazdani42/nvim-web-devicons'  " Opt dep of lualine
   " TODO eval telescope as replacement
@@ -247,19 +248,9 @@ require'lualine'.setup {
 EOF
 
 
-"PLUGIN RNVIMR
-nnoremap <leader>e :RnvimrToggle<CR>
-let g:rnvimr_enable_ex = 1      " Replace netrw
-let g:rnvimr_enable_picker = 1  " Hide after picking file
-let g:rnvimr_shadow_winblend = 70
-let g:rnvimr_layout = {
-  \ 'relative': 'editor',
-  \ 'width': float2nr(round(0.9 * &columns)),
-  \ 'height': float2nr(round(0.9 * &lines)),
-  \ 'col': float2nr(round(0.05 * &columns)),
-  \ 'row': float2nr(round(0.05 * &lines)),
-  \ 'style': 'minimal'
-  \ }
+" PLUGIN RANGER
+let g:ranger_replace_netrw = 1
+nnoremap <leader>e :Ranger<CR>
 
 
 " PLUGIN ALE
