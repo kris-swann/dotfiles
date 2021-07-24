@@ -1,84 +1,37 @@
-" PLUGINS
-call plug#begin('~/.local/share/nvim/plugged')
-  Plug 'shaunsingh/nord.nvim'
-  Plug 'navarasu/onedark.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-unimpaired'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-fugitive'
-  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-  Plug 'airblade/vim-gitgutter'
-  Plug 'junegunn/goyo.vim'
-  Plug 'psliwka/vim-smoothie'
-  Plug 'godlygeek/tabular'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'ambv/black'
-  Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
-  Plug 'francoiscabrol/ranger.vim'
-  Plug 'rbgrouleff/bclose.vim' "Dep of ranger
-  Plug 'hoob3rt/lualine.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'  " Opt dep of lualine
-  " TODO eval telescope as replacement
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  " TODO evaluate replacement
-  Plug 'Shougo/context_filetype.vim'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  " TODO evaluate replacements
-  Plug 'w0rp/ale'
-call plug#end()
-
-
 " BASIC CONFIG
 filetype plugin indent on           " Turn on detection, plugin and indent
-set cursorline                      " Highlight current line
-set signcolumn=yes                  " Always show signcolumn
-set colorcolumn=100
-set hidden                          " Allow non-active buffers to be unsaved
-set updatetime=100                  " Write swap file to disk after 100ms of no typing
-set listchars=tab:▸\ ,eol:¬,trail:⋅ " Whitespace chars
-set list                            " Show the whitespace characters
-set undofile                        " Save undo history between sessions
-set ignorecase smartcase            " Search case insensitive unless capital used
-set shortmess=filnxtToOf
-set completeopt-=preview            " No preview windows for insert mode completion
-" What is saved with :mksession
-set sessionoptions=curdir,winpos,resize,help,blank,winsize,folds,tabpages
-
-
-" BUILT IN AUTOCOMPLETION STUFF
-set omnifunc=syntaxcomplete#Complete
-set path+=**  " Recursively search subdirs, allows tab-completion, and * for fuzzy search
-set wildmode=longest:full,full  " Wildmenu autocompletes longest common substring then cycles through options
-" Dirs to ignore in wildmenu
-set wildignore+=*__pycache__*,*.pyc,*env/*,*.egg-info*
-
-
-" COLORS
-set termguicolors " Use gui instead of cterm colors in terminal
-let g:onedark_style = 'warm'
-colorscheme onedark
 lua << EOF
-  local c = require('onedark.colors')
-  vim.cmd("highlight Folded gui=NONE guifg=" .. c.fg .. " guibg=" .. c.dark_cyan)
-  vim.cmd("highlight RegLineNr guifg=" .. c.grey)
-  vim.cmd("highlight ModifiedLineNr guifg=" .. c.grey .. " guibg=#3c3047")
+vim.g.mapleader = ','      -- set leader as early as possible
+vim.o.smartcase = true
+vim.o.colorcolumn = '100'
+vim.o.cursorline = true
+vim.o.signcolumn = 'yes'   -- always show signcolumn
+vim.o.undofile = true      -- persist undos between sessions
+vim.o.hidden = true        -- allow hidden buffers to be unsaved
+vim.o.termguicolors = true -- use gui instead of cterm highlight colors
+
+vim.o.list = true
+vim.opt.listchars = {
+  tab = '» ',
+  eol = '¬',
+  trail = '⋅',
+  precedes = '←',
+  extends = '→',
+}
+vim.o.showbreak = '↪ '
+vim.opt.fillchars = {
+  vert = '│',
+  fold = ' ',
+  foldopen = '┬',
+  foldclose = '─',
+  foldsep = '│',
+}
+vim.o.foldcolumn = '0'     -- never show fold column
+
+-- TODO investigate sessions (via :mksession)
+-- TODO add spell files to version control
 EOF
-" Change color of line number col when file is modified
-augroup cursorlinecolor
-  autocmd!
-  autocmd BufModifiedSet * 
-  \ if &modified | set winhighlight=LineNr:ModifiedLineNr, |
-  \ else | set winhighlight=LineNr:RegLineNr, |
-  \ endif
-augroup END
 
-
-" LINE NUMBERS
 " Autotoggle between relative and absolute numbers (from jeffkreeftmeijer/vim-numbertoggle)
 augroup numbertoggle
   autocmd!
@@ -90,18 +43,8 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave * set nornu
 augroup END
 
-
-" INDENTATION
-set expandtab  " Use softtabs
-" Default indentation preferences
-set softtabstop=2
-set tabstop=2
-set shiftwidth=2
-
-
 " FOLDS
 set foldmethod=manual
-set foldcolumn=0
 " Togle manual fold creation and deletion
 nnoremap \ zD
 vnoremap \ zf
@@ -123,12 +66,83 @@ function! CustomFoldText()
   return line . repeat(' ', fillcharcount) . righttext
 endfunction
 set foldtext=CustomFoldText()
-" Use spaces instead of dots for remaining chars (Trailing space intentional)
-set fillchars=fold:\ 
+
+" INDENTATION
+set expandtab  " Use softtabs
+" Default indentation preferences
+set softtabstop=2
+set tabstop=2
+set shiftwidth=2
+
+" Can prob be removed
+set omnifunc=syntaxcomplete#Complete
+
+" PLUGINS
+call plug#begin('~/.local/share/nvim/plugged')
+  Plug 'nvim-lua/plenary.nvim'
+  " TODO write own colorscheme
+  Plug 'shaunsingh/nord.nvim'
+  Plug 'navarasu/onedark.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-fugitive'
+  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+  Plug 'airblade/vim-gitgutter'
+  Plug 'junegunn/goyo.vim'
+  Plug 'psliwka/vim-smoothie'
+  Plug 'godlygeek/tabular'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'ambv/black'
+  Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
+  Plug 'francoiscabrol/ranger.vim'
+  Plug 'rbgrouleff/bclose.vim' "Dep of ranger
+  " TODO write own statusline
+  Plug 'hoob3rt/lualine.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
+  " TODO eval telescope as replacement
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  " TODO evaluate replacement
+  Plug 'Shougo/context_filetype.vim'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  " TODO evaluate replacements
+  Plug 'w0rp/ale'
+call plug#end()
+
+
+" COLORS
+let g:onedark_style = 'warm'
+colorscheme onedark
+lua << EOF
+local c = require('onedark.colors')
+vim.cmd("highlight Folded gui=NONE guifg=" .. c.fg .. " guibg=" .. c.dark_cyan)
+vim.cmd("highlight ModifiedLineNr guifg=" .. c.grey .. " guibg=#3c3047")
+
+function _G.highlight_modified_buffers()
+  local winids = vim.api.nvim_list_wins()
+  for _, winid in ipairs(winids) do
+    local bufnr = vim.fn.winbufnr(winid)
+    if (vim.bo[bufnr].modified) then
+      vim.wo[winid].winhighlight = 'LineNr:ModifiedLineNr'
+    else
+      vim.wo[winid].winhighlight = ''
+    end
+  end
+end
+EOF
+augroup highlight_modified_buffers
+  autocmd!
+  autocmd BufModifiedSet,BufWinEnter * :lua _G.highlight_modified_buffers()
+augroup END
 
 
 " BASIC MAPPINGS
-let mapleader=","
+" let mapleader=","
 " Same movement in wrappend lines
 noremap j gj
 noremap k gk
@@ -161,6 +175,8 @@ command! StripTrailingWhitespace :call Preserve("%s/\\s\\+$//e")
 command! JSBeautify :!js-beautify % -r
 " Run shfmt on current file
 command! Shfmt :!shfmt -i 2 -w -s %
+" Shortcut to easily inspect lua stuff
+cnoreabbrev L lua print(vim.inspect(
 
 
 " PLUGIN TREESITTER
@@ -200,13 +216,141 @@ let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 
 
+" PLUGIN AIRLINE CONFIG
+" let g:airline_powerline_fonts = 1
+" let g:airline_left_sep = ''
+" let g:airline_right_sep = ''
+
+
+" STATUSLINE
+lua << EOF
+local mode_map = {
+  ['n']    = 'N',
+  ['no']   = 'O-PENDING',
+  ['nov']  = 'O-PENDING',
+  ['noV']  = 'O-PENDING',
+  ['no'] = 'O-PENDING',
+  ['niI']  = 'N',
+  ['niR']  = 'N',
+  ['niV']  = 'N',
+  ['v']    = 'V',
+  ['V']    = 'V-LINE',
+  ['']   = 'V-BLOCK',
+  ['s']    = 'S',
+  ['S']    = 'S-LINE',
+  ['']   = 'S-BLOCK',
+  ['i']    = 'I',
+  ['ic']   = 'I',
+  ['ix']   = 'I',
+  ['R']    = 'R',
+  ['Rc']   = 'R',
+  ['Rv']   = 'V-R',
+  ['Rx']   = 'R',
+  ['c']    = 'C',
+  ['cv']   = 'EX',
+  ['ce']   = 'EX',
+  ['r']    = 'R',
+  ['rm']   = 'MORE',
+  ['r?']   = 'CONFIRM',
+  ['!']    = 'SHELL',
+  ['t']    = 'TERM',
+}
+function get_mode()
+  local mode_code = vim.fn.mode()
+  return mode_map[mode_code] or mode_code
+end
+
+--[[
+function M.extract_highlight_colors(color_group, scope)
+  if vim.fn.hlexists(color_group) == 0 then return nil end
+  local color = vim.api.nvim_get_hl_by_name(color_group, true)
+  if color.background ~= nil then
+    color.bg = string.format('#%06x', color.background)
+    color.background = nil
+  end
+  if color.foreground ~= nil then
+    color.fg = string.format('#%06x', color.foreground)
+    color.foreground = nil
+  end
+  if scope then return color[scope] end
+  return color
+end
+]]
+
+function stlhl(group_name) return '%#' .. group_name .. '#' end
+
+local devicons = require'nvim-web-devicons'
+function get_filetype()
+  local f_name = vim.fn.expand('%:t')
+  local f_extension = vim.fn.expand('%:e')
+  local icon, icon_highlight_group = devicons.get_icon(f_name, f_extension)
+  local filetype = vim.bo.filetype
+  if (icon == nil) then
+    return filetype
+  elseif (icon_highlight_group == nil) then
+    return icon .. ' ' .. filetype
+  else
+    return stlhl(icon_highlight_group) .. icon .. stlhl('Statusline') .. ' ' .. vim.bo.filetype
+  end
+end
+
+local Job = require'plenary.job'
+function git_branch(bufnr)
+  local buf_dir = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':h')
+  local j = Job:new({
+    command = "git",
+    args = {"branch", "--show-current"},
+    cwd = buf_dir,
+  })
+  local ok, result = pcall(function() return vim.trim(j:sync()[1]) end)
+  if ok then
+    return result
+  end
+end
+
+-- TODO Git branch
+-- TODO ALE Details
+-- TODO Trailing whitespace/mixed indent
+-- TODO Colors
+-- TODO crypt/spell/paste/insert ??
+-- TODO on highlight num lines/words
+function _G.statusline()
+  local winid = vim.g.statusline_winid
+  local bufnr = vim.fn.winbufnr(winid)
+
+  local rsep = '  '
+  local lsep = '  '
+  local spacer = '%='
+  local filename = '%t'
+  local progress = '%p%%'
+  -- local filetype = '%y'
+  local filetype = get_filetype()
+  local position = '%l:%-2c %L☰'
+  local mode = get_mode()
+  local branch = git_branch(bufnr) or ''
+  return (
+    ' ' .. mode .. rsep
+    .. 'W ' .. winid .. ' B ' .. bufnr .. rsep
+    .. branch .. rsep
+    .. filename
+    .. spacer
+    .. filetype
+    .. lsep .. progress
+    .. lsep .. position
+  )
+end
+-- vim.o.statusline = '%!v:lua.statusline()'
+
+EOF
+
+
 " PLUGIN LUALINE
-" search for trailing whitespace: [ \t]\+$
+" search for trailing whitespace: [ \t]\+$  
 " search for mixed indent
 lua << EOF
 function wordcount() return vim.fn.wordcount().words .. ' words' end
-function statusline_progress() return '%P' end
-function statusline_loc() return '%3l:%-2c %L' end
+function statusline_progress() return '%p%%' end
+function statusline_loc() return '%l:%-2c %L☰' end
 require'lualine'.setup {
   options = {
     theme = 'seoul256',
@@ -250,6 +394,7 @@ EOF
 
 " PLUGIN RANGER
 let g:ranger_replace_netrw = 1
+let g:ranger_map_keys = 0
 nnoremap <leader>e :Ranger<CR>
 
 
