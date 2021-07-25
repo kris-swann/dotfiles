@@ -105,8 +105,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
   Plug 'francoiscabrol/ranger.vim'
   Plug 'rbgrouleff/bclose.vim' "Dep of ranger
-  " TODO write own statusline
-  Plug 'hoob3rt/lualine.nvim'
   Plug 'kyazdani42/nvim-web-devicons'
   " TODO eval telescope as replacement
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -245,49 +243,6 @@ let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 
 
-" PLUGIN LUALINE
-lua << EOF
---[[
-function statusline_progress() return '%p%%' end
-function statusline_loc() return '%l:%-2c %L☰' end
-require'lualine'.setup {
-  options = {
-    theme = 'seoul256',
-    icons_enabled = true,
-    section_separators = {'', ''},
-    component_separators = {'', ''},
-    disabled_filetypes = {},
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch'},
-    lualine_c = {'filename'},
-    lualine_x = {
-      {
-        'diagnostics',
-        sources = {'ale', 'nvim_lsp'},
-        sections = {'error', 'warn', 'info', 'hint'},
-      },
-      'filetype',
-    },
-    lualine_y = {statusline_progress},
-    lualine_z = {statusline_loc},
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {statusline_loc},
-    lualine_y = {},
-    lualine_z = {},
-  },
-  tabline = {},
-  extensions = {'fugitive'}
-}
-]]
-EOF
-
-
 " PLUGIN RANGER
 let g:ranger_replace_netrw = 1
 let g:ranger_map_keys = 0
@@ -307,12 +262,15 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %[code]% %s'
 " Gutter icons
-let g:ale_sign_error = ' '
-let g:ale_sign_warning = ' '
-let g:ale_sign_info = ' '
-highlight link ALEErrorSign lualine_x_diagnostics_error_normal
-highlight link ALEWarningSign lualine_x_diagnostics_warn_normal
-highlight link ALEInfoSign lualine_x_diagnostics_info_normal
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
+let g:ale_sign_info = ''
+lua << EOF
+local c = require'onedark.colors'
+vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
+vim.cmd('highlight ALEWarningSign guifg=' .. c.dark_yellow .. ' guibg=' .. c.bg0)
+vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
+EOF
 " Python linting options
 let g:ale_python_flake8_change_directory = 'off'
 " Cpp linting options
