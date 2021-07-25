@@ -1,6 +1,9 @@
 " BASIC CONFIG
 filetype plugin indent on           " Turn on detection, plugin and indent
 lua << EOF
+-- TODO investigate sessions (via :mksession)
+-- TODO add spell files to version control
+
 vim.g.mapleader = ','      -- set leader as early as possible
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -11,26 +14,31 @@ vim.o.undofile = true      -- persist undos between sessions
 vim.o.hidden = true        -- allow hidden buffers to be unsaved
 vim.o.termguicolors = true -- use gui instead of cterm highlight colors
 
+vim.o.wildmode = 'longest:full,full'  -- command mode completions: longest common substr then cycle options
+vim.o.omnifunc = 'syntaxcomplete#Complete'  -- basic omnifunc for <C-x><C-o> completions
+
+-- default indent prefs
+vim.o.expandtab = true  -- softtabs
+vim.o.softtabstop = 2
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+
 vim.o.list = true
 vim.opt.listchars = {
-  tab = '» ',
-  eol = '¬',
-  trail = '⋅',
+  tab =      '» ',
+  eol =      '¬',
+  trail =    '⋅',
   precedes = '←',
-  extends = '→',
+  extends =  '→',
 }
 vim.o.showbreak = '↪ '
 vim.opt.fillchars = {
-  vert = '│',
-  fold = ' ',
-  foldopen = '┬',
+  vert =      '│',
+  fold =      ' ',
   foldclose = '─',
-  foldsep = '│',
+  foldopen =  '┬',
+  foldsep =   '│',
 }
-vim.o.foldcolumn = '0'     -- never show fold column
-
--- TODO investigate sessions (via :mksession)
--- TODO add spell files to version control
 EOF
 
 " Autotoggle between relative and absolute numbers (from jeffkreeftmeijer/vim-numbertoggle)
@@ -49,6 +57,7 @@ set foldmethod=manual
 " Togle manual fold creation and deletion
 nnoremap \ zD
 vnoremap \ zf
+set foldtext=CustomFoldText()
 function! CustomFoldText()
   let ismodified = exists('g:loaded_gitgutter') && gitgutter#fold#is_changed()
   let modifiedchar = ismodified ? ' ⊡' : '  '
@@ -66,17 +75,7 @@ function! CustomFoldText()
   let fillcharcount = maxlen - len(line) - righttextlen
   return line . repeat(' ', fillcharcount) . righttext
 endfunction
-set foldtext=CustomFoldText()
 
-" INDENTATION
-set expandtab  " Use softtabs
-" Default indentation preferences
-set softtabstop=2
-set tabstop=2
-set shiftwidth=2
-
-" Can prob be removed
-set omnifunc=syntaxcomplete#Complete
 
 " PLUGINS
 call plug#begin('~/.local/share/nvim/plugged')
@@ -121,8 +120,8 @@ let g:onedark_style = 'warm'
 colorscheme onedark
 lua << EOF
 local c = require('onedark.colors')
-vim.cmd("highlight Folded gui=NONE guifg=" .. c.fg .. " guibg=" .. c.dark_cyan)
-vim.cmd("highlight ModifiedLineNr guifg=" .. c.grey .. " guibg=#3c3047")
+vim.cmd('highlight Folded gui=NONE guifg=' .. c.fg .. ' guibg=' .. c.dark_cyan)
+vim.cmd('highlight ModifiedLineNr guifg=' .. c.grey .. ' guibg=#3c3047')
 
 function _G.highlight_modified_buffers()
   local winids = vim.api.nvim_list_wins()
@@ -143,6 +142,11 @@ augroup END
 
 
 " BASIC MAPPINGS, COMMANDS, ABBREVS
+" Prefer virtual replace over normal replace
+nnoremap R gR
+" Disable Ex Mode
+noremap Q <Nop>
+noremap gQ <Nop>
 " Same movement in wrappend lines
 noremap j gj
 noremap k gk
@@ -168,8 +172,21 @@ noremap <leader>s <Esc>:syntax sync fromstart<CR>
 command! Config :e ~/.config/nvim/init.vim   
 " Shortcut to notes
 command! Notes :e ~/Documents/Notes/index.md
+" TODO switch this over to lua and get rid of Preserve function
 " Remove trailing whitespace
 command! StripTrailingWhitespace :call Preserve("%s/\\s\\+$//e")
+function! Preserve(command)
+  " Execute a command without altering any state
+  " Save last search, and cursor position
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Run the command
+  execute a:command
+  " Restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
 " Run js-beautify on current file
 command! JSBeautify :!js-beautify % -r
 " Run shfmt on current file
@@ -217,83 +234,88 @@ let g:gitgutter_realtime=1
 
 " STATUSLINE
 lua << EOF
+local devicons = require'nvim-web-devicons'
+local Job = require'plenary.job'
+
 local mode_map = {
-  ['n']    = 'N',
-  ['no']   = 'O-PENDING',
-  ['nov']  = 'O-PENDING',
-  ['noV']  = 'O-PENDING',
-  ['no'] = 'O-PENDING',
-  ['niI']  = 'N',
-  ['niR']  = 'N',
-  ['niV']  = 'N',
-  ['v']    = 'V',
-  ['V']    = 'V-LINE',
-  ['']   = 'V-BLOCK',
-  ['s']    = 'S',
-  ['S']    = 'S-LINE',
-  ['']   = 'S-BLOCK',
-  ['i']    = 'I',
-  ['ic']   = 'I',
-  ['ix']   = 'I',
-  ['R']    = 'R',
-  ['Rc']   = 'R',
-  ['Rv']   = 'V-R',
-  ['Rx']   = 'R',
-  ['c']    = 'C',
-  ['cv']   = 'EX',
-  ['ce']   = 'EX',
-  ['r']    = 'R',
-  ['rm']   = 'MORE',
-  ['r?']   = 'CONFIRM',
-  ['!']    = 'SHELL',
-  ['t']    = 'TERM',
+  ['n']    = { key = 'NORMAL',    display = 'N' },
+  ['no']   = { key = 'O-PENDING', display = 'O-PENDING' },
+  ['nov']  = { key = 'O-PENDING', display = 'O-PENDING' },
+  ['noV']  = { key = 'O-PENDING', display = 'O-PENDING' },
+  ['no'] = { key = 'O-PENDING', display = 'O-PENDING' },
+  ['niI']  = { key = 'NORMAL',    display = 'N' },
+  ['niR']  = { key = 'NORMAL',    display = 'N' },
+  ['niV']  = { key = 'NORMAL',    display = 'N' },
+  ['v']    = { key = 'VISUAL',    display = 'V' },
+  ['V']    = { key = 'VISUAL',    display = 'V-LINE' },
+  ['']   = { key = 'VISUAL',    display = 'V-BLOCK' },
+  ['s']    = { key = 'SELECT',    display = 'S' },
+  ['S']    = { key = 'SELECT',    display = 'S-LINE' },
+  ['']   = { key = 'SELECT',    display = 'S-BLOCK' },
+  ['i']    = { key = 'INSERT',    display = 'I' },
+  ['ic']   = { key = 'INSERT',    display = 'I' },
+  ['ix']   = { key = 'INSERT',    display = 'I' },
+  ['R']    = { key = 'REPLACE',   display = 'R' },
+  ['Rc']   = { key = 'REPLACE',   display = 'R' },
+  ['Rv']   = { key = 'REPLACE',   display = 'V-R' },
+  ['Rx']   = { key = 'REPLACE',   display = 'R' },
+  ['c']    = { key = 'COMMAND',   display = 'C' },
+  ['cv']   = { key = 'EX',        display = 'EX' },
+  ['ce']   = { key = 'EX',        display = 'EX' },
+  ['r']    = { key = 'REPLACE',   display = 'R' },
+  ['rm']   = { key = 'MORE',      display = 'MORE' },
+  ['r?']   = { key = 'CONFIRM',   display = 'CONFIRM' },
+  ['!']    = { key = 'SHELL',     display = 'SHELL' },
+  ['t']    = { key = 'TERM',      display = 'T' },
 }
 function get_mode()
-  local mode_code = vim.fn.mode()
-  return mode_map[mode_code] or mode_code
+  local code = vim.fn.mode()
+  return mode_map[code] or { key = 'DEFAULT', display = code }
 end
 
---[[
-function M.extract_highlight_colors(color_group, scope)
-  if vim.fn.hlexists(color_group) == 0 then return nil end
-  local color = vim.api.nvim_get_hl_by_name(color_group, true)
-  if color.background ~= nil then
+-- Given name of a hlgroup return { fg = '#xxxxxx', bg = '#xxxxxx' } or nil
+function get_hlcolors(hlgroup_name)
+  local ok, color = pcall(vim.api.nvim_get_hl_by_name, hlgroup_name, true)
+  if color ~= nil and color.background ~= nil then
     color.bg = string.format('#%06x', color.background)
     color.background = nil
   end
-  if color.foreground ~= nil then
+  if color ~= nil and color.foreground ~= nil then
     color.fg = string.format('#%06x', color.foreground)
     color.foreground = nil
   end
-  if scope then return color[scope] end
-  return color
+  if ok then return color end
 end
-]]
 
-function stlhl(group_name) return '%#' .. group_name .. '#' end
+function stlhl(group_name, str) return '%#' .. group_name .. '#' .. str end
 
-local devicons = require'nvim-web-devicons'
-function get_filetype()
-  local f_name = vim.fn.expand('%:t')
-  local f_extension = vim.fn.expand('%:e')
-  local icon, icon_highlight_group = devicons.get_icon(f_name, f_extension)
-  local filetype = vim.bo.filetype
+function get_filetype(bufnr, hlgroup_name)
+  local base_hlcolors = get_hlcolors(hlgroup_name)
+  local full_file_name = vim.api.nvim_buf_get_name(bufnr)
+  local f_name = string.match(full_file_name, '[^/]+$')
+  local f_extension = string.match(full_file_name, '[^.]+$')
+  local icon, icon_hlgroup_name = devicons.get_icon(f_name, f_extension)
+  local icon_hlcolors = get_hlcolors(icon_hlgroup_name)
+  local filetype = vim.bo[bufnr].filetype
   if (icon == nil) then
     return filetype
-  elseif (icon_highlight_group == nil) then
+  elseif (icon_hlcolors == nil) then
     return icon .. ' ' .. filetype
   else
-    return stlhl(icon_highlight_group) .. icon .. stlhl('Statusline') .. ' ' .. vim.bo.filetype
+    local stl_icon_hlgroup_name = hlgroup_name .. icon_hlgroup_name
+    vim.cmd(
+      'highlight ' .. stl_icon_hlgroup_name
+      .. ' guifg=' .. (icon_hlcolors.fg or 'NONE')
+      .. ' guibg=' .. (base_hlcolors.bg or 'NONE')
+    )
+    return stlhl(stl_icon_hlgroup_name, icon) .. stlhl(hlgroup_name, ' ' .. filetype)
   end
 end
 
-local Job = require'plenary.job'
-function git_branch(bufnr)
+function get_branch(bufnr)
   local buf_dir = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':h')
   local j = Job:new({
-    command = "git",
-    args = {"branch", "--show-current"},
-    cwd = buf_dir,
+    command = "git", args = {"branch", "--show-current"}, cwd = buf_dir,
   })
   local ok, result = pcall(function() return vim.trim(j:sync()[1]) end)
   if ok then
@@ -301,39 +323,66 @@ function git_branch(bufnr)
   end
 end
 
--- TODO Git branch
+local c = require('onedark.colors')
+function statusline_colors()
+  return {
+    base = { fg = c.fg, bg = c.bg1 },
+    accent = { fg = c.fg, bg = c.dark_cyan },
+    secondary = { fg = c.fg, bg = c.bg3 },
+    err = c.dark_red,
+    warning = c.dark_yellow,
+    info = c.dark_cyan,
+  }
+end
+
+function update_highlight_groups(colors)
+  vim.cmd('highlight StlBase guifg=' .. colors.base.fg .. ' guibg=' .. colors.base.bg)
+  vim.cmd('highlight StlAccent guifg=' .. colors.accent.fg .. ' guibg=' .. colors.accent.bg)
+  vim.cmd('highlight StlSecondary guifg=' .. colors.secondary.fg .. ' guibg=' .. colors.secondary.bg)
+  vim.cmd('highlight StlAccentSecondarySep guifg=' .. colors.accent.bg .. ' guibg=' .. colors.secondary.bg)
+  vim.cmd('highlight StlSecondaryBaseSep guifg=' .. colors.secondary.bg .. ' guibg=' .. colors.base.bg)
+end
+
+-- TODO move to seperate file
 -- TODO ALE Details
 -- TODO Trailing whitespace/mixed indent
--- TODO Colors
+-- TODO Color switching
 -- TODO crypt/spell/paste/insert ??
 -- TODO on highlight num lines/words
 function _G.statusline()
   local winid = vim.g.statusline_winid
   local bufnr = vim.fn.winbufnr(winid)
 
-  local rsep = '  '
-  local lsep = '  '
+  local colors = statusline_colors()
+  update_highlight_groups(colors)
+
+  local rsep = ''
+  local lsep = ''
   local spacer = '%='
   local filename = '%t'
   local progress = '%p%%'
-  -- local filetype = '%y'
-  local filetype = get_filetype()
+  local filetype = get_filetype(bufnr, 'StlBase')
   local position = '%l:%-2c %L☰'
   local mode = get_mode()
-  local branch = git_branch(bufnr) or ''
+  local branch_name = get_branch(bufnr)
+  local branch_text = ''
+  if branch_name then branch_text = '  ' .. branch_name end
+  if string.len(branch_text) > 15 then
+    branch_text = string.sub(branch_text, 1, 15) .. '..'
+  end
   return (
-    ' ' .. mode .. rsep
-    .. 'W ' .. winid .. ' B ' .. bufnr .. rsep
-    .. branch .. rsep
-    .. filename
-    .. spacer
-    .. filetype
-    .. lsep .. progress
-    .. lsep .. position
+    stlhl('StlAccent', ' ' .. mode.display .. ' ')
+    .. stlhl('StlAccentSecondarySep', rsep)
+    .. stlhl('StlSecondary', branch_text)
+    .. stlhl('StlSecondaryBaseSep', rsep)
+    .. stlhl('StlBase', ' ' .. filename .. spacer .. filetype .. ' ')
+    .. stlhl('StlSecondaryBaseSep', lsep)
+    .. stlhl('StlSecondary', ' ' .. progress .. ' ')
+    .. stlhl('StlAccentSecondarySep', lsep)
+    .. stlhl('StlAccent', ' ' .. position .. ' ')
   )
 end
--- vim.o.statusline = '%!v:lua.statusline()'
-
+vim.o.statusline = '%!v:lua.statusline()'
 EOF
 
 
@@ -341,6 +390,7 @@ EOF
 " search for trailing whitespace: [ \t]\+$  
 " search for mixed indent
 lua << EOF
+--[[
 function wordcount() return vim.fn.wordcount().words .. ' words' end
 function statusline_progress() return '%p%%' end
 function statusline_loc() return '%l:%-2c %L☰' end
@@ -382,6 +432,7 @@ require'lualine'.setup {
   tabline = {},
   extensions = {'fugitive'}
 }
+]]
 EOF
 
 
@@ -415,21 +466,6 @@ let g:ale_python_flake8_change_directory = 'off'
 " Cpp linting options
 let g:ale_cpp_clangtidy_options = '-Wall -std=c++11 -x c++'
 let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
-
-
-" HELPER FUNCTIONS
-function! Preserve(command)
-  " Execute a command without altering any state
-  " Save last search, and cursor position
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Run the command
-  execute a:command
-  " Restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
 
 
 " FILE SPECIFIC CONFIG
