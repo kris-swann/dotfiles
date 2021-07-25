@@ -273,8 +273,8 @@ function get_mode()
   return mode_map[code] or { key = 'DEFAULT', display = code }
 end
 
--- Given name of a hlgroup return { fg = '#xxxxxx', bg = '#xxxxxx' } or nil
 function get_hlcolors(hlgroup_name)
+  -- Given name of a hlgroup return { fg = '#xxxxxx', bg = '#xxxxxx' } or nil
   local ok, color = pcall(vim.api.nvim_get_hl_by_name, hlgroup_name, true)
   if color ~= nil and color.background ~= nil then
     color.bg = string.format('#%06x', color.background)
@@ -324,15 +324,67 @@ function get_branch(bufnr)
 end
 
 local c = require('onedark.colors')
-function statusline_colors()
-  return {
-    base = { fg = c.fg, bg = c.bg1 },
-    accent = { fg = c.fg, bg = c.dark_cyan },
+function statusline_colors(mode, active)
+  local default = {
+    base = { fg = c.fg, bg = c.bg0 },
+    accent = { fg = c.fg, bg = c.bg_d },
     secondary = { fg = c.fg, bg = c.bg3 },
     err = c.dark_red,
     warning = c.dark_yellow,
     info = c.dark_cyan,
   }
+  local by_mode = {
+    NORMAL = {
+      base = { fg = c.fg, bg = c.bg1 },
+      accent = { fg = c.fg, bg = '#A12060' },
+      secondary = { fg = c.fg, bg = c.bg3 },
+      err = c.dark_red,
+      warning = c.dark_yellow,
+      info = c.dark_cyan,
+    },
+    VISUAL = {
+      base = { fg = c.fg, bg = c.bg1 },
+      accent = { fg = c.fg, bg = c.dark_yellow },
+      secondary = { fg = c.fg, bg = c.bg3 },
+      err = c.dark_red,
+      warning = c.dark_yellow,
+      info = c.dark_cyan,
+    },
+    INSERT = {
+      base = { fg = c.fg, bg = c.bg1 },
+      accent = { fg = c.fg, bg = c.dark_purple },
+      secondary = { fg = c.fg, bg = c.bg3 },
+      err = c.dark_red,
+      warning = c.dark_yellow,
+      info = c.dark_cyan,
+    },
+    REPLACE = {
+      base = { fg = c.fg, bg = c.bg1 },
+      accent = { fg = c.fg, bg = c.dark_red },
+      secondary = { fg = c.fg, bg = c.bg3 },
+      err = c.dark_red,
+      warning = c.dark_yellow,
+      info = c.dark_cyan,
+    },
+    COMMAND = {
+      base = { fg = c.fg, bg = c.bg1 },
+      accent = { fg = c.fg, bg = c.dark_cyan },
+      secondary = { fg = c.fg, bg = c.bg3 },
+      err = c.dark_red,
+      warning = c.dark_yellow,
+      info = c.dark_cyan,
+    },
+    TERM = {
+      base = { fg = c.fg, bg = c.bg1 },
+      accent = { fg = c.fg, bg = '#478735' },
+      secondary = { fg = c.fg, bg = c.bg3 },
+      err = c.dark_red,
+      warning = c.dark_yellow,
+      info = c.dark_cyan,
+    },
+  }
+  if not active then return default end
+  return by_mode[mode.key] or default
 end
 
 function update_highlight_groups(colors)
@@ -340,36 +392,44 @@ function update_highlight_groups(colors)
   vim.cmd('highlight StlAccent guifg=' .. colors.accent.fg .. ' guibg=' .. colors.accent.bg)
   vim.cmd('highlight StlSecondary guifg=' .. colors.secondary.fg .. ' guibg=' .. colors.secondary.bg)
   vim.cmd('highlight StlAccentSecondarySep guifg=' .. colors.accent.bg .. ' guibg=' .. colors.secondary.bg)
+  vim.cmd('highlight StlAccentBaseSep guifg=' .. colors.accent.bg .. ' guibg=' .. colors.base.bg)
   vim.cmd('highlight StlSecondaryBaseSep guifg=' .. colors.secondary.bg .. ' guibg=' .. colors.base.bg)
 end
 
 -- TODO move to seperate file
 -- TODO ALE Details
 -- TODO Trailing whitespace/mixed indent
--- TODO Color switching
+-- TODO git merge conflict warnings
 -- TODO crypt/spell/paste/insert ??
--- TODO on highlight num lines/words
+-- TODO show num words / lines in visual modes only (w/ clipboard or selction icon)
 function _G.statusline()
   local winid = vim.g.statusline_winid
   local bufnr = vim.fn.winbufnr(winid)
-
-  local colors = statusline_colors()
+  local active_winid = vim.fn.win_getid()
+  local active = winid == active_winid
+  local mode = get_mode()
+  local colors = statusline_colors(mode, active)
   update_highlight_groups(colors)
+
 
   local rsep = ''
   local lsep = ''
   local spacer = '%='
   local filename = '%t'
   local progress = '%p%%'
-  local filetype = get_filetype(bufnr, 'StlBase')
   local position = '%l:%-2c %L☰'
-  local mode = get_mode()
+  local filetype = get_filetype(bufnr, 'StlBase')
   local branch_name = get_branch(bufnr)
   local branch_text = ''
   if branch_name then branch_text = '  ' .. branch_name end
   if string.len(branch_text) > 15 then
     branch_text = string.sub(branch_text, 1, 15) .. '..'
   end
+
+  if not active then
+    return stlhl('StlBase', ' ' .. filename .. spacer .. position .. ' ')
+  end
+
   return (
     stlhl('StlAccent', ' ' .. mode.display .. ' ')
     .. stlhl('StlAccentSecondarySep', rsep)
@@ -407,15 +467,12 @@ require'lualine'.setup {
     lualine_b = {'branch'},
     lualine_c = {'filename'},
     lualine_x = {
-      -- TODO whitespace warnings
-      -- TODO git merge conflict warnings
       {
         'diagnostics',
         sources = {'ale', 'nvim_lsp'},
         sections = {'error', 'warn', 'info', 'hint'},
       },
       'filetype',
-      -- TODO Show word and line count of selction only when in visual modes (w/ clipboard or selction icon?)
       wordcount,
     },
     lualine_y = {statusline_progress},
