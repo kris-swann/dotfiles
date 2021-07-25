@@ -39,6 +39,7 @@ vim.opt.fillchars = {
   foldopen =  '┬',
   foldsep =   '│',
 }
+
 EOF
 
 " Autotoggle between relative and absolute numbers (from jeffkreeftmeijer/vim-numbertoggle)
@@ -78,6 +79,9 @@ endfunction
 
 
 " PLUGINS
+" TODO switch over to lua plugin manager
+" TODO investigate .editorconfig plugin
+" TODO move up in file?
 call plug#begin('~/.local/share/nvim/plugged')
   Plug 'nvim-lua/plenary.nvim'
   " TODO write own colorscheme
@@ -89,6 +93,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-repeat'
+  " TODO checkout vimagit
   Plug 'tpope/vim-fugitive'
   Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
   Plug 'airblade/vim-gitgutter'
@@ -115,11 +120,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 call plug#end()
 
 
+
 " COLORS
 let g:onedark_style = 'warm'
 colorscheme onedark
 lua << EOF
-local c = require('onedark.colors')
+local c = require'onedark.colors'
 vim.cmd('highlight Folded gui=NONE guifg=' .. c.fg .. ' guibg=' .. c.dark_cyan)
 vim.cmd('highlight ModifiedLineNr guifg=' .. c.grey .. ' guibg=#3c3047')
 
@@ -139,6 +145,13 @@ augroup highlight_modified_buffers
   autocmd!
   autocmd BufModifiedSet,BufWinEnter * :lua _G.highlight_modified_buffers()
 augroup END
+
+lua << EOF
+-- STATUSLINE
+statusline = require'statusline'
+_G.make_statusline = statusline.make_statusline
+vim.o.statusline = '%!v:lua.make_statusline()'
+EOF
 
 
 " BASIC MAPPINGS, COMMANDS, ABBREVS
@@ -232,226 +245,9 @@ let g:gitgutter_enabled=1
 let g:gitgutter_realtime=1
 
 
-" STATUSLINE
-lua << EOF
-local devicons = require'nvim-web-devicons'
-local Job = require'plenary.job'
-
-local mode_map = {
-  ['n']    = { key = 'NORMAL',    display = 'N' },
-  ['no']   = { key = 'O-PENDING', display = 'O-PENDING' },
-  ['nov']  = { key = 'O-PENDING', display = 'O-PENDING' },
-  ['noV']  = { key = 'O-PENDING', display = 'O-PENDING' },
-  ['no'] = { key = 'O-PENDING', display = 'O-PENDING' },
-  ['niI']  = { key = 'NORMAL',    display = 'N' },
-  ['niR']  = { key = 'NORMAL',    display = 'N' },
-  ['niV']  = { key = 'NORMAL',    display = 'N' },
-  ['v']    = { key = 'VISUAL',    display = 'V' },
-  ['V']    = { key = 'VISUAL',    display = 'V-LINE' },
-  ['']   = { key = 'VISUAL',    display = 'V-BLOCK' },
-  ['s']    = { key = 'SELECT',    display = 'S' },
-  ['S']    = { key = 'SELECT',    display = 'S-LINE' },
-  ['']   = { key = 'SELECT',    display = 'S-BLOCK' },
-  ['i']    = { key = 'INSERT',    display = 'I' },
-  ['ic']   = { key = 'INSERT',    display = 'I' },
-  ['ix']   = { key = 'INSERT',    display = 'I' },
-  ['R']    = { key = 'REPLACE',   display = 'R' },
-  ['Rc']   = { key = 'REPLACE',   display = 'R' },
-  ['Rv']   = { key = 'REPLACE',   display = 'V-R' },
-  ['Rx']   = { key = 'REPLACE',   display = 'R' },
-  ['c']    = { key = 'COMMAND',   display = 'C' },
-  ['cv']   = { key = 'EX',        display = 'EX' },
-  ['ce']   = { key = 'EX',        display = 'EX' },
-  ['r']    = { key = 'REPLACE',   display = 'R' },
-  ['rm']   = { key = 'MORE',      display = 'MORE' },
-  ['r?']   = { key = 'CONFIRM',   display = 'CONFIRM' },
-  ['!']    = { key = 'SHELL',     display = 'SHELL' },
-  ['t']    = { key = 'TERM',      display = 'T' },
-}
-function get_mode()
-  local code = vim.fn.mode()
-  return mode_map[code] or { key = 'DEFAULT', display = code }
-end
-
-function get_hlcolors(hlgroup_name)
-  -- Given name of a hlgroup return { fg = '#xxxxxx', bg = '#xxxxxx' } or nil
-  local ok, color = pcall(vim.api.nvim_get_hl_by_name, hlgroup_name, true)
-  if color ~= nil and color.background ~= nil then
-    color.bg = string.format('#%06x', color.background)
-    color.background = nil
-  end
-  if color ~= nil and color.foreground ~= nil then
-    color.fg = string.format('#%06x', color.foreground)
-    color.foreground = nil
-  end
-  if ok then return color end
-end
-
-function stlhl(group_name, str) return '%#' .. group_name .. '#' .. str end
-
-function get_filetype(bufnr, hlgroup_name)
-  local base_hlcolors = get_hlcolors(hlgroup_name)
-  local full_file_name = vim.api.nvim_buf_get_name(bufnr)
-  local f_name = string.match(full_file_name, '[^/]+$')
-  local f_extension = string.match(full_file_name, '[^.]+$')
-  local icon, icon_hlgroup_name = devicons.get_icon(f_name, f_extension)
-  local icon_hlcolors = get_hlcolors(icon_hlgroup_name)
-  local filetype = vim.bo[bufnr].filetype
-  if (icon == nil) then
-    return filetype
-  elseif (icon_hlcolors == nil) then
-    return icon .. ' ' .. filetype
-  else
-    local stl_icon_hlgroup_name = hlgroup_name .. icon_hlgroup_name
-    vim.cmd(
-      'highlight ' .. stl_icon_hlgroup_name
-      .. ' guifg=' .. (icon_hlcolors.fg or 'NONE')
-      .. ' guibg=' .. (base_hlcolors.bg or 'NONE')
-    )
-    return stlhl(stl_icon_hlgroup_name, icon) .. stlhl(hlgroup_name, ' ' .. filetype)
-  end
-end
-
-function get_branch(bufnr)
-  local buf_dir = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':h')
-  local j = Job:new({
-    command = "git", args = {"branch", "--show-current"}, cwd = buf_dir,
-  })
-  local ok, result = pcall(function() return vim.trim(j:sync()[1]) end)
-  if ok then
-    return result
-  end
-end
-
-local c = require('onedark.colors')
-function statusline_colors(mode, active)
-  local default = {
-    base = { fg = c.fg, bg = c.bg0 },
-    accent = { fg = c.fg, bg = c.bg_d },
-    secondary = { fg = c.fg, bg = c.bg3 },
-    err = c.dark_red,
-    warning = c.dark_yellow,
-    info = c.dark_cyan,
-  }
-  local by_mode = {
-    NORMAL = {
-      base = { fg = c.fg, bg = c.bg1 },
-      accent = { fg = c.fg, bg = '#A12060' },
-      secondary = { fg = c.fg, bg = c.bg3 },
-      err = c.dark_red,
-      warning = c.dark_yellow,
-      info = c.dark_cyan,
-    },
-    VISUAL = {
-      base = { fg = c.fg, bg = c.bg1 },
-      accent = { fg = c.fg, bg = c.dark_yellow },
-      secondary = { fg = c.fg, bg = c.bg3 },
-      err = c.dark_red,
-      warning = c.dark_yellow,
-      info = c.dark_cyan,
-    },
-    INSERT = {
-      base = { fg = c.fg, bg = c.bg1 },
-      accent = { fg = c.fg, bg = c.dark_purple },
-      secondary = { fg = c.fg, bg = c.bg3 },
-      err = c.dark_red,
-      warning = c.dark_yellow,
-      info = c.dark_cyan,
-    },
-    REPLACE = {
-      base = { fg = c.fg, bg = c.bg1 },
-      accent = { fg = c.fg, bg = c.dark_red },
-      secondary = { fg = c.fg, bg = c.bg3 },
-      err = c.dark_red,
-      warning = c.dark_yellow,
-      info = c.dark_cyan,
-    },
-    COMMAND = {
-      base = { fg = c.fg, bg = c.bg1 },
-      accent = { fg = c.fg, bg = c.dark_cyan },
-      secondary = { fg = c.fg, bg = c.bg3 },
-      err = c.dark_red,
-      warning = c.dark_yellow,
-      info = c.dark_cyan,
-    },
-    TERM = {
-      base = { fg = c.fg, bg = c.bg1 },
-      accent = { fg = c.fg, bg = '#478735' },
-      secondary = { fg = c.fg, bg = c.bg3 },
-      err = c.dark_red,
-      warning = c.dark_yellow,
-      info = c.dark_cyan,
-    },
-  }
-  if not active then return default end
-  return by_mode[mode.key] or default
-end
-
-function update_highlight_groups(colors)
-  vim.cmd('highlight StlBase guifg=' .. colors.base.fg .. ' guibg=' .. colors.base.bg)
-  vim.cmd('highlight StlAccent guifg=' .. colors.accent.fg .. ' guibg=' .. colors.accent.bg)
-  vim.cmd('highlight StlSecondary guifg=' .. colors.secondary.fg .. ' guibg=' .. colors.secondary.bg)
-  vim.cmd('highlight StlAccentSecondarySep guifg=' .. colors.accent.bg .. ' guibg=' .. colors.secondary.bg)
-  vim.cmd('highlight StlAccentBaseSep guifg=' .. colors.accent.bg .. ' guibg=' .. colors.base.bg)
-  vim.cmd('highlight StlSecondaryBaseSep guifg=' .. colors.secondary.bg .. ' guibg=' .. colors.base.bg)
-end
-
--- TODO move to seperate file
--- TODO ALE Details
--- TODO Trailing whitespace/mixed indent
--- TODO git merge conflict warnings
--- TODO crypt/spell/paste/insert ??
--- TODO show num words / lines in visual modes only (w/ clipboard or selction icon)
-function _G.statusline()
-  local winid = vim.g.statusline_winid
-  local bufnr = vim.fn.winbufnr(winid)
-  local active_winid = vim.fn.win_getid()
-  local active = winid == active_winid
-  local mode = get_mode()
-  local colors = statusline_colors(mode, active)
-  update_highlight_groups(colors)
-
-
-  local rsep = ''
-  local lsep = ''
-  local spacer = '%='
-  local filename = '%t'
-  local progress = '%p%%'
-  local position = '%l:%-2c %L☰'
-  local filetype = get_filetype(bufnr, 'StlBase')
-  local branch_name = get_branch(bufnr)
-  local branch_text = ''
-  if branch_name then branch_text = '  ' .. branch_name end
-  if string.len(branch_text) > 15 then
-    branch_text = string.sub(branch_text, 1, 15) .. '..'
-  end
-
-  if not active then
-    return stlhl('StlBase', ' ' .. filename .. spacer .. position .. ' ')
-  end
-
-  return (
-    stlhl('StlAccent', ' ' .. mode.display .. ' ')
-    .. stlhl('StlAccentSecondarySep', rsep)
-    .. stlhl('StlSecondary', branch_text)
-    .. stlhl('StlSecondaryBaseSep', rsep)
-    .. stlhl('StlBase', ' ' .. filename .. spacer .. filetype .. ' ')
-    .. stlhl('StlSecondaryBaseSep', lsep)
-    .. stlhl('StlSecondary', ' ' .. progress .. ' ')
-    .. stlhl('StlAccentSecondarySep', lsep)
-    .. stlhl('StlAccent', ' ' .. position .. ' ')
-  )
-end
-vim.o.statusline = '%!v:lua.statusline()'
-EOF
-
-
 " PLUGIN LUALINE
-" search for trailing whitespace: [ \t]\+$  
-" search for mixed indent
 lua << EOF
 --[[
-function wordcount() return vim.fn.wordcount().words .. ' words' end
 function statusline_progress() return '%p%%' end
 function statusline_loc() return '%l:%-2c %L☰' end
 require'lualine'.setup {
@@ -473,7 +269,6 @@ require'lualine'.setup {
         sections = {'error', 'warn', 'info', 'hint'},
       },
       'filetype',
-      wordcount,
     },
     lualine_y = {statusline_progress},
     lualine_z = {statusline_loc},
