@@ -39,72 +39,72 @@ vim.opt.fillchars = {
   foldopen =  '┬',
   foldsep =   '│',
 }
+
+vim.o.foldmethod = 'manual'
+vim.api.nvim_set_keymap('n', '\\', 'zD', { noremap = true })
+vim.api.nvim_set_keymap('v', '\\', 'zf', { noremap = true })
+vim.opt.foldtext = 'v:lua.foldtext()'
+-- Note: these function are evaluated in the sandbox
+function fold_is_modified()
+  local gitsigns = vim.fn.sign_getplaced(0, {group = 'gitsigns_ns'})[1].signs
+  for _, signitem in ipairs(gitsigns) do
+    local lnum = signitem.lnum
+    if vim.v.foldstart <= lnum and lnum <= vim.v.foldend then return true end
+  end
+  return false
+end
+function _G.foldtext()
+  local numlines = vim.v.foldend - vim.v.foldstart + 1
+  local is_modified = fold_is_modified()
+  local modified_char = is_modified and '⊡ ' or ''
+
+  local righttext = modified_char .. '祉' .. numlines .. ' lines'
+  -- Unicode chars screw up len, replace problem chars w/ spaces for accurate len
+  local righttextlen = #(string.gsub(string.gsub(righttext, '⊡', ' '), '祉', '  '))
+
+  local linetext = vim.fn.getline(vim.v.foldstart)
+  local colwidth = 2  -- winwidth includes lefthand cols
+  local maxlen = math.min(vim.fn.winwidth(0) - colwidth, vim.o.colorcolumn)
+  local minspace = 2  -- at least this many spaces between linetext and righttext
+  local maxlinetextlen = maxlen - righttextlen - minspace - 1
+  if #linetext > maxlinetextlen then
+    linetext = string.sub(linetext, 1, maxlinetextlen - 2) .. '..'
+  end
+  local fillcharcount = maxlen - #linetext - righttextlen - 1
+  return linetext .. string.rep(" ", fillcharcount) .. righttext
+end
 EOF
-
-" Autotoggle between relative and absolute numbers (from jeffkreeftmeijer/vim-numbertoggle)
-" augroup numbertoggle
-"   autocmd!
-"   autocmd BufEnter,FocusGained,InsertLeave,WinEnter,TermOpen,TermClose *
-"   \ if &buftype == "terminal" | set nonu | set nornu |
-"   \ elseif mode() != "i" | set nu | set rnu |
-"   \ else | set nu | set nornu |
-"   \ endif
-"   autocmd BufLeave,FocusLost,InsertEnter,WinLeave * set nornu
-" augroup END
-
-" FOLDS
-set foldmethod=manual
-" Togle manual fold creation and deletion
-nnoremap \ zD
-vnoremap \ zf
-set foldtext=CustomFoldText()
-function! CustomFoldText()
-  let ismodified = exists('g:loaded_gitgutter') && gitgutter#fold#is_changed()
-  let modifiedchar = ismodified ? ' ⊡' : '  '
-  let numlines = v:foldend - v:foldstart + 1
-  let righttext = modifiedchar . ' 祉' . numlines . ' lines'
-  " Special chars screw up len(righttext), have to manually define
-  let righttextlen = len(numlines . ' lines') + 6
-  let line = getline(v:foldstart)
-  let approxleftcols = 7
-  let maxlen = min([winwidth(0) - approxleftcols, &colorcolumn])
-  let maxfoldstrlen = maxlen - righttextlen
-  if len(line) > maxfoldstrlen
-    let line = line[0:(maxfoldstrlen - 4)] . '...'
-  endif
-  let fillcharcount = maxlen - len(line) - righttextlen
-  return line . repeat(' ', fillcharcount) . righttext
-endfunction
 
 
 " PLUGINS
 " TODO switch over to lua plugin manager
 " TODO investigate .editorconfig plugin
 " TODO move up in file?
+" TODO plugin for better yank/paste?
+" TODO check out plumb
 call plug#begin('~/.local/share/nvim/plugged')
   Plug 'nvim-lua/plenary.nvim'
-  " TODO write own colorscheme
-  Plug 'shaunsingh/nord.nvim'
-  Plug 'navarasu/onedark.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-unimpaired'
   Plug 'tpope/vim-surround'
+  " TODO is dispatch even needed any more?
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-repeat'
-  " TODO checkout vimagit
+  " TODO evaluate vimagit
   Plug 'tpope/vim-fugitive'
+  Plug 'lewis6991/gitsigns.nvim'
   Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-  Plug 'airblade/vim-gitgutter'
-  Plug 'junegunn/goyo.vim'
   Plug 'psliwka/vim-smoothie'
-  Plug 'godlygeek/tabular'
   Plug 'phaazon/hop.nvim'
-  Plug 'ambv/black'
-  Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
+  Plug 'godlygeek/tabular'
   Plug 'francoiscabrol/ranger.vim'
   Plug 'rbgrouleff/bclose.vim' "Dep of ranger
-  Plug 'kyazdani42/nvim-web-devicons'
+  " TODO evaluate replacements
+  Plug 'w0rp/ale'
+  Plug 'ambv/black'
+  Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
   " TODO eval telescope as replacement
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
@@ -112,10 +112,10 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'Shougo/context_filetype.vim'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  " TODO evaluate replacements
-  Plug 'w0rp/ale'
+  " TODO write own colorscheme
+  Plug 'shaunsingh/nord.nvim'
+  Plug 'navarasu/onedark.nvim'
 call plug#end()
-
 
 
 " COLORS
@@ -125,25 +125,28 @@ lua << EOF
 local c = require'onedark.colors'
 vim.cmd('highlight Folded gui=NONE guifg=' .. c.fg .. ' guibg=' .. c.dark_cyan)
 
-vim.cmd('highlight ModifiedSignColumn guifg=' .. c.grey .. ' guibg=#3c3047')
+vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
+vim.cmd('highlight ALEWarningSign guifg=' .. c.dark_yellow .. ' guibg=' .. c.bg0)
+vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
+
+vim.cmd('highlight SignColumnMod guifg=' .. c.grey .. ' guibg=#3c3047')
+vim.cmd('highlight ALEErrorSignMod guifg=' .. c.dark_red .. ' guibg=#3c3047')
+vim.cmd('highlight ALEWarningSignMod guifg=' .. c.dark_yellow .. ' guibg=#3c3047')
+vim.cmd('highlight ALEInfoSignMod guifg=' .. c.dark_cyan .. ' guibg=#3c3047')
+vim.cmd'autocmd BufModifiedSet,BufWinEnter * :lua _G.highlight_modified_buffers()'
 function _G.highlight_modified_buffers()
   local winids = vim.api.nvim_list_wins()
   for _, winid in ipairs(winids) do
     local bufnr = vim.fn.winbufnr(winid)
     if (vim.bo[bufnr].modified) then
-      vim.wo[winid].winhighlight = 'SignColumn:ModifiedSignColumn'
+      vim.wo[winid].winhighlight = 'SignColumn:SignColumnMod'
+      -- TODO investigate ownsyntax for ALESigns
     else
       vim.wo[winid].winhighlight = ''
     end
   end
 end
-EOF
-augroup highlight_modified_buffers
-  autocmd!
-  autocmd BufModifiedSet,BufWinEnter * :lua _G.highlight_modified_buffers()
-augroup END
 
-lua << EOF
 -- STATUSLINE
 statusline = require'statusline'
 _G.make_statusline = statusline.make_statusline
@@ -205,14 +208,16 @@ command! Shfmt :!shfmt -i 2 -w -s %
 cnoreabbrev L lua print(vim.inspect(
 
 
-" PLUGIN HOP
-nnoremap <space><space> :HopChar1<CR>
-nnoremap <space>l :HopLine<CR>
-nnoremap <space>w :HopWord<CR>
+lua << EOF
+-- PLUGIN GITSIGNS
+require'gitsigns'.setup()
 
+-- PLUGIN HOP
+vim.api.nvim_set_keymap('n', '<space><space>', ':HopChar1<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space>l', ':HopLine<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space>w', ':HopWord<CR>', { noremap = true })
 
-" PLUGIN TREESITTER
-lua <<EOF
+-- PLUGIN TREESITTER
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
   ignore_install = {"haskell"}, -- causes issues on osx
@@ -243,11 +248,6 @@ map <leader>f :GitFiles<CR>
 map <leader>g :Rg<CR>
 
 
-" PLUGIN GITGUTTER
-let g:gitgutter_enabled=1
-let g:gitgutter_realtime=1
-
-
 " PLUGIN RANGER
 let g:ranger_replace_netrw = 1
 let g:ranger_map_keys = 0
@@ -272,9 +272,6 @@ let g:ale_sign_warning = ''
 let g:ale_sign_info = ''
 lua << EOF
 local c = require'onedark.colors'
-vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
-vim.cmd('highlight ALEWarningSign guifg=' .. c.dark_yellow .. ' guibg=' .. c.bg0)
-vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
 EOF
 " Python linting options
 let g:ale_python_flake8_change_directory = 'off'
@@ -286,3 +283,16 @@ let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
 " FILE SPECIFIC CONFIG
 " Update bindings when sxhkdrc is updated.
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+
+
+" DEPRECATED
+" Autotoggle between relative and absolute numbers (from jeffkreeftmeijer/vim-numbertoggle)
+" augroup numbertoggle
+"   autocmd!
+"   autocmd BufEnter,FocusGained,InsertLeave,WinEnter,TermOpen,TermClose *
+"   \ if &buftype == "terminal" | set nonu | set nornu |
+"   \ elseif mode() != "i" | set nu | set rnu |
+"   \ else | set nu | set nornu |
+"   \ endif
+"   autocmd BufLeave,FocusLost,InsertEnter,WinLeave * set nornu
+" augroup END
