@@ -39,19 +39,18 @@ vim.opt.fillchars = {
   foldopen =  '┬',
   foldsep =   '│',
 }
-
 EOF
 
 " Autotoggle between relative and absolute numbers (from jeffkreeftmeijer/vim-numbertoggle)
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter,TermOpen,TermClose *
-  \ if &buftype == "terminal" | set nonu | set nornu |
-  \ elseif mode() != "i" | set nu | set rnu |
-  \ else | set nu | set nornu |
-  \ endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave * set nornu
-augroup END
+" augroup numbertoggle
+"   autocmd!
+"   autocmd BufEnter,FocusGained,InsertLeave,WinEnter,TermOpen,TermClose *
+"   \ if &buftype == "terminal" | set nonu | set nornu |
+"   \ elseif mode() != "i" | set nu | set rnu |
+"   \ else | set nu | set nornu |
+"   \ endif
+"   autocmd BufLeave,FocusLost,InsertEnter,WinLeave * set nornu
+" augroup END
 
 " FOLDS
 set foldmethod=manual
@@ -100,7 +99,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'junegunn/goyo.vim'
   Plug 'psliwka/vim-smoothie'
   Plug 'godlygeek/tabular'
-  Plug 'easymotion/vim-easymotion'
+  Plug 'phaazon/hop.nvim'
   Plug 'ambv/black'
   Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
   Plug 'francoiscabrol/ranger.vim'
@@ -204,6 +203,12 @@ command! JSBeautify :!js-beautify % -r
 command! Shfmt :!shfmt -i 2 -w -s %
 " Shortcut to easily inspect lua stuff
 cnoreabbrev L lua print(vim.inspect(
+
+
+" PLUGIN HOP
+nnoremap <space><space> :HopChar1<CR>
+nnoremap <space>l :HopLine<CR>
+nnoremap <space>w :HopWord<CR>
 
 
 " PLUGIN TREESITTER
