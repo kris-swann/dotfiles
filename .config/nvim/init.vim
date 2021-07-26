@@ -124,14 +124,14 @@ colorscheme onedark
 lua << EOF
 local c = require'onedark.colors'
 vim.cmd('highlight Folded gui=NONE guifg=' .. c.fg .. ' guibg=' .. c.dark_cyan)
-vim.cmd('highlight ModifiedLineNr guifg=' .. c.grey .. ' guibg=#3c3047')
 
+vim.cmd('highlight ModifiedSignColumn guifg=' .. c.grey .. ' guibg=#3c3047')
 function _G.highlight_modified_buffers()
   local winids = vim.api.nvim_list_wins()
   for _, winid in ipairs(winids) do
     local bufnr = vim.fn.winbufnr(winid)
     if (vim.bo[bufnr].modified) then
-      vim.wo[winid].winhighlight = 'LineNr:ModifiedLineNr'
+      vim.wo[winid].winhighlight = 'SignColumn:ModifiedSignColumn'
     else
       vim.wo[winid].winhighlight = ''
     end
