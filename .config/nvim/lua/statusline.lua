@@ -120,7 +120,7 @@ local stl_colors = {
   },
   base = {
     reg = { fg = c.fg, bg = c.bg1 },
-    modified = { fg = c.fg, bg = '#3c3047' },
+    modified = { fg = c.fg, bg = '#431a68' },
   },
   secondary = { fg = c.fg, bg = c.bg3 },
   err = c.dark_red,
