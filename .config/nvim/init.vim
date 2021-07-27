@@ -105,6 +105,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   " TODO evaluate replacements
   Plug 'w0rp/ale'
   Plug 'ambv/black'
+  Plug 'vim-scripts/indentpython.vim'
   Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
   " TODO eval telescope as replacement
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
