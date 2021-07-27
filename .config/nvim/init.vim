@@ -4,6 +4,7 @@ lua << EOF
 -- TODO investigate sessions (via :mksession)
 -- TODO add spell files to version control
 
+
 vim.g.mapleader = ','      -- set leader as early as possible
 vim.o.ignorecase = true
 vim.o.smartcase = true
