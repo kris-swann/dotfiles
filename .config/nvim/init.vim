@@ -124,28 +124,9 @@ colorscheme onedark
 lua << EOF
 local c = require'onedark.colors'
 vim.cmd('highlight Folded gui=NONE guifg=' .. c.fg .. ' guibg=' .. c.dark_cyan)
-
 vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
 vim.cmd('highlight ALEWarningSign guifg=' .. c.dark_yellow .. ' guibg=' .. c.bg0)
 vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
-
-vim.cmd('highlight SignColumnMod guifg=' .. c.grey .. ' guibg=#3c3047')
-vim.cmd('highlight ALEErrorSignMod guifg=' .. c.dark_red .. ' guibg=#3c3047')
-vim.cmd('highlight ALEWarningSignMod guifg=' .. c.dark_yellow .. ' guibg=#3c3047')
-vim.cmd('highlight ALEInfoSignMod guifg=' .. c.dark_cyan .. ' guibg=#3c3047')
-vim.cmd'autocmd BufModifiedSet,BufWinEnter * :lua _G.highlight_modified_buffers()'
-function _G.highlight_modified_buffers()
-  local winids = vim.api.nvim_list_wins()
-  for _, winid in ipairs(winids) do
-    local bufnr = vim.fn.winbufnr(winid)
-    if (vim.bo[bufnr].modified) then
-      vim.wo[winid].winhighlight = 'SignColumn:SignColumnMod'
-      -- TODO investigate ownsyntax for ALESigns
-    else
-      vim.wo[winid].winhighlight = ''
-    end
-  end
-end
 
 -- STATUSLINE
 statusline = require'statusline'
@@ -296,3 +277,26 @@ autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 "   \ endif
 "   autocmd BufLeave,FocusLost,InsertEnter,WinLeave * set nornu
 " augroup END
+
+lua << EOF
+-- Set modified buffer sign columns to purple
+--[[
+vim.cmd('highlight SignColumnMod guifg=' .. c.grey .. ' guibg=#3c3047')
+vim.cmd('highlight ALEErrorSignMod guifg=' .. c.dark_red .. ' guibg=#3c3047')
+vim.cmd('highlight ALEWarningSignMod guifg=' .. c.dark_yellow .. ' guibg=#3c3047')
+vim.cmd('highlight ALEInfoSignMod guifg=' .. c.dark_cyan .. ' guibg=#3c3047')
+vim.cmd'autocmd BufModifiedSet,BufWinEnter * :lua _G.highlight_modified_buffers()'
+function _G.highlight_modified_buffers()
+  local winids = vim.api.nvim_list_wins()
+  for _, winid in ipairs(winids) do
+    local bufnr = vim.fn.winbufnr(winid)
+    if (vim.bo[bufnr].modified) then
+      vim.wo[winid].winhighlight = 'SignColumn:SignColumnMod'
+      -- TODO investigate ownsyntax for ALESigns
+    else
+      vim.wo[winid].winhighlight = ''
+    end
+  end
+end
+]]
+EOF
