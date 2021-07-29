@@ -10,7 +10,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # List of plugins (space delimited) Plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git vi-mode urltools)
+plugins=(vi-mode urltools)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -85,8 +85,8 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 ### ALIASES
 #####################################################################
 
-alias dotfiles='git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME'
-alias .f='dotfiles'
+alias g="git"
+alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
 
 alias e="$EDITOR"
 
