@@ -48,13 +48,6 @@ precmd_functions+=(update_cwd_data)
 
 
 #####################################################################
-### VARIABLES
-#####################################################################
-
-export EDITOR=nvim
-export LESS="-XFRS"
-
-#####################################################################
 ### VI MODE
 #####################################################################
 
@@ -104,14 +97,14 @@ alias gp="cd ~/Projects"
 #####################################################################
 
 # Add scripts to path
-export PATH=~/Scripts:$PATH
+export PATH="$HOME/Scripts:$PATH"
 
 # User specific global install path for npm
 # To set prefix: npm config set prefix '~/.npm-global'
-export PATH=~/.npm-global/bin:$PATH
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Add user pip installed packages (insalled via `pip install <package> --user`)
-export PATH=~/.local/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
 
 # If using pyenv, add to path and set up so can use it
 if [ -d ~/.pyenv ]; then
@@ -127,15 +120,6 @@ fi
 
 # Fzf magic
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-
-# Autojumping
-if [ -f /etc/profile.d/autojump.zsh ]; then
-    # Manjaro location
-    source /etc/profile.d/autojump.zsh
-elif [ -f /usr/local/etc/profile.d/autojump.sh ]; then
-    # OSX Location
-    source /usr/local/etc/profile.d/autojump.sh
-fi
 
 # Enable fish-like autosuggestions
 if [ -f  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -157,8 +141,6 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# tabtab source for packages
-# uninstall by removing these lines
 [ -f ~/.config/tabtab/__tabtab.zsh ] && . ~/.config/tabtab/__tabtab.zsh || true
 
 [ -f ~/.profile ] && source ~/.profile
@@ -166,4 +148,3 @@ fi
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
 eval "$(starship init zsh)"
-
