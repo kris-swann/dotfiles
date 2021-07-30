@@ -29,6 +29,13 @@ Add the following line to `~/.ssh/config`
 Include ~/.ssh/config.common
 ```
 
+Enable ssh-agent systemd service
+
+```
+systemctl --user enable ssh-agent
+systemctl --user start ssh-agent  # Or reboot
+```
+
 ## Other
 
 **TODO:** Evaluate if these are still up to date
