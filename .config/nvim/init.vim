@@ -57,6 +57,7 @@ require('packer').startup(function()
   }
   use { 'rrethy/vim-hexokinase', run =  'make hexokinase' }
   use 'psliwka/vim-smoothie'
+  use { 'nacro90/numb.nvim', config = function() require'numb'.setup() end }
   use {
     'phaazon/hop.nvim',
     config = function()
@@ -162,7 +163,7 @@ vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
 vim.cmd('highlight ALEWarningSign guifg=' .. c.dark_yellow .. ' guibg=' .. c.bg0)
 vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
 
--- STATUSLINE
+-- STATUSLINE (TODO move to packer.nvim?)
 statusline = require'statusline'
 _G.make_statusline = statusline.make_statusline
 vim.o.statusline = '%!v:lua.make_statusline()'
