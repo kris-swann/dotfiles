@@ -13,6 +13,12 @@ end
 -- TODO investigate .editorconfig plugin
 -- TODO plugin for better yank/paste?
 -- TODO check out plumb
+-- TODO evaluate vimagit
+-- TODO is vim-dispatch even needed any more?
+-- TODO write own colorscheme
+-- TODO does ale still make sense?
+-- TODO replace fzf with  telescope
+-- TODO lsps
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'nvim-lua/plenary.nvim'
@@ -34,10 +40,8 @@ require('packer').startup(function()
   use 'tpope/vim-commentary'
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-surround'
-  -- TODO is dispatch even needed any more?
   use 'tpope/vim-dispatch'
   use 'tpope/vim-repeat'
-  -- TODO evaluate vimagit
   use 'tpope/vim-fugitive'
   use {
     'lewis6991/gitsigns.nvim',
@@ -83,7 +87,6 @@ require('packer').startup(function()
       keymap('n', '<leader>e', '<cmd>Ranger<CR>', {})
     end
   }
-  -- TODO evaluate replacements
   use {
     'w0rp/ale',
     config = function()
@@ -112,7 +115,6 @@ require('packer').startup(function()
   use 'ambv/black'
   use 'Vimjas/vim-python-pep8-indent'
   use { 'prettier/vim-prettier',  run = 'npm install -g prettier' }
-  -- TODO eval telescope as replacement
   use {
     'junegunn/fzf.vim',
     requires = {
@@ -128,19 +130,47 @@ require('packer').startup(function()
       keymap('', '<leader>af', '<cmd>Files<CR>', {})
     end
   }
-  -- TODO evaluate replacement
-  use 'Shougo/context_filetype.vim'
+  use 'navarasu/onedark.nvim'
   use {
-    'Shougo/deoplete.nvim',
-    run = ':UpdateRemotePlugins',
-    config = function()
-      vim.g['deoplete#enable_at_startup'] = 1
+    'hrsh7th/nvim-compe',
+    config=function()
+      require'compe'.setup {
+        enabled = true;
+        autocomplete = true;
+        debug = false;
+        min_length = 1;
+        preselect = 'enable';
+        throttle_time = 80;
+        source_timeout = 200;
+        resolve_timeout = 800;
+        incomplete_delay = 400;
+        max_abbr_width = 100;
+        max_kind_width = 100;
+        max_menu_width = 100;
+        documentation = {
+          border = { '', '' ,'', ' ', '', '', '', ' ' }, -- same as nvim_open_win
+          winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+          max_width = 120,
+          min_width = 60,
+          max_height = math.floor(vim.o.lines * 0.3),
+          min_height = 1,
+        };
+        source = {
+          path = true;
+          buffer = true;
+          calc = true;
+          nvim_lsp = true;
+          nvim_lua = true;
+        };
+      }
+      -- keymap('i', '<C-space>', 'compe#complete()', { silent=true, expr=true })
+      keymap('i', '<C-space>', 'compe#complete()', { noremap=true, silent=true, expr=true })
+      keymap('i', '<CR>', [[compe#confirm('<CR>')]], { noremap=true, silent=true, expr=true })
+      keymap('i', '<C-e>', [[compe#close('<C-e>')]], { noremap=true, silent=true, expr=true })
+      keymap('i', '<C-f>', [[compe#scroll({ 'delta': +4 })]], { noremap=true, silent=true, expr=true })
+      keymap('i', '<C-d>', [[compe#scroll({ 'delta': -4 })]], { noremap=true, silent=true, expr=true })
     end
   }
-  use { 'carlitux/deoplete-ternjs', run = 'npm install -g tern' }
-  -- TODO write own colorscheme
-  use 'shaunsingh/nord.nvim'
-  use 'navarasu/onedark.nvim'
 end)
 
 vim.o.ignorecase = true
@@ -154,6 +184,7 @@ vim.o.termguicolors = true -- use gui instead of cterm highlight colors
 
 vim.o.wildmode = 'longest:full,full'  -- command mode completions: longest common substr then cycle options
 vim.o.omnifunc = 'syntaxcomplete#Complete'  -- basic omnifunc for <C-x><C-o> completions
+vim.o.completeopt = "menuone,noselect"
 
 -- default indent prefs
 vim.o.expandtab = true  -- softtabs
@@ -245,15 +276,15 @@ keymap('', '<leader>d', [["+d]], { noremap=true })
 keymap('', '<leader>p', [["+p]], { noremap=true })
 keymap('', '<leader>P', [["+P]], { noremap=true })
 -- Easy exit out of terminal
-keymap('t', '<esc', [[<C-\><C-n>]], { noremap=true })
+keymap('t', '<esc>', [[<C-\><C-n>]], { noremap=true })
+-- Clear search highlighting
+keymap('', '<esc>', '<cmd>noh<bar>lclose<bar>pclose<CR>', { noremap=true })
+-- Reset sytax
+keymap('n', '<leader>s', '<cmd>syntax sync fromstart<CR>', { noremap=true })
 EOF
 
 
-" " BASIC MAPPINGS, COMMANDS, ABBREVS
-" Esc clears highlighting (after search)
-map <esc> :noh<bar>lclose<bar>pclose<CR>
-" Recalculate syntax highlighting
-noremap <leader>s <Esc>:syntax sync fromstart<CR>
+" BASIC MAPPINGS, COMMANDS, ABBREVS
 " Shortcut to neovim config file
 command! Config :e ~/.config/nvim/init.vim   
 " Shortcut to notes
