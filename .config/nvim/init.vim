@@ -1,15 +1,13 @@
-" BASIC CONFIG
 lua << EOF
 vim.g.mapleader = ','      -- set leader as early as possible (in case plugins set keybinds w/ leader)
 
--- Install packer.nvim if not already present
+-- Download and install packer.nvim if not already present
 local packer_nvim_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(packer_nvim_path)) > 0 then
   vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_nvim_path})
   vim.api.nvim_command('packadd packer.nvim')
 end
 
--- TODO investigate sessions (via :mksession)
 -- TODO add spell files to version control
 -- TODO investigate .editorconfig plugin
 -- TODO plugin for better yank/paste?
