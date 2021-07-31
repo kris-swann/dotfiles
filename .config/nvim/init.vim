@@ -1,11 +1,59 @@
 " BASIC CONFIG
 filetype plugin indent on           " Turn on detection, plugin and indent
 lua << EOF
+vim.g.mapleader = ','      -- set leader as early as possible (in case plugins set keybinds w/ leader)
+
+-- Install packer.nvim if not already present
+local packer_nvim_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(packer_nvim_path)) > 0 then
+  vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_nvim_path})
+  vim.api.nvim_command('packadd packer.nvim')
+end
+
 -- TODO investigate sessions (via :mksession)
 -- TODO add spell files to version control
+-- TODO investigate .editorconfig plugin
+-- TODO plugin for better yank/paste?
+-- TODO check out plumb
+require('packer').startup(function()
+  use 'wbthomason/packer.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'kyazdani42/nvim-web-devicons'
+  use 'nvim-lua/plenary.nvim'
+  use 'kyazdani42/nvim-web-devicons'
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'tpope/vim-commentary'
+  use 'tpope/vim-unimpaired'
+  use 'tpope/vim-surround'
+  -- TODO is dispatch even needed any more?
+  use 'tpope/vim-dispatch'
+  use 'tpope/vim-repeat'
+  -- TODO evaluate vimagit
+  use 'tpope/vim-fugitive'
+  use 'lewis6991/gitsigns.nvim'
+  use { 'rrethy/vim-hexokinase', run =  'make hexokinase' }
+  use 'psliwka/vim-smoothie'
+  use 'phaazon/hop.nvim'
+  use 'godlygeek/tabular'
+  use { 'francoiscabrol/ranger.vim', requires = 'rbgrouleff/bclose.vim' }
+  -- TODO evaluate replacements
+  use 'w0rp/ale'
+  use 'ambv/black'
+  use 'Vimjas/vim-python-pep8-indent'
+  use { 'prettier/vim-prettier',  run = 'npm install -g prettier' }
+  -- TODO eval telescope as replacement
+  use { 'junegunn/fzf', run = 'cd ~/.fzf && ./install --all' }
+  use 'junegunn/fzf.vim'
+  -- TODO evaluate replacement
+  use 'Shougo/context_filetype.vim'
+  use { 'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
+  use { 'carlitux/deoplete-ternjs', run = 'npm install -g tern' }
+  -- TODO write own colorscheme
+  use 'shaunsingh/nord.nvim'
+  use 'navarasu/onedark.nvim'
+end)
 
 
-vim.g.mapleader = ','      -- set leader as early as possible
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.colorcolumn = '100'
@@ -74,56 +122,9 @@ function _G.foldtext()
   local fillcharcount = maxlen - #linetext - righttextlen - 1
   return linetext .. string.rep(" ", fillcharcount) .. righttext
 end
-EOF
 
-
-" PLUGINS
-" TODO switch over to lua plugin manager
-" TODO investigate .editorconfig plugin
-" TODO move up in file?
-" TODO plugin for better yank/paste?
-" TODO check out plumb
-call plug#begin('~/.local/share/nvim/plugged')
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-unimpaired'
-  Plug 'tpope/vim-surround'
-  " TODO is dispatch even needed any more?
-  Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-repeat'
-  " TODO evaluate vimagit
-  Plug 'tpope/vim-fugitive'
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-  Plug 'psliwka/vim-smoothie'
-  Plug 'phaazon/hop.nvim'
-  Plug 'godlygeek/tabular'
-  Plug 'francoiscabrol/ranger.vim'
-  Plug 'rbgrouleff/bclose.vim' "Dep of ranger
-  " TODO evaluate replacements
-  Plug 'w0rp/ale'
-  Plug 'ambv/black'
-  Plug 'Vimjas/vim-python-pep8-indent'
-  Plug 'prettier/vim-prettier', { 'do': 'npm install -g prettier' }
-  " TODO eval telescope as replacement
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  " TODO evaluate replacement
-  Plug 'Shougo/context_filetype.vim'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  " TODO write own colorscheme
-  Plug 'shaunsingh/nord.nvim'
-  Plug 'navarasu/onedark.nvim'
-call plug#end()
-
-
-" COLORS
-let g:onedark_style = 'warm'
-colorscheme onedark
-lua << EOF
+vim.g.onedark_style = 'warm'
+vim.cmd('colorscheme onedark')
 local c = require'onedark.colors'
 vim.cmd('highlight Folded gui=NONE guifg=' .. c.fg .. ' guibg=' .. c.dark_cyan)
 vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
@@ -195,7 +196,7 @@ lua << EOF
 -- PLUGIN GITSIGNS
 require'gitsigns'.setup{
   signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'   },
     change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
     delete       = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     topdelete    = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
