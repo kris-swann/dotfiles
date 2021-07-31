@@ -1,3 +1,6 @@
+[ -f ~/.profile ] && source ~/.profile
+[ -f ~/.profile_local ] && source ~/.profile_local
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -80,17 +83,14 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 alias g="git"
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
-
 alias e="$EDITOR"
+alias gm="cd /run/media/kris"
+alias gp="cd ~/Projects"
 
+alias wine32="WINEPREFIX=$HOME/.wine32/ WINEARCH=win32 wine"
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
-alias wine32="WINEPREFIX=$HOME/.wine32/ WINEARCH=win32 wine"
-alias booksearch="calibredb list -f title -s "
-
-alias gm="cd /run/media/kris"
-alias gp="cd ~/Projects"
 
 #####################################################################
 ### ADDITIONAL PATHS
@@ -143,8 +143,5 @@ fi
 
 [ -f ~/.config/tabtab/__tabtab.zsh ] && . ~/.config/tabtab/__tabtab.zsh || true
 
-[ -f ~/.profile ] && source ~/.profile
-[ -f ~/.profile_local ] && source ~/.profile_local
-[ -f ~/.zshrc_local ] && source ~/.zshrc_local
-
 eval "$(starship init zsh)"
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
