@@ -55,7 +55,14 @@ require('packer').startup(function()
       }
     end
   }
-  use { 'rrethy/vim-hexokinase', run =  'make hexokinase' }
+  use {
+    'rrethy/vim-hexokinase',
+    run = 'make hexokinase',
+    config = function()
+      vim.g.Hexokinase_highlighters = {'virtual'}
+      vim.g.Hexokinase_optInPatterns = {'full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names'}
+    end
+  }
   use 'psliwka/vim-smoothie'
   use { 'nacro90/numb.nvim', config = function() require'numb'.setup() end }
   use {
@@ -68,18 +75,69 @@ require('packer').startup(function()
     end
   }
   use 'godlygeek/tabular'
-  use { 'francoiscabrol/ranger.vim', requires = 'rbgrouleff/bclose.vim' }
+  use {
+    'francoiscabrol/ranger.vim',
+    requires = 'rbgrouleff/bclose.vim',
+    config = function()
+      vim.g.ranger_replace_netrw = 1
+      vim.g.ranger_map_keys = 0
+      vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>Ranger<CR>', {})
+    end
+  }
   -- TODO evaluate replacements
-  use 'w0rp/ale'
+  use {
+    'w0rp/ale',
+    config = function()
+      vim.g.ale_linters = {
+        python = {'flake8', 'pylint'},
+        typescript = {'eslint', 'prettier', 'standard', 'tslint', 'typecheck'},
+      }
+      -- Navigation
+      vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>ALEPreviousWrap<CR>', { silent = true })
+      vim.api.nvim_set_keymap('n', '<C-j>', '<cmd>ALENextWrap<CR>', { silent = true })
+      -- Nicer error messages
+      vim.g.ale_echo_msg_error_str = 'E'
+      vim.g.ale_echo_msg_warning_str = 'W'
+      vim.g.ale_echo_msg_format = '[%severity%] [%linter%] %[code]% %s'
+      -- Gutter icons
+      vim.g.ale_sign_error = ''
+      vim.g.ale_sign_warning = ''
+      vim.g.ale_sign_info = ''
+      -- Python lint opts
+      vim.g.ale_python_flake8_change_directory = 'off'
+      -- Cpp lint opts
+      vim.g.ale_cpp_clangtidy_options = '-Wall -std=c++11 -x c++'
+      vim.g.ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
+    end
+  }
   use 'ambv/black'
   use 'Vimjas/vim-python-pep8-indent'
   use { 'prettier/vim-prettier',  run = 'npm install -g prettier' }
   -- TODO eval telescope as replacement
-  use { 'junegunn/fzf', run = 'cd ~/.fzf && ./install --all' }
-  use 'junegunn/fzf.vim'
+  use {
+    'junegunn/fzf.vim',
+    requires = {
+      { 'junegunn/fzf', run = 'cd ~/.fzf && ./install --all' },
+    },
+    config = function()
+      vim.g.fzf_action = {
+        ['ctrl-t'] = 'tab split',
+        ['ctrl-s'] = 'split',
+        ['ctrl-v'] = 'vsplit',
+      }
+      vim.api.nvim_set_keymap('', '<leader>f', '<cmd>GitFiles<CR>', {})
+      vim.api.nvim_set_keymap('', '<leader>af', '<cmd>Files<CR>', {})
+    end
+  }
   -- TODO evaluate replacement
   use 'Shougo/context_filetype.vim'
-  use { 'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
+  use {
+    'Shougo/deoplete.nvim',
+    run = ':UpdateRemotePlugins',
+    config = function()
+      vim.g['deoplete#enable_at_startup'] = 1
+    end
+  }
   use { 'carlitux/deoplete-ternjs', run = 'npm install -g tern' }
   -- TODO write own colorscheme
   use 'shaunsingh/nord.nvim'
@@ -222,55 +280,6 @@ command! JSBeautify :!js-beautify % -r
 command! Shfmt :!shfmt -i 2 -w -s %
 " Shortcut to easily inspect lua stuff
 cnoreabbrev L lua print(vim.inspect(
-
-
-" TODO move within packer.nvim section
-" PLUGIN HEXOKINASE
-let g:Hexokinase_highlighters = ['virtual']
-let g:Hexokinase_optInPatterns = ['full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names']
-
-
-" PLUGIN DEOPLETE
-let g:deoplete#enable_at_startup=1
-
-
-" PLUGIN FZF
-let g:fzf_action = {
-\ 'ctrl-t': 'tab split',
-\ 'ctrl-s': 'split',
-\ 'ctrl-v': 'vsplit' }
-map <leader>af :Files<CR>
-map <leader>f :GitFiles<CR>
-map <leader>g :Rg<CR>
-
-
-" PLUGIN RANGER
-let g:ranger_replace_netrw = 1
-let g:ranger_map_keys = 0
-nnoremap <leader>e :Ranger<CR>
-
-
-" PLUGIN ALE
-let g:ale_linters = {
-\ 'python': ['flake8', 'pylint'],
-\ 'typescript': ['eslint', 'prettier', 'standard', 'tslint', 'typecheck'],
-\ }
-" Navigate between errors
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-" Get nicer messages from ALE
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%severity%] [%linter%] %[code]% %s'
-" Gutter icons
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-let g:ale_sign_info = ''
-" Python linting options
-let g:ale_python_flake8_change_directory = 'off'
-" Cpp linting options
-let g:ale_cpp_clangtidy_options = '-Wall -std=c++11 -x c++'
-let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
 
 
 " FILE SPECIFIC CONFIG
