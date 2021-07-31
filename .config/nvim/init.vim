@@ -1,5 +1,4 @@
 " BASIC CONFIG
-filetype plugin indent on           " Turn on detection, plugin and indent
 lua << EOF
 vim.g.mapleader = ','      -- set leader as early as possible (in case plugins set keybinds w/ leader)
 
@@ -17,8 +16,6 @@ end
 -- TODO check out plumb
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'kyazdani42/nvim-web-devicons'
   use 'nvim-lua/plenary.nvim'
   use 'kyazdani42/nvim-web-devicons'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -52,7 +49,6 @@ require('packer').startup(function()
   use 'shaunsingh/nord.nvim'
   use 'navarasu/onedark.nvim'
 end)
-
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -205,9 +201,10 @@ require'gitsigns'.setup{
 }
 
 -- PLUGIN HOP
-vim.api.nvim_set_keymap('n', '<space><space>', ':HopChar1<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space><space>', ':HopWord<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<space>l', ':HopLine<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<space>w', ':HopWord<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space>c', ':HopChar1<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<space>/', ':HopPattern<CR>', { noremap = true })
 
 -- PLUGIN TREESITTER
 require'nvim-treesitter.configs'.setup {
@@ -262,9 +259,6 @@ let g:ale_echo_msg_format = '[%severity%] [%linter%] %[code]% %s'
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 let g:ale_sign_info = ''
-lua << EOF
-local c = require'onedark.colors'
-EOF
 " Python linting options
 let g:ale_python_flake8_change_directory = 'off'
 " Cpp linting options
