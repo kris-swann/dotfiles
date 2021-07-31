@@ -18,7 +18,20 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'kyazdani42/nvim-web-devicons'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
+      require'nvim-treesitter.configs'.setup {
+        ensure_installed = "all",
+        ignore_install = {"haskell"}, -- causes issues on osx
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      }
+    end
+  }
   use 'tpope/vim-commentary'
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-surround'
@@ -27,10 +40,32 @@ require('packer').startup(function()
   use 'tpope/vim-repeat'
   -- TODO evaluate vimagit
   use 'tpope/vim-fugitive'
-  use 'lewis6991/gitsigns.nvim'
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = 'nvim-ula/plenary.nvim',
+    config = function()
+      require'gitsigns'.setup{
+        signs = {
+          add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'   },
+          change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+          delete       = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+          topdelete    = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+          changedelete = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+        }
+      }
+    end
+  }
   use { 'rrethy/vim-hexokinase', run =  'make hexokinase' }
   use 'psliwka/vim-smoothie'
-  use 'phaazon/hop.nvim'
+  use {
+    'phaazon/hop.nvim',
+    config = function()
+      vim.api.nvim_set_keymap('', '<space><space>', '<cmd>lua require"hop".hint_words()<CR>', {})
+      vim.api.nvim_set_keymap('', '<space>l', '<cmd>lua require"hop".hint_lines()<CR>', {})
+      vim.api.nvim_set_keymap('', '<space>c', '<cmd>lua require"hop".hint_char1()<CR>', {})
+      vim.api.nvim_set_keymap('', '<space>/', '<cmd>lua require"hop".hint_patterns()<CR>', {})
+    end
+  }
   use 'godlygeek/tabular'
   use { 'francoiscabrol/ranger.vim', requires = 'rbgrouleff/bclose.vim' }
   -- TODO evaluate replacements
@@ -91,7 +126,7 @@ vim.api.nvim_set_keymap('v', '\\', 'zf', { noremap = true })
 vim.opt.foldtext = 'v:lua.foldtext()'
 -- Note: these function are evaluated in the sandbox
 function fold_is_modified()
-  local gitsigns = vim.fn.sign_getplaced(0, {group = 'gitsigns_ns'})[1].signs
+  local gitsigns = vim.fn.sign_getplaced('', {group = 'gitsigns_ns'})[1].signs
   for _, signitem in ipairs(gitsigns) do
     local lnum = signitem.lnum
     if vim.v.foldstart <= lnum and lnum <= vim.v.foldend then return true end
@@ -188,36 +223,7 @@ command! Shfmt :!shfmt -i 2 -w -s %
 cnoreabbrev L lua print(vim.inspect(
 
 
-lua << EOF
--- PLUGIN GITSIGNS
-require'gitsigns'.setup{
-  signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'   },
-    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-  }
-}
-
--- PLUGIN HOP
-vim.api.nvim_set_keymap('n', '<space><space>', ':HopWord<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<space>l', ':HopLine<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<space>c', ':HopChar1<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<space>/', ':HopPattern<CR>', { noremap = true })
-
--- PLUGIN TREESITTER
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",
-  ignore_install = {"haskell"}, -- causes issues on osx
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-}
-EOF
-
-
+" TODO move within packer.nvim section
 " PLUGIN HEXOKINASE
 let g:Hexokinase_highlighters = ['virtual']
 let g:Hexokinase_optInPatterns = ['full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names']
