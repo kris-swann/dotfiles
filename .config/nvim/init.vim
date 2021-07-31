@@ -19,6 +19,7 @@ end
 -- TODO does ale still make sense?
 -- TODO replace fzf with  telescope
 -- TODO lsps
+-- TODO ternjs
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'nvim-lua/plenary.nvim'
