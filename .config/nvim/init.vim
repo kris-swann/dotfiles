@@ -1,5 +1,6 @@
 lua << EOF
 vim.g.mapleader = ','      -- set leader as early as possible (in case plugins set keybinds w/ leader)
+keymap = vim.api.nvim_set_keymap  -- shortcut for setting keymaps
 
 -- Download and install packer.nvim if not already present
 local packer_nvim_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -66,10 +67,10 @@ require('packer').startup(function()
   use {
     'phaazon/hop.nvim',
     config = function()
-      vim.api.nvim_set_keymap('', '<space><space>', '<cmd>lua require"hop".hint_words()<CR>', {})
-      vim.api.nvim_set_keymap('', '<space>l', '<cmd>lua require"hop".hint_lines()<CR>', {})
-      vim.api.nvim_set_keymap('', '<space>c', '<cmd>lua require"hop".hint_char1()<CR>', {})
-      vim.api.nvim_set_keymap('', '<space>/', '<cmd>lua require"hop".hint_patterns()<CR>', {})
+      keymap('', '<space><space>', '<cmd>lua require"hop".hint_words()<CR>', {})
+      keymap('', '<space>l', '<cmd>lua require"hop".hint_lines()<CR>', {})
+      keymap('', '<space>c', '<cmd>lua require"hop".hint_char1()<CR>', {})
+      keymap('', '<space>/', '<cmd>lua require"hop".hint_patterns()<CR>', {})
     end
   }
   use 'godlygeek/tabular'
@@ -79,7 +80,7 @@ require('packer').startup(function()
     config = function()
       vim.g.ranger_replace_netrw = 1
       vim.g.ranger_map_keys = 0
-      vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>Ranger<CR>', {})
+      keymap('n', '<leader>e', '<cmd>Ranger<CR>', {})
     end
   }
   -- TODO evaluate replacements
@@ -91,8 +92,8 @@ require('packer').startup(function()
         typescript = {'eslint', 'prettier', 'standard', 'tslint', 'typecheck'},
       }
       -- Navigation
-      vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>ALEPreviousWrap<CR>', { silent = true })
-      vim.api.nvim_set_keymap('n', '<C-j>', '<cmd>ALENextWrap<CR>', { silent = true })
+      keymap('n', '<C-k>', '<cmd>ALEPreviousWrap<CR>', { silent=true })
+      keymap('n', '<C-j>', '<cmd>ALENextWrap<CR>', { silent=true })
       -- Nicer error messages
       vim.g.ale_echo_msg_error_str = 'E'
       vim.g.ale_echo_msg_warning_str = 'W'
@@ -123,8 +124,8 @@ require('packer').startup(function()
         ['ctrl-s'] = 'split',
         ['ctrl-v'] = 'vsplit',
       }
-      vim.api.nvim_set_keymap('', '<leader>f', '<cmd>GitFiles<CR>', {})
-      vim.api.nvim_set_keymap('', '<leader>af', '<cmd>Files<CR>', {})
+      keymap('', '<leader>f', '<cmd>GitFiles<CR>', {})
+      keymap('', '<leader>af', '<cmd>Files<CR>', {})
     end
   }
   -- TODO evaluate replacement
@@ -178,8 +179,8 @@ vim.opt.fillchars = {
 }
 
 vim.o.foldmethod = 'manual'
-vim.api.nvim_set_keymap('n', '\\', 'zD', { noremap = true })
-vim.api.nvim_set_keymap('v', '\\', 'zf', { noremap = true })
+keymap('n', [[\]], 'zD', { noremap = true })
+keymap('v', [[\]], 'zf', { noremap = true })
 vim.opt.foldtext = 'v:lua.foldtext()'
 -- Note: these function are evaluated in the sandbox
 function fold_is_modified()
@@ -223,32 +224,32 @@ vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
 statusline = require'statusline'
 _G.make_statusline = statusline.make_statusline
 vim.o.statusline = '%!v:lua.make_statusline()'
+
+-- BASIC MAPPINGS
+-- Prefer virtual replace over normal replace (plays nicer w/ tabs and eols)
+keymap('n', 'R', 'gR', { noremap=true })
+-- Disable Ex Mode
+keymap('n', 'Q', '<Nop>', { noremap=true })
+keymap('n', 'gQ', '<Nop>', { noremap=true })
+-- Same movement in wrapped lines
+keymap('n', 'j', 'gj', { noremap=true })
+keymap('n', 'k', 'gk', { noremap=true })
+-- Scrolling
+keymap('n', '<C-e>', '5<C-e>', { noremap=true })
+keymap('n', '<C-y>', '5<C-y>', { noremap=true })
+keymap('n', 'zl', 'zL', { noremap=true })
+keymap('n', 'zh', 'zH', { noremap=true })
+-- Easy copy-pasting to and from system clipboard
+keymap('', '<leader>y', [["+y]], { noremap=true })
+keymap('', '<leader>d', [["+d]], { noremap=true })
+keymap('', '<leader>p', [["+p]], { noremap=true })
+keymap('', '<leader>P', [["+P]], { noremap=true })
+-- Easy exit out of terminal
+keymap('t', '<esc', [[<C-\><C-n>]], { noremap=true })
 EOF
 
 
-" BASIC MAPPINGS, COMMANDS, ABBREVS
-" Prefer virtual replace over normal replace
-nnoremap R gR
-" Disable Ex Mode
-noremap Q <Nop>
-noremap gQ <Nop>
-" Same movement in wrappend lines
-noremap j gj
-noremap k gk
-" Scrolling
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
-nnoremap zl zL
-nnoremap zh zH
-" Easy copy-pasting to and from system clipboard
-vnoremap <leader>y "+y
-vnoremap <leader>d "+d
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>P "+P
-" Easy exit out of terminal
-tnoremap <esc> <C-\><C-n>
+" " BASIC MAPPINGS, COMMANDS, ABBREVS
 " Esc clears highlighting (after search)
 map <esc> :noh<bar>lclose<bar>pclose<CR>
 " Recalculate syntax highlighting
@@ -283,39 +284,3 @@ cnoreabbrev L lua print(vim.inspect(
 " FILE SPECIFIC CONFIG
 " Update bindings when sxhkdrc is updated.
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
-
-
-" DEPRECATED
-" Autotoggle between relative and absolute numbers (from jeffkreeftmeijer/vim-numbertoggle)
-" augroup numbertoggle
-"   autocmd!
-"   autocmd BufEnter,FocusGained,InsertLeave,WinEnter,TermOpen,TermClose *
-"   \ if &buftype == "terminal" | set nonu | set nornu |
-"   \ elseif mode() != "i" | set nu | set rnu |
-"   \ else | set nu | set nornu |
-"   \ endif
-"   autocmd BufLeave,FocusLost,InsertEnter,WinLeave * set nornu
-" augroup END
-
-lua << EOF
--- Set modified buffer sign columns to purple
---[[
-vim.cmd('highlight SignColumnMod guifg=' .. c.grey .. ' guibg=#3c3047')
-vim.cmd('highlight ALEErrorSignMod guifg=' .. c.dark_red .. ' guibg=#3c3047')
-vim.cmd('highlight ALEWarningSignMod guifg=' .. c.dark_yellow .. ' guibg=#3c3047')
-vim.cmd('highlight ALEInfoSignMod guifg=' .. c.dark_cyan .. ' guibg=#3c3047')
-vim.cmd'autocmd BufModifiedSet,BufWinEnter * :lua _G.highlight_modified_buffers()'
-function _G.highlight_modified_buffers()
-  local winids = vim.api.nvim_list_wins()
-  for _, winid in ipairs(winids) do
-    local bufnr = vim.fn.winbufnr(winid)
-    if (vim.bo[bufnr].modified) then
-      vim.wo[winid].winhighlight = 'SignColumn:SignColumnMod'
-      -- TODO investigate ownsyntax for ALESigns
-    else
-      vim.wo[winid].winhighlight = ''
-    end
-  end
-end
-]]
-EOF
