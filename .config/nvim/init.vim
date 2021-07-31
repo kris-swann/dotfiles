@@ -285,7 +285,7 @@ keymap('n', '<leader>s', '<cmd>syntax sync fromstart<CR>', { noremap=true })
 EOF
 
 
-" BASIC MAPPINGS, COMMANDS, ABBREVS
+" BASIC COMMANDS, ABBREVS
 " Shortcut to neovim config file
 command! Config :e ~/.config/nvim/init.vim   
 " Shortcut to notes
