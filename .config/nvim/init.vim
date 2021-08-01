@@ -10,20 +10,20 @@ if vim.fn.empty(vim.fn.glob(packer_nvim_path)) > 0 then
 end
 
 -- TODO add spell files to version control
--- TODO investigate .editorconfig plugin
 -- TODO plugin for better yank/paste?
--- TODO check out plumb
 -- TODO evaluate vimagit
--- TODO is vim-dispatch even needed any more?
--- TODO write own colorscheme
+-- TODO lsp
+-- TODO ternjs
 -- TODO does ale still make sense?
 -- TODO replace fzf with  telescope
--- TODO lsps
--- TODO ternjs
+-- TODO is vim-dispatch even needed any more?
 -- TODO evaluate RRethy/nvim-treesitter-textsubjects
 -- TODO evaluate nvim-treesitter/nvim-treesitter-textobjects
+-- TODO write own colorscheme
+-- TODO check out plumb feature
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
+  use 'editorconfig/editorconfig-vim'
   use 'nvim-lua/plenary.nvim'
   use 'kyazdani42/nvim-web-devicons'
   use {
