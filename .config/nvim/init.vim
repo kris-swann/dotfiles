@@ -20,6 +20,8 @@ end
 -- TODO replace fzf with  telescope
 -- TODO lsps
 -- TODO ternjs
+-- TODO evaluate RRethy/nvim-treesitter-textsubjects
+-- TODO evaluate nvim-treesitter/nvim-treesitter-textobjects
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'nvim-lua/plenary.nvim'
@@ -34,6 +36,13 @@ require('packer').startup(function()
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            node_incremental = [[\]],
+            node_decremental = [[|]],
+          },
         },
       }
     end
@@ -279,7 +288,7 @@ keymap('', '<leader>P', [["+P]], { noremap=true })
 -- Easy exit out of terminal
 keymap('t', '<esc>', [[<C-\><C-n>]], { noremap=true })
 -- Clear search highlighting
-keymap('', '<esc>', '<cmd>noh<bar>lclose<bar>pclose<CR>', { noremap=true })
+keymap('n', '<esc>', '<cmd>noh<bar>lclose<bar>pclose<CR>', { noremap=true })
 -- Reset sytax
 keymap('n', '<leader>s', '<cmd>syntax sync fromstart<CR>', { noremap=true })
 EOF
