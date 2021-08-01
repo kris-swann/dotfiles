@@ -10,7 +10,6 @@ if vim.fn.empty(vim.fn.glob(packer_nvim_path)) > 0 then
 end
 
 -- TODO add spell files to version control
--- TODO plugin for better yank/paste?
 -- TODO evaluate vimagit
 -- TODO lsp
 -- TODO ternjs
@@ -26,6 +25,15 @@ require('packer').startup(function()
   use 'editorconfig/editorconfig-vim'
   use 'nvim-lua/plenary.nvim'
   use 'kyazdani42/nvim-web-devicons'
+  use {
+    'svermeulen/vim-yoink',
+    config=function()
+      keymap('n', '<C-n>', '<plug>(YoinkPostPasteSwapForward)', {})
+      keymap('n', '<C-p>', '<plug>(YoinkPostPasteSwapBack)', {})
+      keymap('n', 'p', '<plug>(YoinkPaste_p)', {})
+      keymap('n', 'P', '<plug>(YoinkPaste_P)', {})
+    end
+  }
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
