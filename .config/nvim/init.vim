@@ -2,6 +2,15 @@ lua << EOF
 vim.g.mapleader = ','      -- set leader as early as possible (in case plugins set keybinds w/ leader)
 keymap = vim.api.nvim_set_keymap  -- shortcut for setting keymaps
 
+-- Rebuild *.spl files if necessary
+for _, add_file in ipairs(vim.fn.glob('~/.config/nvim/spell/*.add', 1, 1)) do
+    local spl_file = add_file .. '.spl'
+    local spl_outdated = vim.fn.getftime(add_file) > vim.fn.getftime(spl_file)
+    if not vim.fn.filereadable(spl_file) or spl_outdated then
+      vim.cmd('silent mkspell! ' .. add_file)
+    end
+end
+
 -- Download and install packer.nvim if not already present
 local packer_nvim_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(packer_nvim_path)) > 0 then
@@ -9,7 +18,6 @@ if vim.fn.empty(vim.fn.glob(packer_nvim_path)) > 0 then
   vim.api.nvim_command('packadd packer.nvim')
 end
 
--- TODO add spell files to version control
 -- TODO evaluate vimagit
 -- TODO lsp
 -- TODO ternjs
