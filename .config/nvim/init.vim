@@ -285,6 +285,8 @@ keymap('', '<leader>y', [["+y]], { noremap=true })
 keymap('', '<leader>d', [["+d]], { noremap=true })
 keymap('', '<leader>p', [["+p]], { noremap=true })
 keymap('', '<leader>P', [["+P]], { noremap=true })
+-- Delete to blackhole register (lightweight vim-cutlass)
+keymap('', '<leader>x', [["_d]], { noremap=true })
 -- Easy exit out of terminal
 keymap('t', '<esc>', [[<C-\><C-n>]], { noremap=true })
 -- Clear search highlighting
