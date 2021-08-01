@@ -2,7 +2,7 @@ lua << EOF
 vim.g.mapleader = ','      -- set leader as early as possible (in case plugins set keybinds w/ leader)
 keymap = vim.api.nvim_set_keymap  -- shortcut for setting keymaps
 
--- Rebuild *.spl files if necessary
+-- Rebuild *.spl files if necessary (see https://a3nm.net/blog/git_auto_conflicts.html)
 for _, add_file in ipairs(vim.fn.glob('~/.config/nvim/spell/*.add', 1, 1)) do
     local spl_file = add_file .. '.spl'
     local spl_outdated = vim.fn.getftime(add_file) > vim.fn.getftime(spl_file)
