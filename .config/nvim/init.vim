@@ -28,6 +28,7 @@ end
 -- TODO evaluate nvim-treesitter/nvim-treesitter-textobjects
 -- TODO write own colorscheme
 -- TODO check out plumb feature
+-- TODO switch all ftplugin indent changes over to a base .editorconfig file
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'editorconfig/editorconfig-vim'
