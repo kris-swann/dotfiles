@@ -157,6 +157,12 @@ require('packer').startup(function()
       vim.g.ale_echo_msg_warning_str = 'W'
       vim.g.ale_echo_msg_format = '[%severity%] [%linter%] %[code]% %s'
       vim.g.ale_virtualtext_cursor = 1
+      -- Colors
+      local c = require'onedark.colors'
+      vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
+      vim.cmd('highlight ALEWarningSign guifg=' .. c.dark_yellow .. ' guibg=' .. c.bg0)
+      vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
+
       -- Gutter icons
       vim.g.ale_sign_error = ''
       vim.g.ale_sign_warning = ''
@@ -303,9 +309,6 @@ vim.g.onedark_style = 'warm'
 vim.cmd('colorscheme onedark')
 local c = require'onedark.colors'
 vim.cmd('highlight Folded gui=NONE guifg=' .. c.fg .. ' guibg=' .. c.dark_cyan)
-vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
-vim.cmd('highlight ALEWarningSign guifg=' .. c.dark_yellow .. ' guibg=' .. c.bg0)
-vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
 
 -- STATUSLINE (TODO move to packer.nvim?)
 statusline = require'statusline'
