@@ -162,7 +162,6 @@ require('packer').startup(function()
       vim.cmd('highlight ALEErrorSign guifg=' .. c.dark_red .. ' guibg=' .. c.bg0)
       vim.cmd('highlight ALEWarningSign guifg=' .. c.dark_yellow .. ' guibg=' .. c.bg0)
       vim.cmd('highlight ALEInfoSign guifg=' .. c.dark_cyan .. ' guibg=' .. c.bg0)
-
       -- Gutter icons
       vim.g.ale_sign_error = ''
       vim.g.ale_sign_warning = ''
