@@ -1,7 +1,0 @@
-#!/bin/sh
-filepath="$1"
-linenum="$2"
-outputtype="$3"
-
-# Temp stubing response
-echo "foo.bar.bin"
