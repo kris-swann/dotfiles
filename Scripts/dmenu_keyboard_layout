@@ -1,0 +1,14 @@
+#!/bin/sh
+mapping=$(cat <<EOF
+us-std    ===> setxkbmap -layout us
+us-intl   ===> setxkbmap -layout us -variant intl
+EOF
+)
+keys="$(echo "$mapping" | sed -e 's/===>.*$//g' -e 's/[ \t]*$//g')"
+values="$(echo "$mapping" | sed -e 's/^.*===>//g' -e 's/^[ \t]*//g')"
+
+result=$(echo "$keys" | dmenu -i -p "Keymap")
+if [ "$result" ]; then
+  matching_line_number=$(echo "$keys" | sed -n "/$result/ =")
+  exec $(echo "$values" | sed -n "$matching_line_number p")
+fi

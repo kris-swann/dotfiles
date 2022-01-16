@@ -7,6 +7,15 @@ super + Return
 super + shift + Return
   $TERMINAL
 
+super + space ; {_, super} + backslash
+  ~/Scripts/dmenu_keyboard_layout
+
+super + backslash ; 1
+  setxkbmap -layout us
+
+super + backslash ; 2
+  setxkbmap -layout us -variant intl
+
 super + space ; {_, super} + space
   dmenu_recency
 
@@ -34,16 +43,16 @@ XF86AudioLowerVolume
   pamixer --allow-boost -d 5 && ~/Scripts/notify_send_volume
 
 XF86MonBrightnessUp
-  xbacklight -inc 10 && ~/Scripts/notify_send_brighness
-
-XF86MonBrightnessDown
-  xbacklight -dec 10 && ~/Scripts/notify_send_brighness
-
-control + XF86MonBrightnessUp
   xbacklight -inc 1 && ~/Scripts/notify_send_brighness
 
-control + XF86MonBrightnessDown
+XF86MonBrightnessDown
   xbacklight -dec 1 && ~/Scripts/notify_send_brighness
+
+control + XF86MonBrightnessUp
+  xbacklight -inc 10 && ~/Scripts/notify_send_brighness
+
+control + XF86MonBrightnessDown
+  xbacklight -dec 10 && ~/Scripts/notify_send_brighness
 
 control + shift +  XF86MonBrightnessUp
   xbacklight -inc 0.1 && ~/Scripts/notify_send_brighness
