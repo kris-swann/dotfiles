@@ -4,6 +4,4 @@ udiskie -t &
 nm-applet &
 picom &
 xset b off # turn off the damn bell!
-# setxkbmap -option compose:caps  # I was using compose key but trying out dead keys for a bit instead
-setxkbmap -layout us -variant intl
 [[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile
