@@ -1,0 +1,20 @@
+#!/bin/sh
+
+package_list_file_path="$HOME/Projects/new-computer/archlinux-packages.md"
+
+# Drop all output until line '# Packages' is found
+trimmed_file_contents=$(sed '0,/^# Packages$/d' "$package_list_file_path")
+
+# # Pull out the tags from the file contents
+pkg_tags=$(echo "$trimmed_file_contents" | grep -Po '<x-pkg>.*?</x-pkg>')
+opkg_tags=$(echo "$trimmed_file_contents" | grep -Po '<x-opkg>.*?</x-opkg>')
+
+# Trim out tags and extra chars
+pkg_items=$(echo "$pkg_tags"   | sed -E -e 's/<(\/)*x-pkg>//g'  -e 's/[^a-zA-Z@._+-]//g')
+opkg_items=$(echo "$opkg_tags" | sed -E -e 's/<(\/)*x-opkg>//g' -e 's/[^a-zA-Z@._+-]//g')
+
+echo "pkg_items"
+echo "$pkg_items"
+echo "opkg_items"
+echo "$opkg_items"
+
