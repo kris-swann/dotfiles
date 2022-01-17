@@ -48,7 +48,8 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     rmmod pcspkr
     echo "blacklist pcspkr" | tee /etc/modprobe.d/nobeep.conf
     ```
-5.  Install [yay](https://github.com/Jguer/yay) (AUR helper)
+5.  Log out of `root` and back in as new user
+6.  Install [yay](https://github.com/Jguer/yay) (AUR helper)
     ```
     pacman -S --needed git base-devel
     cd /tmp
@@ -56,15 +57,15 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     cd yay
     makepkg -si
     ```
-6.  Configure `pacman` and `yay` to make them pretty (edit `/etc/pacman.conf`)
+7.  Configure `pacman` and `yay` to make them pretty (edit `/etc/pacman.conf`)
     ```
     # Misc options
     Color      # UNCOMMENT THIS
     ILoveCandy # UNCOMMENT THIS
     ```
-7.  Setup [dotfiles](../README.md)
-8.  Install packages
+8.  Setup [dotfiles](../README.md)
+9.  Install packages
     ```
     TODO: script that will sync markdown document with pacman -Qe and provide descriptions of what has been installed and why, warning if explicitly installed packages are missing explainations
     ```
-9.  Update [GRUB](./grub-config.md)
+10.  Update [GRUB](./grub-config.md)
