@@ -2,15 +2,13 @@
 
 List of packages I have installed on my systems, with explainations
 
-Serves as the source of truth for `Scripts/package_sync` (To be written)
-
-TODO: write the script (compare against `pacman -Qe`) and link the file with a relative link
+Serves as the source of truth for [`Scripts/package_sync`](../Scripts/package_sync)
 
 ### How it works
 
 Any text text above `# Packages` will be ignored, the rest will be passed to the parser
 
-Text wrapped with `<x-pkg>pkg-name</x-pkg>` is a required package, text wrapped with `<x-opkg>opt-pkg-name</x-opkg>` is an optional package. **Only include one package per tag, do not include package groups!** (meta-packages are ok though)
+Text wrapped with `<x-pkg>pkg-name</x-pkg>` is a required package, text wrapped with `<x-opkg>opt-pkg-name</x-opkg>` is an optional package. **Only include one package per tag, do not include package groups!** (meta-packages are OK)
 
 Note that as per the [wiki](https://wiki.archlinux.org/title/Arch_package_guidelines#Package_naming), package names can only include alphanumerics and any of `@`, `.`, `_`, `+`, `-`. Any characters that are not one of these that are inside the tag will be stripped by the parser (this allows using markdown-formatting inside the tag)
 
@@ -27,7 +25,7 @@ All text above this point will be ignored, all text below this point will be pas
 * <x-pkg>`grub`</x-pkg> Bootloader
 * <x-pkg>`efibootmgr`</x-pkg> For bootloading in efi systems
 * <x-pkg>`os-prober`</x-pkg> For automatically discovering other installed operating systems when generating grub-config
-* <x-opkg>`intel-ucode`</x-opkg> OR <x-opkg>`amd-ucode`</x-opkg> Processor stability and security updates, needs to be loaded by the bootloader [wiki](https://wiki.archlinux.org/title/Microcode)
+* <x-opkg>`intel-ucode`</x-opkg> OR <x-opkg>`amd-ucode`</x-opkg> Processor stability and security updates, needs to be loaded by the bootloader. See the [wiki](https://wiki.archlinux.org/title/Microcode)
 
 ### Networking
 * <x-pkg>`networkmanager`</x-pkg> Easy networking configuration
