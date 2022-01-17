@@ -1,6 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
-package_list_file_path="$HOME/Projects/new-computer/archlinux-packages.md"
+# USAGE
+# package_sync -h
+# package_sync --help
+# package_sync
+# package_sync --install-required
+
+package_list_file_path="$HOME/Notes/archlinux-packages.md"
 
 # Drop all output until line '# Packages' is found
 trimmed_file_contents=$(sed '0,/^# Packages$/d' "$package_list_file_path")
@@ -13,8 +19,25 @@ opkg_tags=$(echo "$trimmed_file_contents" | grep -Po '<x-opkg>.*?</x-opkg>')
 pkg_items=$(echo "$pkg_tags"   | sed -E -e 's/<(\/)*x-pkg>//g'  -e 's/[^a-zA-Z@._+-]//g')
 opkg_items=$(echo "$opkg_tags" | sed -E -e 's/<(\/)*x-opkg>//g' -e 's/[^a-zA-Z@._+-]//g')
 
-echo "pkg_items"
-echo "$pkg_items"
-echo "opkg_items"
-echo "$opkg_items"
+# Get explicitly installed packages
+installed_items=$(pacman -Qe | awk '{ print $1 }')
 
+pkg_items_not_installed=$(comm -23 <(echo "$pkg_items" | sort) <(echo "$installed_items" | sort))
+opkg_items_not_installed=$(comm -23 <(echo "$opkg_items" | sort) <(echo "$installed_items" | sort))
+installed_items_not_in_docs=$(comm -23 <(echo "installed_items" | sort) <(echo "$pkg_items\n$opkg_items" | sort))
+
+
+echo "pkg_items_not_installed"
+echo "$pkg_items_not_installed"
+echo ""
+echo "opkg_items_not_installed"
+echo "$opkg_items_not_installed"
+echo ""
+echo "installed_items_not_in_docs"
+echo "$installed_items_not_in_docs"
+echo ""
+
+# echo "pkg_items"
+# echo "$pkg_items"
+# echo "opkg_items"
+# echo "$opkg_items"
