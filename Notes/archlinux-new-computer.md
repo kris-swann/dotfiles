@@ -22,6 +22,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     ```
 2.  Create user
     ```
+    pacman -S zsh
     useradd --create-home -g wheel -s /bin/zsh kris
     passwd kris
     ```
