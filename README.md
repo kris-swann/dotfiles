@@ -15,6 +15,16 @@ rm -r $HOME/tmpdotfiles
 dotfiles config --local status.showUntrackedFiles no
 ```
 
+OR if setting up new computer and haven't added ssh keys yet
+
+```
+git clone --separate-git-dir=$HOME/Projects/dotfiles https://github.com/kris-swann/dotfiles $HOME/tmpdotfiles
+rsync --recursive --verbose --exclude '.git' $HOME/tmpdotfiles/ $HOME/
+rm -r $HOME/tmpdotfiles
+dotfiles config --local status.showUntrackedFiles no
+# TODO switch over from https to ssh
+```
+
 Setup github user `~/.gitconfig.user` should look like this
 
 ```
