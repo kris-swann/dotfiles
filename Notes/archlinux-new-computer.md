@@ -63,7 +63,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     Color      # UNCOMMENT THIS
     ILoveCandy # UNCOMMENT THIS
     ```
-8.  Setup [dotfiles](../README.md) (use https to start, don't configure anything yet just clone down so have access to the scripts)
+8.  Setup [dotfiles](../README.md) (clone with https, don't do the config steps, just clone down and make sure have access to the scripts)
 9.  Install packages
     ```
     TODO: script that will sync markdown document with pacman -Qe and provide descriptions of what has been installed and why, warning if explicitly installed packages are missing explainations
