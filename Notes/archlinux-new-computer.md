@@ -10,14 +10,6 @@ to access the internet after booting into the newly installed stystem.
 
 Probably a good idea to also install `vim` and `neovim` at that step too.
 
-After booting into the freshly installed system, simply run the following:
-
-```
-cd /tmp
-curl -LO https://raw.githubusercontent.com/kriswithank/new-computer/main/new_arch.sh
-bash new_arch.sh
-```
-
 ---
 
 # Post-install steps
@@ -64,9 +56,9 @@ bash new_arch.sh
     Color      # UNCOMMENT THIS
     ILoveCandy # UNCOMMENT THIS
     ```
-7.  Setup [dotfiles](https://github.com/kris-swann/dotfiles)
+7.  Setup [dotfiles](../README.md)
 8.  Install packages
     ```
     TODO: script that will sync markdown document with pacman -Qe and provide descriptions of what has been installed and why, warning if explicitly installed packages are missing explainations
     ```
-9.  Update GRUB
+9.  Update [GRUB](./grub-config.md)
