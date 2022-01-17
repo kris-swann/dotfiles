@@ -26,17 +26,22 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     useradd --create-home -g wheel -s /bin/zsh kris
     passwd kris
     ```
-3.  Update `/etc/sudoers` **(USE `visudo`, DO NOT MANUALLY EDIT)**
+3.  Install and configure `sudo` **(USE `visudo`, DO NOT MANUALLY EDIT `/etc/sudoers`)**
     ```
+    pacman -S sudo vi
+
+    # Add to /etc/sudoers with visudo
+    # Comand Aliases
+    Cmnd_Alias REBOOT = /usr/bin/shutdown, /usr/bin/reboot, /usr/bin/systemctl suspend
+    Cmnd_Alias MOUNT = /usr/bin/mount, /usr/bin/umount
+    Cmnd_Alias PACMAN_SYNC = /usr/bin/pacman -Syu, /usr/bin/pacman -Syyu
+    Cmnd_Alias REBOOT_NETWORK_MANAGER = /usr/bin/systemctl restart NetworkManager
     # Allow root to use sudo
     root ALL=(ALL) ALL
     # Allow wheel users to use sudo
     %wheel  ALL=(ALL) ALL
     # Allow wheel users to run the following commands without a password
-    %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend
-    %wheel ALL=(ALL) NOPASSWD: /usr/bin/mount,/usr/bin/umount
-    %wheel ALL=(ALL) NOPASSWD: /usr/bin/pacman -Syu,/usr/bin/pacman -Syyu
-    %wheel ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart NetworkManager
+    %wheel ALL=(ALL) NOPASSWD: REBOOT, MOUNT, PACMAN_SYNC, REBOOT_NETWORK_MANAGER
     ```
 4.  Disable annoying system beeb
     ```
