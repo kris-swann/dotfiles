@@ -9,20 +9,18 @@ Inspired by:
 * https://news.ycombinator.com/item?id=11070797
 
 ```
+# SSH if keys already setup
 git clone --separate-git-dir=$HOME/Projects/dotfiles git@github.com:kris-swann/dotfiles.git $HOME/tmpdotfiles
-rsync --recursive --verbose --exclude '.git' $HOME/tmpdotfiles/ $HOME/
-rm -r $HOME/tmpdotfiles
-dotfiles config --local status.showUntrackedFiles no
-```
-
-OR if setting up new computer and haven't added ssh keys yet
-
-```
+# HTTPS if keys not yet setup
 git clone --separate-git-dir=$HOME/Projects/dotfiles https://github.com/kris-swann/dotfiles $HOME/tmpdotfiles
+
 rsync --recursive --verbose --exclude '.git' $HOME/tmpdotfiles/ $HOME/
 rm -r $HOME/tmpdotfiles
-dotfiles config --local status.showUntrackedFiles no
-# TODO switch over from https to ssh
+
+# Reload a new shell (so you have access to the aliases)
+.f config --local status.showUntrackedFiles no
+
+# TODO switch over from https to ssh if needed
 ```
 
 Setup github user `~/.gitconfig.user` should look like this
