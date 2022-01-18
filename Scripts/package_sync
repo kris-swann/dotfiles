@@ -38,7 +38,7 @@ pkg_items=$(echo "$pkg_tags"   | sed -E -e 's/<(\/)*x-pkg>//g'  -e 's/[^a-zA-Z0-
 opkg_items=$(echo "$opkg_tags" | sed -E -e 's/<(\/)*x-opkg>//g' -e 's/[^a-zA-Z0-9@._+-]//g')
 
 # Get explicitly installed packages
-installed_items=$(pacman -Qe | awk '{ print $1 }')
+installed_items=$(pacman -Qqe)
 
 pkg_items_not_installed=$(comm -23 <(echo "$pkg_items" | sort) <(echo "$installed_items" | sort))
 opkg_items_not_installed=$(comm -23 <(echo "$opkg_items" | sort) <(echo "$installed_items" | sort))
@@ -47,7 +47,7 @@ installed_items_not_in_docs=$(comm -23 <(echo "$installed_items" | sort) <(echo 
 if [ -n "$install_req" ]; then
   req_pakcage_single_line=$(echo "$pkg_items_not_installed" | tr '\n' ' ')
   # shellcheck disable=SC2086
-  sudo pacman -S --asexplicit $req_pakcage_single_line  # word-splitting intentional
+  sudo pacman -S $req_pakcage_single_line  # word-splitting intentional
 else
   # Print summary (from least to most severe)
   if [ -n "$opkg_items_not_installed" ]; then
