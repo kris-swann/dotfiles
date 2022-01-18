@@ -68,4 +68,5 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     * Will also need to install rsync `pacman -S rsync`
     * Don't do the config steps yet, just clone down and make sure that you have access to the scripts after re-logging
 9.  Install packages `package_sync --install-req`
-10.  Update [GRUB](./grub-config.md)
+10. Update [GRUB](./grub-config.md)
+11. Init neovim, open neovin and run `:PackerSync`
