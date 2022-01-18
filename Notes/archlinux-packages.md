@@ -202,7 +202,6 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`zathura`</x-pkg> Document viewer
   * <x-pkg>`zathura-pdf-mupdf`</x-pkg> PDF, ePub, OpenXPS support
 * <x-pkg>`firefox`</x-pkg> Web browerser of choice
-* <x-pkg>`brave-browser`</x-pkg> Privacy centric chromium based fallback browser
 * <x-pkg>`chromium`</x-pkg> Fallback browser if the others don't work
 * <x-pkg>`vlc`</x-pkg> Video/audio player supporting many file types
 * <x-pkg>`feh`</x-pkg> Image viewer
