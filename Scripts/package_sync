@@ -1,10 +1,28 @@
 #!/bin/bash
 
-# USAGE
-# package_sync -h
-# package_sync --help
-# package_sync
-# package_sync --install-required
+# Parse args
+install_req=""
+while (( "$#" )); do
+  case "$1" in
+    -h|--help)
+      echo "Usage: package_sync [options]"
+      echo ""
+      echo "If no options given, print overview"
+      echo "Options:"
+      echo "  -h, --help      Show this menu"
+      echo "  --install-req   Install required packages that are missing"
+      exit 0
+      ;;
+    --install-req)
+      install_req="true"
+      shift
+      ;;
+    -*)
+      echo "ERROR: Unsupported flag $1" >&2
+      exit 1
+      ;;
+  esac
+done
 
 package_list_file_path="$HOME/Notes/archlinux-packages.md"
 
@@ -16,28 +34,38 @@ pkg_tags=$(echo "$trimmed_file_contents" | grep -Po '<x-pkg>.*?</x-pkg>')
 opkg_tags=$(echo "$trimmed_file_contents" | grep -Po '<x-opkg>.*?</x-opkg>')
 
 # Trim out tags and extra chars
-pkg_items=$(echo "$pkg_tags"   | sed -E -e 's/<(\/)*x-pkg>//g'  -e 's/[^a-zA-Z@._+-]//g')
-opkg_items=$(echo "$opkg_tags" | sed -E -e 's/<(\/)*x-opkg>//g' -e 's/[^a-zA-Z@._+-]//g')
+pkg_items=$(echo "$pkg_tags"   | sed -E -e 's/<(\/)*x-pkg>//g'  -e 's/[^a-zA-Z0-9@._+-]//g')
+opkg_items=$(echo "$opkg_tags" | sed -E -e 's/<(\/)*x-opkg>//g' -e 's/[^a-zA-Z0-9@._+-]//g')
 
 # Get explicitly installed packages
 installed_items=$(pacman -Qe | awk '{ print $1 }')
 
 pkg_items_not_installed=$(comm -23 <(echo "$pkg_items" | sort) <(echo "$installed_items" | sort))
 opkg_items_not_installed=$(comm -23 <(echo "$opkg_items" | sort) <(echo "$installed_items" | sort))
-installed_items_not_in_docs=$(comm -23 <(echo "installed_items" | sort) <(echo "$pkg_items\n$opkg_items" | sort))
+installed_items_not_in_docs=$(comm -23 <(echo "$installed_items" | sort) <(echo "$pkg_items\n$opkg_items" | sort))
 
-
-echo "pkg_items_not_installed"
-echo "$pkg_items_not_installed"
-echo ""
-echo "opkg_items_not_installed"
-echo "$opkg_items_not_installed"
-echo ""
-echo "installed_items_not_in_docs"
-echo "$installed_items_not_in_docs"
-echo ""
-
-# echo "pkg_items"
-# echo "$pkg_items"
-# echo "opkg_items"
-# echo "$opkg_items"
+if [ -n "$install_req" ]; then
+  req_pakcage_single_line=$(echo "$pkg_items_not_installed" | tr '\n' ' ')
+  # shellcheck disable=SC2086
+  sudo pacman -S --asexplicit $req_pakcage_single_line  # word-splitting intentional
+else
+  # Print summary (from least to most severe)
+  if [ -n "$opkg_items_not_installed" ]; then
+    echo "Optional packages not installed on this system"
+    echo "---"
+    echo "$opkg_items_not_installed"
+    echo ""
+  fi
+  if [ -n "$installed_items_not_in_docs" ]; then
+    echo "Packages installed on this system missing from docs"
+    echo "---"
+    echo "$installed_items_not_in_docs"
+    echo ""
+  fi
+  if [ -n "$pkg_items_not_installed" ]; then
+    echo "Required packages not installed on this system"
+    echo "---"
+    echo "$pkg_items_not_installed"
+    echo ""
+  fi
+fi
