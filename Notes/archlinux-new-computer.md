@@ -70,3 +70,4 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 9.  Install packages `package_sync --install-req`
 10. Update [GRUB](./grub-config.md)
 11. Init neovim, open neovin and run `:PackerSync`
+12. Enable bluetooth `system start bluetooth.service` & `systemctl enable bluetooth.service`
