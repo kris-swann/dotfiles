@@ -27,6 +27,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
       [connection]
       wifi.powersave = 2
       ```
+    * OR if `ip link` shows `mode DORMANT`, switch to default mode with `sudo ip link set wlp4s0 mode default`
 2.  Create user
     ```
     pacman -S zsh
