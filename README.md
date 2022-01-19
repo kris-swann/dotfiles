@@ -19,8 +19,6 @@ rm -r $HOME/tmpdotfiles
 
 # Reload a new shell (so you have access to the aliases)
 .f config --local status.showUntrackedFiles no
-
-# TODO switch over from https to ssh if needed
 ```
 
 Setup github user `~/.gitconfig.user` should look like this
@@ -44,7 +42,12 @@ systemctl --user enable ssh-agent
 systemctl --user start ssh-agent  # Or reboot
 ```
 
-Add ssh key to github
+Add ssh key to github, follow [this](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) guide
+
+Change https to ssh
+```
+.f remote set-url origin git@github.com:kris-swann/dotfiles.git
+```
 
 ## Other
 
