@@ -44,6 +44,8 @@ systemctl --user enable ssh-agent
 systemctl --user start ssh-agent  # Or reboot
 ```
 
+Add ssh key to github
+
 ## Other
 
 **TODO:** Evaluate if these are still up to date
