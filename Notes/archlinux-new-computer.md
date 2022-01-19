@@ -70,8 +70,19 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 9.  Install packages `package_sync --install-req`
 10. Update [GRUB](./grub-config.md)
 11. Init neovim, open neovin and run `:PackerSync`
-12. Enable bluetooth `system start bluetooth.service` & `systemctl enable bluetooth.service`
-13. Set up ssh key with github and finish `dotfile` config
+12. Enable bluetooth
+    ```
+    rfkill unblock bluetooth
+
+    system start bluetooth.service
+    systemctl enable bluetooth.service
+
+    # Power bluetooth on boot
+    # Add to /etc/bluetoothmain.conf
+    [Policy]
+    AutoEnable=true
+    ```
+14. Set up ssh key with github and finish `dotfile` config
     ```
     ssh-keygen -C "email@domain.com"
     eval "$(ssh-agent)"
