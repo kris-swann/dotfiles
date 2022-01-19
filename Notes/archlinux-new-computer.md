@@ -20,6 +20,13 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     systemctl enable NetworkManager.service
     nmtui  # TUI front-end for networkmanager
     ```
+    * If having issues with wifi-dropping, try this (for info `man nm-settings`, `man NetworkManager.conf`)
+      ```
+      nvim /etc/NetworkManager/conf.d/default-wifi-powersave.conf
+
+      [connection]
+      wifi.powersave = 2
+      ```
 2.  Create user
     ```
     pacman -S zsh
