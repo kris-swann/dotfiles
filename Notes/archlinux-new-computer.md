@@ -87,4 +87,5 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     ssh-keygen -C "email@domain.com"
     eval "$(ssh-agent)"
     ssh-add ~/.ssh/id_rsa
+    # Follow rest of steps in dotfile setup
     ```
