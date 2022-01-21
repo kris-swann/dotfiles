@@ -29,6 +29,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
       ```
     * OR if `ip link` shows `mode DORMANT`, switch to default mode with `sudo ip link set wlp4s0 mode default`
     * Install additional driver `yay -S rtw89-dkms-git`
+    * To debug use `dmesg`
 2.  Create user
     ```
     pacman -S zsh
