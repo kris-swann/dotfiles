@@ -92,10 +92,28 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     [Policy]
     AutoEnable=true
     ```
-14. Set up ssh key with github and finish `dotfile` config
+13. Set up ssh key with github and finish `dotfile` config
     ```
     ssh-keygen -C "email@domain.com"
     eval "$(ssh-agent)"
     ssh-add ~/.ssh/id_rsa
     # Follow rest of steps in dotfile setup
+    ```
+14. Update touchpad, see [wiki](https://wiki.archlinux.org/title/Touchpad_Synaptics) for more details, also `man synaptics`
+    ```
+    # Copy default config (provided by xf86-input-synaptics)
+    sudo cp /usr/share/X11/xorg.conf.d/70-synaptics.conf /etc/X11/xorg.conf.d/70-synaptics.conf
+    sudo nvim /etc/X11/xorg.conf.d/70-synaptics.conf
+
+    # Modify to be
+    Section "InputClass"
+        Identifier "touchpad"
+        Driver "synaptics"
+        MatchIsTouchpad "on"
+        Option "TapButton1" "1"  # One finger tap is mouse button 1
+        Option "TapButton2" "3"  # Two finger tap is mouse button 3
+        Option "TapButton3" "2"  # Three finger tap is mouse button 2
+        Option "VertTwoFingerScroll" "on"
+        Option "HorizTwoFingerScroll" "on"
+    EndSection
     ```
