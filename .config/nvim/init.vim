@@ -49,7 +49,7 @@ require('packer').startup(function()
     config = function()
       require'nvim-treesitter.configs'.setup {
         ensure_installed = "all",
-        ignore_install = {"haskell"}, -- causes issues on osx
+        ignore_install = {"haskell", "phpdoc"}, -- can't compile atm
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
