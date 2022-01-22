@@ -49,6 +49,9 @@ update_cwd_data() {
 }
 precmd_functions+=(update_cwd_data)
 
+# Pass args to bc for simple one-off math
+bb() { bc <<< "$@" }
+
 
 #####################################################################
 ### VI MODE
