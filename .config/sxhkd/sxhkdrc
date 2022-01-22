@@ -17,7 +17,7 @@ super + backslash ; 2
   setxkbmap -layout us -variant intl
 
 super + space ; {_, super} + space
-  dmenu_recency
+  dmenu_run_history
 
 super + space ; {_, super} + a
   kitty \
