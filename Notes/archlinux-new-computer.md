@@ -115,5 +115,6 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
         Option "TapButton3" "2"  # Three finger tap is mouse button 2
         Option "VertTwoFingerScroll" "on"
         Option "HorizTwoFingerScroll" "on"
+        Option "PalmDetect" "1"
     EndSection
     ```
