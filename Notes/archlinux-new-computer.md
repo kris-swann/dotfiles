@@ -118,16 +118,17 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
         Option "PalmDetect" "1"
     EndSection
     ```
-15. Configure backlighting  # TODO
+15. Configure backlighting
     ```
     # Add to video group so can edit brightness
     usermod -a -G video kris
 
     # Add udev rule to allow video group to modify brightness
     sudo nvim /etc/udev/rules.d/backlight.rules
-    >> ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"
-
-    # May not be required on all systems, but I had to add this option to xorg.conf to work w/ dedicated graphics mode
+    ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"
+    ```
+    * May not be required on all systems, but I had to add this option to xorg.conf to work w/ dedicated graphics mode [wiki](https://wiki.archlinux.org/title/Laptop/Lenovo#Legion_series)
+    ```
     sudo nvim /usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
-    >> Option "RegistryDwords" "EnableBrightnessControl=1"
+    Option "RegistryDwords" "EnableBrightnessControl=1"
     ```
