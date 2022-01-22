@@ -20,16 +20,21 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     systemctl enable NetworkManager.service
     nmtui  # TUI front-end for networkmanager
     ```
-    * If having issues with wifi-dropping, try this (for info `man nm-settings`, `man NetworkManager.conf`)
-      ```
-      nvim /etc/NetworkManager/conf.d/default-wifi-powersave.conf
+    * If having issues with wifi dropping all the time, try these (for info `man nm-settings`, `man NetworkManager.conf`)
+        * Disable powersave
+          ```
+          nvim /etc/NetworkManager/conf.d/10-default-wifi-powersave.conf
 
-      [connection]
-      wifi.powersave = 2
-      ```
-    * OR if `ip link` shows `mode DORMANT`, switch to default mode with `sudo ip link set wlp4s0 mode default`
-    * Install additional driver `yay -S rtw89-dkms-git`
-    * To debug use `dmesg`
+          [connection]
+          wifi.powersave = 2
+          ```
+        * Disable connectivity scans
+          ```
+          sudo nvim /etc/NetworkManager/conf.d/20-connectivity.conf
+
+          [connectivity]
+          .set.enabled=false
+          ```
 2.  Create user
     ```
     pacman -S zsh
