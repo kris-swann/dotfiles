@@ -121,6 +121,8 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
         Option "VertTwoFingerScroll" "on"
         Option "HorizTwoFingerScroll" "on"
         Option "PalmDetect" "1"
+        Option "PalmMinWidth" "5"
+        Option "PalmMinZ" "50"
     EndSection
     ```
 15. Configure backlighting
