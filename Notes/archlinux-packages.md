@@ -35,6 +35,7 @@ All text above this point will be ignored, all text below this point will be pas
     * <x-pkg>`networkmanager-pptp`</x-pkg>
     * <x-pkg>`networkmanager-vpnc`</x-pkg>
 * <x-pkg>`openssh`</x-pkg> Provides ssh
+* <x-pkg>`iw`</x-pkg> CLI for wireless config
 
 ### Base-devel
 Packages included in the `base-devl` package group, copy-pasted from https://archlinux.org/groups/x86_64/base-devel/
@@ -72,6 +73,8 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
   * <x-pkg>`zsh-syntax-highlighting`</x-pkg> Fish-like syntax highlighting
 * <x-pkg>`fish`</x-pkg> Alternative to zsh
 * <x-pkg>`xonsh`</x-pkg> Experimental: python + shell
+* <x-pkg>`nushell`</x-pkg> Experimental: Powershell-like structured I/O shell
+* <x-pkg>`starship`</x-pkg> Cross-shell easy-to-configure prompt
 
 ### Text editor
 * <x-pkg>`vi`</x-pkg> The OG
@@ -113,10 +116,12 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`unison`</x-pkg> Like rsync but better at bi-directional sync
 * <x-pkg>`pandoc`</x-pkg> Convert between filetypes
 * Modernized utils
+  * <x-pkg>`bat`</x-pkg> Prettified `cat`
   * <x-pkg>`lsd`</x-pkg> Prettified `ls`
   * <x-pkg>`dfc`</x-pkg> Prettified `df` (disk-usage)
 
 ### Bluetooth
+* <x-pkg>`bluez`</x-pkg> Provide bluetooth daemons
 * <x-pkg>`bluez-utils`</x-pkg> Provides `bluetoothctl`
 
 ### Terminal programs
@@ -125,6 +130,8 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`ranger`</x-pkg> File manager
 * <x-pkg>`speedtest-cli`</x-pkg> Speedtest.net but in the terminal
 * <x-pkg>`ffmpeg`</x-pkg> CLI to record screen & audio
+* <x-pkg>`fzf`</x-pkg> Fuzzy finder
+* <x-pkg>`mdp`</x-pkg> CLI Markdown powerpoint-like tool
 
 ### Development tools
 * <x-pkg>`wget`</x-pkg> Downloading files
@@ -134,6 +141,8 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`gdb`</x-pkg> GNU debugger
 * <x-pkg>`npm`</x-pkg> Node package manager
 * <x-pkg>`pyenv`</x-pkg> Manage multiple python versions
+* <x-pkg>`python-pip`</x-pkg> Pip
+* <x-pkg>`python-pipx`</x-pkg> Pipx: For installing pip packages in venvs
 * <x-pkg>`shellcheck`</x-pkg> Lint shell scripts
 * <x-pkg>`shfmt`</x-pkg>Autoformat shell scripts
 * <x-pkg>`aws-cli`</x-pkg> AWS
@@ -145,13 +154,15 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 ### Desktop environment
 * <x-pkg>`sxhkd`</x-pkg> Simple X hotkey daemon for keybindings
 * <x-pkg>`qtile`</x-pkg> Window manager
+* <x-pkg>`dmenu`</x-pkg> Extensible pop-up typeahead menu
 * X11
   * <x-pkg>`xorg-server`</x-pkg> The X graphical server
   * <x-pkg>`xorg-xinit`</x-pkg> Start X server
+  * <x-pkg>`xorg-xrdb`</x-pkg> CLI for setting/viewing X server settings, (dpi, font-size etc.)
+  * <x-pkg>`xorg-xrandr`</x-pkg> Provides xrandr for managing multiple displays
   * <x-pkg>`xorg-xprop`</x-pkg> Detect window properties
   * <x-pkg>`xorg-xwininfo`</x-pkg> Query info about windows
   * <x-pkg>`xorg-xdpyinfo`</x-pkg> Info about X server
-  * <x-pkg>`xorg-xbacklight`</x-pkg> Change screen brightness
   * <x-pkg>`xorg-xkill`</x-pkg> Utility to kill the window you click
   * <x-pkg>`xorg-xev`</x-pkg> Display pressed keys and mouse movements, good for debugging
   * <x-pkg>`xorg-xfontsel`</x-pkg> Utility for selecting X11 font names
@@ -159,6 +170,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
   * <x-pkg>`xwallpaper`</x-pkg> Set the wallpaper
   * <x-pkg>`xclip`</x-pkg> Clipboard commands from terminal
   * <x-pkg>`xdotool`</x-pkg> Automate literally everything
+  * <x-pkg>`acpilight`</x-pkg> Provides `xbacklight` to change screen brightness
 
 ### File management utils
 * MIME types
@@ -181,11 +193,14 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`reiserfsprogs`</x-pkg> ReiserFS utils
 
 ### Drivers
-* <x-pkg>`xf86-input-elographics`</x-pkg> # Elographics touchscreen
-* <x-pkg>`xf86-input-synaptics`</x-pkg>   # Laptop touchpads
-* <x-pkg>`xf86-input-evdev`</x-pkg>       # Generic event devices (all inputs the kernel knows about)
-* <x-pkg>`xf86-input-wacom`</x-pkg>       # Wacom tablets
-* <x-pkg>`xf86-video-intel`</x-pkg>       # Intel graphics
+* <x-pkg>`xf86-input-elographics`</x-pkg> Elographics touchscreen
+* <x-pkg>`xf86-input-synaptics`</x-pkg> Laptop touchpads
+* <x-pkg>`xf86-input-evdev`</x-pkg> Generic event devices (all inputs the kernel knows about)
+* <x-pkg>`xf86-input-wacom`</x-pkg> Wacom tablets
+* <x-pkg>`xf86-video-intel`</x-pkg> Intel graphics
+* <x-pkg>`xf86-video-amdgpu`</x-pkg> AMD graphics
+* <x-pkg>`nvidia`</x-pkg> NVIDIA drivers
+* <x-pkg>`nvidia-settings`</x-pkg> GUI for NVIDIA driver settings
 
 ### Audio
 * <x-pkg>`pipewire`</x-pkg> Sound system replaces PulseAudio and JACK
@@ -195,10 +210,14 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
   * <x-pkg>`pipewire-jack`</x-pkg> Route JACK to pipewire
 * <x-pkg>`helvum`</x-pkg> Pipewire Patchbay
 * <x-pkg>`wireplumber`</x-pkg> TODO figure out what this is
+* <x-pkg>`easyeffects`</x-pkg> Audio effects for pipwire
+* <x-pkg>`pamixer`</x-pkg> CLI commands for volume control
+* <x-pkg>`pulsemixer`</x-pkg> TUI volume mixer
 
 ### Graphical programs
 * <x-pkg>`kitty`</x-pkg> Terminal emulator of choice
 * <x-pkg>`arandr`</x-pkg> Graphical xrandr, for setting screen layouts
+* <x-pkg>`xdot`</x-pkg> Graphical viewer of Graphviz dot files
 * <x-pkg>`zathura`</x-pkg> Document viewer
   * <x-pkg>`zathura-pdf-mupdf`</x-pkg> PDF, ePub, OpenXPS support
 * <x-pkg>`firefox`</x-pkg> Web browerser of choice
