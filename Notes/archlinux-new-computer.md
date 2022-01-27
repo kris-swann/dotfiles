@@ -139,3 +139,9 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     sudo nvim /usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
     Option "RegistryDwords" "EnableBrightnessControl=1"
     ```
+16. Set up docker access
+    ```
+    sudo groupadd docker
+    sudo usermod -aG docker kris
+    # Relog
+    ```
