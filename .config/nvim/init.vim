@@ -126,6 +126,7 @@ require('packer').startup(function()
   use {
     'phaazon/hop.nvim',
     config = function()
+      require'hop'.setup {}
       keymap('', '<space><space>', '<cmd>lua require"hop".hint_words()<CR>', {})
       keymap('', '<space>l', '<cmd>lua require"hop".hint_lines()<CR>', {})
       keymap('', '<space>c', '<cmd>lua require"hop".hint_char1()<CR>', {})
@@ -142,6 +143,7 @@ require('packer').startup(function()
       keymap('n', '<leader>e', '<cmd>Ranger<CR>', {})
     end
   }
+  use 'navarasu/onedark.nvim'
   use {
     'w0rp/ale',
     config = function()
@@ -191,7 +193,6 @@ require('packer').startup(function()
       keymap('', '<leader>af', '<cmd>Files<CR>', {})
     end
   }
-  use 'navarasu/onedark.nvim'
   use {
     'hrsh7th/nvim-compe',
     config=function()
@@ -304,8 +305,11 @@ function _G.foldtext()
   return linetext .. string.rep(" ", fillcharcount) .. righttext
 end
 
-vim.g.onedark_style = 'warm'
-vim.cmd('colorscheme onedark')
+require('onedark').setup {
+  style = 'warm',
+}
+require('onedark').load()
+-- TODO move this (and others) into setup?
 local c = require'onedark.colors'
 vim.cmd('highlight Folded gui=NONE guifg=' .. c.fg .. ' guibg=' .. c.dark_cyan)
 
