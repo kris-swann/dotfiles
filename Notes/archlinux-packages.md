@@ -114,7 +114,6 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`diffutils`</x-pkg> Commands for diffs and patches
 * <x-pkg>`rsync`</x-pkg> Sync files
 * <x-pkg>`unison`</x-pkg> Like rsync but better at bi-directional sync
-* <x-pkg>`pandoc`</x-pkg> Convert between filetypes
 * Modernized utils
   * <x-pkg>`bat`</x-pkg> Prettified `cat`
   * <x-pkg>`lsd`</x-pkg> Prettified `ls`
@@ -147,9 +146,15 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`shfmt`</x-pkg>Autoformat shell scripts
 * <x-pkg>`aws-cli`</x-pkg> AWS
 * <x-pkg>`docker`</x-pkg> and <x-pkg>`docker-compose`</x-pkg> Containers
+* <x-pkg>`kubectl`</x-pkg> Kubernetes command line
 
 ### Fonts
 * <x-pkg>`ttf-dejavu`</x-pkg>
+* Google Noto fonts
+    * <x-pkg>`noto-fonts`</x-pkg> Wide UTF coverage as ttf fonts
+    * <x-pkg>`noto-fonts-cjk`</x-pkg> Chinese, Japanese, Korean fonts
+    * <x-pkg>`noto-fonts-emoji`</x-pkg> Emojis
+    * <x-pkg>`noto-fonts-extra`</x-pkg> TTF varients
 
 ### Desktop environment
 * <x-pkg>`sxhkd`</x-pkg> Simple X hotkey daemon for keybindings
@@ -225,3 +230,4 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`vlc`</x-pkg> Video/audio player supporting many file types
 * <x-pkg>`feh`</x-pkg> Image viewer
 * <x-pkg>`xdot`</x-pkg> Graphviz viewer
+* <x-pkg>`piper`</x-pkg> GUI to configure mice (uses ratbagd daemon under hood)
