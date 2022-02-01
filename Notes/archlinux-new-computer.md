@@ -146,4 +146,9 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     sudo usermod -aG docker kris
     # Relog
     ```
-
+1.  Setup Logitech Mouse (via logiops, the only way to get full support that I've found for the MX Master Series)
+    (See more info [here](https://danishshakeel.me/configure-logitech-mx-master-3-on-linux-logiops/))
+    ```
+    sudo ln -s /home/kris/.config/logid.cfg /etc/logid.cfg
+    systemctl enable --now logid.service
+    ```
