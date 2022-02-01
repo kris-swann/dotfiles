@@ -29,7 +29,9 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-# HISTORY
+#####################################################################
+### HISTORY
+#####################################################################
 export SAVEHIST=1000000000
 export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000
