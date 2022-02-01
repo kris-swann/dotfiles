@@ -129,6 +129,9 @@ alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
 
+alias ls="(exists 'lsd' && lsd) || ls"
+
+
 #####################################################################
 ### ADDITIONAL PATHS
 #####################################################################
