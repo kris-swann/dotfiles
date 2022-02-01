@@ -2,7 +2,7 @@
 [ -f ~/.profile_local ] && source ~/.profile_local
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# export ZSH=$HOME/.oh-my-zsh
 
 # Autocompletion
 autoload -Uz compinit
@@ -13,9 +13,9 @@ COMPLETION_WAITING_DOTS="true"
 
 # List of plugins (space delimited) Plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(vi-mode urltools)
+# plugins=(vi-mode urltools)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
@@ -28,6 +28,16 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+# HISTORY
+export SAVEHIST=1000000000
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+export HISTFILE=~/.cache/zsh_history
+setopt HIST_FIND_NO_DUPS  # Skip dupes with ^P and ^N
+setopt HIST_REDUCE_BLANKS  # Remove unnecessary blanks
+setopt INC_APPEND_HISTORY_TIME  # Append command to history file immediately after execution
+setopt EXTENDED_HISTORY  # Record command start time
 
 #####################################################################
 ### FUNCTIONS
@@ -58,11 +68,33 @@ bb() { bc <<< "$@" }
 #####################################################################
 
 # Use vim keys in tab complete menu:
+zstyle ':completion:*' menu select
+zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
+
+# To see keycodes use: showkey -a
+# ^ is control
+# ^[ is alt
+bindkey "^P" up-line-or-history
+bindkey "^N" down-line-or-history
+bindkey "^A" beginning-of-line
+bindkey "^B" backward-char
+bindkey "^E" end-of-line
+bindkey "^F" forward-char
+bindkey "^H" backward-delete-char
+bindkey "^[b" backward-word
+bindkey "^[f" forward-word
+bindkey "^[[1;5D" backward-word  # left arrow
+bindkey "^[[1;5C" forward-word   # right arrow
+
+# bindkey -v '^?' backward-delete-char
+
+insert_sudo () { zle beginning-of-line; zle -U "sudo " }
+zle -N insert-sudo insert_sudo
+bindkey "^[s" insert-sudo
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -89,8 +121,8 @@ alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
 alias e="$EDITOR"
 alias gm="cd /run/media/kris"
 alias gp="cd ~/Projects"
+alias gd="cd ~/Downloads"
 
-alias wine32="WINEPREFIX=$HOME/.wine32/ WINEARCH=win32 wine"
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
@@ -124,18 +156,18 @@ fi
 # Fzf magic
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 
-# Enable fish-like autosuggestions
+# Fish-like autosuggestions
 if [ -f  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    # Manjaro location
+    # Arch location
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 elif [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     # OSX Location
     source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
-# Enable fish-like syntax highlighting, must go at bottom of .zshrc
+# Fish-like syntax highlighting
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    # Manjaro location
+    # Arch location
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     # OSX location
