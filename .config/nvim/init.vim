@@ -243,6 +243,7 @@ vim.o.signcolumn = 'yes'   -- always show signcolumn
 vim.o.undofile = true      -- persist undos between sessions
 vim.o.hidden = true        -- allow hidden buffers to be unsaved
 vim.o.termguicolors = true -- use gui instead of cterm highlight colors
+vim.o.scrolloff = 3
 
 vim.o.wildmode = 'longest:full,full'  -- command mode completions: longest common substr then cycle options
 vim.o.omnifunc = 'syntaxcomplete#Complete'  -- basic omnifunc for <C-x><C-o> completions
