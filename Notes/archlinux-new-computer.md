@@ -10,6 +10,7 @@ to access the internet after booting into the newly installed stystem.
 
 Probably a good idea to also install `vim` and `neovim` at that step too.
 
+
 ---
 
 # Post-install steps
@@ -35,13 +36,13 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
           [connectivity]
           .set.enabled=false
           ```
-2.  Create user
+1.  Create user
     ```
     pacman -S zsh
     useradd --create-home -g wheel -s /bin/zsh kris
     passwd kris
     ```
-3.  Install and configure `sudo` **(USE `visudo`, DO NOT MANUALLY EDIT `/etc/sudoers`)**
+1.  Install and configure `sudo` **(USE `visudo`, DO NOT MANUALLY EDIT `/etc/sudoers`)**
     ```
     pacman -S sudo vi
 
@@ -58,13 +59,13 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     # Allow wheel users to run the following commands without a password
     %wheel ALL=(ALL) NOPASSWD: REBOOT, MOUNT, PACMAN_SYNC, REBOOT_NETWORK_MANAGER
     ```
-4.  Disable annoying system beeb
+1.  Disable annoying system beeb
     ```
     rmmod pcspkr
     echo "blacklist pcspkr" | tee /etc/modprobe.d/nobeep.conf
     ```
-5.  Log out of `root` and back in as new user
-6.  Install [yay](https://github.com/Jguer/yay) (AUR helper)
+1.  Log out of `root` and back in as new user
+1.  Install [yay](https://github.com/Jguer/yay) (AUR helper)
     ```
     pacman -S --needed git base-devel
     cd /tmp
@@ -72,20 +73,20 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     cd yay
     makepkg -si
     ```
-7.  Configure `pacman` and `yay` to make them pretty (edit `/etc/pacman.conf`)
+1.  Configure `pacman` and `yay` to make them pretty (edit `/etc/pacman.conf`)
     ```
     # Misc options
     Color      # UNCOMMENT THIS
     ILoveCandy # UNCOMMENT THIS
     ```
-8.  Setup [dotfiles](../README.md)
+1.  Setup [dotfiles](../README.md)
     * Clone down with https not ssh, will setup ssh keys later and switch this repo over to use ssh
     * Will also need to install rsync `pacman -S rsync`
     * Don't do the config steps yet, just clone down and make sure that you have access to the scripts after re-logging
-9.  Install packages `package_sync --install-req`
-10. Update [GRUB](./grub-config.md)
-11. Init neovim, open neovin and run `:PackerSync`
-12. Enable bluetooth
+1.  Install packages `package_sync --install-req`
+1.  Update [GRUB](./grub-config.md)
+1.  Init neovim, open neovin and run `:PackerSync`
+1.  Enable bluetooth
     ```
     rfkill unblock bluetooth
 
@@ -97,14 +98,14 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     [Policy]
     AutoEnable=true
     ```
-13. Set up ssh key with github and finish `dotfile` config
+1.  Set up ssh key with github and finish `dotfile` config
     ```
     ssh-keygen -C "email@domain.com"
     eval "$(ssh-agent)"
     ssh-add ~/.ssh/id_rsa
     # Follow rest of steps in dotfile setup
     ```
-14. Update touchpad, see [wiki](https://wiki.archlinux.org/title/Touchpad_Synaptics) for more details, also `man synaptics`
+1.  Update touchpad, see [wiki](https://wiki.archlinux.org/title/Touchpad_Synaptics) for more details, also `man synaptics`
     ```
     # Copy default config (provided by xf86-input-synaptics)
     sudo cp /usr/share/X11/xorg.conf.d/70-synaptics.conf /etc/X11/xorg.conf.d/70-synaptics.conf
@@ -125,7 +126,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
         Option "PalmMinZ" "50"
     EndSection
     ```
-15. Configure backlighting
+1.  Configure backlighting
     ```
     # Add to video group so can edit brightness
     usermod -a -G video kris
@@ -139,9 +140,10 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     sudo nvim /usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
     Option "RegistryDwords" "EnableBrightnessControl=1"
     ```
-16. Set up docker access
+1.  Set up docker access
     ```
     sudo groupadd docker
     sudo usermod -aG docker kris
     # Relog
     ```
+
