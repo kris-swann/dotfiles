@@ -1,9 +1,9 @@
 #!/bin/sh
-keys=$(ls -1 ~/.config/screenlayout | sed -e 's/.sh//g' -e 's/_/ /g' -e '$ a Manual (arandr)')
-values=$(ls -1 ~/.config/screenlayout | sed -e 's/^/~\/\.config\/screenlayout\//' -e '$ a arandr')
+keys=$(ls -1 ~/.screenlayout | sed -e 's/.sh//g' -e 's/_/ /g' -e '$ a Manual (arandr)')
+values=$(ls -1 ~/.screenlayout | sed -e 's/^/~\/\.config\/screenlayout\//' -e '$ a arandr')
 
 result=$(echo "$keys" | dmenu -i -p "Layout Profile")
-if [[ "$result" ]]; then
+if [ "$result" ]; then
   matching_line_number=$(echo "$keys" | sed -n "/$result/ =")
   exec $(echo "$values" | sed -n "$matching_line_number p")
 fi
