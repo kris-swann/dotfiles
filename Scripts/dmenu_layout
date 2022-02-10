@@ -1,6 +1,6 @@
 #!/bin/sh
 keys=$(ls -1 ~/.screenlayout | sed -e 's/.sh//g' -e 's/_/ /g' -e '$ a Manual (arandr)')
-values=$(ls -1 ~/.screenlayout | sed -e 's/^/~\/\.config\/screenlayout\//' -e '$ a arandr')
+values=$(ls -1 ~/.screenlayout | sed -e 's/^/~\/\.screenlayout\//' -e '$ a arandr')
 
 result=$(echo "$keys" | dmenu -i -p "Layout Profile")
 if [ "$result" ]; then
