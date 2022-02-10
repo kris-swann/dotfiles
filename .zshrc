@@ -5,8 +5,9 @@
 # export ZSH=$HOME/.oh-my-zsh
 
 # Autocompletion
-autoload -Uz compinit
-compinit
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -C $(which aws_completer) aws
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
