@@ -1,14 +1,11 @@
-from typing import List
-
-from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
-from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
+import re
 from typing import List
 
 from libqtile import bar, layout, widget
 from libqtile.command import lazy
-from libqtile.config import Click, Drag, Group, Key, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -69,16 +66,14 @@ for group in groups:
 
 layouts = [
     layout.MonadTall(ratio=0.6),
+    layout.MonadWide(),
     layout.Max(),
     layout.Floating(),
     # Try more layouts by unleashing below layouts.
     # layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
-    # layout.Max(),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
@@ -89,15 +84,17 @@ layouts = [
 widget_defaults = dict(font='sans', fontsize=12, padding=3)
 extension_defaults = widget_defaults.copy()
 
+shared = {"fontsize": 20}
 screens = [
     Screen(
         bottom=bar.Bar(
             [
-                widget.GroupBox(),
-                widget.WindowName(),
-                widget.CurrentLayoutIcon(),
-                widget.CurrentLayout(),
+                widget.GroupBox(**shared),
+                widget.WindowName(**shared),
+                widget.CurrentLayoutIcon(**shared),
+                widget.CurrentLayout(**shared),
                 widget.Battery(
+                    **shared,
                     full_char="🔌",
                     charge_char="🔌",
                     discharge_char="🔋",
@@ -107,20 +104,21 @@ screens = [
                     # format="{char} {percent:2.0%} ({hour:d}:{min:02d})"
                     format="{char} {percent:2.0%}"
                 ),
-                widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                widget.Systray(**shared),
+                widget.Clock(**shared, format="%Y-%m-%d %a %I:%M %p"),
             ],
-            24,
+            30,
         ),
     ),
     Screen(
         bottom=bar.Bar(
             [
-                widget.GroupBox(),
-                widget.WindowName(),
-                widget.CurrentLayoutIcon(),
-                widget.CurrentLayout(),
+                widget.GroupBox(**shared),
+                widget.WindowName(**shared),
+                widget.CurrentLayoutIcon(**shared),
+                widget.CurrentLayout(**shared),
                 widget.Battery(
+                    **shared,
                     full_char="🔌",
                     charge_char="🔌",
                     discharge_char="🔋",
@@ -130,10 +128,34 @@ screens = [
                     # format="{char} {percent:2.0%} ({hour:d}:{min:02d})"
                     format="{char} {percent:2.0%}"
                 ),
-                widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                widget.Systray(**shared),
+                widget.Clock(**shared, format="%Y-%m-%d %a %I:%M %p"),
             ],
-            24,
+            30,
+        ),
+    ),
+    Screen(
+        bottom=bar.Bar(
+            [
+                widget.GroupBox(**shared),
+                widget.WindowName(**shared),
+                widget.CurrentLayoutIcon(**shared),
+                widget.CurrentLayout(**shared),
+                widget.Battery(
+                    **shared,
+                    full_char="🔌",
+                    charge_char="🔌",
+                    discharge_char="🔋",
+                    show_short_text=False,
+                    # Currently hour is broken, ideally this would be what i'd use.
+                    # Until that's fixed, i'll just use percentage.
+                    # format="{char} {percent:2.0%} ({hour:d}:{min:02d})"
+                    format="{char} {percent:2.0%}"
+                ),
+                widget.Systray(**shared),
+                widget.Clock(**shared, format="%Y-%m-%d %a %I:%M %p"),
+            ],
+            30,
         ),
     ),
 ]
@@ -153,9 +175,7 @@ cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
-    Match(wm_class='confirmreset'),  # gitk
-    Match(wm_class='makebranch'),  # gitk
-    Match(wm_class='maketag'),  # gitk
+    Match(title=re.compile('.*(floatme).*')), # Any window with "(floatme)" in title
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
