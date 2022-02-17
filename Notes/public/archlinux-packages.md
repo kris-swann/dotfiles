@@ -182,7 +182,6 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
   * <x-pkg>`xorg-smproxy`</x-pkg> Allows X applications that do not support X11R6 session management to participate in an X11R6 session
   * <x-pkg>`xorg-x11perf`</x-pkg> Simple X server performance benchmarker
   * <x-pkg>`xorg-xauth`</x-pkg> X.Org authorization settings program
-  * <x-pkg>`xorg-xbacklight`</x-pkg> RandR-based backlight control application
   * <x-pkg>`xorg-xcmsdb`</x-pkg> Device Color Characterization utility for X Color Management System
   * <x-pkg>`xorg-xcursorgen`</x-pkg> Create an X cursor file from PNG images
   * <x-pkg>`xorg-xdpyinfo`</x-pkg> Info about the X server
