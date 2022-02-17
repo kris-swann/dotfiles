@@ -146,6 +146,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`python-pip`</x-pkg> Pip
 * <x-pkg>`python-pipx`</x-pkg> Pipx: For installing pip packages in venvs
 * <x-pkg>`python-isort`</x-pkg> Auto-sort python imports
+* <x-pkg>`python-black`</x-pkg> Opinionated python auto-formatter
 * <x-pkg>`pyright`</x-pkg> Python LSP
 * <x-pkg>`shellcheck`</x-pkg> Lint shell scripts
 * <x-pkg>`shfmt`</x-pkg>Autoformat shell scripts
