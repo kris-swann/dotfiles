@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+import argparse
+import re
+import os
+import subprocess
+
+SOURCE_OF_TRUTH_PATH = f"{os.environ.get('HOME')}/Notes/public/archlinux-packages.md"
+
+argparser = argparse.ArgumentParser(
+    description="Sync installed packages with version-controlled source-of-truth document"
+)
+argparser.add_argument("--install-req", action='store_true')
+args = argparser.parse_args()
+
+
+pkgs = set()
+opkgs = set()
+with open(SOURCE_OF_TRUTH_PATH, "r") as file:
+    has_reached_start_flag = False
+    for line in file:
+        # Drop all content until line '# Packages' is found
+        if not has_reached_start_flag:
+            has_reached_start_flag = line == "# Packages\n"
+            continue
+        pkg_matches = re.findall(r"<x-pkg>.*?</x-pkg>", line)
+        opkg_matches = re.findall(r"<x-opkg>.*?</x-opkg>", line)
+        # Valid chars are alphanumerics and any of `@`, `.`, `_`, `+`, `-`
+        pkg_items = [re.sub(r"<x-pkg>|</x-pkg>|[^a-zA-Z0-9@._+-]", '', i) for i in pkg_matches]
+        opkg_items = [re.sub(r"<x-opkg>|</x-opkg>|[^a-zA-Z0-9@._+-]", '', i) for i in opkg_matches]
+        pkgs = pkgs.union(pkg_items)
+        opkgs = opkgs.union(opkg_items)
+all_pkgs = pkgs.union(opkgs)
+
+installed_explicit = set(subprocess.check_output(['pacman', '-Qqe']).decode().split("\n"))
+installed_all = set(subprocess.check_output(['pacman', '-Qq']).decode().split("\n"))
+installed_explicit.remove("")
+installed_all.remove("")
+
+
+missing_pkgs = pkgs.difference(installed_all)
+missing_opkgs = opkgs.difference(installed_all)
+installed_but_not_in_docs = installed_explicit.difference(all_pkgs)
+to_mark_as_explicit = all_pkgs.intersection(installed_all).difference(installed_explicit)
+
+
+def print_info(items: set, header: str):
+    if len(items) > 0:
+        print(header)
+        print("---")
+        for item in items:
+            print(item)
+        print("")
+
+if args.install_req:
+    if len(missing_pkgs) > 0:
+        subprocess.Popen(f"yay -S {' '.join(missing_pkgs)}", shell=True).wait()
+    if len(to_mark_as_explicit) > 0:
+        subprocess.Popen(f"sudo pacman -D --asexplicit {' '.join(to_mark_as_explicit)}", shell=True).wait()
+else:
+    print_info(missing_opkgs, "Optional packages not installed on this system")
+    print_info(to_mark_as_explicit, "Packages already installed asdeps but to mark asexplicit")
+    print_info(installed_but_not_in_docs, "Packages installed on this system but missing from docs")
+    print_info(missing_pkgs, "Required packages not installed on this system")
