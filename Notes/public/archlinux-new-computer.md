@@ -78,6 +78,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     # Misc options
     Color      # UNCOMMENT THIS
     ILoveCandy # UNCOMMENT THIS
+    ParallelDownloads = 5  # UNCOMMENT THIS
     ```
 1.  Setup [dotfiles](../README.md)
     * Clone down with https not ssh, will setup ssh keys later and switch this repo over to use ssh
