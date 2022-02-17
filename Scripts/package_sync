@@ -47,7 +47,7 @@ installed_items_not_in_docs=$(comm -23 <(echo "$installed_items" | sort) <(print
 if [ -n "$install_req" ]; then
   req_pakcage_single_line=$(echo "$pkg_items_not_installed" | tr '\n' ' ')
   # shellcheck disable=SC2086
-  sudo pacman -S $req_pakcage_single_line  # word-splitting intentional
+  yay -S --needed $req_pakcage_single_line  # word-splitting intentional
 else
   # Print summary (from least to most severe)
   if [ -n "$opkg_items_not_installed" ]; then
