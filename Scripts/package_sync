@@ -24,7 +24,7 @@ while (( "$#" )); do
   esac
 done
 
-package_list_file_path="$HOME/Notes/archlinux-packages.md"
+package_list_file_path="$HOME/Notes/public/archlinux-packages.md"
 
 # Drop all output until line '# Packages' is found
 trimmed_file_contents=$(sed '0,/^# Packages$/d' "$package_list_file_path")
