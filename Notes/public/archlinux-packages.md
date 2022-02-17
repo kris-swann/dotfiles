@@ -82,7 +82,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`neovim`</x-pkg> My daily driver
 
 ### Compression/Archive
-* <x-pkg>`atool`</x-pkg> Wrapper for varios archive types, provides commands `aunpack` (extract), `apack` (create), `als` (list), `acat` (extract to stdout)
+* <x-aur>`atool`</x-aur> Wrapper for varios archive types, provides commands `aunpack` (extract), `apack` (create), `als` (list), `acat` (extract to stdout)
 * <x-pkg>`tar`</x-pkg> For `.tar` files
 * <x-pkg>`bzip2`</x-pkg> For `.bz2`, `.bz` files
 * <x-pkg>`gzip`</x-pkg> For `.gz`, `.z` files
