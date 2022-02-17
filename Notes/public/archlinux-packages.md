@@ -117,6 +117,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * Modernized utils
   * <x-pkg>`bat`</x-pkg> Prettified `cat`
   * <x-pkg>`lsd`</x-pkg> Prettified `ls`
+  * <x-pkg>`exa`</x-pkg> Prettified `ls` but without icons
   * <x-pkg>`dfc`</x-pkg> Prettified `df` (disk-usage)
 
 ### Bluetooth
