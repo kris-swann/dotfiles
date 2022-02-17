@@ -12,7 +12,6 @@ argparser = argparse.ArgumentParser(
 argparser.add_argument("--install-req", action='store_true')
 args = argparser.parse_args()
 
-
 pkgs = set()
 opkgs = set()
 with open(SOURCE_OF_TRUTH_PATH, "r") as file:
@@ -36,12 +35,10 @@ installed_all = set(subprocess.check_output(['pacman', '-Qq']).decode().split("\
 installed_explicit.remove("")
 installed_all.remove("")
 
-
 missing_pkgs = pkgs.difference(installed_all)
 missing_opkgs = opkgs.difference(installed_all)
 installed_but_not_in_docs = installed_explicit.difference(all_pkgs)
 to_mark_as_explicit = all_pkgs.intersection(installed_all).difference(installed_explicit)
-
 
 def print_info(items: set, header: str):
     if len(items) > 0:
