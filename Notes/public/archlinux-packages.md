@@ -140,14 +140,18 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`git`</x-pkg> Version control
 * <x-pkg>`gdb`</x-pkg> GNU debugger
 * <x-pkg>`npm`</x-pkg> Node package manager
+* <x-pkg>`prettier`</x-pkg> Code formatter for JS, JSON, CSS, YAML, and more
 * <x-pkg>`pyenv`</x-pkg> Manage multiple python versions
 * <x-pkg>`python-pip`</x-pkg> Pip
 * <x-pkg>`python-pipx`</x-pkg> Pipx: For installing pip packages in venvs
+* <x-pkg>`python-isort`</x-pkg> Auto-sort python imports
+* <x-pkg>`pyright`</x-pkg> Python LSP
 * <x-pkg>`shellcheck`</x-pkg> Lint shell scripts
 * <x-pkg>`shfmt`</x-pkg>Autoformat shell scripts
 * <x-pkg>`aws-cli`</x-pkg> AWS
 * <x-pkg>`docker`</x-pkg> and <x-pkg>`docker-compose`</x-pkg> Containers
 * <x-pkg>`kubectl`</x-pkg> Kubernetes command line
+* <x-pkg>`terraform`</x-pkg> Infrastructure as code tool
 
 ### Fonts
 * <x-pkg>`ttf-dejavu`</x-pkg>
@@ -157,26 +161,54 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
     * <x-pkg>`noto-fonts-emoji`</x-pkg> Emojis
     * <x-pkg>`noto-fonts-extra`</x-pkg> TTF varients
 
-### Desktop environment
+### Desktop environments
 * <x-pkg>`sxhkd`</x-pkg> Simple X hotkey daemon for keybindings
 * <x-pkg>`qtile`</x-pkg> Window manager
 * <x-pkg>`dmenu`</x-pkg> Extensible pop-up typeahead menu
 * X11
   * <x-pkg>`xorg-server`</x-pkg> The X graphical server
   * <x-pkg>`xorg-xinit`</x-pkg> Start X server
-  * <x-pkg>`xorg-xrdb`</x-pkg> CLI for setting/viewing X server settings, (dpi, font-size etc.)
-  * <x-pkg>`xorg-xrandr`</x-pkg> Provides xrandr for managing multiple displays
-  * <x-pkg>`xorg-xprop`</x-pkg> Detect window properties
-  * <x-pkg>`xorg-xwininfo`</x-pkg> Query info about windows
-  * <x-pkg>`xorg-xdpyinfo`</x-pkg> Info about X server
-  * <x-pkg>`xorg-xkill`</x-pkg> Utility to kill the window you click
-  * <x-pkg>`xorg-xev`</x-pkg> Display pressed keys and mouse movements, good for debugging
   * <x-pkg>`xorg-xfontsel`</x-pkg> Utility for selecting X11 font names
-  * <x-pkg>`xorg-xsetroot`</x-pkg> Set X background and cursor
   * <x-pkg>`xwallpaper`</x-pkg> Set the wallpaper
   * <x-pkg>`xclip`</x-pkg> Clipboard commands from terminal
   * <x-pkg>`xdotool`</x-pkg> Automate literally everything
   * <x-pkg>`acpilight`</x-pkg> Provides `xbacklight` to change screen brightness
+* `xorg-apps` pacman group (not all are required but a lot of stuff assumes these are installed, so it makes life easier to have them all)
+  * <x-pkg>`xorg-bdftopcf`</x-pkg> Convert X font from Bitmap Distribution Format to Portable Compiled Format
+  * <x-pkg>`xorg-iceauth`</x-pkg> ICE authority file utility
+  * <x-pkg>`xorg-mkfontscale`</x-pkg> Create an index of scalable font files for X
+  * <x-pkg>`xorg-sessreg`</x-pkg> Register X sessions in system utmp/utmpx databases
+  * <x-pkg>`xorg-setxkbmap`</x-pkg> Set the keyboard using the X Keyboard Extension
+  * <x-pkg>`xorg-smproxy`</x-pkg> Allows X applications that do not support X11R6 session management to participate in an X11R6 session
+  * <x-pkg>`xorg-x11perf`</x-pkg> Simple X server performance benchmarker
+  * <x-pkg>`xorg-xauth`</x-pkg> X.Org authorization settings program
+  * <x-pkg>`xorg-xbacklight`</x-pkg> RandR-based backlight control application
+  * <x-pkg>`xorg-xcmsdb`</x-pkg> Device Color Characterization utility for X Color Management System
+  * <x-pkg>`xorg-xcursorgen`</x-pkg> Create an X cursor file from PNG images
+  * <x-pkg>`xorg-xdpyinfo`</x-pkg> Info about the X server
+  * <x-pkg>`xorg-xdriinfo`</x-pkg> Query configuration information of DRI drivers
+  * <x-pkg>`xorg-xev`</x-pkg> Display pressed keys and mouse movements, good for debugging and finding key codes
+  * <x-pkg>`xorg-xgamma`</x-pkg> Alter a monitor's gamma correction
+  * <x-pkg>`xorg-xhost`</x-pkg> Server access control program for X
+  * <x-pkg>`xorg-xinput`</x-pkg> Small commandline tool to configure devices
+  * <x-pkg>`xorg-xkbcomp`</x-pkg> X Keyboard description compiler
+  * <x-pkg>`xorg-xkbevd`</x-pkg> XKB event daemon
+  * <x-pkg>`xorg-xkbutils`</x-pkg> XKB utility demos
+  * <x-pkg>`xorg-xkill`</x-pkg> Kill a window you click on
+  * <x-pkg>`xorg-xlsatoms`</x-pkg> List interned atoms defined on server
+  * <x-pkg>`xorg-xlsclients`</x-pkg> List client applications running on a display
+  * <x-pkg>`xorg-xmodmap`</x-pkg> Utility for modifying keymaps and button mappings
+  * <x-pkg>`xorg-xpr`</x-pkg> Print an X window dump from xwd
+  * <x-pkg>`xorg-xprop`</x-pkg> Detect window properties
+  * <x-pkg>`xorg-xrandr`</x-pkg> Provides xrandr for managing multiple displays
+  * <x-pkg>`xorg-xrdb`</x-pkg> X server resource database utility (setting/viewing X server settings like dpi, font-size, etc)
+  * <x-pkg>`xorg-xrefresh`</x-pkg> Refresh all or part of an X screen
+  * <x-pkg>`xorg-xset`</x-pkg> User preference utility for X
+  * <x-pkg>`xorg-xsetroot`</x-pkg> Set background and cursor
+  * <x-pkg>`xorg-xvinfo`</x-pkg> Prints out the capabilities of any video adaptors associated with the display that are accessible through the X-Video extension
+  * <x-pkg>`xorg-xwd`</x-pkg> X Window System image dumping utility
+  * <x-pkg>`xorg-xwininfo`</x-pkg> Query info about windows
+  * <x-pkg>`xorg-xwud`</x-pkg> X Window System image undumping utility
 
 ### File management utils
 * MIME types
