@@ -53,11 +53,11 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     Cmnd_Alias PACMAN_SYNC = /usr/bin/pacman -Syu, /usr/bin/pacman -Syyu
     Cmnd_Alias REBOOT_NETWORK_MANAGER = /usr/bin/systemctl restart NetworkManager
     # Allow root to use sudo
-    root ALL=(ALL) ALL
+    root ALL=(ALL:ALL) ALL
     # Allow wheel users to use sudo
-    %wheel  ALL=(ALL) ALL
+    %wheel  ALL=(ALL:ALL) ALL
     # Allow wheel users to run the following commands without a password
-    %wheel ALL=(ALL) NOPASSWD: REBOOT, MOUNT, PACMAN_SYNC, REBOOT_NETWORK_MANAGER
+    %wheel ALL=(ALL:ALL) NOPASSWD: REBOOT, MOUNT, PACMAN_SYNC, REBOOT_NETWORK_MANAGER
     ```
 1.  Disable annoying system beeb
     ```
