@@ -98,6 +98,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 
 ### Low-level utils
 * <x-pkg>`pacman-contrib`</x-pkg> Pacman utils `pactree`, `checkupdates`, `rankmirrors`, etc.
+* <x-pkg>`yay`</x-pkg> AUR helper (written in go)
 * <x-pkg>`ntp`</x-pkg> Network Time Protocol i.e. Clock syncronization
 * <x-pkg>`acpi`</x-pkg> CLI for battery, power, and system temp
 * <x-pkg>`cpupower`</x-pkg> Adjust/throttle/overclock cpu power
@@ -148,9 +149,11 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`pyright`</x-pkg> Python LSP
 * <x-pkg>`shellcheck`</x-pkg> Lint shell scripts
 * <x-pkg>`shfmt`</x-pkg>Autoformat shell scripts
-* <x-pkg>`aws-cli`</x-pkg> AWS
+* <x-pkg>`aws-cli-v2-bin`</x-pkg> AWS
+* <x-pkg>`aws-vault`</x-pkg> Save aws creds in a vault rather than plain text on system
 * <x-pkg>`docker`</x-pkg> and <x-pkg>`docker-compose`</x-pkg> Containers
 * <x-pkg>`kubectl`</x-pkg> Kubernetes command line
+* <x-pkg>`kind-bin`</x-pkg> Kubernetes in docker (kind) local kubernetes clusters for testing
 * <x-pkg>`terraform`</x-pkg> Infrastructure as code tool
 
 ### Fonts
@@ -238,6 +241,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`xf86-video-amdgpu`</x-pkg> AMD graphics
 * <x-pkg>`nvidia`</x-pkg> NVIDIA drivers
 * <x-pkg>`nvidia-settings`</x-pkg> GUI for NVIDIA driver settings
+* <x-pkg>`logiops-git`</x-pkg> Logitech Options driver for MXMaster3 mouse among others
 
 ### Audio
 * <x-pkg>`pipewire`</x-pkg> Sound system replaces PulseAudio and JACK
@@ -263,3 +267,4 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`feh`</x-pkg> Image viewer
 * <x-pkg>`xdot`</x-pkg> Graphviz viewer
 * <x-pkg>`piper`</x-pkg> GUI to configure mice (uses ratbagd daemon under hood)
+* <x-pkg>`zoom`</x-pkg> Video Conferences
