@@ -42,7 +42,7 @@ installed_items=$(pacman -Qqe)
 
 pkg_items_not_installed=$(comm -23 <(echo "$pkg_items" | sort) <(echo "$installed_items" | sort))
 opkg_items_not_installed=$(comm -23 <(echo "$opkg_items" | sort) <(echo "$installed_items" | sort))
-installed_items_not_in_docs=$(comm -23 <(echo "$installed_items" | sort) <(echo "$pkg_items\n$opkg_items" | sort))
+installed_items_not_in_docs=$(comm -23 <(echo "$installed_items" | sort) <(printf "%s\n%s" "$pkg_items" "$opkg_items" | sort))
 
 if [ -n "$install_req" ]; then
   req_pakcage_single_line=$(echo "$pkg_items_not_installed" | tr '\n' ' ')
