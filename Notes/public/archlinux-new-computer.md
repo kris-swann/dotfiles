@@ -52,6 +52,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 3.  Disable on boot `echo "blacklist pcspkr" | tee /etc/modprobe.d/nobeep.conf`
 
 ### Log out of `root` and back in as new user
+1.  `logout`
 
 ### Install [yay](https://github.com/Jguer/yay) (AUR helper)
 1.  Install deps `pacman -S --needed git base-devel`
