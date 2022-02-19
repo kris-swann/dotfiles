@@ -23,21 +23,6 @@ systemctl start NetworkManager.service
 systemctl enable NetworkManager.service
 nmtui  # TUI front-end for networkmanager
 ```
-* If having issues with wifi dropping all the time, try these (for info `man nm-settings`, `man NetworkManager.conf`)
-    * Disable powersave
-      ```
-      nvim /etc/NetworkManager/conf.d/10-default-wifi-powersave.conf
-
-      [connection]
-      wifi.powersave = 2
-      ```
-    * Disable connectivity scans
-      ```
-      sudo nvim /etc/NetworkManager/conf.d/20-connectivity.conf
-
-      [connectivity]
-      .set.enabled=false
-      ```
 
 ### Create user
 ```
