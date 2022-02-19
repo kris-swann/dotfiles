@@ -2,6 +2,8 @@
 
 Follow the installation tutorial at the [archlinux wiki](https://wiki.archlinux.org/)
 
+Here is another good resource [Install Archlinux UEFI w/ Encrypted Disk](https://blog.bespinian.io/posts/installing-arch-linux-on-uefi-with-full-disk-encryption/)
+
 Note that you can use `cfdisk` for a more graphical partitioning tool
 
 Additionally make sure you install `networkmanager` (or some other way to
