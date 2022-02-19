@@ -242,8 +242,8 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`xf86-input-wacom`</x-pkg> Wacom tablets
 * <x-pkg>`xf86-video-intel`</x-pkg> Intel graphics
 * <x-pkg>`xf86-video-amdgpu`</x-pkg> AMD graphics
-* <x-pkg>`nvidia`</x-pkg> NVIDIA drivers
-* <x-pkg>`nvidia-settings`</x-pkg> GUI for NVIDIA driver settings
+* <x-opkg>`nvidia`</x-opkg> NVIDIA drivers
+* <x-opkg>`nvidia-settings`</x-opkg> GUI for NVIDIA driver settings
 * <x-pkg>`logiops-git`</x-pkg> Logitech Options driver for MXMaster3 mouse among others
 
 ### Audio
