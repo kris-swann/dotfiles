@@ -18,16 +18,16 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 
 # Post-install steps
 
-### Setup Network Manager
+#### Setup Network Manager
 1.  Start and enable service `systemctl enable NetworkManager.service --now`
 2.  Use TUI front-end to setup wifi/wired connectiosn `nmtui`
 
-### Create user
+#### Create user
 1.  Need to install zsh so can set as default shell `pacman -S zsh`
 2.  Add user `useradd --create-home -g wheel -s /bin/zsh kris`
 3.  Set password `passwd kris`
 
-### Install and configure sudo
+#### Install and configure sudo
 1.  **USE `visudo`, DO NOT MANUALLY EDIT `/etc/sudoers`**
 2.  `pacman -S sudo vi`
 3.  vi sucks, use nvim with visudo checks `EDITOR=nvim visudo`
@@ -46,17 +46,18 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     %wheel ALL=(ALL:ALL) NOPASSWD: REBOOT, MOUNT, PACMAN_SYNC, REBOOT_NETWORK_MANAGER
     ```
 
-### Disable annoying system beeb
+#### Disable annoying system beeb
 1.  More info [here](https://wiki.archlinux.org/title/PC_speaker)
 2.  Unload `rmmod pcspkr`
 3.  Disable on boot `echo "blacklist pcspkr" | tee /etc/modprobe.d/nobeep.conf`
 
-### Log out of `root` and back in as new user
-1.  `logout`
+#### Log out of `root` and back in as new user
+1.  Either run `logout` or `Ctrl-D`
 
-### Install [yay](https://github.com/Jguer/yay) (AUR helper)
-1.  Install deps `pacman -S --needed git base-devel`
-2.  Clone and install in tmp
+#### Install yay (AUR helper)
+1.  Docs [here](https://github.com/Jguer/yay)
+2.  Install deps `pacman -S --needed git base-devel`
+3.  Clone and install in tmp
     ```
     cd /tmp
     git clone https://aur.archlinux.org/yay.git
@@ -64,7 +65,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     makepkg -si
     ```
 
-### Make `pacman` and `yay` pretty
+#### Make `pacman` and `yay` pretty
 1.  `sudo nvim /etc/pacman.conf`
 2.  Uncomment/add the follwing lines
     ```
@@ -73,22 +74,23 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     ParallelDownloads = 5   # UNCOMMENT THIS
     ```
 
-### Setup [dotfiles](../README.md)
-1.  Clone down with https not ssh, will setup ssh keys later and switch this repo over to use ssh
-2.  Will also need to install rsync `pacman -S rsync`
-3.  Don't do the config steps yet, just clone down and make sure that you have access to the scripts after re-logging
+#### Setup dotfiles
+1.  Follow directions [here](../../README.md)
+2.  Clone down with https not ssh, will setup ssh keys later and switch this repo over to use ssh
+3.  Will also need to install rsync `pacman -S rsync`
+4.  Don't do the config steps yet, just clone down and make sure that you have access to the scripts after re-logging
 
-### Install packages
+#### Install packages
 1.  `package-sync --install-req`
 
-### Update GRUB
-1.  See this document: [GRUB Config](./grub-config.md)
+#### Update GRUB
+1.  Follow directions [here](./grub-config.md)
 
-### Init neovim
+#### Init neovim
 1.  Open neovim `nvim`
 2.  In nvim run `:PackerSync`
 
-### Enable bluetooth
+#### Enable bluetooth
 ```
 rfkill unblock bluetooth
 
@@ -101,7 +103,7 @@ systemctl enable bluetooth.service
 AutoEnable=true
 ```
 
-### Set up ssh key with github and finish `dotfile` config
+#### Set up ssh key with github and finish `dotfile` config
 ```
 ssh-keygen -C "email@domain.com"
 eval "$(ssh-agent)"
@@ -109,7 +111,7 @@ ssh-add ~/.ssh/id_rsa
 # Follow rest of steps in dotfile setup
 ```
 
-### Update touchpad, see [wiki](https://wiki.archlinux.org/title/Touchpad_Synaptics) for more details, also `man synaptics`
+#### Update touchpad, see [wiki](https://wiki.archlinux.org/title/Touchpad_Synaptics) for more details, also `man synaptics`
 ```
 # Copy default config (provided by xf86-input-synaptics)
 sudo cp /usr/share/X11/xorg.conf.d/70-synaptics.conf /etc/X11/xorg.conf.d/70-synaptics.conf
@@ -131,7 +133,7 @@ Section "InputClass"
 EndSection
 ```
 
-### Configure backlighting
+#### Configure backlighting
 ```
 # Add to video group so can edit brightness
 usermod -a -G video kris
@@ -146,14 +148,14 @@ sudo nvim /usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
 Option "RegistryDwords" "EnableBrightnessControl=1"
 ```
 
-### Set up docker access
+#### Set up docker access
 ```
 sudo groupadd docker
 sudo usermod -aG docker kris
 # Relog
 ```
 
-### Setup Logitech Mouse (via logiops, the only way to get full support that I've found for the MX Master Series)
+#### Setup Logitech Mouse (via logiops, the only way to get full support that I've found for the MX Master Series)
 (See more info [here](https://danishshakeel.me/configure-logitech-mx-master-3-on-linux-logiops/))
 ```
 sudo ln -s /home/kris/.config/logid.cfg /etc/logid.cfg
