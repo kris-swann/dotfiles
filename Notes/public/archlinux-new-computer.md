@@ -2,9 +2,10 @@
 
 Follow the installation tutorial at the [archlinux wiki](https://wiki.archlinux.org/)
 
-Here is another good resource [Install Archlinux UEFI w/ Encrypted Disk](https://blog.bespinian.io/posts/installing-arch-linux-on-uefi-with-full-disk-encryption/)
+Another good resource that inspired a lot of this document:
+[Install Archlinux UEFI w/ Encrypted Disk](https://blog.bespinian.io/posts/installing-arch-linux-on-uefi-with-full-disk-encryption/)
 
-Note that you can use `cfdisk` for a more graphical partitioning tool
+Note: you can use `cfdisk` for a more graphical partitioning tool
 
 Additionally make sure you install `networkmanager` (or some other way to
 connect to the internet) from the install media. If you don't you won't be able
@@ -17,73 +18,74 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 
 # Post-install steps
 
-### Start and enable `networkmanager`, setting up wifi and wired connections
-```
-systemctl start NetworkManager.service
-systemctl enable NetworkManager.service
-nmtui  # TUI front-end for networkmanager
-```
+### Setup Network Manager
+1.  Start and enable service `systemctl enable NetworkManager.service --now`
+2.  Use TUI front-end to setup wifi/wired connectiosn `nmtui`
 
 ### Create user
-```
-pacman -S zsh
-useradd --create-home -g wheel -s /bin/zsh kris
-passwd kris
-```
+1.  Need to install zsh so can set as default shell `pacman -S zsh`
+2.  Add user `useradd --create-home -g wheel -s /bin/zsh kris`
+3.  Set password `passwd kris`
 
-### Install and configure `sudo` **(USE `visudo`, DO NOT MANUALLY EDIT `/etc/sudoers`)**
-```
-pacman -S sudo vi
-
-# Add to /etc/sudoers with visudo
-# Comand Aliases
-Cmnd_Alias REBOOT = /usr/bin/shutdown, /usr/bin/reboot, /usr/bin/systemctl suspend
-Cmnd_Alias MOUNT = /usr/bin/mount, /usr/bin/umount
-Cmnd_Alias PACMAN_SYNC = /usr/bin/pacman -Syu, /usr/bin/pacman -Syyu
-Cmnd_Alias REBOOT_NETWORK_MANAGER = /usr/bin/systemctl restart NetworkManager
-# Allow root to use sudo
-root ALL=(ALL:ALL) ALL
-# Allow wheel users to use sudo
-%wheel  ALL=(ALL:ALL) ALL
-# Allow wheel users to run the following commands without a password
-%wheel ALL=(ALL:ALL) NOPASSWD: REBOOT, MOUNT, PACMAN_SYNC, REBOOT_NETWORK_MANAGER
-```
+### Install and configure sudo
+1.  **USE `visudo`, DO NOT MANUALLY EDIT `/etc/sudoers`**
+2.  `pacman -S sudo vi`
+3.  vi sucks, use nvim with visudo checks `EDITOR=nvim visudo`
+4.  Add to sudofile
+    ```
+    # Comand Aliases
+    Cmnd_Alias REBOOT = /usr/bin/shutdown, /usr/bin/reboot, /usr/bin/systemctl suspend
+    Cmnd_Alias MOUNT = /usr/bin/mount, /usr/bin/umount
+    Cmnd_Alias PACMAN_SYNC = /usr/bin/pacman -Syu, /usr/bin/pacman -Syyu
+    Cmnd_Alias REBOOT_NETWORK_MANAGER = /usr/bin/systemctl restart NetworkManager
+    # Allow root to use sudo
+    root ALL=(ALL:ALL) ALL
+    # Allow wheel users to use sudo
+    %wheel  ALL=(ALL:ALL) ALL
+    # Allow wheel users to run the following commands without a password
+    %wheel ALL=(ALL:ALL) NOPASSWD: REBOOT, MOUNT, PACMAN_SYNC, REBOOT_NETWORK_MANAGER
+    ```
 
 ### Disable annoying system beeb
-```
-rmmod pcspkr
-echo "blacklist pcspkr" | tee /etc/modprobe.d/nobeep.conf
-```
+1.  More info [here](https://wiki.archlinux.org/title/PC_speaker)
+2.  Unload `rmmod pcspkr`
+3.  Disable on boot `echo "blacklist pcspkr" | tee /etc/modprobe.d/nobeep.conf`
 
 ### Log out of `root` and back in as new user
 
 ### Install [yay](https://github.com/Jguer/yay) (AUR helper)
-```
-pacman -S --needed git base-devel
-cd /tmp
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-```
+1.  Install deps `pacman -S --needed git base-devel`
+2.  Clone and install in tmp
+    ```
+    cd /tmp
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    ```
 
-### Configure `pacman` and `yay` to make them pretty (edit `/etc/pacman.conf`)
-```
-# Misc options
-Color      # UNCOMMENT THIS
-ILoveCandy # UNCOMMENT THIS
-ParallelDownloads = 5  # UNCOMMENT THIS
-```
+### Make `pacman` and `yay` pretty
+1.  `sudo nvim /etc/pacman.conf`
+2.  Uncomment/add the follwing lines
+    ```
+    Color                   # UNCOMMENT THIS
+    ILoveCandy              # UNCOMMENT THIS
+    ParallelDownloads = 5   # UNCOMMENT THIS
+    ```
 
 ### Setup [dotfiles](../README.md)
-* Clone down with https not ssh, will setup ssh keys later and switch this repo over to use ssh
-* Will also need to install rsync `pacman -S rsync`
-* Don't do the config steps yet, just clone down and make sure that you have access to the scripts after re-logging
+1.  Clone down with https not ssh, will setup ssh keys later and switch this repo over to use ssh
+2.  Will also need to install rsync `pacman -S rsync`
+3.  Don't do the config steps yet, just clone down and make sure that you have access to the scripts after re-logging
 
-### Install packages `package_sync --install-req`
+### Install packages
+1.  `package-sync --install-req`
 
-### Update [GRUB](./grub-config.md)
+### Update GRUB
+1.  See this document: [GRUB Config](./grub-config.md)
 
-### Init neovim, open neovin and run `:PackerSync`
+### Init neovim
+1.  Open neovim `nvim`
+2.  In nvim run `:PackerSync`
 
 ### Enable bluetooth
 ```
