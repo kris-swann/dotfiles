@@ -87,11 +87,11 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 1.  Follow directions [here](./grub-config.md)
 
 #### Init neovim
-1.  Open neovim `nvim`
+1.  Open `nvim`
 2.  In nvim run `:PackerSync`
 
 #### Enable bluetooth
-1.  Check if bluetooth soft or hard blocked `rfkill`
+1.  Check if bluetooth soft or hard blocked with `rfkill`
 2.  Remove softblock if necessary `rfkill unblock bluetooth`
 3.  Enable `systemctl enable bluetooth.service --now`
 4.  Power on bluetooth on boot `sudo nvim /etc/bluetooth.conf`
@@ -144,7 +144,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 1.  Add user to group so don't have to prefix docker commands with sudo
     ```
     sudo groupadd docker
-    sudo usermode -aG docker kris
+    sudo usermod -aG docker kris
     ```
 2.  Relog
 
@@ -153,3 +153,30 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 2.  See more info [here](https://danishshakeel.me/configure-logitech-mx-master-3-on-linux-logiops/)
 3.  Link configs `sudo ln -s /home/kris/.config/logid.cfg /etc/logid.cfg`
 4.  Enable service `systemctl enable logid.service --now`
+
+#### Enable automatic time sync
+1.  `sudo systemctl enable systemd-timesyncd.service --now`
+
+#### Improve power management (for laptops only)
+1.  Use `tlp` and `tlp-rdw` for simple power optimizations
+1.  Enable service `systemctl enable tlp.service --now`
+2.  Prevent conflicts `systemctl enable NetworkManager-dispatcher.service --now`
+3.  Run `sudo tlp-stat` and follow any recommendations there
+
+#### Automatic fstrim (for SSDs only)
+1.  Enable automaticly scheduled SSD housekeeping `sudo systemctl enable fstrim.timer --now`
+
+#### Automatic mirror list updates
+1.  Use `reflector` for auto updating mirror list
+2.  Edit config `sudo nvim /etc/xdg/reflector/reflector.conf` (for more info `man reflector`)
+    ```
+    --save /etc/pacman.d/mirrorlist
+    --protocol https
+    --country 'United States'
+    --latest 10
+    --sort rate
+    ```
+3. Enable service `systemctl enable reflector.timer --now`
+
+#### Decrease swappiness for systems with a lot of RAM
+1. To reduce swappiness permenentaly `echo 'vm.swappiness=10' | sudo tee /etc/sysctl.d/99-swappiness.conf`
