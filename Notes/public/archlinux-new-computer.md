@@ -91,73 +91,65 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 2.  In nvim run `:PackerSync`
 
 #### Enable bluetooth
-```
-rfkill unblock bluetooth
+1.  Check if bluetooth soft or hard blocked `rfkill`
+2.  Remove softblock if necessary `rfkill unblock bluetooth`
+3.  Enable `systemctl enable bluetooth.service --now`
+4.  Power on bluetooth on boot `sudo nvim /etc/bluetooth.conf`
+    ```
+    [Policy]
+    AutoEnable=true
+    ```
 
-system start bluetooth.service
-systemctl enable bluetooth.service
+#### Set up ssh key, add to github, and finish dotfile config
+1.  Create key
+    ```
+    ssh-keygen -C "email@domain.com"
+    eval "$(ssh-agent)"
+    ssh-add ~/.ssh/id_rsa
+    ```
+2.  Add ssh key to github
+3.  Follow rest of steps in dotfile setup [here](../../README.md)
 
-# Power bluetooth on boot
-# Add to /etc/bluetoothmain.conf
-[Policy]
-AutoEnable=true
-```
-
-#### Set up ssh key with github and finish `dotfile` config
-```
-ssh-keygen -C "email@domain.com"
-eval "$(ssh-agent)"
-ssh-add ~/.ssh/id_rsa
-# Follow rest of steps in dotfile setup
-```
-
-#### Update touchpad, see [wiki](https://wiki.archlinux.org/title/Touchpad_Synaptics) for more details, also `man synaptics`
-```
-# Copy default config (provided by xf86-input-synaptics)
-sudo cp /usr/share/X11/xorg.conf.d/70-synaptics.conf /etc/X11/xorg.conf.d/70-synaptics.conf
-sudo nvim /etc/X11/xorg.conf.d/70-synaptics.conf
-
-# Modify to be
-Section "InputClass"
-    Identifier "touchpad"
-    Driver "synaptics"
-    MatchIsTouchpad "on"
-    Option "TapButton1" "### # One finger tap is mouse button 1
-    Option "TapButton2" "3"  # Two finger tap is mouse button 3
-    Option "TapButton3" "2"  # Three finger tap is mouse button 2
-    Option "VertTwoFingerScroll" "on"
-    Option "HorizTwoFingerScroll" "on"
-    Option "PalmDetect" "1"
-    Option "PalmMinWidth" "5"
-    Option "PalmMinZ" "50"
-EndSection
-```
+#### Update touchpad
+1.  See [wiki](https://wiki.archlinux.org/title/Touchpad_Synaptics) for more details, also `man synaptics`
+2.  Copy default config (provided by `xf86-input-synaptics`)
+    `sudo cp /usr/share/X11/xorg.conf.d/70-synaptics.conf /etc/X11/xorg.conf.d/70-synaptics.conf`
+3.  Modify config `sudo nvim /etc/X11/xorg.conf.d/70-synaptics.conf`
+    ```
+    Section "InputClass"
+        Identifier "touchpad"
+        Driver "synaptics"
+        MatchIsTouchpad "on"
+        Option "TapButton1" "### # One finger tap is mouse button 1
+        Option "TapButton2" "3"  # Two finger tap is mouse button 3
+        Option "TapButton3" "2"  # Three finger tap is mouse button 2
+        Option "VertTwoFingerScroll" "on"
+        Option "HorizTwoFingerScroll" "on"
+        Option "PalmDetect" "1"
+        Option "PalmMinWidth" "5"
+        Option "PalmMinZ" "50"
+    EndSection
+    ```
 
 #### Configure backlighting
-```
-# Add to video group so can edit brightness
-usermod -a -G video kris
-
-# Add udev rule to allow video group to modify brightness
-sudo nvim /etc/udev/rules.d/backlight.rules
-ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"
-```
-* May not be required on all systems, but I had to add this option to xorg.conf to work w/ dedicated graphics mode [wiki](https://wiki.archlinux.org/title/Laptop/Lenovo#Legion_series)
-```
-sudo nvim /usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
-Option "RegistryDwords" "EnableBrightnessControl=1"
-```
+1.  Need to be in `video` group to edit brightness `usermod -a -G video kris`
+2.  Add udev rule to allow video group to modify brightness `echo 'ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"' > sudo /etc/udev/rules.d/backlight.rules`
+3.  Lenovo Legion Laptop had trouble on dedicated graphicsmode (see more info in the [wiki](https://wiki.archlinux.org/title/Laptop/Lenovo#Legion_series))
+    ```
+    sudo nvim /usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
+    Option "RegistryDwords" "EnableBrightnessControl=1"
+    ```
 
 #### Set up docker access
-```
-sudo groupadd docker
-sudo usermod -aG docker kris
-# Relog
-```
+1.  Add user to group so don't have to prefix docker commands with sudo
+    ```
+    sudo groupadd docker
+    sudo usermode -aG docker kris
+    ```
+2.  Relog
 
-#### Setup Logitech Mouse (via logiops, the only way to get full support that I've found for the MX Master Series)
-(See more info [here](https://danishshakeel.me/configure-logitech-mx-master-3-on-linux-logiops/))
-```
-sudo ln -s /home/kris/.config/logid.cfg /etc/logid.cfg
-systemctl enable --now logid.service
-```
+#### Setup Logitech Mouse
+1.  Best support for MX Master Series seems to be via `logiops`
+2.  See more info [here](https://danishshakeel.me/configure-logitech-mx-master-3-on-linux-logiops/)
+3.  Link configs `sudo ln -s /home/kris/.config/logid.cfg /etc/logid.cfg`
+4.  Enable service `systemctl enable logid.service --now`
