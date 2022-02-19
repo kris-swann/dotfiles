@@ -133,7 +133,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 
 #### Configure backlighting
 1.  Need to be in `video` group to edit brightness `usermod -a -G video kris`
-2.  Add udev rule to allow video group to modify brightness `echo 'ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"' > sudo /etc/udev/rules.d/backlight.rules`
+2.  Add udev rule to allow video group to modify brightness `echo 'ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"' | sudo tee /etc/udev/rules.d/backlight.rules`
 3.  Lenovo Legion Laptop had trouble on dedicated graphicsmode (see more info in the [wiki](https://wiki.archlinux.org/title/Laptop/Lenovo#Legion_series))
     ```
     sudo nvim /usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
