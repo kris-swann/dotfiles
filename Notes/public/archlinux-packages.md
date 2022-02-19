@@ -99,8 +99,10 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 ### Low-level utils
 * <x-pkg>`pacman-contrib`</x-pkg> Pacman utils `pactree`, `checkupdates`, `rankmirrors`, etc.
 * <x-pkg>`yay`</x-pkg> AUR helper (written in go)
+* <x-pkg>`reflector`</x-pkg> Auto update pacman mirrorlist
 * <x-pkg>`ntp`</x-pkg> Network Time Protocol i.e. Clock syncronization
 * <x-pkg>`acpi`</x-pkg> CLI for battery, power, and system temp
+* <x-pkg>`tlp`</x-pkg> and <x-pkg>`tlp-rdw`</x-pkg> Laptop power saver
 * <x-pkg>`cpupower`</x-pkg> Adjust/throttle/overclock cpu power
 * <x-pkg>`psmisc`</x-pkg> Utils for managing process `pstree`, `killall`, `fuser`, `pidof`, `peekfd`, etc.
 * <x-pkg>`man-db`</x-pkg> Provides `man` util
