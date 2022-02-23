@@ -135,6 +135,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`ffmpeg`</x-pkg> CLI to record screen & audio
 * <x-pkg>`fzf`</x-pkg> Fuzzy finder
 * <x-pkg>`mdp`</x-pkg> CLI Markdown powerpoint-like tool
+* <x-pkg>`neofetch`</x-pkg> Display system info for r/unixporn
 
 ### Development tools
 * <x-pkg>`wget`</x-pkg> Downloading files
@@ -171,6 +172,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`sxhkd`</x-pkg> Simple X hotkey daemon for keybindings
 * <x-pkg>`qtile`</x-pkg> Window manager
 * <x-pkg>`dmenu`</x-pkg> Extensible pop-up typeahead menu
+* <x-pkg>`dunst`</x-pkg> Desktop notifications
 * X11
   * <x-pkg>`xorg-server`</x-pkg> The X graphical server
   * <x-pkg>`xorg-xinit`</x-pkg> Start X server
@@ -179,6 +181,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
   * <x-pkg>`xclip`</x-pkg> Clipboard commands from terminal
   * <x-pkg>`xdotool`</x-pkg> Automate literally everything
   * <x-pkg>`acpilight`</x-pkg> Provides `xbacklight` to change screen brightness
+  * <x-pkg>`autorandr`</x-pkg> Auto change (and manage) display layout based on connected hardware
 * `xorg-apps` pacman group (not all are required but a lot of stuff assumes these are installed, so it makes life easier to have them all)
   * <x-pkg>`xorg-bdftopcf`</x-pkg> Convert X font from Bitmap Distribution Format to Portable Compiled Format
   * <x-pkg>`xorg-iceauth`</x-pkg> ICE authority file utility
