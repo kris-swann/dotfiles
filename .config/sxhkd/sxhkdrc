@@ -55,10 +55,10 @@ control + {XF86MonBrightnessDown, KP_Down}
   xbacklight -dec 10 && ~/Scripts/notify_send_brighness
 
 control + shift +  {XF86MonBrightnessUp, KP_Up}
-  xbacklight -inc 0.1 && ~/Scripts/notify_send_brighness
+  xbacklight -set 100 && ~/Scripts/notify_send_brighness
 
 control + shift + {XF86MonBrightnessDown, KP_Down}
-  xbacklight -dec 0.1 && ~/Scripts/notify_send_brighness
+  xbacklight -set 0.01 && ~/Scripts/notify_send_brighness
 
 {XF86AudioMute, KP_Begin}
   pamixer -t && ~/Scripts/notify_send_volume
