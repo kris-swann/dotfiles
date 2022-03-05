@@ -1,4 +1,6 @@
 # See dunst(5) for all configuration options (access via: man 5 dunst)
+#
+# Restart dunst by running `killall dunst` (will restart on next notify-send)
 
 [global]
     # DISPLAY
@@ -91,8 +93,8 @@
     per_monitor_dpi = false
 
 
-  # IMPORTANT: colors have to be defined in quotation marks.
-  # Otherwise the "#" and following would be interpreted as a comment.
+# IMPORTANT: colors have to be defined in quotation marks.
+# Otherwise the "#" and following would be interpreted as a comment.
 [urgency_low]
     background = "#222222"
     foreground = "#A3A3A3"
@@ -111,6 +113,7 @@
     frame_color = "#ff0000"
     timeout = 0
     #default_icon = /path/to/icon
+
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
@@ -160,6 +163,16 @@
 #
 # NOTE: It might be helpful to run dunst -print in a terminal in order
 # to find fitting options for rules.
+#
+[volume]
+    category = volume
+    timeout = 750ms
+    urgency = low
+
+[brightness]
+    category = brightness
+    timeout = 750ms
+    urgency = low
 
 # Disable the transient hint so that idle_threshold cannot be bypassed from the
 # client
@@ -231,5 +244,3 @@
 #[stack-volumes]
 #    appname = "some_volume_notifiers"
 #    set_stack_tag = "volume"
-#
-# vim: ft=cfg

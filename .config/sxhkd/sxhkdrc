@@ -37,28 +37,28 @@ super + space ; {_, super} + u
   rofimoji --insert-with-clipboard
 
 {XF86AudioRaiseVolume, KP_Right}
-  pamixer --allow-boost -i 5 && ~/Scripts/notify_send_volume
+  pamixer --allow-boost -i 5 && ~/Scripts/notify-volume
 
 {XF86AudioLowerVolume, KP_Left}
-  pamixer --allow-boost -d 5 && ~/Scripts/notify_send_volume
+  pamixer --allow-boost -d 5 && ~/Scripts/notify-volume
 
 {XF86MonBrightnessUp, KP_Up}
-  xbacklight -inc 1 && ~/Scripts/notify_send_brighness
+  xbacklight -inc 1 && ~/Scripts/notify-brightness
 
 {XF86MonBrightnessDown, KP_Down}
-  xbacklight -dec 1 && ~/Scripts/notify_send_brighness
+  xbacklight -dec 1 && ~/Scripts/notify-brightness
 
 control + {XF86MonBrightnessUp, KP_Up}
-  xbacklight -inc 10 && ~/Scripts/notify_send_brighness
+  xbacklight -inc 10 && ~/Scripts/notify-brightness
 
 control + {XF86MonBrightnessDown, KP_Down}
-  xbacklight -dec 10 && ~/Scripts/notify_send_brighness
+  xbacklight -dec 10 && ~/Scripts/notify-brightness
 
 control + shift +  {XF86MonBrightnessUp, KP_Up}
-  xbacklight -set 100 && ~/Scripts/notify_send_brighness
+  xbacklight -set 100 && ~/Scripts/notify-brightness
 
 control + shift + {XF86MonBrightnessDown, KP_Down}
-  xbacklight -set 0.01 && ~/Scripts/notify_send_brighness
+  xbacklight -set 0.01 && ~/Scripts/notify-brightness
 
 {XF86AudioMute, KP_Begin}
-  pamixer -t && ~/Scripts/notify_send_volume
+  pamixer -t && ~/Scripts/notify-volume
