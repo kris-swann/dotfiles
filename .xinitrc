@@ -29,4 +29,5 @@ fi
 
 sxhkd &  # Keyboard shortcuts
 syndaemon -i 0.5 -t -K -R -d  # Disable touchpad when typing
-qtile start
+exec awesome
+# qtile start
