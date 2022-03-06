@@ -17,16 +17,10 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
+-- {{{ Errors
+-- Warn if error during startup/restart
 if awesome.startup_errors then
     os.execute("notify-send 'Awesome startup err:\n" .. awesome.startup_errors .. "' -u critical")
-    -- naughty.notify({
-    --     preset = naughty.config.presets.critical,
-    --     title = "Oops, there were errors during startup!",
-    --     text = awesome.startup_errors,
-    -- })
 end
 
 -- Handle runtime errors after startup
@@ -39,24 +33,19 @@ do
         end
         in_error = true
         os.execute("notify-send 'Awesome err:\n" .. tostring(err) .. "' -u critical")
-        -- naughty.notify({
-        --     preset = naughty.config.presets.critical,
-        --     title = "Oops, an error happened!",
-        --     text = tostring(err),
-        -- })
         in_error = false
     end)
 end
 -- }}}
 
--- {{{ Variable definitions
+-- {{{ Variables
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
-modkey = "Mod4"
+modkey = "Mod4"  -- Windows key
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -467,7 +456,8 @@ awful.rules.rules = {
             screen = awful.screen.preferred,
             placement = awful.placement.no_overlap + awful.placement.no_offscreen,
         },
-    }, -- Floating clients.
+    },
+    -- Floating clients.
     {
         rule_any = {
             instance = {
@@ -487,7 +477,6 @@ awful.rules.rules = {
                 "veromix",
                 "xtightvncviewer",
             },
-
             -- Note that the name property shown in xprop might be set slightly after creation of the client
             -- and the name shown there might not match defined rules here.
             name = {
@@ -500,15 +489,14 @@ awful.rules.rules = {
             },
         },
         properties = { floating = true },
-    }, -- Add titlebars to normal clients and dialogs
+    },
+    -- Add titlebars to normal clients and dialogs
     {
         rule_any = { type = { "normal", "dialog" } },
         properties = { titlebars_enabled = true },
     },
-
     -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+    -- { rule = { class = "Firefox" }, properties = { screen = 1, tag = "2" } },
 }
 -- }}}
 
@@ -539,30 +527,30 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c):setup({
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout = wibox.layout.fixed.horizontal,
-        },
-        { -- Middle
-            { -- Title
-                align = "center",
-                widget = awful.titlebar.widget.titlewidget(c),
-            },
-            buttons = buttons,
-            layout = wibox.layout.flex.horizontal,
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton(c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton(c),
-            awful.titlebar.widget.ontopbutton(c),
-            awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal(),
-        },
-        layout = wibox.layout.align.horizontal,
-    })
+    -- awful.titlebar(c):setup({
+    --     { -- Left
+    --         awful.titlebar.widget.iconwidget(c),
+    --         buttons = buttons,
+    --         layout = wibox.layout.fixed.horizontal,
+    --     },
+    --     { -- Middle
+    --         { -- Title
+    --             align = "center",
+    --             widget = awful.titlebar.widget.titlewidget(c),
+    --         },
+    --         buttons = buttons,
+    --         layout = wibox.layout.flex.horizontal,
+    --     },
+    --     { -- Right
+    --         awful.titlebar.widget.floatingbutton(c),
+    --         awful.titlebar.widget.maximizedbutton(c),
+    --         awful.titlebar.widget.stickybutton(c),
+    --         awful.titlebar.widget.ontopbutton(c),
+    --         awful.titlebar.widget.closebutton(c),
+    --         layout = wibox.layout.fixed.horizontal(),
+    --     },
+    --     layout = wibox.layout.align.horizontal,
+    -- })
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
