@@ -73,6 +73,7 @@ bb() { bc <<< "$@" }
 # Use vim keys in tab complete menu:
 zstyle ':completion:*' menu select
 zmodload zsh/complist
+bindkey "^?" backward-delete-char  # Backspace works like normal
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
