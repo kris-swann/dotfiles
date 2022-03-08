@@ -415,6 +415,15 @@ awful.rules.rules = {
         },
         properties = { floating = true },
     },
+    {
+        rule = {
+            class = "zoom",
+            name = "zoom",
+        },
+        properties = {
+            floating = true
+        },
+    },
     -- Add titlebars to dialogs only
     {
         rule_any = { type = { "dialog" } },
