@@ -121,6 +121,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 #####################################################################
 
 alias g="git"
+alias dc="docker-compose"
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
 alias e="$EDITOR"
 alias gm="cd /run/media/kris"
@@ -134,6 +135,7 @@ alias news="curl nycurl.sytes.net -silent | less"
 alias ls="exa"
 alias ll="ls -l"
 
+alias awslocalstack="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoint-url=http://localhost:4566"
 
 
 #####################################################################
@@ -189,3 +191,6 @@ fi
 
 eval "$(starship init zsh)"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
+
+# NVM
+source /usr/share/nvm/init-nvm.sh
