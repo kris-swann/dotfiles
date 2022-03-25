@@ -12,23 +12,21 @@ sized_term() {
 }
 
 mapping=$(cat <<EOF
-bmenu                            ===> $(sized_term 750 500 "bmenu (floatme)" "bmenu")
-morc_menu                        ===> morc_menu
-pulsemixer                       ===> $(sized_term 750 500 "pulsemixer (floatme)" "pulsemixer")
-alsamixer                        ===> $(sized_term 750 500 "alsamixer (floatme)" "alsamixer")
-start input playback             ===> pacmd load-module module-loopback
-stop input playback              ===> pacmd unload-module module-loopback
-screenshot full screen           ===> i3-scrot -d
-screenshot active window         ===> i3-scrot -w
-screenshot selection             ===> i3-scrot -s
-start picom                      ===> picom -b
-kill picom                       ===> pkill picom
-kill unresponsive window (xkill) ===> xkill
-autocliker                       ===> ~/Scripts/autoclicker
-select layout                    ===> ~/Scripts/dmenu_layout
-restart dunst                    ===> killall dunst; notify-send "Dunst Restarted"
-setup wacom tablet               ===> ~/Scripts/wacom_setup
-keyboard layout                  ===> ~/Scripts/dmenu_keyboard_layout
+bmenu                              ===> $(sized_term 750 500 "bmenu (floatme)" "bmenu")
+morc_menu                          ===> morc_menu
+pulsemixer                         ===> $(sized_term 750 500 "pulsemixer (floatme)" "pulsemixer")
+alsamixer                          ===> $(sized_term 750 500 "alsamixer (floatme)" "alsamixer")
+start input playback               ===> pacmd load-module module-loopback
+stop input playback                ===> pacmd unload-module module-loopback
+screenshot                         ===> ~/Scripts/dmenu_screenshot
+start picom                        ===> picom -b
+kill picom                         ===> pkill picom
+kill unresponsive window (xkill)   ===> xkill
+autocliker                         ===> ~/Scripts/autoclicker
+select layout                      ===> ~/Scripts/dmenu_layout
+restart dunst                      ===> killall dunst; notify-send "Dunst Restarted"
+setup wacom tablet                 ===> ~/Scripts/wacom_setup
+keyboard layout                    ===> ~/Scripts/dmenu_keyboard_layout
 EOF
 )
 keys="$(echo "$mapping" | sed -e 's/===>.*$//g' -e 's/[ \t]*$//g')"

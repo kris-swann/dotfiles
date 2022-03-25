@@ -33,6 +33,9 @@ super + space ; {_, super} + l
 super + space ; {_, super} + t
   ~/Scripts/dmenu_tools_selector
 
+super + space ; {_, super} + s
+  ~/Scripts/dmenu_screenshot
+
 super + space ; {_, super} + u
   rofimoji --insert-with-clipboard
 

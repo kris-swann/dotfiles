@@ -1,0 +1,26 @@
+#!/bin/sh
+mkdir -p "$HOME"
+filename="$(date +%y.%m.%d_%H:%M:%S).png"
+filepath="$HOME/Screenshots/$filename"
+
+
+echo "$1"
+case $1 in
+  "window")
+    maim -i "$(xdotool getactivewindow)" "$filepath" ;;
+  "window-delay")
+    maim -i "$(xdotool getactivewindow)" -d 5 "$filepath" ;;
+  "window-clipboard")
+    maim -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png ;;
+  "selection")
+    maim -s "$filepath" ;;
+  "selection-delay")
+    maim -s -d 5 "$filepath" ;;
+  "selection-clipboard")
+    maim -s | xclip -selection clipboard -t image/png ;;
+  *)
+    notify-send "Unknown option '$1' in Scripts/screenshot"
+    exit 1
+    ;;
+esac
+notify-send "Saved screenshot $filename"

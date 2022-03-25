@@ -1,0 +1,19 @@
+#!/bin/sh
+
+options=$(cat <<EOF
+selection
+window
+full-screen
+selection-clipboard
+window-clipboard
+full-screen-clipboard
+selection-delay
+window-delay
+full-screen-delay
+EOF
+)
+
+result=$(echo "$options" | dmenu -l 5 -i -p "Screenshot")
+if [ "$result" ]; then
+  "$HOME/Scripts/screenshot" "$result"
+fi
