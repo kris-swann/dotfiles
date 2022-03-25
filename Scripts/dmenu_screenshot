@@ -1,12 +1,12 @@
 #!/bin/sh
 
 options=$(cat <<EOF
-selection
-window
-full-screen
 selection-clipboard
 window-clipboard
 full-screen-clipboard
+selection
+window
+full-screen
 selection-delay
 window-delay
 full-screen-delay
