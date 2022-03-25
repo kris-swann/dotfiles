@@ -3,24 +3,33 @@ mkdir -p "$HOME"
 filename="$(date +%y.%m.%d_%H:%M:%S).png"
 filepath="$HOME/Screenshots/$filename"
 
-
-echo "$1"
 case $1 in
   "window")
-    maim -i "$(xdotool getactivewindow)" "$filepath" ;;
+    maim -i "$(xdotool getactivewindow)" "$filepath"
+    notify-send "Saved screenshot $filename"
+    ;;
   "window-delay")
-    maim -i "$(xdotool getactivewindow)" -d 5 "$filepath" ;;
+    maim -i "$(xdotool getactivewindow)" -d 5 "$filepath"
+    notify-send "Saved screenshot $filename"
+    ;;
   "window-clipboard")
-    maim -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png ;;
+    maim -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png
+    notify-send "Copied screenshot to clipboard"
+    ;;
   "selection")
-    maim -s "$filepath" ;;
+    maim -s "$filepath"
+    notify-send "Saved screenshot $filename"
+    ;;
   "selection-delay")
-    maim -s -d 5 "$filepath" ;;
+    maim -s -d 5 "$filepath"
+    notify-send "Saved screenshot $filename"
+    ;;
   "selection-clipboard")
-    maim -s | xclip -selection clipboard -t image/png ;;
+    maim -s | xclip -selection clipboard -t image/png
+    notify-send "Copied screenshot to clipboard"
+    ;;
   *)
     notify-send "Unknown option '$1' in Scripts/screenshot"
     exit 1
     ;;
 esac
-notify-send "Saved screenshot $filename"
