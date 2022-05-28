@@ -121,7 +121,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
         Identifier "touchpad"
         Driver "synaptics"
         MatchIsTouchpad "on"
-        Option "TapButton1" "### # One finger tap is mouse button 1
+        Option "TapButton1" "1" # One finger tap is mouse button 1
         Option "TapButton2" "3"  # Two finger tap is mouse button 3
         Option "TapButton3" "2"  # Three finger tap is mouse button 2
         Option "VertTwoFingerScroll" "on"
