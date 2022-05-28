@@ -111,6 +111,10 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 2.  Add ssh key to github
 3.  Follow rest of steps in dotfile setup [here](../../README.md)
 
+#### Setup syncthing
+1. `systemctl --user enable syncthing.service --now`
+2. Configure by visiting http://127.0.0.1:8384/
+
 #### Update touchpad
 1.  See [wiki](https://wiki.archlinux.org/title/Touchpad_Synaptics) for more details, also `man synaptics`
 2.  Copy default config (provided by `xf86-input-synaptics`)
