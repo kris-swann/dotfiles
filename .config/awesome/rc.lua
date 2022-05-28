@@ -3,18 +3,15 @@
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
+local gears = require("gears")  -- Utils
+local awful = require("awful")  -- Window Management
 require("awful.autofocus")
--- Widget and layout library
-local wibox = require("wibox")
--- Theme handling library
-local beautiful = require("beautiful")
--- local naughty = require("naughty")  -- dunst notification alternative
-local menubar = require("menubar")
+local wibox = require("wibox")  -- Widget and layouts
+local beautiful = require("beautiful")  -- Themes
+-- local naughty = require("naughty")  -- Notifications (dunst alternative)
+local menubar = require("menubar")  -- XDG menubar (Kinda like dmenu)
 local hotkeys_popup = require("awful.hotkeys_popup")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
+-- Enable hotkeys help widget for VIM and other apps when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
 -- {{{ Errors
@@ -98,7 +95,9 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+textclock = wibox.widget.textclock()
+-- month_calendar = awful.widget.calendar_popup.month()
+-- month_calendar:attach(textclock, "tr", false)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -215,7 +214,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
-            mytextclock,
+            textclock,
             s.mylayoutbox,
         },
     })
