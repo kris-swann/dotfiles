@@ -53,7 +53,8 @@ exists () {
 
 # Keep track of cwds
 update_cwd_data() {
-  if exists xdotool; then
+  # DISPLAY is only set if X server is running
+  if exists xdotool && [ -n "$DISPLAY" ]; then
     mkdir -p /tmp/cwd_data
     pid=$(xdotool getwindowfocus getwindowpid)
     touch "/tmp/cwd_data/$pid"
