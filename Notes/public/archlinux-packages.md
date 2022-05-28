@@ -80,6 +80,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`vi`</x-pkg> The OG
 * <x-pkg>`vim`</x-pkg> The classic
 * <x-pkg>`neovim`</x-pkg> My daily driver
+* <x-pkg>`obsidian`</x-pkg> Note taking
 
 ### Compression/Archive
 * <x-pkg>`atool`</x-pkg> Wrapper for varios archive types, provides commands `aunpack` (extract), `apack` (create), `als` (list), `acat` (extract to stdout)
@@ -136,6 +137,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`fzf`</x-pkg> Fuzzy finder
 * <x-pkg>`mdp`</x-pkg> CLI Markdown powerpoint-like tool
 * <x-pkg>`neofetch`</x-pkg> Display system info for r/unixporn
+* <x-pkg>`lazydocker`</x-pkg> Htop for docker
 
 ### Development tools
 * <x-pkg>`wget`</x-pkg> Downloading files
@@ -158,7 +160,13 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`docker`</x-pkg> and <x-pkg>`docker-compose`</x-pkg> Containers
 * <x-pkg>`kubectl`</x-pkg> Kubernetes command line
 * <x-pkg>`kind-bin`</x-pkg> Kubernetes in docker (kind) local kubernetes clusters for testing
-* <x-pkg>`terraform`</x-pkg> Infrastructure as code tool
+* <x-pkg>`tfenv`</x-pkg> Terraform version manager
+* <x-pkg>`postman-bin`</x-pkg> HTTP requests (want to replace eventually)
+* <x-pkg>`ngrok`</x-pkg> Expose local port to internet (useful for testing webhooks)
+* <x-pkg>`pgcli`</x-pkg> Postgres cli, nicer version of `psql`
+* <x-pkg>`nvm`</x-pkg> Node version manager
+* <x-pkg>`pqrs`</x-pkg> Parquet cli tools
+* <x-pkg>`gnome-keyring`</x-pkg> Required to use ssh, would like a less annoying alternative
 
 ### Fonts
 * <x-pkg>`ttf-dejavu`</x-pkg>
@@ -171,8 +179,12 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 ### Desktop environments
 * <x-pkg>`sxhkd`</x-pkg> Simple X hotkey daemon for keybindings
 * <x-pkg>`qtile`</x-pkg> Window manager
+* <x-pkg>`awesome`</x-pkg> Window manager
 * <x-pkg>`dmenu`</x-pkg> Extensible pop-up typeahead menu
 * <x-pkg>`dunst`</x-pkg> Desktop notifications
+* <x-pkg>`picom`</x-pkg> Compton fork
+* <x-pkg>`peek`</x-pkg> Screen recorder (mp4, gif, etc.)
+* <x-pkg>`maim`</x-pkg> Screenshots
 * X11
   * <x-pkg>`xorg-server`</x-pkg> The X graphical server
   * <x-pkg>`xorg-xinit`</x-pkg> Start X server
@@ -181,7 +193,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
   * <x-pkg>`xclip`</x-pkg> Clipboard commands from terminal
   * <x-pkg>`xdotool`</x-pkg> Automate literally everything
   * <x-pkg>`acpilight`</x-pkg> Provides `xbacklight` to change screen brightness
-  * <x-pkg>`autorandr`</x-pkg> Auto change (and manage) display layout based on connected hardware
+  * <x-opkg>`autorandr`</x-opkg> Auto change (and manage) display layout based on connected hardware
 * `xorg-apps` pacman group (not all are required but a lot of stuff assumes these are installed, so it makes life easier to have them all)
   * <x-pkg>`xorg-bdftopcf`</x-pkg> Convert X font from Bitmap Distribution Format to Portable Compiled Format
   * <x-pkg>`xorg-iceauth`</x-pkg> ICE authority file utility
@@ -224,6 +236,8 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
   * <x-pkg>`desktop-file-utils`</x-pkg> Registers pacman hook to build cache database of MIME types
   * <x-pkg>`shared-mime-info`</x-pkg> Registers pacman hook to build the shared MIME-info database cache
 * <x-pkg>`trash-cli`</x-pkg> Freedesktop.org Trash spec `trash-put`, `trash-empty`, `trash-list`, `trash-restore`
+* <x-pkg>`syncthing`</x-pkg> Local file sync
+* <x-pkg>`rclone`</x-pkg> Cloud file sync (rsync for cloud)
 
 ### File systems
 * <x-pkg>`btrfs-progs`</x-pkg> btrfs utils
@@ -261,16 +275,31 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`pamixer`</x-pkg> CLI commands for volume control
 * <x-pkg>`pulsemixer`</x-pkg> TUI volume mixer
 
+### Web
+* <x-pkg>`firefox`</x-pkg> Browser
+* <x-pkg>`chromium`</x-pkg> Browser
+* <x-pkg>`librewolf-bin`</x-pkg> Browser
+* <x-opkg>`streamlink`</x-opkg> For streaming from twitch via `vlc`, `mpv`, etc
+
 ### Graphical programs
 * <x-pkg>`kitty`</x-pkg> Terminal emulator of choice
 * <x-pkg>`arandr`</x-pkg> Graphical xrandr, for setting screen layouts
 * <x-pkg>`xdot`</x-pkg> Graphical viewer of Graphviz dot files
 * <x-pkg>`zathura`</x-pkg> Document viewer
   * <x-pkg>`zathura-pdf-mupdf`</x-pkg> PDF, ePub, OpenXPS support
-* <x-pkg>`firefox`</x-pkg> Web browerser of choice
-* <x-pkg>`chromium`</x-pkg> Fallback browser if the others don't work
 * <x-pkg>`vlc`</x-pkg> Video/audio player supporting many file types
 * <x-pkg>`feh`</x-pkg> Image viewer
 * <x-pkg>`xdot`</x-pkg> Graphviz viewer
 * <x-pkg>`piper`</x-pkg> GUI to configure mice (uses ratbagd daemon under hood)
 * <x-pkg>`zoom`</x-pkg> Video Conferences
+* <x-pkg>`inkscape`</x-pkg> SVG Editor
+* <x-pkg>`gimp`</x-pkg> Raster image editor
+* <x-pkg>`discord`</x-pkg> Gamer chat
+* <x-pkg>`network-manager-applet`</x-pkg> Simple GUI for network manager
+
+### Work
+* <x-opkg>`vanta-agent`</x-opkg> Compliance monitoring spyware
+* <x-opkg>`tandem-chat`</x-opkg> Chat
+* <x-opkg>`slack-desktop`</x-opkg> Chat
+* <x-opkg>`tailscale`</x-opkg> VPN
+* <x-opkg>`1password`</x-opkg> Password manager
