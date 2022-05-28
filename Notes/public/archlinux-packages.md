@@ -298,6 +298,9 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`discord`</x-pkg> Gamer chat
 * <x-pkg>`network-manager-applet`</x-pkg> Simple GUI for network manager
 
+### Games
+* <x-pkg>`multimc-bin`</x-pkg> Minecraft version manager
+
 ### Work
 * <x-opkg>`vanta-agent`</x-opkg> Compliance monitoring spyware
 * <x-opkg>`tandem-chat`</x-opkg> Chat
