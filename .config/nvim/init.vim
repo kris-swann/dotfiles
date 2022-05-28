@@ -154,7 +154,7 @@ require('packer').startup(function()
       vim.g.Hexokinase_optInPatterns = {'full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names'}
     end
   }
-  use 'psliwka/vim-smoothie'
+  -- use 'psliwka/vim-smoothie'
   use { 'nacro90/numb.nvim', config = function() require'numb'.setup() end }
   use {
     'phaazon/hop.nvim',
