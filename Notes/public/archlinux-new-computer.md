@@ -81,7 +81,8 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
 4.  Don't do the config steps yet, just clone down and make sure that you have access to the scripts after re-logging
 
 #### Install packages
-1.  `package-sync --install-req`
+1.  `sudo pacman -S python`
+2.  `package-sync --install-req`
 
 #### Update GRUB
 1.  Follow directions [here](./grub-config.md)
