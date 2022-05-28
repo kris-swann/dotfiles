@@ -137,7 +137,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`fzf`</x-pkg> Fuzzy finder
 * <x-pkg>`mdp`</x-pkg> CLI Markdown powerpoint-like tool
 * <x-pkg>`neofetch`</x-pkg> Display system info for r/unixporn
-* <x-pkg>`lazydocker`</x-pkg> Htop for docker
+* <x-pkg>`lazydocker-bin`</x-pkg> Htop for docker
 
 ### Development tools
 * <x-pkg>`wget`</x-pkg> Downloading files
@@ -147,6 +147,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`gdb`</x-pkg> GNU debugger
 * <x-pkg>`npm`</x-pkg> Node package manager
 * <x-pkg>`prettier`</x-pkg> Code formatter for JS, JSON, CSS, YAML, and more
+* <x-pkg>`python`</x-pkg> Python programming language
 * <x-pkg>`pyenv`</x-pkg> Manage multiple python versions
 * <x-pkg>`python-pip`</x-pkg> Pip
 * <x-pkg>`python-pipx`</x-pkg> Pipx: For installing pip packages in venvs
