@@ -16,3 +16,5 @@
     stash = false
 [include]
     path = ~/.gitconfig.user
+[pull]
+	rebase = false
