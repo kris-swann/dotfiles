@@ -8,6 +8,7 @@
 [alias]
     co = checkout
     st = status
+    icommit = commit --no-verify
     b = !git --no-pager branch
     hist = log --oneline --graph
     bclean = "!f() { git branch | grep -v master | xargs git branch -d; }; f"
