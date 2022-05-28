@@ -135,7 +135,7 @@ alias news="curl nycurl.sytes.net -silent | less"
 alias ls="exa"
 alias ll="ls -l"
 
-alias awslocalstack="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoint-url=http://localhost:4566"
+alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=${DEFAULT_REGION:-'us-east-1'} aws --endpoint-url=http://localhost:4566"
 
 
 #####################################################################
