@@ -144,6 +144,7 @@ Probably a good idea to also install `vim` and `neovim` at that step too.
     sudo nvim /usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
     Option "RegistryDwords" "EnableBrightnessControl=1"
     ```
+    - Seems to work on hybrid mode instead of dedicated mode, maybe driver will fix this in the future
 
 #### Set up docker access
 1.  Add user to group so don't have to prefix docker commands with sudo
