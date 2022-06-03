@@ -2,12 +2,7 @@
 
 # Auto open everything needed to run pocus locally
 
-kitty @ set-tab-title "scratchpad"
-kitty @ send-text --match title:scratchpad cd ~/Projects/Pocus/development \\r
-
-kitty @ launch --type tab --title sql
-kitty @ send-text --match title:sql cd ~/Projects/Pocus/development \\r
-kitty @ send-text --match title:sql pgcli -D pocus-local
+kitty @ set-tab-title scratchpad
 
 kitty @ launch --type tab --title api
 kitty @ send-text --match title:api cd ~/Projects/Pocus/development \\r
@@ -45,4 +40,9 @@ kitty @ launch --type tab --title customer-db
 kitty @ send-text --match title:customer-db cd ~/Projects/Pocus/development \\r
 kitty @ send-text --match title:customer-db dc up customer_db \\r
 
+kitty @ launch --type tab --title sql
+kitty @ send-text --match title:sql cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:sql pgcli -D pocus-local
+
 kitty @ focus-tab --match title:scratchpad
+kitty @ send-text cd ~/Projects/Pocus/development \\r
