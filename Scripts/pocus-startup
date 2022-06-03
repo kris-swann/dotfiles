@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Auto open everything needed to run pocus locally
+
+kitty @ set-tab-title "scratchpad"
+kitty @ send-text --match title:scratchpad cd ~/Projects/Pocus/development \\r
+
+kitty @ launch --type tab --title sql
+kitty @ send-text --match title:sql cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:sql pgcli -D pocus-local
+
+kitty @ launch --type tab --title api
+kitty @ send-text --match title:api cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:api dc up api \\r
+
+kitty @ launch --type tab --title alerts
+kitty @ send-text --match title:alerts cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:alerts dc up alerts \\r
+
+kitty @ launch --type tab --title data-collector
+kitty @ send-text --match title:data-collector cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:data-collector dc up data_collector \\r
+
+kitty @ launch --type tab --title data-ingestor
+kitty @ send-text --match title:data-ingestor cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:data-ingestor WORKSPACE_ID=b960daa5-6a88-4295-9186-be81b6638e0a dc run data_ingestor
+
+kitty @ launch --type tab --title frontend
+kitty @ send-text --match title:frontend cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:frontend dc up frontend \\r
+
+kitty @ launch --type tab --title cube
+kitty @ send-text --match title:cube cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:cube dc up cube \\r
+
+kitty @ launch --type tab --title localstack
+kitty @ send-text --match title:localstack cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:localstack dc up localstack \\r
+
+kitty @ launch --type tab --title db
+kitty @ send-text --match title:db cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:db dc up db \\r
+
+kitty @ launch --type tab --title customer-db
+kitty @ send-text --match title:customer-db cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:customer-db dc up customer_db \\r
+
+kitty @ focus-tab --match title:scratchpad
