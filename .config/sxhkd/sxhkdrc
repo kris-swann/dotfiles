@@ -1,11 +1,12 @@
 super + x
   ~/Scripts/customlock
 
-super + Return
-  ~/Scripts/open_cwd_terminal
+# Tilde propogates keypress (so that kitty can handle opening w/ cwd if focused)
+~super + Return
+  [ "$(xdotool getwindowfocus getwindowclassname)" != "kitty" ] && kitty
 
 super + shift + Return
-  $TERMINAL
+  kitty
 
 super + space ; {_, super} + backslash
   ~/Scripts/dmenu-keyboard-layout

@@ -51,18 +51,6 @@ exists () {
   command -v "$1" &> /dev/null
 }
 
-# Keep track of cwds
-update_cwd_data() {
-  # DISPLAY is only set if X server is running
-  if exists xdotool && [ -n "$DISPLAY" ]; then
-    mkdir -p /tmp/cwd_data
-    pid=$(xdotool getwindowfocus getwindowpid)
-    touch "/tmp/cwd_data/$pid"
-    echo "$(pwd)" > "/tmp/cwd_data/$pid"
-  fi
-}
-precmd_functions+=(update_cwd_data)
-
 # Pass args to bc for simple one-off math
 bb() { bc <<< "$@" }
 
@@ -134,7 +122,7 @@ alias news="curl nycurl.sytes.net -silent | less"
 
 
 alias ls="exa"
-alias ll="ls -l"
+alias ll="ls -al"
 
 alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=${DEFAULT_REGION:-'us-east-1'} aws --endpoint-url=http://localhost:4566"
 
