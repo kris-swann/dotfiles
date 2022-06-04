@@ -8,7 +8,7 @@ super + shift + Return
   $TERMINAL
 
 super + space ; {_, super} + backslash
-  ~/Scripts/dmenu_keyboard_layout
+  ~/Scripts/dmenu-keyboard-layout
 
 super + backslash ; 1
   setxkbmap -layout us
@@ -17,7 +17,7 @@ super + backslash ; 2
   setxkbmap -layout us -variant intl
 
 super + space ; {_, super} + space
-  dmenu_run_history
+  dmenu-run-history
 
 super + space ; {_, super} + a
   kitty \
@@ -28,13 +28,13 @@ super + space ; {_, super} + a
     pulsemixer
 
 super + space ; {_, super} + l
-  ~/Scripts/dmenu_layout
+  ~/Scripts/dmenu-layout
 
 super + space ; {_, super} + t
-  ~/Scripts/dmenu_tools_selector
+  ~/Scripts/dmenu-tools_selector
 
 super + space ; {_, super} + s
-  ~/Scripts/dmenu_screenshot
+  ~/Scripts/dmenu-screenshot
 
 super + space ; {_, super} + u
   rofimoji --insert-with-clipboard
