@@ -40,6 +40,10 @@ kitty @ launch --type tab --title customer-db
 kitty @ send-text --match title:customer-db cd ~/Projects/Pocus/development \\r
 kitty @ send-text --match title:customer-db dc up customer_db \\r
 
+kitty @ launch --type tab --title ngrok
+kitty @ send-text --match title:ngrok cd ~/Projects/Pocus/development \\r
+kitty @ send-text --match title:ngrok ngrok http 3002
+
 kitty @ launch --type tab --title sql
 kitty @ send-text --match title:sql cd ~/Projects/Pocus/development \\r
 kitty @ send-text --match title:sql pgcli -D pocus-local
