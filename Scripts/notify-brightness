@@ -1,6 +1,5 @@
 #!/bin/sh
 notify-send \
-  "Brightness $(xbacklight -getf | xargs printf '%.2f')" \
   -c brightness \
   -h "int:value:$(xbacklight -get)" \
-  -h "string:x-dunst-stack-tag:brightness"
+  "Brightness: $(xbacklight -getf | xargs printf '%.2f')"

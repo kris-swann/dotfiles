@@ -5,43 +5,45 @@
 [global]
     # DISPLAY
     monitor = 0
-    follow = none
+    follow = mouse
 
     # GEOMETRY
     width = 300
-    height = 300
+    # height = 300
     origin = top-right
-    offset = 10x50
+    offset = 35x85
     scale = 0
     notification_limit = 0
 
     # PROGRESS BAR
     progress_bar = true
-    progress_bar_height = 10
-    progress_bar_frame_width = 1
+    progress_bar_height = 2
+    progress_bar_frame_width = 0
     progress_bar_min_width = 150
     progress_bar_max_width = 300
-    highlight = "#6b6b6b"  # progress bar color
+    highlight = "#808080"  # progress bar color
 
     indicate_hidden = yes
 
     # PADDING & BORDER
-    transparency = 7
-    separator_height = 2
+    transparency = 5
     padding = 15
     horizontal_padding = 17
     text_icon_padding = 0
     frame_width = 0
-    frame_color = "#6b6b6b"
+    frame_color = "#808080"
+    separator_height = 1
     separator_color = frame
+    gaps = true
+    gap_size = 10
 
     sort = yes
 
     idle_threshold = 0
 
     # TEXT
-    font = Monospace 8
-    line_height = 0
+    font = "Kanit" 9
+    line_height = 1
     markup = full
     format = "<b>%s</b>\n%b"  # TODO improve this
     alignment = left
@@ -98,19 +100,19 @@
 # Otherwise the "#" and following would be interpreted as a comment.
 [urgency_low]
     background = "#222222"
-    foreground = "#6B6B6B"
+    foreground = "#808080"
     timeout = 10
     #default_icon = /path/to/icon
 
 [urgency_normal]
     background = "#002425"
-    foreground = "#6B6B6B"
+    foreground = "#808080"
     timeout = 10
     #default_icon = /path/to/icon
 
 [urgency_critical]
     background = "#900000"
-    foreground = "#6B6B6B"
+    foreground = "#808080"
     frame_color = "#ff0000"
     timeout = 0
     #default_icon = /path/to/icon
@@ -169,11 +171,15 @@
     category = volume
     timeout = 750ms
     urgency = low
+    set_stack_tag = "volume"
+    history_ignore = yes
 
 [brightness]
     category = brightness
     timeout = 750ms
     urgency = low
+    set_stack_tag = "brightness"
+    history_ignore = yes
 
 # Disable the transient hint so that idle_threshold cannot be bypassed from the
 # client

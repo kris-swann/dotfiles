@@ -1,6 +1,5 @@
 #!/bin/sh
 notify-send \
-  "Volume: $(pamixer --get-volume-human)" \
   -c volume \
   -h "int:value:$(pamixer --get-volume)" \
-  -h "string:x-dunst-stack-tag:volume"
+  "Volume: $(pamixer --get-volume-human)"
