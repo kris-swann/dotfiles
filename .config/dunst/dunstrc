@@ -21,17 +21,18 @@
     progress_bar_frame_width = 1
     progress_bar_min_width = 150
     progress_bar_max_width = 300
+    highlight = "#6b6b6b"  # progress bar color
 
     indicate_hidden = yes
 
     # PADDING & BORDER
-    transparency = 0  # TODO add transparency
+    transparency = 20
     separator_height = 2
-    padding = 8
-    horizontal_padding = 8
+    padding = 15
+    horizontal_padding = 17
     text_icon_padding = 0
-    frame_width = 3
-    frame_color = "#aaaaaa"
+    frame_width = 0
+    frame_color = "#6b6b6b"
     separator_color = frame
 
     sort = yes
@@ -71,7 +72,7 @@
     title = Dunst
     class = Dunst
 
-    corner_radius = 10
+    corner_radius = 0
     ignore_dbusclose = false
 
     # WAYLAND
@@ -97,19 +98,19 @@
 # Otherwise the "#" and following would be interpreted as a comment.
 [urgency_low]
     background = "#222222"
-    foreground = "#A3A3A3"
+    foreground = "#6B6B6B"
     timeout = 10
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#5A2978"
-    foreground = "#A3A3A3"
+    background = "#002405"
+    foreground = "#6B6B6B"
     timeout = 10
     #default_icon = /path/to/icon
 
 [urgency_critical]
     background = "#900000"
-    foreground = "#A3A3A3"
+    foreground = "#6B6B6B"
     frame_color = "#ff0000"
     timeout = 0
     #default_icon = /path/to/icon
