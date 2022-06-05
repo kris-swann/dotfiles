@@ -171,8 +171,12 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`gnome-keyring`</x-pkg> Required to use ssh, would like a less annoying alternative
 
 ### Fonts
-* <x-pkg>`ttf-dejavu`</x-pkg>
-* <x-pkg>`otf-nerd-fonts-fira-code`</x-pkg>
+* <x-pkg>`ttf-dejavu`</x-pkg> Good backup fonts
+* <x-pkg>`otf-nerd-fonts-fira-code`</x-pkg> Terminal font of chice, supports nerd fonts and ligatures
+* <x-pkg>`otf-fira-sans`</x-pkg> Serif
+* <x-pkg>`otf-kanit`</x-pkg> Serif
+* <x-pkg>`otf-raleway`</x-pkg> Serif
+* <x-pkg>`montserrat-otf`</x-pkg> Serif
 * Google Noto fonts
     * <x-pkg>`noto-fonts`</x-pkg> Wide UTF coverage as ttf fonts
     * <x-pkg>`noto-fonts-cjk`</x-pkg> Chinese, Japanese, Korean fonts
