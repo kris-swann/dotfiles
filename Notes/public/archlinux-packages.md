@@ -155,7 +155,8 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`python-black`</x-pkg> Opinionated python auto-formatter
 * <x-pkg>`pyright`</x-pkg> Python LSP
 * <x-pkg>`shellcheck`</x-pkg> Lint shell scripts
-* <x-pkg>`shfmt`</x-pkg>Autoformat shell scripts
+* <x-pkg>`shfmt`</x-pkg> Autoformat shell scripts
+* <x-pkg>`rust-analyzer`</x-pkg> Rust linter
 * <x-pkg>`aws-cli-v2-bin`</x-pkg> AWS
 * <x-pkg>`aws-vault`</x-pkg> Save aws creds in a vault rather than plain text on system
 * <x-pkg>`docker`</x-pkg> and <x-pkg>`docker-compose`</x-pkg> Containers
@@ -171,6 +172,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 
 ### Fonts
 * <x-pkg>`ttf-dejavu`</x-pkg>
+* <x-pkg>`otf-nerd-fonts-fira-code`</x-pkg>
 * Google Noto fonts
     * <x-pkg>`noto-fonts`</x-pkg> Wide UTF coverage as ttf fonts
     * <x-pkg>`noto-fonts-cjk`</x-pkg> Chinese, Japanese, Korean fonts
