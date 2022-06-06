@@ -99,7 +99,8 @@
 # IMPORTANT: colors have to be defined in quotation marks.
 # Otherwise the "#" and following would be interpreted as a comment.
 [urgency_low]
-    background = "#222222"
+    # background = "#222222"
+    background = "#002425"
     foreground = "#808080"
     timeout = 10
     #default_icon = /path/to/icon
