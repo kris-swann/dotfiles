@@ -8,10 +8,6 @@ kitty @ launch --type tab --title api
 kitty @ send-text --match title:api cd ~/Projects/Pocus/development \\r
 kitty @ send-text --match title:api dc up api \\r
 
-kitty @ launch --type tab --title alerts
-kitty @ send-text --match title:alerts cd ~/Projects/Pocus/development \\r
-kitty @ send-text --match title:alerts dc up alerts \\r
-
 kitty @ launch --type tab --title data-collector
 kitty @ send-text --match title:data-collector cd ~/Projects/Pocus/development \\r
 kitty @ send-text --match title:data-collector dc up data_collector \\r
