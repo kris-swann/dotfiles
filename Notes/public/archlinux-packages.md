@@ -154,7 +154,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`python-isort`</x-pkg> Auto-sort python imports
 * <x-pkg>`python-black`</x-pkg> Opinionated python auto-formatter
 * <x-pkg>`pyright`</x-pkg> Python LSP
-* <x-pkg>`shellcheck`</x-pkg> Lint shell scripts
+* <x-pkg>`shellcheck-bin`</x-pkg> Lint shell scripts (binary release instead of regular b/c haskell packages update every other day)
 * <x-pkg>`shfmt`</x-pkg> Autoformat shell scripts
 * <x-pkg>`rust-analyzer`</x-pkg> Rust linter
 * <x-pkg>`aws-cli-v2-bin`</x-pkg> AWS
@@ -303,9 +303,11 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`gimp`</x-pkg> Raster image editor
 * <x-pkg>`discord`</x-pkg> Gamer chat
 * <x-pkg>`network-manager-applet`</x-pkg> Simple GUI for network manager
+* <x-pkg>`calibre`</x-pkg> Ebook library manager
 
-### Games
+### Games/Hobby
 * <x-pkg>`multimc-bin`</x-pkg> Minecraft version manager
+* <x-pkg>`qmk`</x-pkg> QMK drivers and utils for mechanical keyboards
 
 ### Work
 * <x-opkg>`vanta-agent`</x-opkg> Compliance monitoring spyware
