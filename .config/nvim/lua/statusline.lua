@@ -57,6 +57,10 @@ local function get_filetype(bufnr, hlname)
   local full_file_name = vim.api.nvim_buf_get_name(bufnr)
   local f_name = string.match(full_file_name, '[^/]+$')
   local f_extension = string.match(full_file_name, '[^.]+$')
+  local filetype = vim.bo[bufnr].filetype
+  if f_name == nil or f_extension == nil then
+    return filetype
+  end
   local icon, icon_hlname = devicons.get_icon(f_name, f_extension)
   local icon_hlcolors = get_hlcolors(icon_hlname)
   local filetype = vim.bo[bufnr].filetype
