@@ -29,5 +29,5 @@ fi
 
 . "$HOME/.xprofile"
 
-exec awesome
+exec awesome --search "$HOME/.config/awesome/lua_modules/share/lua/5.3"
 # qtile start
