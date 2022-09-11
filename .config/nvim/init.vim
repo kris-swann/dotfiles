@@ -89,11 +89,16 @@ require('packer').startup(function()
         buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
       end
 
-      require'lspconfig'.pyright.setup{ on_attach=on_attach }
-      require'lspconfig'.prismals.setup{ on_attach=on_attach }
-      require'lspconfig'.tsserver.setup{ on_attach=on_attach }
-      require'lspconfig'.eslint.setup{ on_attach=on_attach }
-      require'lspconfig'.graphql.setup{ on_attach=on_attach }
+      local servers = { 'pyright', 'prismals', 'tsserver', 'eslint', 'graphql', 'rust_analyzer' }
+      for _, lsp in pairs(servers) do
+        require('lspconfig')[lsp].setup {
+          on_attach = on_attach,
+          flags = {
+            -- This will be the default in neovim 0.7+
+            debounce_text_changes = 150,
+          }
+        }
+      end
     end
   }
   use 'tpope/vim-commentary'
