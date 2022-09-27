@@ -109,6 +109,8 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 ### ALIASES
 #####################################################################
 
+alias t="trash"
+
 alias g="git"
 alias dc="docker-compose"
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
