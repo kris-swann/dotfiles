@@ -19,7 +19,6 @@ if vim.fn.empty(vim.fn.glob(packer_nvim_path)) > 0 then
 end
 
 -- TODO evaluate vimagit
--- TODO lsp
 -- TODO ternjs
 -- TODO does ale still make sense? (efm-langserver vs diagnostic-languageserver vs null-ls.nvim)
 -- TODO replace fzf with  telescope
@@ -89,7 +88,17 @@ require('packer').startup(function()
         buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
       end
 
-      local servers = { 'pyright', 'prismals', 'tsserver', 'eslint', 'graphql', 'rust_analyzer' }
+      -- For install info/all supported lsp's :help lspconfig-all
+      local servers = {
+        'pyright',
+        'prismals',
+        'tsserver',
+        'eslint',
+        'graphql',
+        'rust_analyzer',
+        'java_language_server',
+        'jdtls',
+      }
       for _, lsp in pairs(servers) do
         require('lspconfig')[lsp].setup {
           on_attach = on_attach,
@@ -163,12 +172,15 @@ require('packer').startup(function()
   use { 'nacro90/numb.nvim', config = function() require'numb'.setup() end }
   use {
     'phaazon/hop.nvim',
+    branch = 'v2',
     config = function()
-      require'hop'.setup {}
-      keymap('', '<space><space>', '<cmd>lua require"hop".hint_words()<CR>', {})
-      keymap('', '<space>l', '<cmd>lua require"hop".hint_lines()<CR>', {})
-      keymap('', '<space>c', '<cmd>lua require"hop".hint_char1()<CR>', {})
-      keymap('', '<space>/', '<cmd>lua require"hop".hint_patterns()<CR>', {})
+      require'hop'.setup {
+        keys = 'danesirhculofypmgvbw',
+      }
+      keymap('', '<space><space>', '<cmd>lua require"hop".hint_char1({ multi_windows = true })<CR>', {})
+      keymap('', '<space>w', '<cmd>lua require"hop".hint_words({ multi_windows = true })<CR>', {})
+      keymap('', '<space>l', '<cmd>lua require"hop".hint_lines({ multi_windows = true })<CR>', {})
+      keymap('', '<space>/', '<cmd>lua require"hop".hint_patterns({ multi_windows = true })<CR>', {})
     end
   }
   use 'godlygeek/tabular'
