@@ -116,6 +116,7 @@ require('packer').startup(function()
   use 'tpope/vim-dispatch'
   use 'tpope/vim-repeat'
   use 'tpope/vim-fugitive'
+  use 'tpope/vim-abolish'
   use {
     'lewis6991/gitsigns.nvim',
     requires = 'nvim-ula/plenary.nvim',
