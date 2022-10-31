@@ -19,14 +19,13 @@ if vim.fn.empty(vim.fn.glob(packer_nvim_path)) > 0 then
 end
 
 -- TODO evaluate vimagit
--- TODO ternjs
 -- TODO does ale still make sense? (efm-langserver vs diagnostic-languageserver vs null-ls.nvim)
 -- TODO replace fzf with  telescope
--- TODO is vim-dispatch even needed any more?
 -- TODO evaluate RRethy/nvim-treesitter-textsubjects
 -- TODO evaluate nvim-treesitter/nvim-treesitter-textobjects
 -- TODO write own colorscheme
 -- TODO check out plumb feature
+-- TODO replace ranger?
 -- TODO switch all ftplugin indent changes over to a base .editorconfig file
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
@@ -63,6 +62,7 @@ require('packer').startup(function()
       }
     end
   }
+  -- use 'nvim-treesitter/playground'
   use {
     'neovim/nvim-lspconfig',
     config = function()
@@ -96,8 +96,6 @@ require('packer').startup(function()
         'eslint',
         'graphql',
         'rust_analyzer',
-        'java_language_server',
-        'jdtls',
       }
       for _, lsp in pairs(servers) do
         require('lspconfig')[lsp].setup {
@@ -113,54 +111,53 @@ require('packer').startup(function()
   use 'tpope/vim-commentary'
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-surround'
-  use 'tpope/vim-dispatch'
   use 'tpope/vim-repeat'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-abolish'
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = 'nvim-ula/plenary.nvim',
-    config = function()
-      require'gitsigns'.setup{
-        signs = {
-          add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'   },
-          change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-          delete       = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-          topdelete    = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-          changedelete = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-        },
-        on_attach = function(bufnr)
-          local function map(mode, lhs, rhs, opts)
-              opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-              vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-          end
+  -- use {
+  --   'lewis6991/gitsigns.nvim',
+  --   requires = 'nvim-ula/plenary.nvim',
+  --   config = function()
+  --     require'gitsigns'.setup{
+  --       signs = {
+  --         add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'   },
+  --         change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  --         delete       = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+  --         topdelete    = {hl = 'GitSignsDelete', text = '│', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+  --         changedelete = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  --       },
+  --       on_attach = function(bufnr)
+  --         local function map(mode, lhs, rhs, opts)
+  --             opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+  --             vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+  --         end
 
-          -- Navigation
-          map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-          map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+  --         -- Navigation
+  --         map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+  --         map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
 
-          -- Actions
-          map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-          map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-          map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-          map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-          --map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
-          map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
-          --map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
-          map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
-          map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-          map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
-          map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
-          map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-          map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
+  --         -- Actions
+  --         map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+  --         map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+  --         map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+  --         map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+  --         --map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
+  --         map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+  --         --map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
+  --         map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+  --         map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+  --         map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+  --         map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
+  --         map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+  --         map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
 
-          -- Text object
-          map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-          map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-        end
-      }
-    end
-  }
+  --         -- Text object
+  --         map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  --         map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  --       end
+  --     }
+  --   end
+  -- }
   use {
     'rrethy/vim-hexokinase',
     run = 'make hexokinase',
@@ -169,6 +166,14 @@ require('packer').startup(function()
       vim.g.Hexokinase_optInPatterns = {'full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names'}
     end
   }
+  -- use {
+  --   'edluffy/hologram.nvim',
+  --   config = function()
+  --     require'hologram'.setup{
+  --       auto_display = true -- WIP automatic markdown image display, may be prone to breaking
+  --     }
+  --   end
+  -- }
   -- use 'psliwka/vim-smoothie'
   use { 'nacro90/numb.nvim', config = function() require'numb'.setup() end }
   use {
@@ -178,8 +183,9 @@ require('packer').startup(function()
       require'hop'.setup {
         keys = 'danesirhculofypmgvbw',
       }
-      keymap('', '<space><space>', '<cmd>lua require"hop".hint_char1({ multi_windows = true })<CR>', {})
+      keymap('', '<space><space>', '<cmd>lua require"hop".hint_patterns({ multi_windows = true })<CR>', {})
       keymap('', '<space>w', '<cmd>lua require"hop".hint_words({ multi_windows = true })<CR>', {})
+      keymap('', '<space>c', '<cmd>lua require"hop".hint_char1({ multi_windows = true })<CR>', {})
       keymap('', '<space>l', '<cmd>lua require"hop".hint_lines({ multi_windows = true })<CR>', {})
       keymap('', '<space>/', '<cmd>lua require"hop".hint_patterns({ multi_windows = true })<CR>', {})
     end
@@ -226,8 +232,6 @@ require('packer').startup(function()
       vim.g.ale_cpp_clangcheck_options = '-- -Wall -std=c++11 -x c++'
     end
   }
-  use 'ambv/black'
-  use 'Vimjas/vim-python-pep8-indent'
   use { 'prettier/vim-prettier',  run = 'npm install -g prettier' }
   use {
     'junegunn/fzf.vim',
@@ -276,7 +280,6 @@ require('packer').startup(function()
           nvim_lua = true;
         };
       }
-      -- keymap('i', '<C-space>', 'compe#complete()', { silent=true, expr=true })
       keymap('i', '<C-space>', 'compe#complete()', { noremap=true, silent=true, expr=true })
       keymap('i', '<CR>', [[compe#confirm('<CR>')]], { noremap=true, silent=true, expr=true })
       keymap('i', '<C-e>', [[compe#close('<C-e>')]], { noremap=true, silent=true, expr=true })
@@ -301,7 +304,7 @@ vim.o.omnifunc = 'syntaxcomplete#Complete'  -- basic omnifunc for <C-x><C-o> com
 vim.o.completeopt = "menuone,noselect"
 
 -- default indent prefs
-vim.o.expandtab = true  -- softtabs
+vim.o.expandtab = true
 vim.o.softtabstop = 2
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
@@ -402,7 +405,7 @@ EOF
 
 " BASIC COMMANDS, ABBREVS
 " Shortcut to neovim config file
-command! Config :e ~/.config/nvim/init.vim   
+command! Config :e ~/.config/nvim/init.vim
 " Shortcut to notes
 command! Notes :e ~/Notes/index.md
 " TODO switch this over to lua and get rid of Preserve function

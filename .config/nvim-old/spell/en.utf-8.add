@@ -117,6 +117,7 @@ frontegg
 auth
 postgres
 graphql
+#nnceccarry
 upsert
 Impl
 firefox
@@ -126,14 +127,3 @@ SSM
 Emmi
 ascii
 asciiflow
-Netrw
-nvim
-Colorscheme
-github
-tpope
-folke
-tokyonight
-lewis6991
-wbthomason
-packadd
-keymap
