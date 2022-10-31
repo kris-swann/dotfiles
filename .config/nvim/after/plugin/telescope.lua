@@ -23,6 +23,7 @@ telescope.load_extension('emoji')
 
 -- File pickers
 nnoremap(',f', function() builtin.find_files() end)
+nnoremap(',g', function() builtin.git_files() end)
 nnoremap(',/', function() builtin.live_grep() end)
 
 -- Vim pickers
@@ -54,5 +55,5 @@ nnoremap(',r', function() builtin.lsp_references() end)
 -- nnoremap(',i', function() builtin.lsp_implementations() end)
 -- nnoremap(',ci', function() builtin.lsp_incoming_calls() end)
 -- nnoremap(',co', function() builtin.lsp_outgoing_calls() end)
-nnoremap(',fe', function() builtin.diagnostics({ bufnr = 0 }) end)  -- bufnr = 0 for cur buf
+nnoremap(',le', function() builtin.diagnostics({ bufnr = 0 }) end)  -- bufnr = 0 for cur buf
 nnoremap(',we', function() builtin.diagnostics() end)  -- all buffers
