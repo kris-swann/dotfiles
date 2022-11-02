@@ -52,8 +52,8 @@ nnoremap(',gs', function() builtin.git_status() end)
 nnoremap(',gt', function() builtin.git_stash() end)
 
 -- Lsp pickers
-nnoremap(',d', function() builtin.lsp_definitions() end)
-nnoremap(',D', function() builtin.lsp_type_definitions() end)
+nnoremap('gd', function() builtin.lsp_definitions() end)
+nnoremap('gD', function() builtin.lsp_type_definitions() end)
 nnoremap(',r', function() builtin.lsp_references() end)
 -- TODO move these to a parent picker
 -- nnoremap(',i', function() builtin.lsp_implementations() end)
