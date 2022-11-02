@@ -21,9 +21,9 @@ ccc.setup({
 -- is still enabled. We manually disable that here too.
 -- Bizzarly this is not an issue if this setup file is in after/plugin
 --    i.e mv ./ccc.lua ../../after/plugin/ccs.lua
-augroup('ccc-testing', { clear = true })
+augroup('ccc-exclude', { clear = true })
 autocmd({ 'FileType' }, {
-  group = 'ccc-testing',
+  group = 'ccc-exclude',
   pattern = excludes,
   command = [[CccHighlighterDisable]],
 })

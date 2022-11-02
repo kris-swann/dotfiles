@@ -1,3 +1,6 @@
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 
@@ -57,3 +60,14 @@ nnoremap(',r', function() builtin.lsp_references() end)
 -- nnoremap(',co', function() builtin.lsp_outgoing_calls() end)
 nnoremap(',le', function() builtin.diagnostics({ bufnr = 0 }) end)  -- bufnr = 0 for cur buf
 nnoremap(',we', function() builtin.diagnostics() end)  -- all buffers
+
+-- If opening a dir on startup, then open telescope
+augroup('telescope-startup', { clear = true })
+autocmd({ 'VimEnter' }, {
+  group = 'telescope-startup',
+  callback = function(args)
+    if vim.fn.isdirectory(args.file) ~= 0 then
+      builtin.find_files()
+    end
+  end,
+})
