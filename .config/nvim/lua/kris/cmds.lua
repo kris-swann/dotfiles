@@ -6,7 +6,7 @@ cmd('Notes', [[:e ~/Notes]], {})
 cmd('Config', [[:e ~/.config/nvim]], {})
 cmd('Sxhkdrc', [[:e ~/.config/sxhkd/sxhkdrc]], {})
 
-cmd('JSBeautify', [[:!js-beautify % -r]], {})
+cmd('Jsbeautify', [[:!js-beautify % -r]], {})
 cmd('Prettier', [[:!prettier % -w]], {})
 cmd('Shfmt', [[:!shfmt -i 2 -w -s %]], {})
 cmd('Gofmt', [[:!gofmt -w %]], {})
