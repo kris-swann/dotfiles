@@ -13,7 +13,7 @@ end
 
 local packer_installed = ensure_packer()
 
-return require('packer').startup(function(use)
+return require('packer').startup({ function(use)
   use('wbthomason/packer.nvim')  -- Packer can manage itself
 
   use('lewis6991/impatient.nvim')  -- Faster startups
@@ -31,7 +31,7 @@ return require('packer').startup(function(use)
 
   use('svermeulen/vim-yoink')  -- Paste history
 
-  use('nacro90/numb.nvim')  -- Peek lines when typing :1234
+  use('nacro90/numb.nvim')  -- Peek lines when typing like :1234
 
   use({ 'phaazon/hop.nvim', branch = 'v2' })  -- Easymotion plugin  TODO eval
 
@@ -43,7 +43,7 @@ return require('packer').startup(function(use)
     requires = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' }
   })
 
-  use({ 'lewis6991/gitsigns.nvim', tag = 'v0.5' })  -- Git highlights in sidebar
+  use({ 'lewis6991/gitsigns.nvim', tag = 'v0.5' })  -- Git status highlights in sidebar
 
   -- Tree-based filebrowser TODO eval
   use({
@@ -81,13 +81,17 @@ return require('packer').startup(function(use)
   use({ 'L3MON4D3/LuaSnip', tag = 'v1.1.0' })  -- TODO eval
 
   -- Auto-completions  TODO eval
-  use('hrsh7th/nvim-cmp')         -- Base completion engine
-  use('hrsh7th/cmp-buffer')       -- Source: buffer words
-  use('hrsh7th/cmp-path')         -- Source: filesystem paths
-  use('hrsh7th/cmp-cmdline')      -- Source: command line completions
-  use('saadparwaiz1/cmp_luasnip') -- Source: luasnips
-  use('hrsh7th/cmp-nvim-lsp')     -- Source: LSP
-  use('rcarriga/cmp-dap')         -- Source: DAP
+  use({
+    'hrsh7th/nvim-cmp',           -- Base completion engine
+    requires = {
+      'hrsh7th/cmp-buffer',       -- Source: buffer words
+      'hrsh7th/cmp-path',         -- Source: filesystem paths
+      'hrsh7th/cmp-cmdline',      -- Source: command line completions
+      'saadparwaiz1/cmp_luasnip', -- Source: luasnips
+      'hrsh7th/cmp-nvim-lsp',     -- Source: LSP
+      'rcarriga/cmp-dap',         -- Source: DAP
+    },
+  })
 
   use({ 'nvim-treesitter/nvim-treesitter', branch = 'v0.8.0', run = ':TSUpdate' })  -- Base treesitter
   use('nvim-treesitter/playground')  -- View treesitter info and highlight groups
@@ -119,4 +123,11 @@ return require('packer').startup(function(use)
   if packer_installed then
     require('packer').sync()
   end
-end)
+end,
+config = {
+  display = {
+    open_fn = function()
+      return require('packer.util').float({ border = 'single' })
+    end
+  }
+}})
