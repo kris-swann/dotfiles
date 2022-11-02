@@ -2,6 +2,7 @@
 pcall(require, 'impatient')
 
 require('kris')
+require('pkgs')
 
-local rebuild_spellfiles = require('util.rebuild_spellfiles')
+local rebuild_spellfiles = require('utils.rebuild_spellfiles')
 rebuild_spellfiles()

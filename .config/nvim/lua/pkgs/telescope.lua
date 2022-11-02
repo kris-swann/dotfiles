@@ -1,7 +1,7 @@
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 
-local nnoremap = require('util.keymap').nnoremap
+local nnoremap = require('utils.keymap').nnoremap
 local cmd = vim.api.nvim_create_user_command
 
 telescope.setup({

@@ -1,6 +1,6 @@
-local noremap = require('util.keymap').noremap
-local nnoremap = require('util.keymap').nnoremap
-local tnoremap = require('util.keymap').tnoremap
+local noremap = require('utils.keymap').noremap
+local nnoremap = require('utils.keymap').nnoremap
+local tnoremap = require('utils.keymap').tnoremap
 
 -- Prefer virtual replace over normal replace (plays nicer w/ tabs and eols)
 nnoremap('R', 'gR')

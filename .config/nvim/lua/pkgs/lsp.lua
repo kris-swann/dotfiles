@@ -1,6 +1,6 @@
 local lspconfig = require('lspconfig')
 --local null_ls = require("null-ls")
-local keymap = require('util.keymap')
+local keymap = require('utils.keymap')
 local nnoremap = keymap.nnoremap
 
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig

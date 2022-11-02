@@ -1,4 +1,4 @@
--- local map = require('util.keymap').map
+-- local map = require('utils.keymap').map
 -- require('hop').setup({
 --   keys = 'danesirhculofypmgvbw',
 -- })

@@ -11,7 +11,7 @@ cmd('Prettier', [[:!prettier % -w]], {})
 cmd('Shfmt', [[:!shfmt -i 2 -w -s %]], {})
 cmd('Gofmt', [[:!gofmt -w %]], {})
 
-augroup("sxhkd-refresh", { clear = true })
+augroup('sxhkd-refresh', { clear = true })
 autocmd({ 'BufWritePost' }, {
   group = 'sxhkd-refresh',
   pattern = { '*sxhkdrc' },
