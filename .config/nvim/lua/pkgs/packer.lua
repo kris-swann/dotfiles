@@ -106,7 +106,15 @@ return require('packer').startup({ function(use)
   })
 
   use({
-    'neovim/nvim-lspconfig',  -- Configs for lspspacker
+    'williamboman/mason.nvim',  -- Auto install lsp, dap, linters, formatters, etc
+    requires = {
+      'williamboman/mason-lspconfig.nvim',  -- Integrate mason with lspconfig
+    },
+    config = function() require('pkgs.mason') end,
+  })
+
+  use({
+    'neovim/nvim-lspconfig',  -- Configs for lsps
     tag = 'v0.1.3',
     requires = {
       'j-hui/fidget.nvim',  -- Lsp loading indicator
@@ -114,6 +122,7 @@ return require('packer').startup({ function(use)
       -- { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } }  -- Turn commandline utils into lsps TODO eval
     },
     config = function() require('pkgs.lsp') end,
+    after = { 'mason.nvim' },
   })
 
   use({
@@ -159,8 +168,8 @@ return require('packer').startup({ function(use)
   })
 
   use({
-    "NTBBloodbath/rest.nvim", -- Rest client TODO eval
-    requires = { "nvim-lua/plenary.nvim" },
+    'NTBBloodbath/rest.nvim', -- Rest client TODO eval
+    requires = { 'nvim-lua/plenary.nvim' },
   })
 
   use({
@@ -174,18 +183,10 @@ return require('packer').startup({ function(use)
   use({ 'gruvbox-community/gruvbox',  as='gruvbox' })
   use({ 'catppuccin/nvim',            as='catppuccin' })
   use({ 'rose-pine/neovim',           as='rose-pine' })
-  local colorscheme_plugins = {
-    'tokyonight',
-    'onedark',
-    'gruvbox',
-    'catppuccin',
-    'rose-pine',
-  }
 
   use({
     'uga-rosa/ccc.nvim', -- Color picker
     config = function() require('pkgs.ccc') end,
-    -- after = colorscheme_plugins,
   })
 
   -- Automatically sync after fresh-installing packer.nvim (must be after all other plugins)
