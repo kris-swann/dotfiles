@@ -28,6 +28,7 @@ telescope.load_extension('emoji')
 nnoremap(',f', function() builtin.find_files() end)
 nnoremap(',g', function() builtin.git_files() end)
 nnoremap(',/', function() builtin.live_grep() end)
+cmd('Rg', function(props) builtin.grep_string({ search = props.args }) end, { nargs = '*' })
 
 -- Vim pickers
 nnoremap(',ls', function() builtin.buffers() end)
