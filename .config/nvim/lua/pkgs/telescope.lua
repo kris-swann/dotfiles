@@ -12,10 +12,6 @@ telescope.setup({
   extensions = {
     emoji = {
       action = function(emoji)
-        -- argument emoji is a table.
-        -- {name="", value="", cagegory="", description=""}
-        -- vim.fn.setreg("*", emoji.value)  -- Default behavior is to copy into the * register
-        -- print([[Press p or "*p to paste this emoji]] .. emoji.value)
         vim.api.nvim_put({ emoji.value }, 'c', false, true)  -- Insert when picked
       end,
     }
