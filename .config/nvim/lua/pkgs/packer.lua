@@ -24,6 +24,13 @@ end
 
 local packer_installed = ensure_packer()
 
+-- Helper function to cutdown on boilerplate when setting config
+-- conf('name') is the same as function() require('pkgs.name') end
+local conf = function(name)
+  -- Can't actually call require here so have to return require string instead ¯\_(ツ)_/¯
+  return string.format("require('pkgs.%s')", name)
+end
+
 return require('packer').startup({ function(use)
   use('wbthomason/packer.nvim')  -- Packer can manage itself
 
@@ -42,35 +49,35 @@ return require('packer').startup({ function(use)
 
   use({
     'gbprod/yanky.nvim',  -- Yank/paste ring and history (alternatives vim-yoink, nvim-neoclip)
-    config = function() require('pkgs.yanky') end,
+    config = conf('yanky'),
   })
 
   use({
     'nacro90/numb.nvim',  -- Peek lines when typing like :1234
-    config = function() require('pkgs.numb') end,
+    config = function() require('numb').setup() end,
   })
 
   use({
     'phaazon/hop.nvim',  -- Easymotion plugin  TODO eval
     branch = 'v2',
-    config = function() require('pkgs.hop') end,
+    config = conf('hop'),
   })
 
   use({
     'ggandor/leap.nvim',  -- Easymotion-like plugin TODO eval
-    config = function() require('pkgs.leap') end,
+    config = conf('leap')
   })
 
   use({
     'TimUntersberger/neogit',  -- Magit for neovim TODO eval
     requires = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' },
-    config = function() require('pkgs.neogit') end,
+    config = conf('neogit'),
   })
 
   use({
     'lewis6991/gitsigns.nvim',  -- Git status highlights in sidebar
     tag = 'v0.5',
-    config = function() require('pkgs.gitsigns') end,
+    config = conf('gitsigns'),
   })
 
   use({
@@ -85,7 +92,7 @@ return require('packer').startup({ function(use)
 
   use({
     'elihunter173/dirbuf.nvim',  -- Text-centric file manager
-    config = function() require('pkgs.dirbuf') end
+    config = conf('dirbuf')
   })
 
   use('mbbill/undotree')  -- Interact with undotree TODO eval
@@ -106,9 +113,9 @@ return require('packer').startup({ function(use)
       'nvim-telescope/telescope-file-browser.nvim', -- Picker: File browser as a picker TODO eval
     },
     after = {
-      'yanky.nvim',  -- Picker: Yank history
+      'yanky.nvim',  -- Picker: Yank ring/history
     },
-    config = function() require('pkgs.telescope') end,
+    config = conf('telescope')
   })
 
   use({
@@ -116,7 +123,7 @@ return require('packer').startup({ function(use)
     requires = {
       'williamboman/mason-lspconfig.nvim',  -- Integrate mason with lspconfig
     },
-    config = function() require('pkgs.mason') end,
+    config = conf('mason')
   })
 
   use({
@@ -127,8 +134,8 @@ return require('packer').startup({ function(use)
       'folke/neodev.nvim',  -- Additional config for nvim lua lsp (when in neovim config files)
       -- { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } }  -- Turn commandline utils into lsps TODO eval
     },
-    config = function() require('pkgs.lsp') end,
     after = { 'mason.nvim' },
+    config = conf('lsp'),
   })
 
   use({
@@ -143,7 +150,7 @@ return require('packer').startup({ function(use)
       'rcarriga/cmp-dap',         -- Source: DAP
       { 'L3MON4D3/LuaSnip', tag = 'v1.1.0' },   -- Must have at least one snippet source TODO eval
     },
-    config = function() require('pkgs.cmp') end,
+    config = conf('cmp'),
   })
 
   use({
@@ -154,7 +161,7 @@ return require('packer').startup({ function(use)
       'nvim-treesitter/playground',               -- View treesitter info and highlight groups
       'nvim-treesitter/nvim-treesitter-context',  -- Sticky context header
     },
-    config = function() require('pkgs.treesitter') end,
+    config = conf('treesitter'),
   })
 
   -- Debug adapter protocol (dap) TODO eval
@@ -165,7 +172,7 @@ return require('packer').startup({ function(use)
   use({
     'nvim-lualine/lualine.nvim', -- Statusline TODO eval
     requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function() require('pkgs.lualine') end,
+    config = conf('lualine'),
   })
 
   use({
@@ -180,7 +187,7 @@ return require('packer').startup({ function(use)
 
   use({
     'edluffy/hologram.nvim',  -- Kitty term inline images (Expirimental)
-    config = function() require('pkgs.hologram') end,
+    config = conf('hologram'),
   })
 
   -- Colorschemes
@@ -192,7 +199,7 @@ return require('packer').startup({ function(use)
 
   use({
     'uga-rosa/ccc.nvim', -- Color picker
-    config = function() require('pkgs.ccc') end,
+    config = conf('ccc')
   })
 
   -- Automatically sync after fresh-installing packer.nvim (must be after all other plugins)

@@ -32,6 +32,7 @@ telescope.load_extension("file_browser")
 nnoremap(',f', builtin.find_files)
 nnoremap(',b', extensions.file_browser.file_browser)
 nnoremap(',cc', function() builtin.find_files({ cwd = '~/.config/nvim/' }) end)
+nnoremap(',cs', function() builtin.find_files({ cwd = '~/Scripts' }) end)
 nnoremap(',c/', function() builtin.find_files({ cwd = '~/.config/' }) end)
 
 -- Grep pickers

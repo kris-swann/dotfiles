@@ -29,11 +29,11 @@ vim.opt.smartindent = true
 
 vim.opt.list = true
 vim.opt.listchars = {
-  tab =      '» ',
-  eol =      '¬',
-  trail =    '⋅',
-  precedes = '←',
-  extends =  '→',
+  tab =       '» ',
+  eol =       '¬',
+  trail =     '⋅',
+  precedes =  '←',
+  extends =   '→',
 }
 vim.opt.showbreak = '↪ '
 vim.opt.fillchars = {
