@@ -34,14 +34,14 @@ return require('packer').startup({ function(use)
   use('godlygeek/tabular')  -- Table formatting
 
   use('tpope/vim-fugitive')   -- Git wrapper
-  use('tpope/vim-surround')   -- Manage "surrounding" parentheses, brackets, quotes, etc.
+  use('tpope/vim-surround')   -- Manage "surrounding" parentheses, brackets, quotes, etc.  TODO investigate vim-sandwich
   use('tpope/vim-commentary') -- Comment stuff out  TODO eval
   use('tpope/vim-unimpaired') -- Bracket mappings []
   use('tpope/vim-repeat')     -- Make repeat (.) work with plugins
   use('tpope/vim-abolish')    -- Working with variations of words
 
   use({
-    'svermeulen/vim-yoink',  -- Paste history  TODO eval
+    'svermeulen/vim-yoink',  -- Paste history  TODO eval (alternatives: nvim-neoclup.lua and yanky.nvim)
     config = function() require('pkgs.yoink') end,
   })
 
@@ -100,6 +100,7 @@ return require('packer').startup({ function(use)
       'kyazdani42/nvim-web-devicons',  -- File icons
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },  -- Faster and better search syntax
       'xiyaowong/telescope-emoji.nvim',  -- Emoji picker
+      'keyvchan/telescope-find-pickers.nvim',  -- Find all pickers (builtin and extensions)
       'nvim-telescope/telescope-file-browser.nvim',  -- File browser as a picker TODO eval
     },
     config = function() require('pkgs.telescope') end,

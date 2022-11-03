@@ -3,6 +3,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
+local extensions = telescope.extensions
 
 local nnoremap = require('utils.keymap').nnoremap
 local cmd = vim.api.nvim_create_user_command
@@ -23,39 +24,48 @@ telescope.setup({
 
 telescope.load_extension('fzf')
 telescope.load_extension('emoji')
+telescope.load_extension('find_pickers')
 
 -- File pickers
-nnoremap(',f', function() builtin.find_files() end)
-nnoremap(',g', function() builtin.git_files() end)
-nnoremap(',/', function() builtin.live_grep() end)
+nnoremap(',f', builtin.find_files)
+nnoremap(',cc', function() builtin.find_files({ cwd = '~/.config/' }) end)
+nnoremap(',cn', function() builtin.find_files({ cwd = '~/.config/nvim/' }) end)
+
+-- Grep pickers
+nnoremap(',/', builtin.live_grep)
 cmd('Rg', function(props) builtin.grep_string({ search = props.args }) end, { nargs = '*' })
 
+-- Text pickers
+nnoremap('z=', builtin.spell_suggest)
+nnoremap(',e', extensions.emoji.emoji)
+
 -- Vim pickers
-nnoremap(',ls', function() builtin.buffers() end)
-nnoremap(',m', function() builtin.marks() end)
-nnoremap(',q', function() builtin.quickfix() end)
-nnoremap(',l', function() builtin.loclist() end)
-nnoremap(',j', function() builtin.jumplist() end)
-nnoremap(',r', function() builtin.registers() end)
-nnoremap(',hh', function() builtin.help_tags() end)
-nnoremap(',hk', function() builtin.keymaps() end)
-nnoremap(',hc', function() builtin.commands() end)
-nnoremap('z=', function() builtin.spell_suggest() end)
-nnoremap(',c', function() builtin.find_files({ cwd = '~/.config/nvim/' }) end)
-nnoremap(',e', ':Telescope emoji<CR>')
+nnoremap('&b', builtin.buffers)
+nnoremap('&m', builtin.marks)
+nnoremap('&q', builtin.quickfix)
+nnoremap('&l', builtin.loclist)
+nnoremap('&j', builtin.jumplist)
+nnoremap('&r', builtin.registers)
+nnoremap('&k', builtin.keymaps)
+nnoremap('&c', builtin.commands)
+nnoremap('&p', extensions.find_pickers.find_pickers)
+nnoremap('&h', builtin.help_tags)
+nnoremap('&/', builtin.search_history)
+nnoremap('&:', builtin.command_history)
 
 -- Git pickers
-nnoremap(',gc', function() builtin.git_commits() end)
-nnoremap(',gf', function() builtin.git_bcommits() end)
-nnoremap(',gb', function() builtin.git_branches() end)
-nnoremap(',gs', function() builtin.git_status() end)
-nnoremap(',gt', function() builtin.git_stash() end)
+nnoremap(',gf', builtin.git_files)
+nnoremap(',gc', builtin.git_commits)
+nnoremap(',gh', builtin.git_bcommits)
+nnoremap(',gb', builtin.git_branches)
+nnoremap(',gs', builtin.git_status)
+nnoremap(',gt', builtin.git_stash)
 
 -- Lsp pickers
 nnoremap('gd', function() builtin.lsp_definitions() end)
 nnoremap('gD', function() builtin.lsp_type_definitions() end)
 nnoremap(',r', function() builtin.lsp_references() end)
--- TODO move these to a parent picker
+-- TODO move these to a parent picker?
 -- nnoremap(',i', function() builtin.lsp_implementations() end)
 -- nnoremap(',ci', function() builtin.lsp_incoming_calls() end)
 -- nnoremap(',co', function() builtin.lsp_outgoing_calls() end)
