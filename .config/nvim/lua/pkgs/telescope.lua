@@ -25,11 +25,14 @@ telescope.setup({
 telescope.load_extension('fzf')
 telescope.load_extension('emoji')
 telescope.load_extension('find_pickers')
+telescope.load_extension("yank_history")
+telescope.load_extension("file_browser")
 
 -- File pickers
 nnoremap(',f', builtin.find_files)
-nnoremap(',cc', function() builtin.find_files({ cwd = '~/.config/' }) end)
-nnoremap(',cn', function() builtin.find_files({ cwd = '~/.config/nvim/' }) end)
+nnoremap(',b', extensions.file_browser.file_browser)
+nnoremap(',cc', function() builtin.find_files({ cwd = '~/.config/nvim/' }) end)
+nnoremap(',c/', function() builtin.find_files({ cwd = '~/.config/' }) end)
 
 -- Grep pickers
 nnoremap(',/', builtin.live_grep)
@@ -38,6 +41,7 @@ cmd('Rg', function(props) builtin.grep_string({ search = props.args }) end, { na
 -- Text pickers
 nnoremap('z=', builtin.spell_suggest)
 nnoremap(',e', extensions.emoji.emoji)
+nnoremap(',p', function() extensions.yank_history.yank_history({}) end)
 
 -- Vim pickers
 nnoremap('&b', builtin.buffers)

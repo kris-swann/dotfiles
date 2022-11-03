@@ -35,14 +35,14 @@ return require('packer').startup({ function(use)
 
   use('tpope/vim-fugitive')   -- Git wrapper
   use('tpope/vim-surround')   -- Manage "surrounding" parentheses, brackets, quotes, etc.  TODO investigate vim-sandwich
-  use('tpope/vim-commentary') -- Comment stuff out  TODO eval
+  use('tpope/vim-commentary') -- Comment stuff out  TODO investigate Comment.nvim
   use('tpope/vim-unimpaired') -- Bracket mappings []
   use('tpope/vim-repeat')     -- Make repeat (.) work with plugins
   use('tpope/vim-abolish')    -- Working with variations of words
 
   use({
-    'svermeulen/vim-yoink',  -- Paste history  TODO eval (alternatives: nvim-neoclup.lua and yanky.nvim)
-    config = function() require('pkgs.yoink') end,
+    'gbprod/yanky.nvim',  -- Yank/paste ring and history (alternatives vim-yoink, nvim-neoclip)
+    config = function() require('pkgs.yanky') end,
   })
 
   use({
@@ -92,16 +92,21 @@ return require('packer').startup({ function(use)
 
   use('ThePrimeagen/harpoon')  -- Better global marks TODO eval
 
-  -- Fuzzy finders
   use({
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    'nvim-telescope/telescope.nvim', tag = '0.1.0', -- Fuzzy finders
     requires = {
-      'nvim-lua/plenary.nvim',  -- Essential library
-      'kyazdani42/nvim-web-devicons',  -- File icons
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },  -- Faster and better search syntax
-      'xiyaowong/telescope-emoji.nvim',  -- Emoji picker
-      'keyvchan/telescope-find-pickers.nvim',  -- Find all pickers (builtin and extensions)
-      'nvim-telescope/telescope-file-browser.nvim',  -- File browser as a picker TODO eval
+      {
+        'nvim-telescope/telescope-fzf-native.nvim', -- Faster searches and better search syntax
+        run = 'make'
+      },
+      'nvim-lua/plenary.nvim',                      -- Required lib
+      'kyazdani42/nvim-web-devicons',               -- File icons
+      'xiyaowong/telescope-emoji.nvim',             -- Picker: Emoji
+      'keyvchan/telescope-find-pickers.nvim',       -- Picker: ALL (both builtin & extensions) pickers
+      'nvim-telescope/telescope-file-browser.nvim', -- Picker: File browser as a picker TODO eval
+    },
+    after = {
+      'yanky.nvim',  -- Picker: Yank history
     },
     config = function() require('pkgs.telescope') end,
   })
@@ -119,7 +124,7 @@ return require('packer').startup({ function(use)
     tag = 'v0.1.3',
     requires = {
       'j-hui/fidget.nvim',  -- Lsp loading indicator
-      'folke/neodev.nvim',  -- Additional config for nvim lua lsp
+      'folke/neodev.nvim',  -- Additional config for nvim lua lsp (when in neovim config files)
       -- { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } }  -- Turn commandline utils into lsps TODO eval
     },
     config = function() require('pkgs.lsp') end,
