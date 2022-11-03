@@ -35,6 +35,7 @@ require('gitsigns').setup({
   },
   worktrees = {
     {
+      -- Gitsigns in dotfiles!
       toplevel = vim.env.HOME,
       gitdir = vim.env.HOME..'/Projects/dotfiles',
     },
