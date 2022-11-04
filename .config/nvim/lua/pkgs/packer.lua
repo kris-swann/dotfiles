@@ -46,6 +46,7 @@ return require('packer').startup({ function(use)
   use('tpope/vim-unimpaired') -- Bracket mappings []
   use('tpope/vim-repeat')     -- Make repeat (.) work with plugins
   use('tpope/vim-abolish')    -- Working with variations of words
+  use('tpope/vim-eunuch')     -- Change ftype after writing shebang, and other unix sugar
 
   use({
     'gbprod/yanky.nvim',  -- Yank/paste ring and history (alternatives vim-yoink, nvim-neoclip)
