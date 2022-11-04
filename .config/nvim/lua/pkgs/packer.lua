@@ -177,7 +177,7 @@ return require('packer').startup({ function(use)
 
   use({
     'lukas-reineke/indent-blankline.nvim', -- Indent guides
-    config = function() require('pkgs.indent_blankline') end,
+    config = conf('indent_blankline'),
   })
 
   use({
@@ -186,7 +186,7 @@ return require('packer').startup({ function(use)
   })
 
   use({
-    'edluffy/hologram.nvim',  -- Kitty term inline images (Expirimental)
+    'edluffy/hologram.nvim',  -- Kitty term inline images (Experimental)
     config = conf('hologram'),
   })
 
