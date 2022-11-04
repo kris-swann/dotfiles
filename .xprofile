@@ -2,7 +2,7 @@
 sxhkd -r /home/kris/.local/sxhkd_log & # Keyboard shortcuts
 # udiskie -t &
 nm-applet &
-picom & # Compositor/transparency/compton replacement
+# picom & # Compositor/transparency/compton replacement
 xset b off # turn off the damn bell!
 syndaemon -i 0.5 -t -K -R -d  # Disable touchpad when typing
 [[ -f ~/.extend.xprofile ]] && . ~/.extend.xprofile
