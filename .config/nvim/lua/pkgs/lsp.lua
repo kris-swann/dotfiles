@@ -6,11 +6,17 @@ local nnoremap = keymap.nnoremap
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup({})
 
+vim.diagnostic.config({
+  virtual_text = {
+    source = true,
+  }
+})
+
 local opts = { noremap = true, silent = true }
-nnoremap('<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-nnoremap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-nnoremap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-nnoremap('<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+nnoremap('<leader>e', vim.diagnostic.open_float, opts)
+nnoremap('[d', vim.diagnostic.goto_prev, opts)
+nnoremap(']d', vim.diagnostic.goto_next, opts)
+nnoremap('<leader>q', vim.diagnostic.setloclist, opts)
 
 local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -115,6 +121,7 @@ null_ls.setup({
 })
 ]]
 
+require('trouble').setup({})
 
 require('fidget').setup()
 

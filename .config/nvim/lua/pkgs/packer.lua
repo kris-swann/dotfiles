@@ -134,6 +134,7 @@ return require('packer').startup({ function(use)
       'j-hui/fidget.nvim',  -- Lsp loading indicator
       'folke/neodev.nvim',  -- Additional config for nvim lua lsp (when in neovim config files)
       -- { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } }  -- Turn commandline utils into lsps TODO eval
+      { 'folke/trouble.nvim' , requires = { 'kyazdani42/nvim-web-devicons' } }, -- Lsp info lists  TODO eval
     },
     after = { 'mason.nvim' },
     config = conf('lsp'),
