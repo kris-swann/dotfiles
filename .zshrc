@@ -5,6 +5,9 @@
 # export ZSH=$HOME/.oh-my-zsh
 
 # Autocompletion
+if [ -d "$HOME/.zfunc" ]; then
+  fpath+=$HOME/.zfunc
+fi
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 complete -C $(which aws_completer) aws
@@ -115,6 +118,7 @@ alias g="git"
 alias dc="docker-compose"
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
 alias e="$EDITOR"
+alias e.="$EDITOR ./"
 alias gm="cd /run/media/kris"
 alias gp="cd ~/Projects"
 alias gd="cd ~/Downloads"
