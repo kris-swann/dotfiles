@@ -22,11 +22,9 @@ telescope.load_extension('fzf')
 telescope.load_extension('emoji')
 telescope.load_extension('find_pickers')
 telescope.load_extension("yank_history")
-telescope.load_extension("file_browser")
 
 -- File pickers
 nnoremap(',f', builtin.find_files)
-nnoremap(',b', extensions.file_browser.file_browser)
 nnoremap(',cc', function() builtin.find_files({ cwd = '~/.config/nvim/' }) end)
 nnoremap(',cs', function() builtin.find_files({ cwd = '~/Scripts' }) end)
 nnoremap(',c/', function() builtin.find_files({ cwd = '~/.config/' }) end)

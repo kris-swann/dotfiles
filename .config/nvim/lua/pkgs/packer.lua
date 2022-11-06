@@ -111,7 +111,6 @@ return require('packer').startup({ function(use)
       'kyazdani42/nvim-web-devicons',               -- File icons
       'xiyaowong/telescope-emoji.nvim',             -- Picker: Emoji
       'keyvchan/telescope-find-pickers.nvim',       -- Picker: ALL (both builtin & extensions) pickers
-      'nvim-telescope/telescope-file-browser.nvim', -- Picker: File browser as a picker TODO eval
     },
     after = {
       'yanky.nvim',  -- Picker: Yank ring/history
