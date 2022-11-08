@@ -26,6 +26,7 @@ telescope.load_extension("yank_history")
 -- File pickers
 nnoremap(',f', builtin.find_files)
 nnoremap(',cc', function() builtin.find_files({ cwd = '~/.config/nvim/' }) end)
+nnoremap(',cn', function() builtin.find_files({ cwd = '~/Notes' }) end)
 nnoremap(',cs', function() builtin.find_files({ cwd = '~/Scripts' }) end)
 nnoremap(',c/', function() builtin.find_files({ cwd = '~/.config/' }) end)
 
