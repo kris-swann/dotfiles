@@ -1,5 +1,5 @@
 local lspconfig = require('lspconfig')
---local null_ls = require("null-ls")
+local null_ls = require("null-ls")
 local keymap = require('utils.keymap')
 local nnoremap = keymap.nnoremap
 
@@ -70,6 +70,21 @@ lspconfig.sumneko_lua.setup({
       }
     }
   }
+})
+
+null_ls.setup({
+  -- log_level = 'trace',
+  -- root_dir = where the command is spawned
+  root_dir = require('null-ls.utils').root_pattern(
+    ".null-ls-root", "Makefile", ".git",  -- Default
+    "node_modules"  -- Also include node_modules for mono_repos
+  ),
+  sources = {
+    null_ls.builtins.diagnostics.textlint.with({
+      filetypes = { 'markdown' },
+      prefer_local = 'node_modules/.bin',
+    }),
+  },
 })
 
 --[[ Currently this breaks :LSPInfo

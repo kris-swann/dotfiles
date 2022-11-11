@@ -122,18 +122,19 @@ return require('packer').startup({ function(use)
     'williamboman/mason.nvim',  -- Auto install lsp, dap, linters, formatters, etc
     requires = {
       'williamboman/mason-lspconfig.nvim',  -- Integrate mason with lspconfig
+      'jayp0521/mason-null-ls.nvim',        -- Integrate mason with null-ls
     },
     config = conf('mason')
   })
 
   use({
-    'neovim/nvim-lspconfig',  -- Configs for lsps
-    tag = 'v0.1.3',
+    'neovim/nvim-lspconfig',  -- Base configs for lsps
+    -- tag = 'v0.1.3',  This tag is incompatible with latest null-ls (null-ls.nvim/issues/1106)
     requires = {
       'j-hui/fidget.nvim',  -- Lsp loading indicator
-      'folke/neodev.nvim',  -- Additional config for nvim lua lsp (when in neovim config files)
-      -- { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } }  -- Turn commandline utils into lsps TODO eval
-      { 'folke/trouble.nvim' , requires = { 'kyazdani42/nvim-web-devicons' } }, -- Lsp info lists  TODO eval
+      'folke/neodev.nvim',  -- Additional lsp config for lua nvim apis
+      { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } },  -- Turn commandline utils into lsps
+      { 'folke/trouble.nvim' , requires = { 'kyazdani42/nvim-web-devicons' } },       -- Lsp info lists  TODO eval
     },
     after = { 'mason.nvim' },
     config = conf('lsp'),
