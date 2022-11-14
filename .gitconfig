@@ -1,6 +1,6 @@
 [push]
   # I never want to type --set-upstream ever again
-  default = current
+  default = upstream
 [core]
   editor = nvim
 [credential]
