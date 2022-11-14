@@ -1,20 +1,22 @@
 [push]
-    # I never want to type --set-upstream ever again
-    default = current
+  # I never want to type --set-upstream ever again
+  default = current
 [core]
-    editor = nvim
+  editor = nvim
 [credential]
-    helper = cache --timeout=3600
+  helper = cache --timeout=3600
 [alias]
-    co = checkout
-    st = status
-    icommit = commit --no-verify
-    b = !git --no-pager branch
-    hist = log --oneline --graph
-    bclean = "!f() { git branch | grep -v master | xargs git branch -d; }; f"
+  c = commit
+  co = checkout
+  sw = switch
+  st = status
+  icommit = commit --no-verify
+  b = !git --no-pager branch
+  hist = log --oneline --graph
+  bclean = "!f() { git branch | grep -v master | xargs git branch -d; }; f"
 [pager]
-    stash = false
-[include]
-    path = ~/.gitconfig.user
+  stash = false
 [pull]
-    rebase = false
+  rebase = false
+[include]
+  path = ~/.gitconfig.user
