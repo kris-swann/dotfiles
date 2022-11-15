@@ -1,6 +1,5 @@
 [push]
-  # I never want to type --set-upstream ever again
-  default = upstream
+	autoSetupRemote = true
 [core]
   editor = nvim
 [credential]
