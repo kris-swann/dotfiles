@@ -23,10 +23,11 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
+
   buf_set_keymap('n', ',s', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({ async = true})<CR>', opts)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>lca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   -- TODO move these to a telescope list
@@ -52,6 +53,7 @@ local servers = {
   'rust_analyzer',
   'svelte',
   'gopls',
+  'nimls',
 }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
@@ -76,8 +78,8 @@ null_ls.setup({
   -- log_level = 'trace',
   -- root_dir = where the command is spawned
   root_dir = require('null-ls.utils').root_pattern(
-    ".null-ls-root", "Makefile", ".git",  -- Default
-    "node_modules"  -- Also include node_modules for mono_repos
+    ".null-ls-root", "Makefile", ".git", -- Default
+    "node_modules"-- Also include node_modules for mono_repos
   ),
   sources = {
     null_ls.builtins.diagnostics.textlint.with({

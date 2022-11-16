@@ -62,15 +62,15 @@ nnoremap(',gs', builtin.git_status)
 nnoremap(',gt', builtin.git_stash)
 
 -- Lsp pickers
-nnoremap('<ctrl-]>', function() builtin.lsp_definitions() end)
-nnoremap('gD', function() builtin.lsp_type_definitions() end)
-nnoremap(',r', function() builtin.lsp_references() end)
+nnoremap('<ctrl-]>', builtin.lsp_definitions)
+nnoremap('gD', builtin.lsp_type_definitions)
+nnoremap(',r', builtin.lsp_references)
 -- TODO move these to a parent picker?
 -- nnoremap(',i', function() builtin.lsp_implementations() end)
 -- nnoremap(',ci', function() builtin.lsp_incoming_calls() end)
 -- nnoremap(',co', function() builtin.lsp_outgoing_calls() end)
-nnoremap(',le', function() builtin.diagnostics({ bufnr = 0 }) end)  -- bufnr = 0 for cur buf
-nnoremap(',we', function() builtin.diagnostics() end)  -- all buffers
+nnoremap(',dd', function() builtin.diagnostics({ bufnr = 0 }) end)  -- bufnr = 0 for cur buf
+nnoremap(',da', builtin.diagnostics)
 
 -- If opening a dir on startup, then open telescope
 augroup('telescope-startup', { clear = true })
