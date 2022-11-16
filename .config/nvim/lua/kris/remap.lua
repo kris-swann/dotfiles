@@ -16,6 +16,9 @@ nnoremap('k', 'gk')
 -- Scrolling
 nnoremap('<C-e>', '5<C-e>')
 nnoremap('<C-y>', '5<C-y>')
+nnoremap('<C-d>', '<C-d>zz')
+nnoremap('<C-u>', '<C-u>zz')
+nnoremap('n', 'nzz')
 nnoremap('zl', 'zL')
 nnoremap('zh', 'zH')
 
