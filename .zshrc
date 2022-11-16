@@ -1,9 +1,6 @@
 [ -f ~/.profile ] && source ~/.profile
 [ -f ~/.profile_local ] && source ~/.profile_local
 
-# Path to your oh-my-zsh installation.
-# export ZSH=$HOME/.oh-my-zsh
-
 # Autocompletion
 if [ -d "$HOME/.zfunc" ]; then
   fpath+=$HOME/.zfunc
@@ -12,14 +9,8 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 complete -C $(which aws_completer) aws
 
-# Uncomment the following line to display red dots whilst waiting for completion.
+# Display red dots while waiting for completion
 COMPLETION_WAITING_DOTS="true"
-
-# List of plugins (space delimited) Plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# plugins=(vi-mode urltools)
-
-# source $ZSH/oh-my-zsh.sh
 
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
@@ -126,26 +117,29 @@ alias gd="cd ~/Downloads"
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
-
 alias ls="exa"
 alias ll="ls -al"
 
 alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=${DEFAULT_REGION:-'us-east-1'} aws --endpoint-url=http://localhost:4566"
 
-
 #####################################################################
 ### ADDITIONAL PATHS
 #####################################################################
 
-# Add scripts to path
+# Add scripts
 export PATH="$HOME/Scripts:$PATH"
 
-# User specific global install path for npm
-# To set prefix: npm config set prefix '~/.npm-global'
+# Add global npm installs (setup w/: npm config set prefix '~/.npm-global')
 export PATH="$HOME/.npm-global/bin:$PATH"
 
-# Add user pip installed packages (insalled via `pip install <package> --user`)
+# Add pip --user packages (installed via `pip install <package> --user`)
 export PATH="$HOME/.local/bin:$PATH"
+
+# Add nim (installed via choosenim)
+export PATH="$HOME/.nimble/bin:$PATH"
+
+# Add cargo installs
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # If using pyenv, add to path and set up so can use it
 if [ -d ~/.pyenv ]; then
