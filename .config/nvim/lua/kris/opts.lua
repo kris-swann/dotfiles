@@ -44,3 +44,4 @@ vim.opt.fillchars = {
   foldopen =  '┬',
   foldsep =   '│',
 }
+vim.opt.foldlevelstart = 99  -- Show all folds by default
