@@ -63,6 +63,7 @@ nnoremap(',gt', builtin.git_stash)
 
 -- Lsp pickers
 nnoremap('<ctrl-]>', builtin.lsp_definitions)
+nnoremap('gd', builtin.lsp_definitions)
 nnoremap('gD', builtin.lsp_type_definitions)
 nnoremap(',r', builtin.lsp_references)
 -- TODO move these to a parent picker?
