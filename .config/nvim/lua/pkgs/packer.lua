@@ -155,6 +155,8 @@ return require('packer').startup({ function(use)
     config = conf('cmp'),
   })
 
+  use('alaviss/nim.nvim')         -- Support for nim
+
   use({
     'nvim-treesitter/nvim-treesitter',  -- Base Treesitter
     branch = 'v0.8.0',
