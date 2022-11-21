@@ -54,6 +54,7 @@ local servers = {
   'svelte',
   'gopls',
   'nimls',
+  'kotlin_language_server',
 }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({
