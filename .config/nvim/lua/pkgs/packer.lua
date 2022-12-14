@@ -98,7 +98,10 @@ return require('packer').startup({ function(use)
 
   use('mbbill/undotree')  -- Interact with undotree TODO eval
 
-  use('ThePrimeagen/harpoon')  -- Better global marks TODO eval
+  use({
+    'ThePrimeagen/harpoon',  -- Better global marks TODO eval
+    config = conf('harpoon')
+  })
 
   use({
     'nvim-telescope/telescope.nvim', tag = '0.1.0', -- Fuzzy finders
