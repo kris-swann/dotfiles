@@ -131,8 +131,9 @@ return require('packer').startup({ function(use)
     'neovim/nvim-lspconfig',  -- Base configs for lsps
     -- tag = 'v0.1.3',  This tag is incompatible with latest null-ls (null-ls.nvim/issues/1106)
     requires = {
-      'j-hui/fidget.nvim',  -- Lsp loading indicator
-      'folke/neodev.nvim',  -- Additional lsp config for lua nvim apis
+      'j-hui/fidget.nvim',          -- Lsp loading indicator
+      'folke/neodev.nvim',          -- Additional lsp config for lua nvim apis
+      'simrat39/inlay-hints.nvim',  -- Inlay hints
       { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } },  -- Turn commandline utils into lsps
       { 'folke/trouble.nvim' , requires = { 'kyazdani42/nvim-web-devicons' } },       -- Lsp info lists  TODO eval
     },
