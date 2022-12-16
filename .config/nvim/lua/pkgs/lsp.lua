@@ -1,14 +1,10 @@
 local lspconfig = require('lspconfig')
 local null_ls = require('null-ls')
 local keymap = require('utils.keymap')
-local inlay_hints = require('inlay-hints')
 local nnoremap = keymap.nnoremap
 
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup({})
-
--- IMPORTANT: make sure to sestup inlayhints before lspconfig
-inlay_hints.setup()
 
 vim.diagnostic.config({
   virtual_text = {
@@ -23,8 +19,6 @@ nnoremap(']d', vim.diagnostic.goto_next, opts)
 nnoremap('<leader>q', vim.diagnostic.setloclist, opts)
 
 local on_attach = function(client, bufnr)
-  inlay_hints.on_attach(client, bufnr)
-
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -68,23 +62,9 @@ for _, lsp in pairs(servers) do
   })
 end
 
-
 -- Neodev lsp setup
 lspconfig.sumneko_lua.setup({
   on_attach = on_attach,
-  tools = {
-    on_initialized = function()
-      inlay_hints.set_all()
-    end,
-    inlay_hints = {
-      auto = false,
-    },
-  },
-  server = {
-    on_attach = function(client, bufnr)
-      inlay_hints.on_attach(client, bufnr)
-    end,
-  },
   settings = {
     Lua = {
       completion = {

@@ -136,7 +136,6 @@ return require('packer').startup({ function(use)
     requires = {
       'j-hui/fidget.nvim',          -- Lsp loading indicator
       'folke/neodev.nvim',          -- Additional lsp config for lua nvim apis
-      'simrat39/inlay-hints.nvim',  -- Inlay hints
       { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } },  -- Turn commandline utils into lsps
       { 'folke/trouble.nvim' , requires = { 'kyazdani42/nvim-web-devicons' } },       -- Lsp info lists  TODO eval
     },
