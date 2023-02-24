@@ -1,3 +1,4 @@
+#!/bin/sh
 # Runs on login
 
 export TERMINAL="kitty"
