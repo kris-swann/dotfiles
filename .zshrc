@@ -148,6 +148,11 @@ if [ -d ~/.pyenv ]; then
     eval "$(pyenv init --path)"
 fi
 
+# Garden.io
+if [ -d ~/.garden ]; then
+  export PATH="$PATH:$HOME/.garden/bin"
+fi
+
 
 #####################################################################
 ### ADDITIONAL SOURCES
@@ -181,8 +186,13 @@ fi
 eval "$(starship init zsh)"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
-# NVM
-source /usr/share/nvm/init-nvm.sh
+# NVM (this works on arch, but not on debian)
+# TODO: if on archlinux:
+# source /usr/share/nvm/init-nvm.sh
+# TODO else:
+export NVM_DIR=~/.nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# TODO: fi
 
 # Autoexec "nvm use" when entering a dir with a .nvmrc file
 autoload -U add-zsh-hook
@@ -205,3 +215,8 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+
+# Sdkman (java version manager)
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
