@@ -18,7 +18,7 @@ super + backslash ; 2
   setxkbmap -layout us -variant intl
 
 super + space ; {_, super} + space
-  dmenu-run-history
+  ~/Scripts/dmenu-run-history
 
 super + space ; {_, super} + a
   kitty \
