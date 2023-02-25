@@ -81,26 +81,13 @@ return require('packer').startup({ function(use)
     config = conf('gitsigns'),
   })
 
+  -- use({
+  --   'elihunter173/dirbuf.nvim',  -- Text-centric file manager
+  --   config = conf('dirbuf')
+  -- })
   use({
-    'nvim-neo-tree/neo-tree.nvim',  -- Tree-based filebrowser TODO eval
-    branch = 'v2.x',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'kyazdani42/nvim-web-devicons',
-      'MunifTanjim/nui.nvim',
-    },
-  })
-
-  use({
-    'elihunter173/dirbuf.nvim',  -- Text-centric file manager
-    config = conf('dirbuf')
-  })
-
-  use('mbbill/undotree')  -- Interact with undotree TODO eval
-
-  use({
-    'ThePrimeagen/harpoon',  -- Better global marks TODO eval
-    config = conf('harpoon')
+    'stevearc/oil.nvim',
+    config = conf('oil')
   })
 
   use({
@@ -152,18 +139,20 @@ return require('packer').startup({ function(use)
       'hrsh7th/cmp-cmdline',      -- Source: command line completions
       'saadparwaiz1/cmp_luasnip', -- Source: luasnips
       'hrsh7th/cmp-nvim-lsp',     -- Source: LSP
-      'rcarriga/cmp-dap',         -- Source: DAP
+      -- 'rcarriga/cmp-dap',         -- Source: DAP
       { 'L3MON4D3/LuaSnip', tag = 'v1.1.0' },   -- Must have at least one snippet source TODO eval
     },
     config = conf('cmp'),
   })
 
-  use('alaviss/nim.nvim')         -- Support for nim
-
   use({
     'nvim-treesitter/nvim-treesitter',  -- Base Treesitter
-    branch = 'v0.8.0',
-    run = ':TSUpdate',
+    branch = 'v0.8.3',
+    -- run = ':TSUpdate',
+    run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
     requires = {
       'nvim-treesitter/playground',               -- View treesitter info and highlight groups
       'nvim-treesitter/nvim-treesitter-context',  -- Sticky context header
@@ -171,10 +160,10 @@ return require('packer').startup({ function(use)
     config = conf('treesitter'),
   })
 
-  -- Debug adapter protocol (dap) TODO eval
-  use('mfussenegger/nvim-dap')
-  use('rcarriga/nvim-dap-ui')
-  use('theHamsta/nvim-dap-virtual-text')
+  -- -- Debug adapter protocol (dap) TODO eval
+  -- use('mfussenegger/nvim-dap')
+  -- use('rcarriga/nvim-dap-ui')
+  -- use('theHamsta/nvim-dap-virtual-text')
 
   use({
     'nvim-lualine/lualine.nvim', -- Statusline TODO eval

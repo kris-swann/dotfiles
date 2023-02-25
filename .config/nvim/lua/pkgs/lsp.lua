@@ -52,8 +52,6 @@ local servers = {
   'graphql',
   'rust_analyzer',
   'svelte',
-  'gopls',
-  'nimls',
   'kotlin_language_server',
 }
 for _, lsp in pairs(servers) do
@@ -63,7 +61,7 @@ for _, lsp in pairs(servers) do
 end
 
 -- Neodev lsp setup
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
   on_attach = on_attach,
   settings = {
     Lua = {
