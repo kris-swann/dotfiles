@@ -1,0 +1,4 @@
+#!/bin/sh
+WINDOW_ID=$(xdotool getactivewindow)
+CLASS_NAME=$(xprop -id $WINDOW_ID | rg WM_CLASS | cut -d '"' -f2)
+echo "$CLASS_NAME"

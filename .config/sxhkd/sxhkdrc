@@ -3,7 +3,7 @@ super + x
 
 # Tilde propogates keypress (so that kitty can handle opening w/ cwd if focused)
 ~super + Return
-  [ "$(xdotool getwindowfocus getwindowclassname)" != "kitty" ] && kitty
+  [ "$(~/Scripts/xdotool-get-focused-window-classname)" != "kitty" ] && kitty
 
 super + shift + Return
   kitty
