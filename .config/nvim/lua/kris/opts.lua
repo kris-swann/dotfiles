@@ -10,6 +10,7 @@ vim.opt.omnifunc = 'syntaxcomplete#Complete'  -- basic omnifunc for <C-x><C-o> c
 vim.opt.completeopt = "menuone,noselect"
 
 vim.opt.undofile = true      -- persist undos between sessions
+vim.opt.swapfile = false
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
