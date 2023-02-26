@@ -46,3 +46,14 @@ Change https to ssh
 ```
 .f remote set-url origin git@github.com:kris-swann/dotfiles.git
 ```
+
+Set up git-crypt (assumes keys are set-up)
+```
+git clone --separate-git-dir=$HOME/Projects/dotfiles-private git@github.com:kris-swann/dotfiles-private.git $HOME/tmpdotfiles-private
+
+rsync --recursive --verbose --exclude '.git' $HOME/tmpdotfiles-private/ $HOME/
+rm -r $HOME/tmpdotfiles-private
+
+# Unlock git-crypt
+.f crypt unlock ~/.local/share/dotfiles/git-crypt-key
+```
