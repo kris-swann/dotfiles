@@ -1,0 +1,403 @@
+# TODO add flag to packages that are from aur
+# TODO confirm all x-opt packages are correctly marked
+
+- group: Absolute minimal packages
+  desc: Installed during pacstrap of base-install
+  pkgs:
+  - base: Meta-package of minimal packages to define an archlinux installation
+  - linux: Linux kernel
+  - linux-firmware: Firmware for common hardware
+
+- group: Bootloader
+  pkgs:
+  - grub: Bootloader
+  - efibootmgr: For bootloading in efi systems
+  - os-prober: Automatically discover other installed OS's when generating grub-config
+  - group: Microcode
+    desc: Processor stability and security updates, needs to be loaded by the bootloader.
+      See https://wiki.archlinux.org/title/Microcode
+    pkgs:
+    - intel-ucode: Only install if have intel processor
+      opt: true
+    - amd-ucode: Only install if have amd processor
+      opt: true
+
+- group: Base-devl
+  desc: Packages included in the `base-devl` package group, copy-pasted from
+    archlinux.org/groups/x86_64/base-devel/
+  pkgs:
+  - autoconf: GNU tool for automatically configuring source code
+  - automake: GNU tool for automatically creating Makefiles
+  - binutils: A set of programs to assemble and manipulate binary and object files
+  - bison: The GNU general-purpose parser generator
+  - fakeroot: Tool for simulating superuser privileges
+  - file: File type identification utility
+  - findutils: GNU utilities to locate files
+  - flex: A tool for generating text-scanning programs
+  - gawk: GNU version of awk
+  - gcc: The GNU Compiler Collection - C and C++ frontends
+  - gettext: GNU internationalization library
+  - grep: A string search utility
+  - groff: GNU troff text-formatting system
+  - gzip: GNU compression utility
+  - libtool: A generic library support script
+  - m4: The GNU macro processor
+  - make: GNU make utility to maintain groups of programs
+  - pacman: A library-based package manager with dependency support
+  - patch: A utility to apply patch files to original sources
+  - pkgconf: Package compiler and linker metadata toolkit
+  - sed: GNU stream editor
+  - sudo: Give certain users the ability to run some commands as root
+  - texinfo: GNU documentation system for on-line information and printed output
+  - which: A utility to show the full path of commands
+
+- group: Compression/archive
+  pkgs:
+  - atool: Wrapper for many different archive types (extract via atool -x, create via atool -a)
+  - tar: For .tar files
+  - bzip2: For .bz2, .bz files
+  - gzip: For .gz, .z files
+  - lrzip: For .lrz files
+  - lz4: For .lz4 files
+  - lzip: For .lz files
+  - lzop: For .lzop files
+  - xz: For .xz, .lzma files
+  - zstd: For .zst files
+  - p7zip: For .7z files
+  - unrar: For .rar files
+  - zip: For .zip files (create only)
+  - unzip: For .zip files (extract only)
+
+- group: Networking
+  pkgs:
+  - networkmanager: Easy networking configuration
+  - group: Network manager vpn plugins
+    pkgs:
+    - networkmanager-openconnect:
+    - networkmanager-openvpn:
+    - networkmanager-pptp:
+    - networkmanager-vpnc:
+  - openssh: Provides ssh
+  - gnome-keyring: Required to use ssh, would like a less annoying alternative
+  - iw: CLI for wireless config
+  - whois: See domain ownership
+  - gping: Graphical ping
+  - speedtest-cli: Speedtest.net but in the terminal
+  - network-manager-applet: Simple GUI for network manager
+
+- group: Bluetooth
+  pkgs:
+  - bluez: Provides bluetooth daemons
+  - bluez-utils: Provides bluetoothctl
+
+- group: Video drivers (and related)
+  pkgs:
+  - xf86-video-intel: Intel graphics
+  - xf86-video-amdgpu: AMD graphics
+  - nvidia: NVIDIA drivers
+    opt: true
+  - nvidia-settings: GUI for NVIDIA driver settings
+    pot: true
+
+- group: Audio drivers (and related)
+  pkgs:
+  - pipewire: Sound system replaces PulseAudio and JACK
+  - pipewire-docs: Docs
+  - pipewire-alsa: Route ALSA to pipewire
+  - pipewire-pulse: Route PulseAudio to pipewire
+  - pipewire-jack: Route JACK to pipewire
+  - helvum: Pipewire Patchbay
+  - wireplumber: Session/policy manager for pipewire
+  - easyeffects: Audio effects for pipwire
+  - pamixer: CLI commands for volume control
+  - pulsemixer: TUI volume mixer
+
+- group: Input devices
+  desc: Drivers and GUIs for working with different input devices (mouse/keyboard/touchpad/etc)
+  pkgs:
+  - qmk: QMK drivers and utils for working with mechanical keyboards
+  - piper: GUI to configure mice (uses ratbagd daemon under hood)
+  - group: General input drivers
+    pkgs:
+    - xf86-input-elographics: Elographics touchscreen
+    - xf86-input-synaptics: Laptop touchpads
+    - xf86-input-evdev: Generic event devices (all inputs the kernel knows about)
+    - xf86-input-wacom: Wacom tablets
+    - logiops-git: Logitech Options driver for MXMaster3 mouse (among others)
+      aur: true
+    - huiontablet: Huion drawing tablets
+
+- group: System utils
+  desc: Low-level system utils
+  pkgs:
+    - pacman-contrib: Pacman utils `pactree`, `checkupdates`, `rankmirrors`, etc.
+    - yay: AUR helper (written in go)
+    - reflector: Auto update pacman mirrorlist
+    - ntp: Network Time Protocol i.e. Clock syncronization
+    - acpi: CLI for battery, power, and system temp
+    - tlp: Laptop power saver
+    - tlp-rdw: Laptop power saver
+    - cpupower: Adjust/throttle/overclock cpu power
+    - psmisc: Utils for managing process `pstree`, `killall`, `fuser`, `pidof`, `peekfd`, etc.
+    - lsof: List open files for running processes
+    - man-db: Provides `man` util
+    - man-pages: Provides man page contents
+    - htop: Graphical task/process manager
+
+- group: Shells and terminal emulators
+  pkgs:
+  - dash: Fash POSIX complient sh
+  - bash: The grandaddy
+  - zsh: My daily driver
+  - group: Zsh additions
+    pkgs:
+    - zsh-completions: Additional completions
+    - zsh-autosuggestions: Fish-like autosuggestions
+    - zsh-syntax-highlighting: Fish-like syntax highlighting
+  - fish: Alternative to zsh
+  - xonsh: Experimental python + shell
+  - nushell: Experimental Powershell-like structured I/O shell
+  - kitty: Terminal emulator of choice
+  - starship: Cross-shell easy-to-configure prompt
+  - screenfetch: Show system & theme info for ricing screenshots
+  - neofetch: Display system info for r/unixporn
+
+- group: Terminal utils
+  desc: Assorted basic/low-level terminal commands/utils
+  pkgs:
+  - less: Simple pager
+  - most: Alternative feature-rich pager
+  - tree: List dirs as a tree
+  - bc: Calculator
+  - libqalculate: Provides qalc, a calculator with unit and currency conversions
+  - ripgrep: Grep but faster
+  - diffutils: Commands for diffs and patches
+  - jq: Json manipulation from terminal
+  - go-yq: JQ for yaml and other structured files (mikefarah/yq)
+  - fzf: Fuzzy finder
+  - group: Modernized utils
+    desc: Common utils rebuilt for the modern age
+    pkgs:
+    - bat: Prettified cat
+    - lsd: Prettified ls
+    - exa: Prettified ls (but without icons)
+    - dfc: Prettified df (disk-usage)
+
+- group: File system
+  pkgs:
+  - group: File system drivers/utils
+    pkgs:
+    - btrfs-progs: btrfs utils
+    - dosfstools: dos fs utils
+    - e2fsprogs: ext3/4/ utils
+    - xfsprogs: XFS utils
+    - exfat-utils: exFAT fs utils
+    - f2fs-tools: Flash-Friendly File System (F2FS) utils -- for NAND SSD, sd cards, etc
+    - jfsutils: JFS utils
+    - mtpfs: FUSE that supports MTP devices
+    - nfs-utils: Network File System
+    - ntfs-3g: NTFS utils
+    - reiserfsprogs: ReiserFS utils
+  - group: MIME Types
+    pkgs:
+    - xdg-utils: Various XDG CLI utils `xdg-open`, `xdg-mime`, `xdg-screensaver`
+    - desktop-file-utils: Registers pacman hook to build cache database of MIME types
+    - shared-mime-info: Registers pacman hook to build the shared MIME-info database cache
+  - group: File system utils
+    pkgs:
+    - trash-cli: Freedesktop.org Trash spec `trash-put`, `trash-empty`, `trash-list`, `trash-restore`
+    - rsync: Sync files
+    - syncthing: Local file sync
+    - rclone: Cloud file sync (rsync for cloud)
+  - group: File managers
+    desc: Graphical/TUI interfaces to file system
+    pkgs:
+    - ranger: Python file manager with vim-bindings
+    - nnn: Very fast ranger replacement
+    - vifm: Another vim-centric file manager
+    - vidir: Bulk edit dirs with an editor
+      aur: true
+
+- group: Terminal text editors/tools
+  pkgs:
+  - vi: The OG
+  - vim: The classic
+  - neovim: My daily driver
+  - kakoune: Vim but different
+  - helix: Experimental combo of vim and kakoune
+  - emacs: Just in case
+  - obsidian: For note taking
+  - mdp: TUI markdown powerpoint-presentation tool
+
+- group: Graphical document viewers/editors/tools
+  pkgs:
+  - xdot: Graphical viewer of Graphviz dot files
+  - zathura: Document viewer
+  - zathura-pdf-mupdf: PDF, ePub, OpenXPS support for zathura
+  - calibre: Ebook library manager
+  - vlc: Video/audio player supporting many file types
+  - xdot: Graphviz viewer
+  - drawio-desktop-bin: Locally edit draw.io diagrams
+  - feh: Image viewer
+  - inkscape: SVG Editor
+  - gimp: Raster image editor (for photo editing)
+  - krita: Raster image editor (for drawing)
+
+- group: Fonts
+  pkgs:
+  - ttf-dejavu: Good backup fonts
+  - otf-nerd-fonts-fira-code: Terminal font of chice, supports nerd fonts and ligatures
+  - otf-fira-sans: Serif
+  - otf-kanit: Serif
+  - otf-raleway: Serif
+  - montserrat-otf: Serif
+  - group: Google Noto fonts
+    pkgs:
+    - noto-fonts: Wide UTF coverage as ttf fonts
+    - noto-fonts-cjk: Chinese, Japanese, Korean fonts
+    - noto-fonts-emoji: Emojis
+    - noto-fonts-extra: TTF varients
+
+- group: Desktop environments
+  pkgs:
+  - qtile: Window manager
+  - awesome: Window manager
+  - arandr: Graphical xrandr, for setting screen layouts
+  - sxhkd: Simple X hotkey daemon for keybindings
+  - dmenu: Extensible pop-up typeahead menu
+  - dunst: Desktop notifications
+  - picom: Compositor (compton fork)
+  - peek: Screen recorder (mp4, gif, etc.)
+  - maim: Screenshots
+  - ffmpeg: CLI to record screen & audio
+  - group: Lockscreen
+    pkgs:
+      - xss-lock: Utility that triggers the lock-screen
+      - i3lock: Off-the-shelf lockscreen that is nice enough
+  - group: Basic X11 functionality
+    pkgs:
+    - xorg-server: The X graphical server
+    - xorg-xinit: Start X server
+    - xorg-xfontsel: Utility for selecting X11 font names
+    - xwallpaper: Set the wallpaper
+    - xclip: Clipboard commands from terminal
+    - xdotool: Automate literally everything
+    - acpilight: Provides `xbacklight` to change screen brightness
+  - group: Xorg-apps
+    desc: Pacman group (not all are required but a lot of stuff assumes these are installed, so it makes life easier to have them all)
+    pkgs:
+    - xorg-bdftopcf: Convert X font from Bitmap Distribution Format to Portable Compiled Format
+    - xorg-iceauth: ICE authority file utility
+    - xorg-mkfontscale: Create an index of scalable font files for X
+    - xorg-sessreg: Register X sessions in system utmp/utmpx databases
+    - xorg-setxkbmap: Set the keyboard using the X Keyboard Extension
+    - xorg-smproxy: Allows X applications that do not support X11R6 session management to participate in an X11R6 session
+    - xorg-x11perf: Simple X server performance benchmarker
+    - xorg-xauth: X.Org authorization settings program
+    - xorg-xcmsdb: Device Color Characterization utility for X Color Management System
+    - xorg-xcursorgen: Create an X cursor file from PNG images
+    - xorg-xdpyinfo: Info about the X server
+    - xorg-xdriinfo: Query configuration information of DRI drivers
+    - xorg-xev: Display pressed keys and mouse movements, good for debugging and finding key codes
+    - xorg-xgamma: Alter a monitor's gamma correction
+    - xorg-xhost: Server access control program for X
+    - xorg-xinput: Small commandline tool to configure devices
+    - xorg-xkbcomp: X Keyboard description compiler
+    - xorg-xkbevd: XKB event daemon
+    - xorg-xkbutils: XKB utility demos
+    - xorg-xkill: Kill a window you click on
+    - xorg-xlsatoms: List interned atoms defined on server
+    - xorg-xlsclients: List client applications running on a display
+    - xorg-xmodmap: Utility for modifying keymaps and button mappings
+    - xorg-xpr: Print an X window dump from xwd
+    - xorg-xprop: Detect window properties
+    - xorg-xrandr: Provides xrandr for managing multiple displays
+    - xorg-xrdb: X server resource database utility (setting/viewing X server settings like dpi, font-size, etc)
+    - xorg-xrefresh: Refresh all or part of an X screen
+    - xorg-xset: User preference utility for X
+    - xorg-xsetroot: Set background and cursor
+    - xorg-xvinfo: Prints out the capabilities of any video adaptors associated with the display that are accessible through the X-Video extension
+    - xorg-xwd: X Window System image dumping utility
+    - xorg-xwininfo: Query info about windows
+    - xorg-xwud: X Window System image undumping utility
+
+- group: Development
+  pkgs:
+  - git: Version control
+  - gdb: GNU debugger
+  - group: Networking
+    pkgs:
+    - wget: For downloading files
+    - curl: For downloading files
+    - httpie: Curl with sane syntax
+    - postman-bin: GUI for making HTTP requests
+    - insomnia-bin: Postman alternative
+    - ngrok: Expose local port to internet (useful for testing webhooks)
+  - group: Docker/kubernetes
+    pkgs:
+    - lazydocker-bin: Htop for docker
+    - docker: and <x-pkg>`docker-compose`</x-pkg> Containers
+    - kubectl: Kubernetes command line
+    - kind-bin: Kubernetes in docker (kind) local kubernetes clusters for testing
+  - group: Databases
+    pkgs:
+    - pgcli: Postgres cli, nicer version of `psql`
+    - dbeaver: GUI database query editor
+    - pqrs: Parquet cli tools
+    - surrealdb-bin: SurrealDB cli
+  - group: Cloud providers
+    pkgs:
+    - tfenv: Terraform version manager
+    - aws-cli-v2-bin: AWS
+    - aws-vault: Save aws creds in a vault rather than plain text on system
+    - doctl: DigitalOcean cli
+    - flyctl-bin: Fly.io cli
+  - group: Scripts
+    pkgs:
+    - shellcheck-bin: Lint shell scripts (binary release instead of regular b/c haskell packages update every other day)
+    - shfmt: Autoformat shell scripts
+  - group: Python
+    pkgs:
+    - python: Python programming language
+    - pyenv: Manage multiple python versions
+    - python-pip: Pip
+    - python-pipx: Pipx For installing pip packages in venvs
+    - python-isort: Auto-sort python imports
+    - python-black: Opinionated python auto-formatter
+    - pyright: Python lsp
+  - group: Javascript
+    pkgs:
+    - npm: Node package manager
+    - prettier: Code formatter for JS, JSON, CSS, YAML, and more
+    - nvm: Node version manager
+    - deno: Alternative to npm
+  - group: Go
+    pkgs:
+    - gopls: Lsp for go
+  - group: Rust
+    pkgs:
+    - rust-analyzer: Rust linter
+
+- group: Internet
+  desc: Web browsers and related
+  pkgs:
+  - firefox: Web browser
+  - chromium: Web browser
+  - librewolf-bin: Web browser
+  - streamlink: For streaming from twitch via `vlc`, `mpv`, etc
+  - discord: Gamer chat
+  - zoom: Video conferences
+
+- group: Games
+  opt: true
+  pkgs:
+  - multimc-bin: Minecraft version manager
+
+- group: Work
+  desc: Packages that need to be installed on work machines
+  opt: true
+  pkgs:
+  - vanta-agent: Compliance monitoring spyware
+  - slack-desktop: Chat
+  - tailscale: VPN
+  - 1password: Work's choice of password manager

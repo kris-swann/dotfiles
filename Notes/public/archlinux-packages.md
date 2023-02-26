@@ -192,6 +192,9 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`picom`</x-pkg> Compton fork
 * <x-pkg>`peek`</x-pkg> Screen recorder (mp4, gif, etc.)
 * <x-pkg>`maim`</x-pkg> Screenshots
+* Lockscreen
+  * <x-pkg>`xss-lock`</x-pkg> Utility that triggers lockscreen
+  * <x-pkg>`i3lock`<x-pkg> Off the shelf lockscreen that is nice enough
 * X11
   * <x-pkg>`xorg-server`</x-pkg> The X graphical server
   * <x-pkg>`xorg-xinit`</x-pkg> Start X server
