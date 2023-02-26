@@ -72,14 +72,3 @@ nnoremap(',r', builtin.lsp_references)
 -- nnoremap(',co', function() builtin.lsp_outgoing_calls() end)
 nnoremap(',dd', function() builtin.diagnostics({ bufnr = 0 }) end)  -- bufnr = 0 for cur buf
 nnoremap(',da', builtin.diagnostics)
-
--- If opening a dir on startup, then open telescope
-augroup('telescope-startup', { clear = true })
-autocmd({ 'VimEnter' }, {
-  group = 'telescope-startup',
-  callback = function(args)
-    if vim.fn.isdirectory(args.file) ~= 0 then
-      builtin.find_files()
-    end
-  end,
-})
