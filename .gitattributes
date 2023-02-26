@@ -1,0 +1,1 @@
+.config/nvim/spell/**.add filter=git-crypt diff=git-crypt merge=union
