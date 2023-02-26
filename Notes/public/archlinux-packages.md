@@ -144,6 +144,7 @@ Packages included in the `base-devl` package group, copy-pasted from https://arc
 * <x-pkg>`curl`</x-pkg> Downloading files
 * <x-pkg>`httpie`</x-pkg> Curl with sane syntax
 * <x-pkg>`git`</x-pkg> Version control
+* <x-pkg>`git-crypt`</x-pkg> Git file encryption
 * <x-pkg>`gdb`</x-pkg> GNU debugger
 * <x-pkg>`npm`</x-pkg> Node package manager
 * <x-pkg>`prettier`</x-pkg> Code formatter for JS, JSON, CSS, YAML, and more

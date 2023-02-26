@@ -324,6 +324,7 @@
 - group: Development
   pkgs:
   - git: Version control
+  - git-crypt: Git encryption
   - gdb: GNU debugger
   - group: Networking
     pkgs:
