@@ -147,7 +147,7 @@ return require('packer').startup({ function(use)
 
   use({
     'nvim-treesitter/nvim-treesitter',  -- Base Treesitter
-    branch = 'v0.8.3',
+    branch = 'v0.8.5.2',
     -- run = ':TSUpdate',
     run = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
