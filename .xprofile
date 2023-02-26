@@ -8,4 +8,10 @@ nm-applet &
 # picom & # Compositor/transparency/compton replacement
 xset b off # turn off the damn bell!
 syndaemon -i 0.5 -t -K -R -d  # Disable touchpad when typing
+
+# Lock-screen (if xss-lock installed and lockscreen enabled)
+if [ -n "$(command -v xss-lock)" ] && [ "$LOCKSCREEN_ENABLED" = "true" ]; then
+  xss-lock i3lock &
+fi
+
 [[ -f ~/.xprofile_local ]] && . ~/.xprofile_local
