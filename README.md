@@ -56,4 +56,7 @@ rm -r $HOME/tmpdotfiles-private
 
 # Unlock git-crypt
 .f crypt unlock ~/.local/share/dotfiles/git-crypt-key
+
+# Verify by checking if spell files look correct
+cat "$HOME/.config/nvim/spell/en.utf-8.add"
 ```
