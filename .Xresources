@@ -1,6 +1,3 @@
-#if __has_include(".Xresources.extend")
-#include ".Xresources.extend"
-#endif
 ! For comments use "!"
 ! Reload this file with "xrdb -load ~/.Xresources"
 
@@ -66,3 +63,7 @@ Xft.rgba: rgb
 Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
+
+#if __has_include(".Xresources_local")
+#include ".Xresources_local"
+#endif
