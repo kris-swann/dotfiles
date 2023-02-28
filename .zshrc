@@ -159,12 +159,21 @@ fi
 #####################################################################
 
 # Fzf magic
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+if [ -f /usr/share/fzf/key-bindings.zsh ]; then
+  # Arch location
+  source /usr/share/fzf/key-bindings.zsh
+elif [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
+  # Debian location
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
 
 # Fish-like autosuggestions
 if [ -f  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     # Arch location
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    # Debian location
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 elif [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     # OSX Location
     source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -174,6 +183,9 @@ fi
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     # Arch location
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    # Debian location
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     # OSX location
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
