@@ -1,0 +1,92 @@
+# TODO: put /etc/apt/sources.list in dotfiles
+
+- group: Package manager
+  pkgs:
+  - apt: [flatpack, Allows installation of flatpacks]
+  groups:
+  - group: Apt utilities
+    pkgs:
+    - apt: [apt-listbugs, List bugs when installing/updgrading apt packages]
+    - apt: [apt-listchanges, List changes when installing/upgrading apt packages]
+    - apt: [build-essential, For building deb packages]
+
+- group: TODO put these somewhere
+  pkgs:
+    - apt: [cmake, Common build-system -- necessary to build many packages]
+    - apt: [gettext, GNU internationalization library]
+
+- group: Window manager
+  pkgs:
+  - apt: [awesome, AwesomeWM]
+  - apt: [dunst, Desktop notifications]
+  - apt: [suckless-tools, Contains dmenu and other suckless tools]
+  - apt: [sxhkd, Simple X hotkey daemon for keybindings]
+  - apt: [i3lock, Lockscreen]
+  - apt: [xclip, Clipboard commands from terminal]
+  - apt: [xdotool, Automate literally everything]
+  - apt: [xbacklight, For changing screen brightness]
+  - apt: [pamixer, CLI commands for volume control]
+  - apt: [arandr, Graphical xrandr -- for setting screen layouts]
+  - apt: [feh, Image viewer]
+  - apt: [syncthingtray, File sync + tray icon]
+
+- group: Web browsers
+  pkgs:
+  - apt: [firefox, Web browser]
+  - apt: [chromium, Web browser]
+
+- group: Basic shell utils
+  pkgs:
+  - apt: [rsync, Sync files]
+  - apt: [exa, Prettified ls (but without icons)]
+  - apt: [jq, Json manipulation from terminal]
+  - apt: [trash-cli, 'Freedesktop.org Trash spec trash-put, trash-empty, trash-list, trash-restore']
+
+- group: Shells and terminal emulators
+  pkgs:
+  - apt:   [zsh, Bash-alternative]
+  - apt:   [zsh-doc, Docs for zsh]
+  - apt:   [zsh-autosuggestions, Fish-like autosuggestions]
+  - apt:   [zsh-syntax-highlighting, Fish-like syntax highlighting]
+  - cargo: [cargo install starship --locked, Cross-shell easy-to-configure prompt]
+  - apt:   [kitty, Terminal emulator of choice]
+  - apt:   [kitt-doc, Docs for kitty]
+
+- group: Basic dev tools
+  pkgs:
+  - apt:  [git, Version control]
+  - apt:  [git-crypt, Git encryption]
+  - apt:  [pgcli, (A better) postgres cli]
+  - apt:  [docker.io, Docker]
+  - apt:  [kubernetes-client, Provides kubectl]
+  - apt:  [kubecolor, Colorizes kubectl output]
+  - apt:  [helm, Kubernetes package manager]
+  - curl: [curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash, Node version manager]
+  - curl: [curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && cd /tmp && unzip awscliv2.zip && sudo ./aws/install, AWS cli v2]
+  - curl: [curl -s "https://get.sdkman.io" | bash, Sdkman (jvm version manager)]
+
+- group: Rust
+  pkgs:
+  - curl: [curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh, Rustup for installing the rust toolchain]
+
+- group: Python
+  pkgs:
+  - apt: [black, Python auto-formatter]
+
+- group: Terraform
+  pkgs:
+  - git: [git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv, Terraform version manager]
+
+- group: Firmware
+  pkgs:
+  - apt: [xserver-xorg-input-synaptics, Touchpad drivers]
+
+- group: Work utils
+  pkgs:
+  - apt:     [tailscale, VPN]
+  - flatpak: [Slack, Messaging]
+  - curl:    [curl -sL https://get.garden.io/install.sh | bash, Garden io]
+
+- group: JavaScript
+  pkgs:
+  - bash: [corepack enable && corepack prepare pnpm@latest --activate, Pnpm (npm alternative)]
