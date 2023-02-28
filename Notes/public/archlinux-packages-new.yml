@@ -255,12 +255,12 @@
   pkgs:
   - pacman: [qtile, Window manager]
   - pacman: [awesome, Window manager]
-  - pacman: [arandr, Graphical xrandr, for setting screen layouts]
+  - pacman: [arandr, Graphical xrandr -- for setting screen layouts]
   - pacman: [sxhkd, Simple X hotkey daemon for keybindings]
   - pacman: [dmenu, Extensible pop-up typeahead menu]
   - pacman: [dunst, Desktop notifications]
   - pacman: [picom, Compositor (compton fork)]
-  - pacman: [peek, Screen recorder (mp4, gif, etc.)]
+  - pacman: [peek, 'Screen recorder (mp4, gif, etc.)']
   - pacman: [maim, Screenshots]
   - pacman: [ffmpeg, CLI to record screen & audio]
   groups:
@@ -332,7 +332,8 @@
   - group: Docker/kubernetes
     pkgs:
     - pacman: [lazydocker-bin, Htop for docker]
-    - pacman: [docker, and <x-pkg>`docker-compose`</x-pkg> Containers]
+    - pacman: [docker, Containers]
+    - packman: [docker-compose, Compose containers]
     - pacman: [kubectl, Kubernetes command line]
     - pacman: [kind-bin, Kubernetes in docker (kind) local kubernetes clusters for testing]
   - group: Databases
