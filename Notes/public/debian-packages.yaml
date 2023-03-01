@@ -72,6 +72,7 @@
 - group: Python
   pkgs:
   - apt: [black, Python auto-formatter]
+  - apt: [pipx, Python pip install (but wrap it in a venv)]
 
 - group: Terraform
   pkgs:
@@ -86,6 +87,7 @@
   - apt:     [tailscale, VPN]
   - flatpak: [Slack, Messaging]
   - curl:    [curl -sL https://get.garden.io/install.sh | bash, Garden io]
+  - curl:    [cd "$HOME/.local/bin" && curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz migrate, golang-migrate binary]
 
 - group: JavaScript
   pkgs:
