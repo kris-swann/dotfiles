@@ -71,8 +71,8 @@
 
 - group: Python
   pkgs:
-  - apt: [black, Python auto-formatter]
-  - apt: [pipx, Python pip install (but wrap it in a venv)]
+  - apt:  [pipx, Python pip install (but wrap it in a venv)]
+  - pipx: [black, Python auto-formatter]
 
 - group: Terraform
   pkgs:
