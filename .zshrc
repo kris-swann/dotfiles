@@ -205,6 +205,9 @@ fi
 eval "$(starship init zsh)"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
+# Autocompletion for kubectl
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
 # NVM (this works on arch, but not on debian)
 # TODO: if on archlinux:
 # source /usr/share/nvm/init-nvm.sh
