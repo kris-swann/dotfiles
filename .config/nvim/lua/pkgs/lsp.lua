@@ -92,7 +92,7 @@ null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.textlint.with({
       filetypes = { 'markdown' },
-      prefer_local = 'node_modules/.bin',
+      only_local = 'node_modules/.bin',
     }),
   },
 })
