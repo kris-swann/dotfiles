@@ -64,4 +64,8 @@ cat "$HOME/.config/nvim/spell/en.utf-8.add"
 Set up gpg key (assumes dotfiles-private has been set up)
 ```
 gpg --import ~/.local/share/gpg-exports/krisswannfastmail.private.armor.key
+
+gpg --edit-key krisswann@fastmail.com
+# trust
+# 5
 ```
