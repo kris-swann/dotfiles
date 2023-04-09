@@ -376,6 +376,12 @@
   - pacman: [discord, Gamer chat]
   - pacman: [zoom, Video conferences]
 
+- group: Study
+  desc: Utilities to help study
+  pkgs:
+    - aur:  [anki-bin, Anki flashcard and spaced repitition system (SRS)]
+    - pipx: [inka, Markdown to anki sync]
+
 - group: Games
   pkgs:
   - aur-opt: [multimc-bin, Minecraft version manager]
