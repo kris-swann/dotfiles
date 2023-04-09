@@ -1,5 +1,5 @@
 #!/bin/sh
-mkdir -p "$HOME"
+mkdir -p "$HOME/Screenshots/"
 filename="$(date +%y.%m.%d_%H:%M:%S).png"
 filepath="$HOME/Screenshots/$filename"
 
