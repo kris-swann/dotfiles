@@ -47,7 +47,6 @@ end
 local servers = {
   'pyright',
   'prismals',
-  'tsserver',
   'eslint',
   'graphql',
   'rust_analyzer',
@@ -59,6 +58,17 @@ for _, lsp in pairs(servers) do
     on_attach = on_attach,
   })
 end
+
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern("package.json"),
+  single_file_support = false
+}
+
+lspconfig.denols.setup {
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+}
 
 -- Neodev lsp setup
 lspconfig.lua_ls.setup({
