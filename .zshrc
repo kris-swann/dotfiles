@@ -123,6 +123,8 @@ alias ll="ls -al"
 
 alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=${DEFAULT_REGION:-'us-east-1'} aws --endpoint-url=http://localhost:4566"
 
+alias k="kubectl"
+
 #####################################################################
 ### ADDITIONAL PATHS
 #####################################################################
@@ -204,6 +206,9 @@ fi
 
 eval "$(starship init zsh)"
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
+
+# Autocompletion for kubectl
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
 # NVM (this works on arch, but not on debian)
 # TODO: if on archlinux:
