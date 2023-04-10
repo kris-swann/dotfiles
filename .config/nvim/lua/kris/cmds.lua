@@ -25,5 +25,6 @@ autocmd({ 'BufWinEnter' }, {
   pattern = { '*.md' },
   callback = function ()
     vim.opt_local.spell = true
+    vim.opt_local.textwidth = 100
   end,
 })
