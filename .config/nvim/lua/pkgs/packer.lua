@@ -128,6 +128,7 @@ return require('packer').startup({ function(use)
       'hrsh7th/cmp-buffer',       -- Source: buffer words
       'hrsh7th/cmp-path',         -- Source: filesystem paths
       'hrsh7th/cmp-cmdline',      -- Source: command line completions
+      'hrsh7th/cmp-omni',         -- Source: omnifunc
       'saadparwaiz1/cmp_luasnip', -- Source: luasnips
       'hrsh7th/cmp-nvim-lsp',     -- Source: LSP
       -- 'rcarriga/cmp-dap',         -- Source: DAP

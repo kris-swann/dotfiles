@@ -21,8 +21,8 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'path' },
-  }, {
     { name = 'buffer' },
+    { name = "omni" },
   }),
   formatting = {
     format = lspkind.cmp_format({
