@@ -32,7 +32,16 @@ nnoremap(',,/', function() builtin.find_files({ cwd = '~/.config/' }) end)
 
 -- Grep pickers
 nnoremap(',/', builtin.live_grep)
-cmd('Rg', function(props) builtin.grep_string({ search = props.args }) end, { nargs = '*' })
+cmd(
+  'Rg',
+  function(props)
+    builtin.grep_string({
+      search = props.args,
+      use_regex = true
+    })
+  end,
+  { nargs = '*' }
+)
 
 -- Text pickers
 nnoremap('z=', builtin.spell_suggest)
