@@ -36,6 +36,7 @@ return require('packer').startup({ function(use)
 
   use('lewis6991/impatient.nvim')  -- Faster startups
 
+  -- TODO: remove this once upgraded to nvim that supports editorconfig by default
   use('editorconfig/editorconfig-vim')  -- Support for .editorconfig config files
 
   use('godlygeek/tabular')  -- Table formatting
