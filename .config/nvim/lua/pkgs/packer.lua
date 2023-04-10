@@ -59,13 +59,7 @@ return require('packer').startup({ function(use)
   })
 
   use({
-    'phaazon/hop.nvim',  -- Easymotion plugin  TODO eval
-    branch = 'v2',
-    config = conf('hop'),
-  })
-
-  use({
-    'ggandor/leap.nvim',  -- Easymotion-like plugin TODO eval
+    'ggandor/leap.nvim',  -- Easymotion-like plugin inspired by sneak and lightspeed
     config = conf('leap')
   })
 
