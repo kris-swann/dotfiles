@@ -17,3 +17,13 @@ autocmd({ 'BufWritePost' }, {
   pattern = { '*sxhkdrc' },
   command = [[!pkill -USR1 sxhkd]],
 })
+
+-- I tried to put this in after/ftplugin/markdown.lua but it wasn't working so doing here instead
+augroup('autoset-spell', { clear = true })
+autocmd({ 'BufWinEnter' }, {
+  group = 'autoset-spell',
+  pattern = { '*.md' },
+  callback = function ()
+    vim.opt_local.spell = true
+  end,
+})
