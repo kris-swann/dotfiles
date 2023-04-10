@@ -29,6 +29,8 @@ vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 vim.opt.shiftround = true
 
+vim.opt.conceallevel = 2
+
 vim.opt.list = true
 vim.opt.listchars = {
   tab =       '» ',
