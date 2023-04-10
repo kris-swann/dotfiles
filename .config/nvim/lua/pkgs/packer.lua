@@ -81,12 +81,8 @@ return require('packer').startup({ function(use)
     config = conf('gitsigns'),
   })
 
-  -- use({
-  --   'elihunter173/dirbuf.nvim',  -- Text-centric file manager
-  --   config = conf('dirbuf')
-  -- })
   use({
-    'stevearc/oil.nvim',
+    'stevearc/oil.nvim',  -- vidir like file browser, treats dirs like text files
     config = conf('oil')
   })
 
