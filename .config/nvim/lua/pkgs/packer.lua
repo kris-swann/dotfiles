@@ -162,7 +162,7 @@ return require('packer').startup({ function(use)
   -- use('theHamsta/nvim-dap-virtual-text')
 
   use({
-    'nvim-lualine/lualine.nvim', -- Statusline TODO eval
+    'nvim-lualine/lualine.nvim', -- Statusline
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = conf('lualine'),
   })
