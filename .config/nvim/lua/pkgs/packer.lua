@@ -64,6 +64,19 @@ return require('packer').startup({ function(use)
     config = conf('leap')
   })
 
+  -- use({
+  --   'vimwiki/vimwiki',  -- For better note-taking TODO: eval
+  --   config = conf('vimwiki'),
+  -- })
+  -- use({
+  --   'lervag/wiki.vim',  -- For better note-taking TODO: eval
+  --   config = conf('wiki')
+  -- })
+  use({
+    'epwalsh/obsidian.nvim',  -- For better note-taking TODO: eval
+    config = conf('obsidian'),
+  })
+
   use({
     'TimUntersberger/neogit',  -- Magit for neovim TODO eval
     requires = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' },
