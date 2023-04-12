@@ -246,11 +246,12 @@
 - group: Fonts
   pkgs:
   - ttf-dejavu: Good backup fonts
-  - otf-nerd-fonts-fira-code: Terminal font of chice, supports nerd fonts and ligatures
+  - otf-nerd-fonts-fira-code: Terminal font of choice, supports nerd fonts and ligatures
   - otf-fira-sans: Serif
   - otf-kanit: Serif
   - otf-raleway: Serif
   - montserrat-otf: Serif
+  - inter-font: Traditional font with ligatures
   - group: Google Noto fonts
     pkgs:
     - noto-fonts: Wide UTF coverage as ttf fonts
