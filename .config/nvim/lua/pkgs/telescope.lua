@@ -63,11 +63,11 @@ nnoremap('&/', builtin.search_history)
 nnoremap('&:', builtin.command_history)
 
 -- Git pickers
-nnoremap(',gf', builtin.git_files)
+nnoremap(',gf', builtin.git_status)
 nnoremap(',gc', builtin.git_commits)
 nnoremap(',gh', builtin.git_bcommits)
 nnoremap(',gb', builtin.git_branches)
-nnoremap(',gs', builtin.git_status)
+nnoremap(',ga', builtin.git_files)
 nnoremap(',gt', builtin.git_stash)
 
 -- Lsp pickers
