@@ -9,9 +9,15 @@ nnoremap('R', 'gR')
 nnoremap('Q', '<Nop>')
 nnoremap('gQ', '<Nop>')
 
--- Same movement in wrapped lines
+-- Swap movement for wrapped lines
 nnoremap('j', 'gj')
 nnoremap('k', 'gk')
+nnoremap('^', 'g^')
+nnoremap('$', 'g$')
+nnoremap('gj', 'j')
+nnoremap('gk', 'k')
+nnoremap('g^', '^')
+nnoremap('g$', '$')
 
 -- Scrolling
 nnoremap('<C-e>', '5<C-e>')
@@ -36,3 +42,6 @@ tnoremap('<esc>', [[<C-\><C-n>]])
 
 -- Clear search highlighting
 nnoremap('<esc>', '<cmd>noh<bar>lclose<bar>pclose<CR>')
+
+nnoremap('<leader><leader>t', '<cmd>tabe %<CR>')
+nnoremap('<leader><leader>T', '<C-W>T')

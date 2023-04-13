@@ -39,7 +39,8 @@ vim.opt.listchars = {
   precedes =  '←',
   extends =   '→',
 }
-vim.opt.showbreak = '↪ '
+vim.opt.breakindent = true  -- wraps have same indent as their parents
+-- vim.opt.showbreak = '↪ '  -- Unused while testing out breakindent without any indicators
 vim.opt.fillchars = {
   vert =      '│',
   fold =      ' ',

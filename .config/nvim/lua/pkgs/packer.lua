@@ -60,6 +60,11 @@ return require('packer').startup({ function(use)
   })
 
   use({
+    'folke/zen-mode.nvim', -- Goyo style plugin
+    config = conf('zen_mode'),
+  })
+
+  use({
     'ggandor/leap.nvim',  -- Easymotion-like plugin inspired by sneak and lightspeed
     config = conf('leap')
   })
