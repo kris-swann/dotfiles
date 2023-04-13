@@ -116,6 +116,7 @@ alias e.="$EDITOR ./"
 alias gm="cd /run/media/kris"
 alias gp="cd ~/Projects"
 alias gd="cd ~/Downloads"
+alias gcn="cd ~/.config/nvim/lua"
 
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
