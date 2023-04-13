@@ -26,6 +26,6 @@ autocmd({ 'BufWinEnter' }, {
   callback = function ()
     vim.opt_local.wrap = false
     vim.opt_local.spell = true
-    vim.opt_local.textwidth = 100
+    vim.opt_local.textwidth = 70
   end,
 })
