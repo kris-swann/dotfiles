@@ -19,6 +19,7 @@ nnoremap('<C-y>', '5<C-y>')
 nnoremap('<C-d>', '<C-d>zz')
 nnoremap('<C-u>', '<C-u>zz')
 nnoremap('n', 'nzz')
+nnoremap('G', 'Gzz')
 nnoremap('zl', 'zL')
 nnoremap('zh', 'zH')
 
