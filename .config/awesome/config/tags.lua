@@ -4,6 +4,7 @@ local sharedtags = require("external.awesome-sharedtags")
 local default_layout = awful.layout.layouts[1]
 
 return sharedtags({
+  { name = "`", layout = default_layout },
   { name = "1", layout = default_layout },
   { name = "2", layout = default_layout },
   { name = "3", layout = default_layout },
