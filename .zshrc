@@ -105,6 +105,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 alias t="trash"
 
+alias gn="cd ~/Notes"
 alias nn='e ~/Notes/Daily/$(date '+%Y-%m-%d').md -c ":chdir ~/Notes | ZenMode | normal Gzz"'
 alias n.='e ~/Notes'
 
