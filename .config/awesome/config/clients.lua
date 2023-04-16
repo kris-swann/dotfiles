@@ -55,6 +55,7 @@ module.rules = {
         "pinentry",
       },
       class = {
+        "feh-float",
         "Arandr",
         "Blueman-manager",
         "Gpick",
@@ -77,7 +78,7 @@ module.rules = {
         "pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
       },
     },
-    properties = { floating = true },
+    properties = { floating = true, placement = awful.placement.centered },
   },
   {
     rule = {
@@ -98,7 +99,7 @@ module.rules = {
 module.titlebar = function(c)
   local titlebar_mousebinds = gears.table.join(
     awful.button(
-      {}, 1, 
+      {}, 1,
       function()
         c:emit_signal("request::activate", "titlebar", { raise = true })
         awful.mouse.client.move(c)

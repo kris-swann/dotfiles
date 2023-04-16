@@ -1,0 +1,19 @@
+#!/bin/sh
+
+file=$1
+
+width=$(identify -ping -format '%w' "$file")
+height=$(identify -ping -format '%h' "$file")
+
+max_width=${MAX_PREVIEW_WIDTH:-2000}
+max_height=${MAX_PREVIEW_HEIGHT:-1500}
+
+echo "width = $width height = $height"
+echo "mwidth = $max_width mheight = $max_height"
+
+if [ "$width" -gt "$max_width" ] || [ "$height" -gt "$max_height" ]; then
+  feh -F "$file"
+else
+  feh --class 'feh-float' "$file"
+fi
+
