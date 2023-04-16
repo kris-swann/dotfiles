@@ -7,12 +7,14 @@ require'clipboard-image'.setup {
       -- If in visual mode use selected text
       local mode = vim.api.nvim_get_mode().mode
       if mode == 'v' then
-        -- Recover visual selection `gv`, yank it to the `a` register `"ay`, then delete it
-        vim.cmd("normal! gv\"ay")
+        -- Recover visual selection by: `v` to exit visual mode then `gv`
+        -- (If you don't exit then gv will select your previous selection)
+        -- finally yank the the `a` register
+        vim.cmd("normal! vgv\"ay")
         -- Evaluate contents of `a` register
         local selection = vim.api.nvim_eval("@a")
-        -- Delete the selection (to replace with the image text)
-        vim.cmd("normal! gvc")
+        -- Delete the selection (will be replaced by clipboard-image)
+        vim.cmd("normal! gvd")
         return selection
       else
         -- Prompt for name
