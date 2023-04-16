@@ -1,32 +1,18 @@
-local set = require('utils.keymap').set
+-- local set = require('utils.keymap').set
 
 require("obsidian").setup({
   dir = "~/Notes",
   disable_frontmatter = true,
   completion = {
-    nvim_cmp = true,
+    -- nvim_cmp = true,
   },
   daily_notes = {
-    folder = "Daily",
+    folder = "Text/Daily",
   },
 })
 
 -- Map gf to :ObsidianFollowLink
-set({ 'n' }, 'gf',
-  function()
-    if require('obsidian').util.cursor_on_markdown_link() then
-      return "<cmd>ObsidianFollowLink<CR>"
-    else
-      return "gf"
-    end
-  end,
-  { noremap = false, expr = true }
-)
-
--- -- Map gf to :ObsidianFollowLink
--- vim.keymap.set(
---   "n",
---   "gf",
+-- set({ 'n' }, 'gf',
 --   function()
 --     if require('obsidian').util.cursor_on_markdown_link() then
 --       return "<cmd>ObsidianFollowLink<CR>"
@@ -34,5 +20,5 @@ set({ 'n' }, 'gf',
 --       return "gf"
 --     end
 --   end,
---   { noremap = false, expr = true}
+--   { noremap = false, expr = true }
 -- )

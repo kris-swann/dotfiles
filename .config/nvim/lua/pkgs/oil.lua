@@ -8,14 +8,6 @@ oil.setup({
   },
   view_options = {
     show_hidden = true,
-    is_always_hidden = function(name, bufnr)
-      local notesDir = vim.env.HOME..'/Notes/'
-      if oil.get_current_dir() == notesDir then
-        -- Never show dot files in NotesDir
-        return vim.startswith(name, ".")
-      end
-      return false
-    end,
   },
   keymaps = {
     ["g?"] = "actions.show_help",
