@@ -72,7 +72,6 @@ return require('packer').startup({ function(use)
   --   'epwalsh/obsidian.nvim',  -- For better note-taking TODO: eval
   --   config = conf('obsidian'), -- Not setting up just want the nicer syntax higlighting
   -- })
-  use('ixru/nvim-markdown')   -- Small markdown niceties
   use({
     -- 'ekickx/clipboard-image.nvim',  -- Alows pasting images from clipboard
     -- Waiting on https://github.com/ekickx/clipboard-image.nvim/pull/48
