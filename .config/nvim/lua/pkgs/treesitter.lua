@@ -3,8 +3,9 @@ require('nvim-treesitter.configs').setup({
   ignore_install = {'smali'},
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false,
-    additional_vim_regex_highlighting = { "markdown" },
+    -- additional_vim_regex_highlighting = false,
+    -- additional_vim_regex_highlighting = { "markdown" },
+    -- disable = { 'markdown' }
   },
   incremental_selection = {
     enable = true,

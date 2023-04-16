@@ -52,6 +52,7 @@ local servers = {
   'rust_analyzer',
   'svelte',
   'kotlin_language_server',
+  'marksman'
 }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup({

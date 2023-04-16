@@ -36,8 +36,7 @@ return require('packer').startup({ function(use)
 
   use('lewis6991/impatient.nvim')  -- Faster startups
 
-  -- TODO: remove this once upgraded to nvim that supports editorconfig by default
-  use('editorconfig/editorconfig-vim')  -- Support for .editorconfig config files
+  use('editorconfig/editorconfig-vim')  -- Support for .editorconfig config files (not needed since 0.9)
 
   use('godlygeek/tabular')  -- Table formatting
 
@@ -70,22 +69,16 @@ return require('packer').startup({ function(use)
   })
 
   -- use({
-  --   'vimwiki/vimwiki',  -- For better note-taking TODO: eval
-  --   config = conf('vimwiki'),
+  --   'epwalsh/obsidian.nvim',  -- For better note-taking TODO: eval
+  --   config = conf('obsidian'), -- Not setting up just want the nicer syntax higlighting
   -- })
-  -- use({
-  --   'lervag/wiki.vim',  -- For better note-taking TODO: eval
-  --   config = conf('wiki')
-  -- })
+  use('ixru/nvim-markdown')   -- Small markdown niceties
   use({
-    'epwalsh/obsidian.nvim',  -- For better note-taking TODO: eval
-    config = conf('obsidian'),
-  })
-
-  use({
-    'TimUntersberger/neogit',  -- Magit for neovim TODO eval
-    requires = { 'nvim-lua/plenary.nvim', 'sindrets/diffview.nvim' },
-    config = conf('neogit'),
+    -- 'ekickx/clipboard-image.nvim',  -- Alows pasting images from clipboard
+    -- Waiting on https://github.com/ekickx/clipboard-image.nvim/pull/48
+    'postfen/clipboard-image.nvim',
+    branch = 'patch-1',
+    config = conf("clipboard_image"),
   })
 
   use({
@@ -150,14 +143,14 @@ return require('packer').startup({ function(use)
       'saadparwaiz1/cmp_luasnip', -- Source: luasnips
       'hrsh7th/cmp-nvim-lsp',     -- Source: LSP
       -- 'rcarriga/cmp-dap',         -- Source: DAP
-      { 'L3MON4D3/LuaSnip', tag = 'v1.1.0' },   -- Must have at least one snippet source TODO eval
+      { 'L3MON4D3/LuaSnip', tag = 'v1.1.0' },   -- Must have at least one snippet source
     },
     config = conf('cmp'),
   })
 
   use({
     'nvim-treesitter/nvim-treesitter',  -- Base Treesitter
-    branch = 'v0.8.5.2',
+    branch = 'v0.9.0',
     -- run = ':TSUpdate',
     run = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
@@ -186,10 +179,10 @@ return require('packer').startup({ function(use)
     config = conf('indent_blankline'),
   })
 
-  use({
-    'NTBBloodbath/rest.nvim', -- Rest client TODO eval
-    requires = { 'nvim-lua/plenary.nvim' },
-  })
+  -- use({
+  --   'NTBBloodbath/rest.nvim', -- Rest client TODO eval
+  --   requires = { 'nvim-lua/plenary.nvim' },
+  -- })
 
   use({
     'edluffy/hologram.nvim',  -- Kitty term inline images (Experimental)
@@ -198,10 +191,10 @@ return require('packer').startup({ function(use)
 
   -- Colorschemes
   use({ 'folke/tokyonight.nvim',      as='tokyonight' })
-  use({ 'navarasu/onedark.nvim',      as='onedark' })
-  use({ 'gruvbox-community/gruvbox',  as='gruvbox' })
-  use({ 'catppuccin/nvim',            as='catppuccin' })
-  use({ 'rose-pine/neovim',           as='rose-pine' })
+  -- use({ 'navarasu/onedark.nvim',      as='onedark' })
+  -- use({ 'gruvbox-community/gruvbox',  as='gruvbox' })
+  -- use({ 'catppuccin/nvim',            as='catppuccin' })
+  -- use({ 'rose-pine/neovim',           as='rose-pine' })
 
   use({
     'uga-rosa/ccc.nvim', -- Color picker
