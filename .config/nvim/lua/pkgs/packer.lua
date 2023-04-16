@@ -184,11 +184,6 @@ return require('packer').startup({ function(use)
   --   requires = { 'nvim-lua/plenary.nvim' },
   -- })
 
-  use({
-    'edluffy/hologram.nvim',  -- Kitty term inline images (Experimental)
-    config = conf('hologram'),
-  })
-
   -- Colorschemes
   use({ 'folke/tokyonight.nvim',      as='tokyonight' })
   -- use({ 'navarasu/onedark.nvim',      as='onedark' })
