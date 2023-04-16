@@ -112,6 +112,7 @@ alias n.='e ~/Notes/Text'
 alias g="git"
 alias dc="docker-compose"
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
+alias .fs=".f add ~/.config/nvim/spell/en.utf-8.add && .f commit -m 'Update spell file'"
 alias .fprivate="git --git-dir=$HOME/Projects/dotfiles-private/ --work-tree=$HOME"
 alias e="$EDITOR"
 alias e.="$EDITOR ./"
