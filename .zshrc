@@ -249,4 +249,6 @@ load-nvmrc
 
 # Sdkman (java version manager)
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
+  source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
