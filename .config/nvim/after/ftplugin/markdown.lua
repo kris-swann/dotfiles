@@ -1,5 +1,8 @@
 local Path = require('plenary.path')
 
+------------------------------
+-- Smart gx
+------------------------------
 
 -- Copied from ixru/nvim-markdown
 local function find_word_under_cursor()
@@ -31,7 +34,6 @@ local function find_word_under_cursor()
   end
 end
 
-
 -- Modified from ixru/nvim-markdown
 local function find_link_under_cursor()
   local cursor = vim.api.nvim_win_get_cursor(0)
@@ -60,7 +62,6 @@ local function find_link_under_cursor()
   end
 end
 
-
 local function link_url_to_absolute_path(url)
   local buf_dir = vim.fn.expand('%:p:h')
   local source = url
@@ -69,7 +70,6 @@ local function link_url_to_absolute_path(url)
   end
   return source
 end
-
 
 local function open_image_in_feh(path)
   if path == nil then
@@ -81,7 +81,6 @@ local function open_image_in_feh(path)
   end
   vim.cmd("silent !preview-image '"..path.."'")
 end
-
 
 -- Modified from ixru/nvim-markdown
 local function smart_open()
@@ -108,9 +107,5 @@ local function smart_open()
     end
   end
 end
-
-
-
-
 
 vim.keymap.set("n", "gx", function() smart_open() end)
