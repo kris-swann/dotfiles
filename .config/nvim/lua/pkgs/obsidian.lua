@@ -7,7 +7,7 @@ require("obsidian").setup({
     -- nvim_cmp = true,
   },
   daily_notes = {
-    folder = "Text/Daily",
+    folder = "Content/Daily",
   },
 })
 

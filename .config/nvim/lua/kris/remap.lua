@@ -47,8 +47,8 @@ nnoremap('<leader><leader>t', '<cmd>tabe %<CR>')
 nnoremap('<leader><leader>T', '<C-W>T')
 
 -- Quick jump to notes
-vim.keymap.set('n', '<leader>n.', function() vim.cmd('e ~/Notes/Text') end)
-vim.keymap.set('n', '<leader>nn', function() vim.cmd(os.date('e ~/Notes/Text/Daily/%Y-%m-%d.md')) end)
+vim.keymap.set('n', '<leader>n.', function() vim.cmd('e ~/Notes/Content') end)
+vim.keymap.set('n', '<leader>nn', function() vim.cmd(os.date('e ~/Notes/Content/Daily/%Y-%m-%d.md')) end)
 
 -- Insert date in insert mode
 vim.keymap.set('i', '<C-d>', "<C-r>=strftime('%F')<CR>")
