@@ -52,4 +52,4 @@ vim.keymap.set('n', '<leader>nn', function() vim.cmd(os.date('e ~/Notes/Content/
 
 -- Insert date in insert mode
 vim.keymap.set('i', '<C-d>', "<C-r>=strftime('%F')<CR>")
-vim.keymap.set('i', '<C-M-d>', "<C-r>=strftime('%a %b %-e, %Y')<CR>")
+vim.keymap.set('i', '<C-M-d>', "<C-r>=strftime('%F: %a %b %-e, %Y')<CR>")
