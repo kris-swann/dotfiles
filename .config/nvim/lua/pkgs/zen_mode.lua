@@ -13,7 +13,7 @@ require('zen-mode').setup({
       colorcolumn = "", -- disable colorcolumn
       foldcolumn = "0", -- disable fold column
       list = false, -- disable whitespace characters
-      wrap = true,  -- enable soft wraps
+      wrap = false,  -- disable soft wraps
       linebreak = true,  -- break at words rather than at width
     },
   },
