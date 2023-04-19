@@ -2,7 +2,7 @@ local cmd = vim.api.nvim_create_user_command
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
-cmd('Notes', [[:e ~/Notes]], {})
+cmd('Notes', [[:e ~/Notes/Content]], {})
 cmd('Config', [[:e ~/.config/nvim]], {})
 cmd('Sxhkdrc', [[:e ~/.config/sxhkd/sxhkdrc]], {})
 
@@ -16,17 +16,4 @@ autocmd({ 'BufWritePost' }, {
   group = 'sxhkd-refresh',
   pattern = { '*sxhkdrc' },
   command = [[!pkill -USR1 sxhkd]],
-})
-
--- I tried to put this in after/ftplugin/markdown.lua but it wasn't working so doing here instead
-augroup('autoset-spell', { clear = true })
-autocmd({ 'BufWinEnter' }, {
-  group = 'autoset-spell',
-  pattern = { '*.md' },
-  callback = function ()
-    vim.opt_local.wrap = false
-    vim.opt_local.textwidth = 70
-    vim.opt_local.spell = true
-    vim.cmd('IndentBlanklineDisable')
-  end,
 })

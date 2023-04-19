@@ -1,4 +1,87 @@
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
 local Path = require('plenary.path')
+
+
+
+
+
+--------------------------
+-- Basic Markdown defaults
+--------------------------
+augroup('markdown-defaults', { clear = true })
+autocmd({ 'BufWinEnter' }, {
+  group = 'markdown-defaults',
+  pattern = { '*.md' },
+  callback = function ()
+    vim.opt_local.textwidth = 70
+    vim.opt_local.spell = true
+    vim.cmd('IndentBlanklineDisable')
+  end,
+})
+
+
+
+
+
+----------------------------------------------
+-- Folding (Obsidian style callouts)
+----------------------------------------------
+function NotesMarkdownCalloutFoldExpr(line_num)
+  local line = vim.fn.getline(line_num)
+  -- Fold level is the number of leading '>' chars (ignoring spaces)
+  local num_quotes = 0
+  for char in line:gmatch"." do
+    if char == ">" then
+      num_quotes = num_quotes + 1
+    elseif char ~= " " then
+      break
+    end
+  end
+  return num_quotes
+end
+
+function NotesMarkdownCalloutFoldText(foldstart)
+  local line = vim.fn.getline(foldstart)
+  -- Try to extract display title from `> [!info]-` style lines
+  local start, _, callout_type, callout_title = line:find("> %[!(.-)%]%-? ?(.*)")
+  local prefix = line:sub(0, start - 1)
+  if (callout_title:len() > 0) then
+    return prefix..callout_title
+  elseif (callout_type:len() > 0) then
+    -- Note, the surrounding parens are nessesary to return a string instead of a tuple
+    return prefix..(
+      callout_type
+      :gsub("%-", " ")            -- Replace `-` with ` `
+      :gsub("^%l", string.upper)  -- Capitalize first letter
+      :gsub(" %l", string.upper)  -- Capitalize first letter of rest of the words
+    )
+  else
+    return line
+  end
+end
+
+vim.opt_local.foldmethod = "expr"
+vim.opt_local.foldexpr = "v:lua.NotesMarkdownCalloutFoldExpr(v:lnum)"
+vim.opt_local.foldtext = "v:lua.NotesMarkdownCalloutFoldText(v:foldstart)"
+vim.opt_local.foldlevel = 0  -- Fold everything by default
+
+-- For some reason fold level isn't recomputed on newly inserted text
+-- resetting the foldmethod does that without messing up the foldlevel
+augroup("notes-recompute-folds", { clear = true })
+autocmd({ "InsertLeave", "TextChanged" }, {
+  group = "notes-recompute-folds",
+  pattern = { "*.md" },
+  callback = function ()
+    vim.opt_local.foldmethod = "expr"
+  end,
+})
+
+
+
+
+
 
 ------------------------------
 -- Smart gx
