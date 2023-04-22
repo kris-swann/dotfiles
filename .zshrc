@@ -105,9 +105,9 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 alias t="trash"
 
-alias nn='e ~/Notes/Content/Daily/$(date '+%Y-%m-%d').md -c ":chdir ~/Notes/Content| ZenMode | normal Gzz"'
 alias gn="cd ~/Notes/Content"
-alias n.='cd ~/Notes/Content'
+alias Notes='e ~/Notes/Content'
+alias NN='e ~/Notes/Content/Daily/$(date '+%Y-%m-%d').md -c ":chdir ~/Notes/Content| ZenMode | normal Gzz"'
 
 alias g="git"
 alias dc="docker-compose"
