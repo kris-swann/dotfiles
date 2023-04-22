@@ -45,5 +45,8 @@ set('n', '<leader><leader>t', '<cmd>tabe %<CR>')
 set('n', '<leader><leader>T', '<C-W>T')
 
 -- Insert date in insert mode
-set('i', '<C-d>', "<C-r>=strftime('%F')<CR>")
-set('i', '<C-M-d>', "<C-r>=strftime('%F: %a %b %-e, %Y')<CR>")
+set('i', '<C-d>', [[<C-r>=strftime('%F')<CR>]])
+set('i', '<C-M-d>', [[<C-r>=strftime('%F: %a %b %-e, %Y')<CR>]])
+-- Insert note headers (I forget easily)
+set('i', '<C-f>', [[> [!flashcards]-]])
+set('i', '<C-M-f>', [[> > [!flashcard-info]-]])
