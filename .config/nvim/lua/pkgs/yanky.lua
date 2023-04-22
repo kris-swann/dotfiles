@@ -1,7 +1,6 @@
 local utils = require('yanky.utils')
 local mapping = require('yanky.telescope.mapping')
-local set = require('utils.keymap').set
-local nmap = require('utils.keymap').nmap
+local set = vim.keymap.set
 
 require('yanky').setup({
   ring = {
@@ -48,18 +47,19 @@ set({'n','x'}, 'p', '<plug>(YankyPutAfter)')
 set({'n','x'}, 'P', '<plug>(YankyPutBefore)')
 set({'n','x'}, 'gp', '<plug>(YankyGPutAfter)')
 set({'n','x'}, 'gP', '<plug>(YankyGPutBefore)')
-nmap('<c-p>', '<plug>(YankyCycleForward)')
-nmap('<c-n>', '<plug>(YankyCycleBackward)')
 
-nmap(']p', '<plug>(YankyPutIndentAfterLinewise)')
-nmap('[p', '<plug>(YankyPutIndentBeforeLinewise)')
-nmap(']P', '<plug>(YankyPutIndentAfterLinewise)')
-nmap('[P', '<plug>(YankyPutIndentBeforeLinewise)')
+set('n', '<c-p>', '<plug>(YankyCycleForward)', { noremap = false })
+set('n', '<c-n>', '<plug>(YankyCycleBackward)', { noremap = false })
 
-nmap('>p', '<plug>(YankyPutIndentAfterShiftRight)')
-nmap('<p', '<plug>(YankyPutIndentAfterShiftLeft)')
-nmap('>P', '<plug>(YankyPutIndentBeforeShiftRight)')
-nmap('<P', '<plug>(YankyPutIndentBeforeShiftLeft)')
+set('n', ']p', '<plug>(YankyPutIndentAfterLinewise)', { noremap = false })
+set('n', '[p', '<plug>(YankyPutIndentBeforeLinewise)', { noremap = false })
+set('n', ']P', '<plug>(YankyPutIndentAfterLinewise)', { noremap = false })
+set('n', '[P', '<plug>(YankyPutIndentBeforeLinewise)', { noremap = false })
 
-nmap('=p', '<plug>(YankyPutAfterFilter)')
-nmap('=P', '<plug>(YankyPutBeforeFilter)')
+set('n', '>p', '<plug>(YankyPutIndentAfterShiftRight)', { noremap = false })
+set('n', '<p', '<plug>(YankyPutIndentAfterShiftLeft)', { noremap = false })
+set('n', '>P', '<plug>(YankyPutIndentBeforeShiftRight)', { noremap = false })
+set('n', '<P', '<plug>(YankyPutIndentBeforeShiftLeft)', { noremap = false })
+
+set('n', '=p', '<plug>(YankyPutAfterFilter)', { noremap = false })
+set('n', '=P', '<plug>(YankyPutBeforeFilter)', { noremap = false })

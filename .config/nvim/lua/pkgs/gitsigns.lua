@@ -1,8 +1,4 @@
-local keymap = require('utils.keymap')
-local nnoremap = keymap.nnoremap
-local vnoremap = keymap.vnoremap
-local xnoremap = keymap.xnoremap
-local onoremap = keymap.onoremap
+local set = vim.keymap.set
 
 require('gitsigns').setup({
   signs = {
@@ -44,32 +40,32 @@ require('gitsigns').setup({
     local gs = package.loaded.gitsigns
 
     -- Navigation
-    nnoremap(']c', function()
+    set('n', ']c', function()
       if vim.wo.diff then return ']c' end
       vim.schedule(function() gs.next_hunk() end)
       return '<Ignore>'
     end, {expr=true})
-    nnoremap('[c', function()
+    set('n', '[c', function()
       if vim.wo.diff then return '[c' end
       vim.schedule(function() gs.prev_hunk() end)
       return '<Ignore>'
     end, {expr=true})
 
     -- Actions
-    nnoremap('<leader>hs', ':Gitsigns stage_hunk<CR>')
-    vnoremap('<leader>hs', ':Gitsigns stage_hunk<CR>')
-    nnoremap('<leader>hr', ':Gitsigns reset_hunk<CR>')
-    vnoremap('<leader>hr', ':Gitsigns reset_hunk<CR>')
-    nnoremap('<leader>hu', gs.undo_stage_hunk)
-    nnoremap('<leader>hp', gs.preview_hunk)
-    nnoremap('<leader>hb', function() gs.blame_line{full=true} end)
-    nnoremap('<leader>tb', gs.toggle_current_line_blame)
-    nnoremap('<leader>hd', gs.diffthis)
-    nnoremap('<leader>hD', function() gs.diffthis('~') end)
-    nnoremap('<leader>td', gs.toggle_deleted)
+    set('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    set('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    set('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    set('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    set('n', '<leader>hu', gs.undo_stage_hunk)
+    set('n', '<leader>hp', gs.preview_hunk)
+    set('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    set('n', '<leader>tb', gs.toggle_current_line_blame)
+    set('n', '<leader>hd', gs.diffthis)
+    set('n', '<leader>hD', function() gs.diffthis('~') end)
+    set('n', '<leader>td', gs.toggle_deleted)
 
     -- Text object
-    onoremap('ih', ':<C-U>Gitsigns select_hunk<CR>')
-    xnoremap('ih', ':<C-U>Gitsigns select_hunk<CR>')
+    set('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    set('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 })
