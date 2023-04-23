@@ -10,16 +10,9 @@ local Path = require('plenary.path')
 --------------------------
 -- Basic Markdown defaults
 --------------------------
-augroup('markdown-defaults', { clear = true })
-autocmd({ 'BufWinEnter' }, {
-  group = 'markdown-defaults',
-  pattern = { '*.md' },
-  callback = function ()
-    vim.opt_local.textwidth = 70
-    vim.opt_local.spell = true
-    vim.cmd('IndentBlanklineDisable')
-  end,
-})
+vim.opt_local.textwidth = 70
+vim.opt_local.spell = true
+vim.cmd('IndentBlanklineDisable')
 
 
 
