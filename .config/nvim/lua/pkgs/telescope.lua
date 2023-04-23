@@ -29,6 +29,11 @@ set('n', ',,/', function() builtin.find_files({ cwd = '~/.config/' }) end)
 
 -- Grep pickers
 set('n', ',/', builtin.live_grep)
+set('n', ',,/', function()
+  -- Fuzzy search
+  -- https://github.com/nvim-telescope/telescope.nvim/issues/564#issuecomment-786850829
+  builtin.grep_string({ shorten_path = true, word_match = '-w', only_sort_text = true, search = '' })
+end)
 cmd(
   'Rg',
   function(props)
