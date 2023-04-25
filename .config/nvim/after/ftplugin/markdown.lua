@@ -14,7 +14,7 @@ vim.cmd('IndentBlanklineDisable')
 
 -- Hack: Must wrap opts in autocmd to play nice with oil.nvim
 augroup("markdown-basic-opts", { clear = true })
-autocmd({ "BufEnter" }, {
+autocmd({ "BufWinEnter" }, {
   group = "markdown-basic-opts",
   pattern = { "*.md" },
   callback = function ()
@@ -66,7 +66,7 @@ end
 
 -- Hack: Must wrap opts in autocmd to play nice with oil.nvim
 augroup("notes-set-fold", { clear = true })
-autocmd({ "BufEnter" }, {
+autocmd({ "BufWinEnter" }, {
   group = "notes-set-fold",
   pattern = { "*.md" },
   callback = function ()
