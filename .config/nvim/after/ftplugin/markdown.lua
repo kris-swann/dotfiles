@@ -10,9 +10,18 @@ local Path = require('plenary.path')
 --------------------------
 -- Basic Markdown defaults
 --------------------------
-vim.opt_local.textwidth = 70
-vim.opt_local.spell = true
 vim.cmd('IndentBlanklineDisable')
+
+-- Hack: Must wrap opts in autocmd to play nice with oil.nvim
+augroup("markdown-basic-opts", { clear = true })
+autocmd({ "BufEnter" }, {
+  group = "markdown-basic-opts",
+  pattern = { "*.md" },
+  callback = function ()
+    vim.opt_local.textwidth = 70
+    vim.opt_local.spell = true
+  end,
+})
 
 
 
@@ -55,10 +64,19 @@ function NotesMarkdownCalloutFoldText(foldstart)
   end
 end
 
-vim.opt_local.foldmethod = "expr"
-vim.opt_local.foldexpr = "v:lua.NotesMarkdownCalloutFoldExpr(v:lnum)"
-vim.opt_local.foldtext = "v:lua.NotesMarkdownCalloutFoldText(v:foldstart)"
-vim.opt_local.foldlevel = 0  -- Fold everything by default
+-- Hack: Must wrap opts in autocmd to play nice with oil.nvim
+augroup("notes-set-fold", { clear = true })
+autocmd({ "BufEnter" }, {
+  group = "notes-set-fold",
+  pattern = { "*.md" },
+  callback = function ()
+    vim.opt_local.foldmethod = "expr"
+    vim.opt_local.foldexpr = "v:lua.NotesMarkdownCalloutFoldExpr(v:lnum)"
+    vim.opt_local.foldtext = "v:lua.NotesMarkdownCalloutFoldText(v:foldstart)"
+    vim.opt_local.foldlevel = 0  -- Fold everything by default
+  end,
+})
+
 
 -- For some reason fold level isn't recomputed on newly inserted text
 -- resetting the foldmethod does that without messing up the foldlevel
