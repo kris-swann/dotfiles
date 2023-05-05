@@ -103,7 +103,9 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 ### ALIASES
 #####################################################################
 
-alias t="trash"
+alias tr="trash"
+
+alias t="todo.sh -d $HOME/Notes/.todo.cfg"
 
 alias gn="cd ~/Notes/Content"
 alias NN='e ~/Notes/Content/Daily/$(date '+%Y-%m-%d').md -c ":chdir ~/Notes/Content| ZenMode | normal Gzz"'
