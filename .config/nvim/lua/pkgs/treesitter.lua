@@ -1,11 +1,16 @@
+-- Load custom treesitter grammar for org filetype
+require('orgmode').setup_ts_grammar()
+
 require('nvim-treesitter.configs').setup({
   ensure_installed = 'all',
   ignore_install = {'smali'},
   highlight = {
     enable = true,
-    -- additional_vim_regex_highlighting = false,
-    -- additional_vim_regex_highlighting = { "markdown" },
-    -- disable = { 'markdown' }
+    additional_vim_regex_highlighting = {
+      -- Required for spellcheck, some LaTex highlights and
+      -- code block highlights that do not have ts grammar
+      'org'
+    },
   },
   incremental_selection = {
     enable = true,
