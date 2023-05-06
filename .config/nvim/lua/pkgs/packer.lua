@@ -48,6 +48,8 @@ return require('packer').startup({ function(use)
   use('tpope/vim-abolish')    -- Working with variations of words
   use('tpope/vim-eunuch')     -- Change ftype after writing shebang, and other unix sugar
 
+  use('masukomi/vim-markdown-folding')  -- TODO: eval
+
   use({
     'gbprod/yanky.nvim',  -- Yank/paste ring and history (alternatives vim-yoink, nvim-neoclip)
     config = conf('yanky'),
