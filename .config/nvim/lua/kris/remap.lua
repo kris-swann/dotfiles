@@ -17,6 +17,10 @@ set('n', 'gk', 'k')
 set('n', 'g^', '^')
 set('n', 'g$', '$')
 
+-- Folding (za is awkward to type)
+set('n', 'z<space>', 'za')
+set('n', 'z<S-space>', 'zA')
+
 -- Scrolling
 set('n', '<C-e>', '5<C-e>')
 set('n', '<C-y>', '5<C-y>')
