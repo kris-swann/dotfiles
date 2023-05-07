@@ -102,7 +102,7 @@ autocmd({ "BufWinEnter" }, {
     vim.opt_local.foldmethod = "expr"
     vim.opt_local.foldexpr="NestedMarkdownFolds()"  -- Comes from masukomi/vim-markdown-folding
     vim.opt_local.foldtext = "v:lua.MarkdownFoldText(v:foldstart)"
-    vim.opt_local.foldlevel = 2  -- Fold h3's and lower on open
+    vim.opt_local.foldlevel = 3  -- Fold h4's and lower on file open
   end,
 })
 
