@@ -1,3 +1,5 @@
+local set = vim.keymap.set
+local cmd = vim.api.nvim_create_user_command
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -7,9 +9,9 @@ local Path = require('plenary.path')
 
 
 
---------------------------
+-----------------------------------
 -- Basic Markdown defaults
---------------------------
+-----------------------------------
 vim.cmd('IndentBlanklineDisable')
 
 -- Hack: Must wrap opts in autocmd to play nice with oil.nvim
@@ -101,6 +103,71 @@ autocmd({ "BufWinEnter" }, {
 --   end,
 -- })
 
+
+
+
+
+-------------------------------------------
+-- Set title
+-------------------------------------------
+local function markdown_set_title()
+  local bufn = vim.api.nvim_get_current_buf()
+  local filename = vim.fn.expand('%:t:r')
+  local is_daily_notes = filename:match('%d%d%d%d%-%d%d%-%d%d') == filename -- Is of form dddd-dd-dd
+  local title = '# '..filename
+  if is_daily_notes then
+    local note_date_str = filename:match('%d%d%d%d%-%d%d%-%d%d')
+    local note_date = vim.fn.strptime('%F', note_date_str)
+    title = '# '..vim.fn.strftime('%F: %a %b %-e, %Y', note_date)
+  end
+
+  local is_empty_file = vim.fn.wordcount().chars == 0
+  local replace_to = 0  -- If empty file, this is a good default
+  local hit_end_of_file = false
+  -- Non-empty file, figure out line to replace to
+  if not is_empty_file then
+    local saw_header = false
+    local i = 0
+    while true do
+      local line = vim.api.nvim_buf_get_lines(bufn, i, i + 1, false)[1]
+      if line == nil then
+        hit_end_of_file = true
+        break -- Must be end of file
+      end
+      local line_is_header = line:sub(1, 2) == '# '
+      local line_has_non_whitespace = line:match('[^ ]') ~= nil
+      if not saw_header and line_is_header then
+        saw_header = true
+      elseif line_has_non_whitespace then
+        break  -- We've found the line we want to replace to
+      end
+      i = i + 1
+    end
+    replace_to = i
+  end
+
+  local new_lines = { "", title, "", "" }
+  if is_empty_file or hit_end_of_file then
+    table.insert(new_lines, "")  -- Add one more line empty line (to start writing on)
+  end
+  vim.api.nvim_buf_set_lines(bufn, 0, replace_to, false, new_lines)
+  return is_empty_file
+end
+
+cmd('Title', function()
+  markdown_set_title()
+  vim.cmd(":5")  -- Goto line 5
+end, {})
+
+augroup("notes-markdown-auto-title", { clear = true })
+autocmd({ "BufEnter" }, {
+  group = "notes-markdown-auto-title",
+  pattern = { "*/Notes/**/*.md" },
+  callback = function ()
+    markdown_set_title()
+    vim.cmd(":5")  -- Goto line 5
+  end,
+})
 
 
 
