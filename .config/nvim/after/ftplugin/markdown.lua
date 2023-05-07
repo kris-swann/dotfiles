@@ -18,10 +18,22 @@ vim.cmd('IndentBlanklineDisable')
 augroup("markdown-basic-opts", { clear = true })
 autocmd({ "BufWinEnter" }, {
   group = "markdown-basic-opts",
-  pattern = { "*.md" },
+  -- Note: Must start with / to avoid matching "oil://path/to/file"
+  -- (Matching on "oil://*" paths causes unexpected behavior)
+  pattern = { "/**/*.md" },
+  callback = function ()
+    vim.opt_local.spell = true
+  end,
+})
+
+augroup("markdown-notes-basic-opts", { clear = true })
+autocmd({ "BufWinEnter" }, {
+  group = "markdown-notes-basic-opts",
+  -- Note: Must start with / to avoid matching "oil://path/to/file"
+  -- (Matching on "oil://*" paths causes unexpected behavior)
+  pattern = { "/**/*.md" },
   callback = function ()
     vim.opt_local.textwidth = 70
-    vim.opt_local.spell = true
   end,
 })
 
@@ -73,10 +85,12 @@ function MarkdownFoldText(foldstart)
 end
 
 -- Hack: Must wrap opts in autocmd to play nice with oil.nvim
-augroup("notes-set-fold", { clear = true })
+augroup("markdown-set-fold", { clear = true })
 autocmd({ "BufWinEnter" }, {
-  group = "notes-set-fold",
-  pattern = { "*.md" },
+  group = "markdown-set-fold",
+  -- Note: Must start with / to avoid matching "oil://path/to/file"
+  -- (Matching on "oil://*" paths causes unexpected behavior)
+  pattern = { "/**/*.md" },
   callback = function ()
     -- TODO: remove this once decided on a method
     -- vim.opt_local.foldmethod = "expr"
@@ -150,8 +164,20 @@ local function markdown_set_title()
   if is_empty_file or hit_end_of_file then
     table.insert(new_lines, "")  -- Add one more line empty line (to start writing on)
   end
-  vim.api.nvim_buf_set_lines(bufn, 0, replace_to, false, new_lines)
-  return is_empty_file
+
+  -- Only replace if lines would actually change
+  -- (Otherwise every buffer would be modified, even if nothing was changed)
+  local existing_lines = vim.api.nvim_buf_get_lines(bufn, 0, 4, false)
+  local has_changed = false
+  for i, new_line in ipairs(new_lines) do
+    if new_line ~= existing_lines[i] then
+      has_changed = true
+      break
+    end
+  end
+  if has_changed then
+    vim.api.nvim_buf_set_lines(bufn, 0, replace_to, false, new_lines)
+  end
 end
 
 cmd('Title', function()
@@ -159,10 +185,12 @@ cmd('Title', function()
   vim.cmd(":5")  -- Goto line 5
 end, {})
 
-augroup("notes-markdown-auto-title", { clear = true })
-autocmd({ "BufEnter" }, {
-  group = "notes-markdown-auto-title",
-  pattern = { "*/Notes/**/*.md" },
+augroup("markdown-notes-auto-title", { clear = true })
+autocmd({ "BufWinEnter" }, {
+  group = "markdown-notes-auto-title",
+  -- Note: Must start with / to avoid matching "oil://path/to/file"
+  -- (Matching on "oil://*" paths causes unexpected behavior)
+  pattern = { "/**/Notes/**/*.md" },
   callback = function ()
     markdown_set_title()
     vim.cmd(":5")  -- Goto line 5

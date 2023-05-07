@@ -1,3 +1,3 @@
 require('kris.opts')
-require('kris.remap')
+require('kris.keymap')
 require('kris.cmds')
