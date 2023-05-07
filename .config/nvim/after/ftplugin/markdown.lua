@@ -167,15 +167,16 @@ local function markdown_set_title()
 
   -- Only replace if lines would actually change
   -- (Otherwise every buffer would be modified, even if nothing was changed)
+  local will_remove_trailing_empty_lines = replace_to ~= 4
   local existing_lines = vim.api.nvim_buf_get_lines(bufn, 0, 4, false)
-  local has_changed = false
+  local line_text_has_changed = false
   for i, new_line in ipairs(new_lines) do
     if new_line ~= existing_lines[i] then
-      has_changed = true
+      line_text_has_changed = true
       break
     end
   end
-  if has_changed then
+  if line_text_has_changed or will_remove_trailing_empty_lines then
     vim.api.nvim_buf_set_lines(bufn, 0, replace_to, false, new_lines)
   end
 end
