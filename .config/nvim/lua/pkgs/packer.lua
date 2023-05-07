@@ -150,11 +150,6 @@ return require('packer').startup({ function(use)
   })
 
   use({
-    'nvim-orgmode/orgmode',
-    config = conf('orgmode')
-  })
-
-  use({
     'nvim-treesitter/nvim-treesitter',  -- Base Treesitter
     branch = 'v0.9.0',
     -- run = ':TSUpdate',
@@ -165,7 +160,6 @@ return require('packer').startup({ function(use)
     requires = {
       'nvim-treesitter/playground',               -- View treesitter info and highlight groups
       'nvim-treesitter/nvim-treesitter-context',  -- Sticky context header
-      'nvim-orgmode/orgmode',                     -- Orgmode higlighting
     },
     config = conf('treesitter'),
   })
