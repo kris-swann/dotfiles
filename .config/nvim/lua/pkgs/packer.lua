@@ -143,6 +143,7 @@ return require('packer').startup({ function(use)
       'hrsh7th/cmp-omni',         -- Source: omnifunc
       'saadparwaiz1/cmp_luasnip', -- Source: luasnips
       'hrsh7th/cmp-nvim-lsp',     -- Source: LSP
+      'f3fora/cmp-spell',         -- Source: Spell
       -- 'rcarriga/cmp-dap',         -- Source: DAP
       { 'L3MON4D3/LuaSnip', tag = 'v1.1.0' },   -- Must have at least one snippet source
     },

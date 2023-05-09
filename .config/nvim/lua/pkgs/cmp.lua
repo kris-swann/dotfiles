@@ -24,6 +24,7 @@ cmp.setup({
     { name = 'buffer' },
     { name = "orgmode" },
     { name = "omni" },
+    { name = "spell" },
   }),
   formatting = {
     format = lspkind.cmp_format({
