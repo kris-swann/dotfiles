@@ -103,7 +103,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 ### ALIASES
 #####################################################################
 
-alias tr="trash"
+alias trr="trash"
 
 alias t="todo.sh -d $HOME/Notes/.todo.cfg"
 
