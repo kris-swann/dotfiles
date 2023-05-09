@@ -167,6 +167,10 @@ if [ -d ~/.garden ]; then
   export PATH="$PATH:$HOME/.garden/bin"
 fi
 
+# Temporal CLI
+if [ -d "$HOME/.temporalio/bin" ]; then
+  export PATH="$PATH:$HOME/.temporalio/bin"
+fi
 
 # Golang (debian)
 if [ -d /usr/local/go ]; then
