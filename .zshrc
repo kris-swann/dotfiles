@@ -170,6 +170,7 @@ fi
 # Temporal CLI
 if [ -d "$HOME/.temporalio/bin" ]; then
   export PATH="$PATH:$HOME/.temporalio/bin"
+  source <(temporal completion zsh)
 fi
 
 # Golang (debian)
