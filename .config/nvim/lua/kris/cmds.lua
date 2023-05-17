@@ -1,6 +1,9 @@
 local cmd = vim.api.nvim_create_user_command
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local rebuild_spellfiles = require('utils.rebuild_spellfiles')
+
+cmd('RebuildSpellfiles', rebuild_spellfiles, {})
 
 cmd('NN', function() vim.cmd(os.date('e ~/Notes/Content/Daily/%Y-%m-%d.md')) end, {})
 cmd('Notes', [[:e ~/Notes/Content]], {})
