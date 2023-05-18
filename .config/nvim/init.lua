@@ -3,6 +3,3 @@ pcall(function() require('impatient') end)
 
 require('kris')
 require('pkgs.packer')
-
-local rebuild_spellfiles = require('utils.rebuild_spellfiles')
-rebuild_spellfiles()
