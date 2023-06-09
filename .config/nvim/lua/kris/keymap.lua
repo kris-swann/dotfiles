@@ -49,7 +49,8 @@ set('n', '<leader><leader>t', '<cmd>tabe %<CR>')
 set('n', '<leader><leader>T', '<C-W>T')
 
 -- Insert date in insert mode
-set('i', '<C-d>', [[<C-r>=strftime('%F')<CR>]])
+set('i', '<C-d>', [[<C-r>=strftime('%F')<CR>]]) -- Ex 2023-06-08
+set('i', '<C-e>', [[<C-r>=strftime('%s')<CR>]]) -- Ex 1686253849
 
 -- Insert flashcard headers (I forget easily)
 set('i', '<C-f>', [[> [!flashcards]-]])
