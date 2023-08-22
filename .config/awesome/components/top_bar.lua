@@ -13,7 +13,16 @@ return function(s)
     menu = dropdown_menu,
   })
   s.mykeyboardlayout = awful.widget.keyboardlayout()
-  s.textclock = wibox.widget.textclock()
+
+  local unhovered_clock_string = "%a %b %e, %I:%M"
+  local hovered_clock_string = "%a %b %e (%m-%d-%Y), %H:%M"
+  s.textclock = wibox.widget.textclock(unhovered_clock_string)
+  s.textclock:connect_signal("mouse::enter", function(t)
+    t.format = hovered_clock_string
+  end)
+  s.textclock:connect_signal("mouse::leave", function(t)
+    t.format = unhovered_clock_string
+  end)
 
   s.mypromptbox = awful.widget.prompt()
 
