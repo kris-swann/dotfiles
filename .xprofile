@@ -3,6 +3,7 @@
 # It is also sourced by .xinitrc (before the window manager is started)
 
 sxhkd -r /home/kris/.local/sxhkd_log & # Keyboard shortcuts
+festival --server & # Festival speech synthesis server
 # udiskie -t &
 nm-applet &
 # picom & # Compositor/transparency/compton replacement
