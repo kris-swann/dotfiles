@@ -47,16 +47,16 @@ super + space ; {_, super} + u
   pamixer --allow-boost -d 5 && ~/Scripts/notify-volume
 
 {XF86MonBrightnessUp}
-  xbacklight -inc 1 && ~/Scripts/notify-brightness
-
-{XF86MonBrightnessDown}
-  xbacklight -dec 1 && ~/Scripts/notify-brightness
-
-control + {XF86MonBrightnessUp}
   xbacklight -inc 10 && ~/Scripts/notify-brightness
 
-control + {XF86MonBrightnessDown}
+{XF86MonBrightnessDown}
   xbacklight -dec 10 && ~/Scripts/notify-brightness
+
+control + {XF86MonBrightnessUp}
+  xbacklight -inc 1 && ~/Scripts/notify-brightness
+
+control + {XF86MonBrightnessDown}
+  xbacklight -dec 1 && ~/Scripts/notify-brightness
 
 control + shift +  {XF86MonBrightnessUp}
   xbacklight -set 100 && ~/Scripts/notify-brightness
