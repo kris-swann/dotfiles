@@ -21,7 +21,7 @@ telescope.load_extension('find_pickers')
 telescope.load_extension("yank_history")
 
 -- File pickers
-set('n', ',f', builtin.find_files)
+set('n', ',f',  function() builtin.find_files({ no_ignore = true, hidden = true }) end)
 set('n', ',,c', function() builtin.find_files({ cwd = '~/.config/nvim/' }) end)
 set('n', ',,n', function() builtin.find_files({ cwd = '~/Notes' }) end)
 set('n', ',,s', function() builtin.find_files({ cwd = '~/Scripts' }) end)
