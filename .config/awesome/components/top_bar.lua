@@ -14,8 +14,8 @@ return function(s)
   })
   s.mykeyboardlayout = awful.widget.keyboardlayout()
 
-  local unhovered_clock_string = "%a %b %e, %I:%M"
-  local hovered_clock_string = "%a %b %e (%m-%d-%Y), %H:%M"
+  local unhovered_clock_string = "%m.%d.%a   %I:%M"
+  local hovered_clock_string = "%m.%d.%a   %H:%M"
   s.textclock = wibox.widget.textclock(unhovered_clock_string)
   s.textclock:connect_signal("mouse::enter", function(t)
     t.format = hovered_clock_string
