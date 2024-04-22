@@ -3,18 +3,20 @@
 ## Setup
 
 Inspired by:
-* https://www.anand-iyer.com/blog/2018/a-simpler-way-to-manage-your-dotfiles.html
-* https://news.ycombinator.com/item?id=11070797
+- https://www.anand-iyer.com/blog/2018/a-simpler-way-to-manage-your-dotfiles.html
+- https://news.ycombinator.com/item?id=11070797
 
-# SSH if keys already setup
-git clone --separate-git-dir=$HOME/Projects/dotfiles git@github.com:kris-swann/dotfiles.git $HOME/tmpdotfiles
-# HTTPS if keys not yet setup
-git clone --separate-git-dir=$HOME/Projects/dotfiles https://github.com/kris-swann/dotfiles $HOME/tmpdotfiles
+- SSH if keys already setup
+  - `git clone --separate-git-dir=$HOME/Projects/dotfiles git@github.com:kris-swann/dotfiles.git $HOME/tmpdotfiles`
+- HTTPS if keys not yet setup
+  - `git clone --separate-git-dir=$HOME/Projects/dotfiles https://github.com/kris-swann/dotfiles $HOME/tmpdotfiles`
 
+```
 rsync --recursive --verbose --exclude '.git' $HOME/tmpdotfiles/ $HOME/
 rm -r $HOME/tmpdotfiles
+```
 
-# Reload a new shell (so you have access to the aliases)
+## Reload a new shell (so you have access to the aliases)
 ```
 .f config --local status.showUntrackedFiles no
 ```
