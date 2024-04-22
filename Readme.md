@@ -26,7 +26,7 @@ Setup github user `~/.gitconfig.user` should look like this
 ```
 [user]
     name = kris-swann
-    email = kris-swann@domain.com
+    email = todo@domain.com
 ```
 
 Add the following line to `~/.ssh/config`
