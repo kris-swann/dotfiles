@@ -1,34 +1,18 @@
+#
+# ~/.bashrc
+#
+# Excecuted for all new bash terminals
+#
+
 # Early exit if not interactive shell
-[[ $- != *i* ]] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-
-colors() {
-    local fgc bgc vals seq0
-
-    printf "Color escapes are %s\n" '\e[${value};...;${value}m'
-    printf "Values 30..37 are \e[33mforeground colors\e[m\n"
-    printf "Values 40..47 are \e[43mbackground colors\e[m\n"
-    printf "Value  1 gives a  \e[1mbold-faced look\e[m\n\n"
-
-    # foreground colors
-    for fgc in {30..37}; do
-        # background colors
-        for bgc in {40..47}; do
-            fgc=${fgc#37} # white
-            bgc=${bgc#40} # black
-
-            vals="${fgc:+$fgc;}${bgc}"
-            vals=${vals%%;}
-
-            seq0="${vals:+\e[${vals}m}"
-            printf "  %-9s" "${seq0:-(default)}"
-            printf " ${seq0}TEXT\e[m"
-            printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
-        done
-        echo; echo
-    done
-}
-
+if [ -f ~/.profile ]; then 
+  source ~/.profile
+fi
 
 export TERM=xterm-256color      # Ensure 256 color support.
 
@@ -42,23 +26,46 @@ if ! shopt -oq posix; then
     fi
 fi
 
+#####################################################################
+### ALIASES
+#####################################################################
 
-# Make python and pip refer to version3.
-alias python=python3
-alias pip=pip3
+alias trash="gio trash"
+alias t="trash"
+alias open="xdg-open"
 
+alias ls="exa"
+alias ll="ls -al"
 
-alias nmrestart="sudo service network-manager restart"
+alias e="$EDITOR"
+alias e.="$EDITOR ./"
 
+alias g="git"
+alias dc="docker-compose"
+alias k="kubectl"
+alias python="python3"
+alias pip="pip3"
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[ -f ~/.bashrc.extend ] && . ~/.bashrc.extend
+alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
+alias .fs=".f add ~/.config/nvim/spell/en.utf-8.add && .f commit -m 'Update spell file'"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
+alias gm="cd /run/media/kris"
+alias gp="cd ~/Projects"
+alias gd="cd ~/Downloads"
+alias gcn="cd ~/.config/nvim/lua"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+alias gn="cd ~/Notes"
+alias Notes='e ~/Notes -c ":chdir ~/Notes"'
+alias NO='Notes'
+alias no='Notes'
+
+alias weather="curl wttr.in"
+alias news="curl nycurl.sytes.net -silent | less"
+
+#####################################################################
+
+eval "$(starship init bash)"
+
+if [ -f ~/.bashrc.extend ]; then
+  source ~/.bashrc.extend
+fi

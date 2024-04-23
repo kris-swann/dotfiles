@@ -1,5 +1,10 @@
-[ -f ~/.profile ] && source ~/.profile
-[ -f ~/.profile_local ] && source ~/.profile_local
+#
+# Executed for all new zsh terminals
+#
+
+if [ -f ~/.profile ]; then
+  source ~/.profile
+fi
 
 # Autocompletion
 if [ -d "$HOME/.zfunc" ]; then
@@ -103,56 +108,42 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 ### ALIASES
 #####################################################################
 
-alias trr="trash"
+alias trash="gio trash"
+alias t="trash"
+alias open="xdg-open"
 
-alias t="todo.sh -d $HOME/Notes/.todo.cfg"
+alias ls="exa"
+alias ll="ls -al"
 
-alias gn="cd ~/Notes/Content"
-alias NN='e ~/Notes/Content/Daily/$(date '+%Y-%m-%d').md -c ":chdir ~/Notes/Content| ZenMode | normal Gzz"'
-alias nn='NN'
-alias Notes='e ~/Notes/Content -c ":chdir ~/Notes/Content"'
-alias NO='Notes'
-alias no='Notes'
+alias e="$EDITOR"
+alias e.="$EDITOR ./"
 
 alias g="git"
 alias dc="docker-compose"
+alias k="kubectl"
+alias python="python3"
+alias pip="pip3"
+
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
 alias .fs=".f add ~/.config/nvim/spell/en.utf-8.add && .f commit -m 'Update spell file'"
-alias .fprivate="git --git-dir=$HOME/Projects/dotfiles-private/ --work-tree=$HOME"
-alias e="$EDITOR"
-alias e.="$EDITOR ./"
+
 alias gm="cd /run/media/kris"
 alias gp="cd ~/Projects"
 alias gd="cd ~/Downloads"
 alias gcn="cd ~/.config/nvim/lua"
 
+alias gn="cd ~/Notes"
+alias Notes='e ~/Notes -c ":chdir ~/Notes"'
+alias NO='Notes'
+alias no='Notes'
+
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
-alias ls="exa"
-alias ll="ls -al"
-
-alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=${DEFAULT_REGION:-'us-east-1'} aws --endpoint-url=http://localhost:4566"
-
-alias k="kubectl"
-
-alias open="xdg-open"
-
 #####################################################################
 ### ADDITIONAL PATHS
+### See PATH in .profile too, these PATHS are only available in terminals
 #####################################################################
-
-# Add scripts
-export PATH="$HOME/Scripts:$PATH"
-
-# Add global npm installs (setup w/: npm config set prefix '~/.npm-global')
-export PATH="$HOME/.npm-global/bin:$PATH"
-
-# Add pip --user packages (installed via `pip install <package> --user`)
-export PATH="$HOME/.local/bin:$PATH"
-
-# Add nim (installed via choosenim)
-export PATH="$HOME/.nimble/bin:$PATH"
 
 # Add cargo installs
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -164,34 +155,13 @@ if [ -d ~/.pyenv ]; then
     eval "$(pyenv init --path)"
 fi
 
-# Garden.io
-if [ -d ~/.garden ]; then
-  export PATH="$PATH:$HOME/.garden/bin"
-fi
-
-# Temporal CLI
-if [ -d "$HOME/.temporalio/bin" ]; then
-  export PATH="$PATH:$HOME/.temporalio/bin"
-  source <(temporal completion zsh)
-fi
-
-# Golang (debian)
-if [ -d /usr/local/go ]; then
-  export PATH="$PATH:/usr/local/go/bin"
-fi
-
-
 #####################################################################
 ### ADDITIONAL SOURCES
 #####################################################################
 
 # Fzf magic
-if [ -f /usr/share/fzf/key-bindings.zsh ]; then
-  # Arch location
-  source /usr/share/fzf/key-bindings.zsh
-elif [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
-  # Debian location
-  source /usr/share/doc/fzf/examples/key-bindings.zsh
+if exists fzf; then
+  eval "$(fzf --zsh)"
 fi
 
 # Fish-like autosuggestions
@@ -201,9 +171,6 @@ if [ -f  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; t
 elif [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     # Debian location
     source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-elif [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    # OSX Location
-    source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # Fish-like syntax highlighting
@@ -213,54 +180,46 @@ if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     # Debian location
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    # OSX location
-    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-[ -f ~/.config/tabtab/__tabtab.zsh ] && . ~/.config/tabtab/__tabtab.zsh || true
-
-eval "$(starship init zsh)"
-[ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
 # Autocompletion for kubectl
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
-# NVM (this works on arch, but not on debian)
-# TODO: if on archlinux:
-# source /usr/share/nvm/init-nvm.sh
-# TODO else:
+# NVM
 export NVM_DIR=~/.nvm
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-# TODO: fi
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  source "$NVM_DIR/nvm.sh"
+  # Autoexec "nvm use" when entering a dir with a .nvmrc file
+  autoload -U add-zsh-hook
+  load-nvmrc() {
+    local node_version="$(nvm version)"
+    local nvmrc_path="$(nvm_find_nvmrc)"
 
-# Autoexec "nvm use" when entering a dir with a .nvmrc file
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+    if [ -n "$nvmrc_path" ]; then
+      local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
+      if [ "$nvmrc_node_version" = "N/A" ]; then
+        nvm install
+      elif [ "$nvmrc_node_version" != "$node_version" ]; then
+        nvm use
+      fi
+    elif [ "$node_version" != "$(nvm version default)" ]; then
+      echo "Reverting to nvm default version"
+      nvm use default
     fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
-
+  }
+  add-zsh-hook chpwd load-nvmrc
+  load-nvmrc
+fi
 
 # Sdkman (java version manager)
 export SDKMAN_DIR="$HOME/.sdkman"
 if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
   source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
+
+eval "$(starship init zsh)"
+
+if [ -f ~/.zshrc_local ]; then
+  source ~/.zshrc_local
 fi
