@@ -1,4 +1,3 @@
-
 [Default Applications]
 text/html=firefox.desktop
 image/jpeg=feh.desktop
@@ -10,3 +9,6 @@ x-scheme-handler/postman=Postman.desktop
 application/pdf=org.gnome.Evince.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
 application/epub+zip=calibre-ebook-viewer.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
 x-scheme-handler/webcal=chromium.desktop
+
+[Added Associations]
+application/x-desktop=org.xfce.mousepad.desktop;
