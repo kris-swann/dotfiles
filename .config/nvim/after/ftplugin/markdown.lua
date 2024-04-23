@@ -12,7 +12,7 @@ local Path = require('plenary.path')
 -----------------------------------
 -- Basic Markdown defaults
 -----------------------------------
-vim.cmd('IndentBlanklineDisable')
+vim.cmd('IBLDisable')
 
 -- Hack: Must wrap opts in autocmd to play nice with oil.nvim
 augroup("markdown-basic-opts", { clear = true })
