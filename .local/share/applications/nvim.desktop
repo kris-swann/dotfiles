@@ -3,6 +3,6 @@ Type=Application
 Version=1.0
 Name=nvim
 Comment=neovim
-Exec=/home/kris/.bin/nvim
+Exec=nvim
 Icon=/home/kris/.local/share/applications/nvim-icon.png
 Terminal=true
