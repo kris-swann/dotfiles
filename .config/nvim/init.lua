@@ -1,5 +1,4 @@
--- For faster startup times, this should go as close to top as possible (may not have been installed yet, so use pcall)
-pcall(function() require('impatient') end)
+-- vim.loader.enable() -- Faster startup times (causing issues with mini.hipatterns)
 
-require('kris')
-require('pkgs.packer')
+require('kris') -- Must come before plugins
+require('plugins')

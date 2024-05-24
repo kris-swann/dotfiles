@@ -1,26 +1,29 @@
-vim.g.mapleader = ' '
+vim.opt.mouse = 'a' -- Mouse in 'all' modes (NOTE: Quadruple click for visual block mode)
 
-vim.opt.ignorecase = true
+vim.opt.showmode = false -- Don't show mode, it's in the statusline already
+
+vim.opt.ignorecase = true -- Case-insensitive search unless \C or at least one capital
 vim.opt.smartcase = true
+vim.opt.inccommand = 'split' -- Live substitutions in a preview window
 
-vim.opt.termguicolors = true -- use gui instead of cterm highlight colors
+vim.opt.termguicolors = true -- Use gui instead of cterm highlight colors
 
-vim.opt.wildmode = 'longest:full,full'  -- command mode completions: longest common substr then cycle options
-vim.opt.omnifunc = 'syntaxcomplete#Complete'  -- basic omnifunc for <C-x><C-o> completions
-vim.opt.completeopt = "menuone,noselect"
+vim.opt.wildmode = 'longest:full,full' -- Command mode completions: longest common substr then cycle options
+vim.opt.omnifunc = 'syntaxcomplete#Complete' -- Basic omnifunc for <C-x><C-o> completions
+vim.opt.completeopt = 'menuone,noselect'
 
-vim.opt.undofile = true      -- persist undos between sessions
+vim.opt.undofile = true -- Persist undos between sessions
 vim.opt.swapfile = false
 
-vim.opt.nu = true
+vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.signcolumn = 'yes'   -- always show signcolumn
+vim.opt.signcolumn = 'yes' -- Always show signcolumn
 vim.opt.cursorline = true
 vim.opt.colorcolumn = '100'
 vim.opt.scrolloff = 3
 
-vim.opt.splitbelow = true  -- open splits below
-vim.opt.splitright = true  -- open vsplits to right
+vim.opt.splitbelow = true -- Open splits below
+vim.opt.splitright = true -- Open vsplits to right
 
 vim.opt.expandtab = true
 vim.opt.softtabstop = 2
@@ -33,19 +36,19 @@ vim.opt.conceallevel = 2
 
 vim.opt.list = true
 vim.opt.listchars = {
-  tab =       '» ',
-  eol =       '¬',
-  trail =     '⋅',
-  precedes =  '←',
-  extends =   '→',
+  tab = '» ',
+  eol = '¬',
+  trail = '⋅',
+  precedes = '←',
+  extends = '→',
 }
-vim.opt.breakindent = true  -- wraps have same indent as their parents
--- vim.opt.showbreak = '↪ '  -- Unused while testing out breakindent without any indicators
+vim.opt.breakindent = true -- Wrapped lines have same indent
+-- vim.opt.showbreak = '↪ '  -- Show this at start of wrapped lines
 vim.opt.fillchars = {
-  vert =      '│',
-  fold =      ' ',
+  vert = '│',
+  fold = ' ',
   foldclose = '─',
-  foldopen =  '┬',
-  foldsep =   '│',
+  foldopen = '┬',
+  foldsep = '│',
 }
-vim.opt.foldlevelstart = 99  -- Show all folds by default
+vim.opt.foldlevelstart = 99 -- Show all folds by default

@@ -1,4 +1,4 @@
-local last_rebuild_time = -1  -- Persistent between function runs, always rebuild on startup
+local last_rebuild_time = -1 -- Persistent between function runs, always rebuild on startup
 
 -- Rebuild *.spl files if necessary (see https://a3nm.net/blog/git_auto_conflicts.html)
 local function rebuild_spellfiles()
@@ -8,9 +8,7 @@ local function rebuild_spellfiles()
     -- when there are multiple instances of vim open sharing the same spell files
     local spl_outdated = vim.fn.getftime(add_file) > last_rebuild_time
     if not vim.fn.filereadable(spl_file) or spl_outdated then
-      if last_rebuild_time > -1 then
-        print('Rebuilding outdated spellfile '..spl_file)
-      end
+      if last_rebuild_time > -1 then print('Rebuilding outdated spellfile ' .. spl_file) end
       vim.cmd('silent mkspell! ' .. add_file)
     end
   end
