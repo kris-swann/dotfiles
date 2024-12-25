@@ -2,17 +2,17 @@
 # In theory this should be sourced by graphical login managers (that doesn't match what I've seen)
 # It is also sourced by .xinitrc (before the window manager is started)
 
-sxhkd -r /home/kris/.local/sxhkd_log & # Keyboard shortcuts
-festival --server & # Festival speech synthesis server
+# sxhkd -r /home/kris/.local/sxhkd_log & # Keyboard shortcuts
+# festival --server & # Festival speech synthesis server
 # udiskie -t &
-nm-applet &
+# nm-applet &
 # picom & # Compositor/transparency/compton replacement
-xset b off # turn off the damn bell!
-syndaemon -i 0.5 -t -K -R -d  # Disable touchpad when typing
+# xset b off # turn off the damn bell!
+# syndaemon -i 0.5 -t -K -R -d  # Disable touchpad when typing
 
-# Lock-screen (if xss-lock installed and lockscreen enabled)
-if [ -n "$(command -v xss-lock)" ] && [ "$LOCKSCREEN_ENABLED" = "true" ]; then
-  xss-lock i3lock &
-fi
+# # Lock-screen (if xss-lock installed and lockscreen enabled)
+# if [ -n "$(command -v xss-lock)" ] && [ "$LOCKSCREEN_ENABLED" = "true" ]; then
+#   xss-lock i3lock &
+# fi
 
 [[ -f ~/.xprofile_local ]] && . ~/.xprofile_local

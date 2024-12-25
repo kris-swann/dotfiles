@@ -9,6 +9,14 @@ x-scheme-handler/postman=Postman.desktop
 application/pdf=org.gnome.Evince.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
 application/epub+zip=calibre-ebook-viewer.desktop;org.pwmt.zathura-pdf-mupdf.desktop;
 x-scheme-handler/webcal=chromium.desktop
+text/markdown=ghostwriter.desktop
+video/mp4=vlc.desktop
+application/xml=org.xfce.mousepad.desktop
 
 [Added Associations]
 application/x-desktop=org.xfce.mousepad.desktop;
+text/markdown=ghostwriter.desktop;com.visualstudio.code.desktop;org.xfce.mousepad.desktop;
+text/plain=com.visualstudio.code.desktop;
+video/mp4=vlc.desktop;
+text/html=firefox_firefox.desktop;
+application/xml=org.xfce.mousepad.desktop;

@@ -140,6 +140,10 @@ alias no='Notes'
 alias weather="curl wttr.in"
 alias news="curl nycurl.sytes.net -silent | less"
 
+alias bat="batcat --theme=OneHalfLight"
+
+alias calibredb="flatpak run --command=calibredb --file-forwarding com.calibre_ebook.calibre"
+
 #####################################################################
 ### ADDITIONAL PATHS
 ### See PATH in .profile too, these PATHS are only available in terminals
@@ -147,6 +151,9 @@ alias news="curl nycurl.sytes.net -silent | less"
 
 # Add cargo installs
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# Add go bin
+export PATH="/usr/local/go/bin:$PATH"
 
 # If using pyenv, add to path and set up so can use it
 if [ -d ~/.pyenv ]; then

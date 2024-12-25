@@ -16,46 +16,46 @@ return {
     },
     'saadparwaiz1/cmp_luasnip', -- Source: luasnip
 
-    { -- AI
-      'Exafunction/codeium.vim',
-      -- Using this instead of codeium.nvim b/c codeium.nvim only works as a cmp source
-      -- but I want it seperate from cmp
-      event = 'BufEnter',
-      config = function()
-        vim.g.codeium_disable_bindings = 1 -- Disable default keybinds
-        -- vim.g.codeium_manual = true
-        -- vim.keymap.set(
-        --   'i',
-        --   '<C-/>',
-        --   function() return vim.fn['codeium#Complete']() end,
-        --   { expr = true, silent = true, desc = 'AI Codeium Trigger' }
-        -- )
-        vim.keymap.set(
-          'i',
-          '<C-\\>',
-          function() return vim.fn['codeium#Accept']() end,
-          { expr = true, silent = true, desc = 'AI Codeium Accept' }
-        )
-        vim.keymap.set(
-          'i',
-          '<C-,>',
-          function() return vim.fn['codeium#CycleCompletions'](1) end,
-          { expr = true, silent = true, desc = 'AI Codeium Next Suggestion' }
-        )
-        vim.keymap.set(
-          'i',
-          '<C-.>',
-          function() return vim.fn['codeium#CycleCompletions'](-1) end,
-          { expr = true, silent = true, desc = 'AI Codeium Prev Suggestion' }
-        )
-        vim.keymap.set(
-          'i',
-          '<C-/>',
-          function() return vim.fn['codeium#Clear']() end,
-          { expr = true, silent = true, desc = 'AI Codeium Clear' }
-        )
-      end,
-    },
+    -- { -- AI
+    --   'Exafunction/codeium.vim',
+    --   -- Using this instead of codeium.nvim b/c codeium.nvim only works as a cmp source
+    --   -- but I want it seperate from cmp
+    --   event = 'BufEnter',
+    --   config = function()
+    --     vim.g.codeium_disable_bindings = 1 -- Disable default keybinds
+    --     -- vim.g.codeium_manual = true
+    --     -- vim.keymap.set(
+    --     --   'i',
+    --     --   '<C-/>',
+    --     --   function() return vim.fn['codeium#Complete']() end,
+    --     --   { expr = true, silent = true, desc = 'AI Codeium Trigger' }
+    --     -- )
+    --     vim.keymap.set(
+    --       'i',
+    --       '<C-\\>',
+    --       function() return vim.fn['codeium#Accept']() end,
+    --       { expr = true, silent = true, desc = 'AI Codeium Accept' }
+    --     )
+    --     vim.keymap.set(
+    --       'i',
+    --       '<C-,>',
+    --       function() return vim.fn['codeium#CycleCompletions'](1) end,
+    --       { expr = true, silent = true, desc = 'AI Codeium Next Suggestion' }
+    --     )
+    --     vim.keymap.set(
+    --       'i',
+    --       '<C-.>',
+    --       function() return vim.fn['codeium#CycleCompletions'](-1) end,
+    --       { expr = true, silent = true, desc = 'AI Codeium Prev Suggestion' }
+    --     )
+    --     vim.keymap.set(
+    --       'i',
+    --       '<C-/>',
+    --       function() return vim.fn['codeium#Clear']() end,
+    --       { expr = true, silent = true, desc = 'AI Codeium Clear' }
+    --     )
+    --   end,
+    -- },
 
     -- 'onsails/lspkind.nvim', -- Pictograms for different lsp obj types
 
