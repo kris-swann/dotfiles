@@ -1,17 +1,17 @@
 # Dotfiles
 
-## Setup
-
 Inspired by:
 - https://www.anand-iyer.com/blog/2018/a-simpler-way-to-manage-your-dotfiles.html
 - https://news.ycombinator.com/item?id=11070797
 
-- SSH if keys already setup
-  - `git clone --separate-git-dir=$HOME/Projects/dotfiles git@github.com:kris-swann/dotfiles.git $HOME/tmpdotfiles`
-- HTTPS if keys not yet setup
-  - `git clone --separate-git-dir=$HOME/Projects/dotfiles https://github.com/kris-swann/dotfiles $HOME/tmpdotfiles`
+## Setup
+
+Set up SSH git keys
+- [Gen new ssh key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+- Log into Github and add new key in settings
 
 ```
+git clone --separate-git-dir=$HOME/Projects/dotfiles git@github.com:kris-swann/dotfiles.git $HOME/tmpdotfiles
 rsync --recursive --verbose --exclude '.git' $HOME/tmpdotfiles/ $HOME/
 rm -r $HOME/tmpdotfiles
 ```
@@ -29,25 +29,8 @@ Setup github user `~/.gitconfig.user` should look like this
     email = todo@domain.com
 ```
 
-Add the following line to `~/.ssh/config`
 
-```
-Include ~/.ssh/config.common
-```
-
-Enable ssh-agent systemd service
-
-```
-systemctl --user enable ssh-agent
-systemctl --user start ssh-agent  # Or reboot
-```
-
-Add ssh key to github, follow [this](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) guide
-
-Change https to ssh
-```
-.f remote set-url origin git@github.com:kris-swann/dotfiles.git
-```
+## Set up git-crypt and spell files (Optional/Might remove)
 
 Set up git-crypt (assumes keys are set-up)
 ```

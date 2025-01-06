@@ -105,6 +105,15 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 #####################################################################
+### BASIC VARIABLES / GLOBAL SETTINGS
+#####################################################################
+
+export TERMINAL="kitty"
+export EDITOR="nvim"
+export LESS="-XFRS"
+export UNAME="$(uname)"
+
+#####################################################################
 ### ALIASES
 #####################################################################
 
@@ -127,33 +136,23 @@ alias pip="pip3"
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
 alias .fs=".f add ~/.config/nvim/spell/en.utf-8.add && .f commit -m 'Update spell file'"
 
-alias gm="cd /run/media/kris"
-alias gp="cd ~/Projects"
-alias gd="cd ~/Downloads"
-alias gcn="cd ~/.config/nvim/lua"
-
-alias gn="cd ~/Notes"
-alias Notes='e ~/Notes -c ":chdir ~/Notes"'
-alias NO='Notes'
-alias no='Notes'
-
-alias weather="curl wttr.in"
-alias news="curl nycurl.sytes.net -silent | less"
-
-alias bat="batcat --theme=OneHalfLight"
-
-alias calibredb="flatpak run --command=calibredb --file-forwarding com.calibre_ebook.calibre"
+alias gp="cd $HOME/Projects"
+alias gd="cd $HOME/Downloads"
+alias gcn="cd $HOME/.config/nvim/lua"
 
 #####################################################################
 ### ADDITIONAL PATHS
-### See PATH in .profile too, these PATHS are only available in terminals
 #####################################################################
 
-# Add cargo installs
-export PATH="$HOME/.cargo/bin:$PATH"
+[ -d "$HOME/Scripts" ] && export PATH="$HOME/Scripts:$PATH"
+[ -d "$HOME/.bin" ] && export PATH="$HOME/.bin:$PATH"
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 
-# Add go bin
-export PATH="/usr/local/go/bin:$PATH"
+# Cargo installs
+[ -d "$HOME/.cargo/bin" ] && export PATH="$HOME/.cargo/bin:$PATH"
+
+# Go installs
+[ -d "/usr/local/go/bin" ] && export PATH="/usr/local/go/bin:$PATH"
 
 # If using pyenv, add to path and set up so can use it
 if [ -d ~/.pyenv ]; then

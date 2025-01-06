@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Version=1.0
-Name=Obsidian
-Comment=Markdown-based knowledge management
-Exec=Obsidian
-Icon=/home/kris/.local/share/applications/obsidian-icon.png
-Terminal=false
