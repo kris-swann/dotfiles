@@ -121,7 +121,7 @@ alias trash="gio trash"
 alias t="trash"
 alias open="xdg-open"
 
-alias ls="exa"
+alias ls="eza"
 alias ll="ls -al"
 
 alias e="$EDITOR"
@@ -229,3 +229,4 @@ eval "$(starship init zsh)"
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
