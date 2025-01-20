@@ -177,6 +177,9 @@ if [ -f  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; t
 elif [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     # Debian location
     source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    # OSX location
+    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # Fish-like syntax highlighting
@@ -186,6 +189,9 @@ if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     # Debian location
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f   /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    # OSX location
+    source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # Autocompletion for kubectl
@@ -194,6 +200,12 @@ fi
 # NVM
 export NVM_DIR=~/.nvm
 if [ -s "$NVM_DIR/nvm.sh" ]; then
+
+  if [ -v "$HOMEBREW_PREFIX" ]; then
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+  fi
+
   source "$NVM_DIR/nvm.sh"
   # Autoexec "nvm use" when entering a dir with a .nvmrc file
   autoload -U add-zsh-hook
@@ -226,7 +238,8 @@ fi
 
 eval "$(starship init zsh)"
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
-eval "$(/opt/homebrew/bin/brew shellenv)"
