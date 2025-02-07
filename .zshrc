@@ -130,7 +130,6 @@ alias e.="$EDITOR ./"
 alias g="git"
 alias dc="docker-compose"
 alias k="kubectl"
-alias python="python3"
 alias pip="pip3"
 
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
@@ -154,18 +153,16 @@ alias gcn="cd $HOME/.config/nvim/lua"
 # Go installs
 [ -d "/usr/local/go/bin" ] && export PATH="/usr/local/go/bin:$PATH"
 
-# If using pyenv, add to path and set up so can use it
-if [ -d "$HOME/.pyenv" ]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init - zsh)"
+# Homebrew
+if [ -d "/opt/homebrew/bin" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 #####################################################################
 ### ADDITIONAL SOURCES
 #####################################################################
 
-# Fzf magic
+# Fzf
 if exists fzf; then
   eval "$(fzf --zsh)"
 fi
@@ -196,6 +193,13 @@ fi
 
 # Autocompletion for kubectl
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
+# Pyenv
+if [ -d "$HOME/.pyenv" ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
+fi
 
 # NVM
 export NVM_DIR=~/.nvm
@@ -237,8 +241,6 @@ if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
 fi
 
 eval "$(starship init zsh)"
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
