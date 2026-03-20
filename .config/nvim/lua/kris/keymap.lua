@@ -59,7 +59,7 @@ set('i', '<C-M-d>', [[<C-r>=strftime('%F')<CR>]], { desc = 'Insert [D]ate 2024-0
 set('i', '<C-M-e>', [[<C-r>=strftime('%s')<CR>]], { desc = 'Insert [E]poch 1686253849' })
 
 -- Diagnostics (Intentionally seperate from lsp and telescope configs)
-set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Prev [D]iagnostic message' })
-set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic message' })
+set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Prev [D]iagnostic message' })
+set('n', ']d', function() vim.diagnostic.jump({ count = -1, floag = true }) end, { desc = 'Next [D]iagnostic message' })
 set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
