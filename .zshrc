@@ -162,6 +162,8 @@ fi
 ### ADDITIONAL SOURCES
 #####################################################################
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # Fzf
 if exists fzf; then
   eval "$(fzf --zsh)"
@@ -209,11 +211,6 @@ fi
 
 eval "$(starship init zsh)"
 
-if [ -f ~/.zshrc_local ]; then
-  source ~/.zshrc_local
-fi
-
-
 # NVM (node version manager)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -223,4 +220,8 @@ export NVM_DIR="$HOME/.nvm"
 # libpq (psql binary)
 if [ -d "/opt/homebrew/opt/libpq/bin" ]; then
   export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+fi
+
+if [ -f ~/.zshrc_local ]; then
+  source ~/.zshrc_local
 fi
