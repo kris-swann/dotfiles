@@ -18,14 +18,12 @@ return {
       group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
       callback = function(event)
         -- Helpful wrapper function
-        local buf_set = function(keys, func, desc)
-          vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc })
-        end
+        local buf_set = function(keys, func, desc) vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc }) end
 
         -- Which-key prefixes
-        pcall(require('which-key').register, {
-          ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
-          ['<leader>lw'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+        pcall(require('which-key').add, {
+          { '<leader>l', group = '[L]SP' },
+          { '<leader>lw', group = '[W]orkspace' },
         })
 
         -- Keybinds
@@ -34,48 +32,24 @@ return {
 
         buf_set('gd', require('telescope.builtin').lsp_definitions, 'LSP: Goto [D]efinition')
         buf_set('gD', vim.lsp.buf.declaration, 'LSP: Goto [D]eclaration')
-        buf_set(
-          '<leader>d',
-          require('telescope.builtin').lsp_type_definitions,
-          'LSP: Goto Type [D]efinition'
-        )
+        buf_set('<leader>d', require('telescope.builtin').lsp_type_definitions, 'LSP: Goto Type [D]efinition')
         buf_set('gr', require('telescope.builtin').lsp_references, 'LSP: Goto [R]eferences')
-        buf_set(
-          'gI',
-          require('telescope.builtin').lsp_implementations,
-          'LSP: Goto [I]mplementation'
-        )
+        buf_set('gI', require('telescope.builtin').lsp_implementations, 'LSP: Goto [I]mplementation')
 
         -- Dupes of above in <leader>l namespace (with main keybind for discoverability)
         buf_set('<leader>ld', require('telescope.builtin').lsp_definitions, '[D]efinition (gd)')
         buf_set('<leader>lD', vim.lsp.buf.declaration, '[D]eclaration (gD)')
-        buf_set(
-          '<leader>lt',
-          require('telescope.builtin').lsp_type_definitions,
-          '[T]ype Definition (<leader>D)'
-        )
+        buf_set('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[T]ype Definition (<leader>D)')
         buf_set('<leader>lr', require('telescope.builtin').lsp_references, '[R]eferences (gr)')
-        buf_set(
-          '<leader>lI',
-          require('telescope.builtin').lsp_implementations,
-          '[I]mplementation (gI)'
-        )
+        buf_set('<leader>lI', require('telescope.builtin').lsp_implementations, '[I]mplementation (gI)')
 
         buf_set('<leader>li', require('telescope.builtin').lsp_incoming_calls, '[I]ncoming calls')
         buf_set('<leader>lo', require('telescope.builtin').lsp_outgoing_calls, '[O]utgoing calls')
         buf_set('<leader>lR', vim.lsp.buf.rename, '[R]ename')
         buf_set('<leader>la', vim.lsp.buf.code_action, 'Code [A]ction')
-        buf_set(
-          '<leader>ls',
-          require('telescope.builtin').lsp_document_symbols,
-          '[S]ymbols for cur buffer'
-        )
+        buf_set('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[S]ymbols for cur buffer')
 
-        buf_set(
-          '<leader>lws',
-          require('telescope.builtin').lsp_dynamic_workspace_symbols,
-          '[S]ymbols for Workspace'
-        )
+        buf_set('<leader>lws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[S]ymbols for Workspace')
         buf_set('<leader>lwa', vim.lsp.buf.add_workspace_folder, '[A]dd Workspace Folder')
         buf_set('<leader>lwr', vim.lsp.buf.remove_workspace_folder, '[R]emove Workspace Folder')
         buf_set('<leader>lwl', vim.lsp.buf.list_workspace_folders, '[A]dd Workspace Folder')
@@ -93,8 +67,7 @@ return {
 
         if client and client.server_capabilities.documentHighlightProvider then
           -- Highlight references when cursor in same spot for a little while (:help CursorHold)
-          local highlight_augroup =
-            vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+          local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
             buffer = event.buf,
             group = highlight_augroup,
@@ -125,8 +98,7 @@ return {
     -- With nvim-cmp, luasnip, etc, nvim has additional capabilities.
     -- So we update the list of capabilities that are broadcasted to the servers.
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities =
-      vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
     -- Enable the following language servers
     --
@@ -176,8 +148,7 @@ return {
           -- This handles overriding only values explicitly passed
           -- by the server configuration above. Useful when disabling
           -- certain features of an LSP (for example, turning off formatting for tsserver)
-          server.capabilities =
-            vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
           require('lspconfig')[server_name].setup(server)
         end,
       },

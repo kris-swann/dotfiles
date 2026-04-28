@@ -28,8 +28,8 @@ return { -- DAP/Debugger
     require('dap-go').setup()
 
     -- Which-key prefixes
-    pcall(require('which-key').register, {
-      ['<leader>b'] = { name = 'Debug', _ = 'which_key_ignore' },
+    pcall(require('which-key').add, {
+      { '<leader>b', group = 'Debug' },
     })
 
     -- Basic debugging keymaps, feel free to change to your liking!

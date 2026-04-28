@@ -72,13 +72,13 @@ return {
       end, { desc = 'Prev [C]hanged hunk' })
 
       -- Which-key prefixes
-      pcall(require('which-key').register, {
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-        ['<leader>ht'] = { name = '[T]oggle', _ = 'which_key_ignore' },
+      pcall(require('which-key').add, {
+        { '<leader>h', group = 'Git [H]unk' },
+        { '<leader>ht', group = '[T]oggle' },
       })
-      pcall(require('which-key').register, {
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-      }, { mode = 'v' })
+      pcall(require('which-key').add, {
+        { '<leader>h', group = 'Git [H]unk', mode = 'v' },
+      })
 
       -- Actions
       set('n', '<leader>hs', gs.stage_hunk, { desc = '[S]tage hunk' })
@@ -97,12 +97,7 @@ return {
       )
       set('n', '<leader>hu', gs.undo_stage_hunk, { desc = '[U]nstage hunk' })
       set('n', '<leader>hp', gs.preview_hunk, { desc = '[P]review hunk' })
-      set(
-        'n',
-        '<leader>hb',
-        function() gs.blame_line({ full = true }) end,
-        { desc = 'Full [B]lame for cur line' }
-      )
+      set('n', '<leader>hb', function() gs.blame_line({ full = true }) end, { desc = 'Full [B]lame for cur line' })
       set('n', '<leader>hd', gs.diffthis, { desc = '[D]iffthis' })
       set('n', '<leader>hD', function() gs.diffthis('~') end, { desc = '[D]iffthis ~' })
 

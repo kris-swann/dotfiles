@@ -45,10 +45,10 @@ return {
     pcall(require('telescope').load_extension, 'yank_history')
 
     -- Which-key prefixes
-    pcall(require('which-key').register, {
-      [','] = { name = 'Search/Telescope', _ = 'which_key_ignore' },
-      [',g'] = { name = '[G]it', _ = 'which_key_ignore' },
-      [',d'] = { name = '[D]iagnostics', _ = 'which_key_ignore' },
+    pcall(require('which-key').add, {
+      { ',', group = 'Search/Telescope' },
+      { ',g', group = '[G]it' },
+      { ',d', group = '[D]iagnostics' },
     })
 
     local builtin = require('telescope.builtin')
@@ -72,12 +72,7 @@ return {
     set('n', ',b', builtin.buffers, { desc = 'Open [B]uffers' })
     set('n', ',m', builtin.marks, { desc = '[M]arks' })
     set('n', ',.', builtin.oldfiles, { desc = 'Recent Files ("." for repeat)' })
-    set(
-      'n',
-      ',f',
-      function() builtin.find_files({ no_ignore = true, hidden = true }) end,
-      { desc = 'Find [F]iles' }
-    )
+    set('n', ',f', function() builtin.find_files({ no_ignore = true, hidden = true }) end, { desc = 'Find [F]iles' })
 
     -- Grep finders
     set('n', ',w', builtin.grep_string, { desc = 'Grep [w]ord under cursor' })

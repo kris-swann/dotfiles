@@ -175,35 +175,35 @@ local plugins = {
     opts = {},
   },
 
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    dependencies = {
-      'nvim-treesitter/playground', -- View treesitter info and highlight groups
-      'nvim-treesitter/nvim-treesitter-context', -- Sticky context header
-    },
-    opts = {
-      ensure_installed = 'all',
-      ignore_install = {},
-      auto_install = true,
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = 'gnn', -- Normal mode
-          -- Visual mode
-          node_incremental = 'grn',
-          scope_incremental = 'grc',
-          node_decremental = 'grm',
-        },
-      },
-    },
-    config = function(_, opts)
-      -- Prefer git instead of curl in order to improve connectivity in some environments
-      require('nvim-treesitter.install').prefer_git = true
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
-    end,
-  },
+  -- {
+  --   'nvim-treesitter/nvim-treesitter',
+  --   build = ':TSUpdate',
+  --   dependencies = {
+  --     'nvim-treesitter/playground', -- View treesitter info and highlight groups
+  --     'nvim-treesitter/nvim-treesitter-context', -- Sticky context header
+  --   },
+  --   opts = {
+  --     ensure_installed = 'all',
+  --     ignore_install = {},
+  --     auto_install = true,
+  --     incremental_selection = {
+  --       enable = true,
+  --       keymaps = {
+  --         init_selection = 'gnn', -- Normal mode
+  --         -- Visual mode
+  --         node_incremental = 'grn',
+  --         scope_incremental = 'grc',
+  --         node_decremental = 'grm',
+  --       },
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     -- Prefer git instead of curl in order to improve connectivity in some environments
+  --     require('nvim-treesitter.install').prefer_git = true
+  --     ---@diagnostic disable-next-line: missing-fields
+  --     require('nvim-treesitter.configs').setup(opts)
+  --   end,
+  -- },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -254,8 +254,8 @@ local plugins = {
         },
       })
       local set = vim.keymap.set
-      pcall(require('which-key').register, {
-        ['<leader>m'] = { name = '[M]inimap', _ = 'which_key_ignore' },
+      pcall(require('which-key').add, {
+        { '<leader>m', group = '[M]inimap' },
       })
       set('n', '<leader>mm', minimap.toggle, { desc = 'Toggle Minimap' })
       set('n', '<leader>mf', minimap.toggle_focus, { desc = 'Toggle Minimap [F]ocus' })
