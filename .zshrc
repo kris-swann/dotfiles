@@ -36,7 +36,8 @@ export SAVEHIST=1000000000
 export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000
 export HISTFILE=~/.cache/zsh_history
-setopt HIST_FIND_NO_DUPS  # Skip dupes with ^P and ^N
+setopt HIST_FIND_NO_DUPS  # Skip dupes after typing something then hitting up/down or ^p/^n
+setopt HIST_IGNORE_ALL_DUPS # Remove older dupes when adding a new one (needed to dedupe up/down/^p/^n on empty line)
 setopt HIST_REDUCE_BLANKS  # Remove unnecessary blanks
 setopt INC_APPEND_HISTORY_TIME  # Append command to history file immediately after execution
 setopt EXTENDED_HISTORY  # Record command start time
