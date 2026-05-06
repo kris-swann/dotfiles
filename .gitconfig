@@ -6,8 +6,14 @@
   helper = cache --timeout=3600
 [alias]
   c = commit
-  co = checkout
-  sw = switch
+  # I've set large/highly active repos to only fetch master/main by setting the follwing in PROJECT/.git/config
+  #   [remote "origin"]
+  #     url = REDACTED
+  #     fetch = +refs/heads/master:refs/remotes/origin/master
+  # This means that I must fetch from origin before locally running checkout or switch to pull the remote branch.
+  # Otherwise, I'll just create a new local branch with the same name.
+	co = "!f() { git fetch origin \"$1\" && git checkout \"$1\"; }; f"
+	sw = "!f() { git fetch origin \"$1\" && git switch \"$1\"; }; f"
   st = status
   icommit = commit --no-verify
   b = !git --no-pager branch
