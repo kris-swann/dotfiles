@@ -159,6 +159,11 @@ if [ -d "/opt/homebrew/bin" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# mysql-client (via homebrew)
+if [ -d "/opt/homebrew/opt/mysql-client/bin" ]; then
+  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+fi
+
 #####################################################################
 ### ADDITIONAL SOURCES
 #####################################################################
