@@ -12,12 +12,12 @@
   #     fetch = +refs/heads/master:refs/remotes/origin/master
   # This means that I must fetch from origin before locally running checkout or switch to pull the remote branch.
   # Otherwise, I'll just create a new local branch with the same name.
-	co = "!f() { git fetch origin \"$1\" && git checkout \"$1\"; }; f"
-	sw = "!f() { git fetch origin \"$1\" && git switch \"$1\"; }; f"
+  co = checkout
+  sw = switch
   st = status
   icommit = commit --no-verify
   b = !git --no-pager branch
-  hist = log --oneline --graph
+  l = log --oneline --graph
   bclean = "!f() { git branch | grep -v master | xargs git branch -d; }; f"
   a = !git add $(git ls-files --modified --deleted --others --exclude-standard | fzf -m --reverse --height=~10)
   s = !git add $(git ls-files --modified --deleted --exclude-standard | fzf -m --reverse --height=~10)
