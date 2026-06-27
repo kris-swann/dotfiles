@@ -164,11 +164,15 @@ if [ -d "/opt/homebrew/opt/mysql-client/bin" ]; then
   export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 fi
 
+# pnpm quick and dirty fix on osx
+if [ -d "/Users/kris/Library" ]; then
+  export PNPM_HOME="/Users/kris/Library/pnpm"
+  export PATH="$PNPM_HOME:$PATH"
+fi
+
 #####################################################################
 ### ADDITIONAL SOURCES
 #####################################################################
-
-export PATH="$HOME/.local/bin:$PATH"
 
 # Fzf
 if exists fzf; then
@@ -231,6 +235,17 @@ if [ -d "/opt/homebrew/opt/libpq/bin" ]; then
   export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 fi
 
+# pnpm
+export PNPM_HOME="/Users/kris/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+# Quick and dirty binaries installed via gcloud
+export PATH=/opt/homebrew/share/google-cloud-sdk/bin:"$PATH"
+
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
+
