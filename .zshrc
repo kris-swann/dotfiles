@@ -136,9 +136,9 @@ alias pip="pip3"
 alias .f="git --git-dir=$HOME/Projects/dotfiles/ --work-tree=$HOME"
 alias .fs=".f add ~/.config/nvim/spell/en.utf-8.add && .f commit -m 'Update spell file'"
 
-alias gp="cd $HOME/Projects"
-alias gd="cd $HOME/Downloads"
-alias gcn="cd $HOME/.config/nvim/lua"
+alias .gp="cd $HOME/Projects"
+alias .gd="cd $HOME/Downloads"
+alias .gcn="cd $HOME/.config/nvim/lua"
 
 #####################################################################
 ### ADDITIONAL PATHS
