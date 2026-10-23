@@ -29,3 +29,5 @@
   path = ~/.gitconfig.user
 [advice]
     addEmptyPathspec = false
+[fetch]
+	prune = true
